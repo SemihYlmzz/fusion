@@ -1,0 +1,10 @@
+{
+    "workbench.colorCustomizations": {
+        "[Darcula (Android Studio)]": {
+            "editorCodeLens.foreground": "#77fa91",
+            "editorCommentsWidget.rangeActiveBackground": "#ff0000"
+        },
+        "minimap.background": "#00000000",
+        "scrollbar.shadow": "#00000000"
+    }
+}
