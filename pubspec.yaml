@@ -11,12 +11,13 @@ environment:
 
 
 dependencies:
-  # Icons & Fonts
-  cupertino_icons: ^1.0.2
-  
-  # Flutter
   flutter:
     sdk: flutter
+    
+  # Icons & Fonts
+  cupertino_icons: ^1.0.2
+  google_fonts: ^5.1.0
+  
 
   # Code Analysis
   very_good_analysis: ^5.0.0+1
@@ -24,10 +25,14 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
-
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  flutter_gen_runner: ^5.3.1
 
 flutter:
   uses-material-design: true
+  
+  assets:
+    - assets/images/
