@@ -13,7 +13,7 @@ class App extends StatelessWidget {
           child: Text(
             'FUSION',
             style: GoogleFonts.bangers(
-              fontSize: 120,
+              fontSize: 150,
             ),
           ),
         ),
