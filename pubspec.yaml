@@ -22,7 +22,8 @@ dependencies:
   # Code Analysis
   very_good_analysis: ^5.0.0+1
 
-
+  # Splash Screen
+  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +31,13 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.6
   flutter_gen_runner: ^5.3.1
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icon/fire_icon_1_black.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
   uses-material-design: true
