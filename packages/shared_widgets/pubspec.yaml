@@ -1,0 +1,36 @@
+name: shared_widgets
+
+description: A new Flutter package project.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.2 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ### SHARED ONES
+  shared_constants:
+    path: ../shared_constants
+  
+  ### PUB
+  # View
+  gradient_borders: ^1.0.0
+
+  # Animation
+  flutter_animate: ^4.1.1+1
+
+  # Dart Helpers
+  multi_masked_formatter: ^1.0.0
+
+  # RESPONSIVE
+  keyboard_detection: ^0.5.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:

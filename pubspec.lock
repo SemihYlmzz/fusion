@@ -238,6 +238,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animate:
+    dependency: transitive
+    description:
+      name: flutter_animate
+      sha256: be54662837a6e66cc53ee88549e808c625275e0faf5a43e11cf3182cb0bd1b02
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -312,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
+  gradient_borders:
+    dependency: transitive
+    description:
+      name: gradient_borders
+      sha256: "69eeaff519d145a4c6c213ada1abae386bcc8981a4970d923e478ce7ba19e309"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   graphs:
     dependency: transitive
     description:
@@ -368,6 +384,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  keyboard_detection:
+    dependency: transitive
+    description:
+      name: keyboard_detection
+      sha256: "6f07b8d87386eab53b8afb0372aebe9762759a91ad9792629ae4d05ca8ae38e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.2"
   lints:
     dependency: transitive
     description:
@@ -416,6 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  multi_masked_formatter:
+    dependency: transitive
+    description:
+      name: multi_masked_formatter
+      sha256: b32119e2ff28a1e9d047772e91c73b2d688f45d9cd6469e9a6c2d8b30027c96e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
@@ -552,6 +584,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  shared_constants:
+    dependency: "direct main"
+    description:
+      path: "packages/shared_constants"
+      relative: true
+    source: path
+    version: "0.0.1"
+  shared_widgets:
+    dependency: "direct main"
+    description:
+      path: "packages/shared_widgets"
+      relative: true
+    source: path
+    version: "0.0.1"
   shelf:
     dependency: transitive
     description:

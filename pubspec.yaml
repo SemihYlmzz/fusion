@@ -13,7 +13,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  # SHARED PACKAGES
+  shared_constants:
+    path: packages/shared_constants
+  shared_widgets:
+    path: packages/shared_widgets
+
   # Icons
   cupertino_icons: ^1.0.2
   # Fonts
