@@ -19,14 +19,18 @@ dependencies:
   # Fonts
   google_fonts: ^5.1.0
 
-
+  # State Man.
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
 
   # ROUTER
   go_router: ^6.5.8
-
+  
   # Code Analysis
   very_good_analysis: ^5.0.0+1
 
+  # LOGGING
+  logging: ^1.1.1
 
 dev_dependencies:
   flutter_test:

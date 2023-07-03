@@ -1,7 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import 'package:fusion/features/app/app.dart';
+import 'package:fusion/bootstrap.dart';
+import 'package:fusion/features/app/view/app.dart';
 
 void main() async {
-  runApp(const App());
+  unawaited(
+    bootstrap(() {
+      return const App();
+    }),
+  );
 }
