@@ -2,7 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-			<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
 		<!-- Google Sign-in Section -->
 		<key>CFBundleURLTypes</key>
 		<array>
@@ -16,8 +15,20 @@
 					<string>com.googleusercontent.apps.1010082734726-ti0h7s16lv7kq8mtkv5trfbf41urlegk</string>
 				</array>
 			</dict>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>fb1702907350152965</string>
+				</array>
+			</dict>
 		</array>
-		<!-- End of the Google Sign-in Section -->	
+		<key>FacebookAppID</key>
+		<string>1702907350152965</string>
+		<key>FacebookClientToken</key>
+		<string>CLIENT-TOKEN</string>
+		<key>FacebookDisplayName</key>
+		<string>Fusion</string>
+		<!-- End of the Google Sign-in Section -->
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
