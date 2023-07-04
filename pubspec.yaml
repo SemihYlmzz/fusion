@@ -79,3 +79,7 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/images/air_cards
+    - assets/images/earth_cards
+    - assets/images/water_cards
+    - assets/images/fire_cards
