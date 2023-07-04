@@ -14,34 +14,31 @@ class AuthRepositoryInjection {
   static Future<void> inject() async {
     // UserDataSource <-connection-> Firebase
     getIt
-    ..registerSingleton<AuthDatasource>(AuthDatasourceFirebaseImpl())
-    ..registerSingleton<AuthRepository>(AuthRepositoryImpl(getIt()))
-    ..registerSingleton<AuthRepository>(AuthRepositoryImpl(getIt()))
-    ..registerSingleton<AuthEntityUseCase>(
-      AuthEntityUseCase(
-        authRepository: getIt<AuthRepository>(),
-      ),
-    )..registerSingleton<LoginWithGoogleUseCase>(
-      LoginWithGoogleUseCase(
-        authRepository: getIt<AuthRepository>(),
-      ),
-    )..registerLazySingleton<CheckUserAuthUseCase>(
-      () => CheckUserAuthUseCase(authRepository: getIt<AuthRepository>()),
-    )..registerSingleton<LogOutUseCase>(
-      LogOutUseCase(
-        authRepository: getIt<AuthRepository>(),
-      ),
-    )..registerLazySingleton<LoginWithAppleUseCase>(
-      () => LoginWithAppleUseCase(authRepository: getIt<AuthRepository>()),
-    )..registerLazySingleton<LoginWithFacebookUseCase>(
-      () => LoginWithFacebookUseCase(authRepository: getIt<AuthRepository>()),
-    );
-
-
-
-
-
-
-
+      ..registerSingleton<AuthDatasource>(AuthDatasourceFirebaseImpl())
+      ..registerSingleton<AuthRepository>(AuthRepositoryImpl(getIt()))
+      ..registerSingleton<AuthEntityUseCase>(
+        AuthEntityUseCase(
+          authRepository: getIt<AuthRepository>(),
+        ),
+      )
+      ..registerSingleton<LoginWithGoogleUseCase>(
+        LoginWithGoogleUseCase(
+          authRepository: getIt<AuthRepository>(),
+        ),
+      )
+      ..registerLazySingleton<CheckUserAuthUseCase>(
+        () => CheckUserAuthUseCase(authRepository: getIt<AuthRepository>()),
+      )
+      ..registerSingleton<LogOutUseCase>(
+        LogOutUseCase(
+          authRepository: getIt<AuthRepository>(),
+        ),
+      )
+      ..registerLazySingleton<LoginWithAppleUseCase>(
+        () => LoginWithAppleUseCase(authRepository: getIt<AuthRepository>()),
+      )
+      ..registerLazySingleton<LoginWithFacebookUseCase>(
+        () => LoginWithFacebookUseCase(authRepository: getIt<AuthRepository>()),
+      );
   }
 }
