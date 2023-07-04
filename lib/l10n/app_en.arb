@@ -17,5 +17,10 @@
     "signInWithFacebook": "Sign In with Facebook",
     "@signInWithFacebook": {
         "description": "Social Facebook login text."
+    },
+
+    "welcome": "Welcome",
+    "@welcome": {
+        "description": "Welcome text in all languages."
     }
 }
