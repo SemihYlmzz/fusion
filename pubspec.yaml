@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   # SHARED PACKAGES
   shared_constants:
     path: packages/shared_constants
@@ -21,6 +22,7 @@ dependencies:
 
   # Icons
   cupertino_icons: ^1.0.2
+
   # Fonts
   google_fonts: ^5.1.0
 
@@ -40,6 +42,13 @@ dependencies:
   # Widgets
   social_login_buttons: ^1.0.7
 
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+
+  # Dart Packages
+  intl: ^0.18.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,6 +59,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
+  generate: true
   assets:
     - assets/images/

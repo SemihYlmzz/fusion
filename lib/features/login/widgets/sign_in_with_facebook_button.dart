@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -11,7 +12,7 @@ class SignInWithFacebookButton extends StatelessWidget {
       padding: SharedPaddings.vertical8,
       child: SocialLoginButton(
         buttonType: SocialLoginButtonType.facebook,
-        text: 'Sign In with Facebook',
+        text: AppLocalizations.of(context)?.signInWithFacebook,
         width: 320,
         onPressed: () {},
       ),

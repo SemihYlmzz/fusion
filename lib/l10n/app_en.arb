@@ -1,0 +1,21 @@
+{
+    "language": "English",
+    "@language": {
+        "description": "The current Language"
+    },
+
+    "signInWithApple": "Sign In with Apple",
+    "@signInWithApple": {
+        "description": "Social Apple login text."
+    },
+
+    "signInWithGoogle": "Sign In with Google",
+    "@signInWithGoogle": {
+        "description": "Social Google login text."
+    },
+
+    "signInWithFacebook": "Sign In with Facebook",
+    "@signInWithFacebook": {
+        "description": "Social Facebook login text."
+    }
+}
