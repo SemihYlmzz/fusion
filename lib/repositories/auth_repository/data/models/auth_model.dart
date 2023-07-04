@@ -15,7 +15,6 @@ class AuthModel extends AuthEntity {
         !map.containsKey('photo')) {
       throw Exception('Invalid map data');
     }
-    // TODO map içindekileri UserFields.email olarak hataya yer verme
     return AuthModel(
       id: map['id'] as String,
       email: map['email'] as String,
@@ -33,7 +32,7 @@ class AuthModel extends AuthEntity {
     };
   }
 
-  static AuthModel fromEntity(AuthEntity entity) {
+  AuthModel fromEntity(AuthEntity entity) {
     return AuthModel(
       id: entity.id,
       email: entity.email,

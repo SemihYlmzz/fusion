@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fusion/injection_container.dart';
 import 'package:logging/logging.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -40,6 +41,8 @@ Future<void> bootstrap(BootstrapBuilder builder) async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
+      await initializeDependencies();
+
       if (kReleaseMode) {
         Logger.root.level = Level.WARNING;
       }
