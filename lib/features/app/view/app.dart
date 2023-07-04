@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/config/app_router.dart';
+import 'package:fusion/config/style/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -7,7 +8,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData.dark(),
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.dark,
       routerConfig: AppRouter.router,
     );
   }

@@ -37,6 +37,9 @@ dependencies:
   # LOGGING
   logging: ^1.1.1
 
+  # Widgets
+  social_login_buttons: ^1.0.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
