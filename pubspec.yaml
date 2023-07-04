@@ -24,7 +24,19 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # Fonts
-  google_fonts: ^5.1.0
+  google_fonts: ^4.0.4
+
+  # Firebase Packages
+  firebase_core: ^2.14.0
+  cloud_firestore: ^4.8.2
+  firebase_auth: ^4.6.3
+
+  # Social Login Packages
+  google_sign_in: ^6.1.0
+  flutter_social_button: ^1.1.4+1
+  sign_in_with_apple: ^5.0.0
+  crypto: ^3.0.3
+  flutter_facebook_auth: ^5.0.0
 
   # State Man.
   bloc: ^8.1.2
@@ -46,8 +58,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Dependency Injection
+  get_it: ^7.6.0
+  
   # Dart Packages
   intl: ^0.18.0
+  equatable: ^2.0.5
+  fpdart: ^0.6.0
 
 dev_dependencies:
   flutter_test:

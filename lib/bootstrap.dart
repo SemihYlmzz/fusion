@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
@@ -21,9 +24,9 @@ class AppBlocObserver extends BlocObserver {
 }
 
 typedef BootstrapBuilder = FutureOr<Widget> Function(
-    // FirebaseFirestore firestore,
-    // FirebaseAuth firebaseAuth,
-    );
+  FirebaseFirestore firestore,
+  FirebaseAuth firebaseAuth,
+);
 
 Future<void> bootstrap(BootstrapBuilder builder) async {
   // logging
@@ -35,9 +38,8 @@ Future<void> bootstrap(BootstrapBuilder builder) async {
 
   await runZonedGuarded(
     () async {
-     
       WidgetsFlutterBinding.ensureInitialized();
-
+      await Firebase.initializeApp();
       if (kReleaseMode) {
         Logger.root.level = Level.WARNING;
       }
@@ -47,7 +49,12 @@ Future<void> bootstrap(BootstrapBuilder builder) async {
             '${record.message}');
       });
 
-      runApp(await builder());
+      runApp(
+        await builder(
+          FirebaseFirestore.instance,
+          FirebaseAuth.instance,
+        ),
+      );
     },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
