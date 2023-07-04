@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -8,14 +9,16 @@ class SignInWithAppleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: SharedPaddings.vertical8,
-      child: SocialLoginButton(
-        buttonType: SocialLoginButtonType.apple,
-        text: AppLocalizations.of(context)?.signInWithApple,
-        width: 320,
-        onPressed: () {},
-      ),
-    );
+    return Platform.isIOS
+        ? Padding(
+            padding: SharedPaddings.vertical8,
+            child: SocialLoginButton(
+              buttonType: SocialLoginButtonType.apple,
+              text: AppLocalizations.of(context)?.signInWithApple,
+              width: 320,
+              onPressed: () {},
+            ),
+          )
+        : const SizedBox();
   }
 }
