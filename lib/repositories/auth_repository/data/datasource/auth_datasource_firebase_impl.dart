@@ -53,28 +53,37 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   @override
   FutureEither<AuthEntity> logInWithGoogle() async {
     try {
+      // Google Credential variable to hold user data
       late final firebase.AuthCredential credential;
-      if (kIsWeb) {
-        final googleProvider = firebase.GoogleAuthProvider();
-        final userCredential = await _firebaseAuth.signInWithPopup(
-          googleProvider,
-        );
-        credential = userCredential.credential!;
-      } else {
-        final googleUser = await _googleSignIn.signIn();
-        if (googleUser == null) {
-          return Left(Failure('Please give permission to login with Google.'));
-        }
-        final googleAuth = await googleUser.authentication;
 
-        credential = firebase.GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
+      // Try sign in with Google and take googleUser value
+      final googleUser = await _googleSignIn.signIn();
+
+      // If google user null at this point
+      // it means user didn't give permission
+      // So we return an error to user
+      if (googleUser == null) {
+        return Left(Failure('Please give permission to login with Google.'));
       }
 
+      // It is googleUser variable not null.
+      // we taking [GoogleSignInAuthentication] from it as [googleAuth]
+      final googleAuth = await googleUser.authentication;
+
+      // We are creating a [GoogleAuthProvider.credential] with [googleAuth]
+      credential = firebase.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Now we can user Firebase's [signInWithCredential] method
+      // using with [GoogleAuthProvider.credential] which we created above
+      // and getting [UserCredential] variable with it
       final userCredential =
           await _firebaseAuth.signInWithCredential(credential);
+
+      // Last check if user parameter in [UserCredential] is null or not
+      // if it's not null it means we got all [User] data in it
       if (userCredential.user != null) {
         return Right(
           AuthEntity(
@@ -85,11 +94,11 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
           ),
         );
       } else {
+        // if somehow [User] is empty we return a empty [AuthEntity] back
         return const Right(AuthEntity.empty);
       }
     } on firebase.FirebaseAuthException catch (e) {
-      final errorMessage = LogInWithGoogleFailure.fromCode(e.code).message;
-      return Left(Failure(errorMessage));
+      return Left(Failure(e.message ?? 'An Unknown Error Occurred.'));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -99,7 +108,6 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   FutureEither<AuthEntity> logInWithApple() async {
     final rawNonce = generateNonce();
     final nonce = sha256ofString(rawNonce);
-
     try {
       // Request credential for the currently signed in Apple account.
       final appleCredential = await SignInWithApple.getAppleIDCredential(
@@ -137,6 +145,8 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
           photo: firebaseUser.photoURL,
         ),
       );
+    } on firebase.FirebaseAuthException catch (e) {
+      return Left(Failure(e.message ?? 'An Unknown Error Occurred.'));
     } catch (exception) {
       return Left(Failure('Error : $exception'));
     }
@@ -183,8 +193,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
         return const Right(AuthEntity.empty);
       }
     } on firebase.FirebaseAuthException catch (e) {
-      final errorMessage = LogInWithGoogleFailure.fromCode(e.code).message;
-      return Left(Failure(errorMessage));
+      return Left(Failure(e.message ?? 'An Unknown Error Occurred.'));
     } catch (e) {
       return Left(Failure(e.toString()));
     }
@@ -219,154 +228,4 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       return AuthEntity.empty;
     }
   }
-
-  @override
-  FutureEither<String> signUp({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      if (userCredential.user != null) {
-        return Right(userCredential.user!.uid);
-      } else {
-        return Left(Failure('Something went wrong'));
-      }
-    } on firebase.FirebaseAuthException catch (e) {
-      final errorMessage =
-          SignUpWithEmailAndPasswordFailure.fromCode(e.code).message;
-      return Left(Failure(errorMessage));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-}
-
-class SignUpWithEmailAndPasswordFailure implements Exception {
-  /// {@macro sign_up_with_email_and_password_failure}
-  const SignUpWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  /// https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/createUserWithEmailAndPassword.html
-  factory SignUpWithEmailAndPasswordFailure.fromCode(String code) {
-    switch (code) {
-      case 'invalid-email':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Email is not valid or badly formatted.',
-        );
-      case 'user-disabled':
-        return const SignUpWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'email-already-in-use':
-        return const SignUpWithEmailAndPasswordFailure(
-          'An account already exists for that email.',
-        );
-      case 'operation-not-allowed':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Operation is not allowed.  Please contact support.',
-        );
-      case 'weak-password':
-        return const SignUpWithEmailAndPasswordFailure(
-          'Please enter a stronger password.',
-        );
-      default:
-        return const SignUpWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
-}
-
-class LogInWithEmailAndPasswordFailure implements Exception {
-  /// {@macro log_in_with_email_and_password_failure}
-  const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
-    switch (code) {
-      case 'invalid-email':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email is not valid or badly formatted.',
-        );
-      case 'user-disabled':
-        return const LogInWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'user-not-found':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email or Password is wrong. Please try again.',
-        );
-      case 'wrong-password':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email or Password is wrong. Please try again.',
-        );
-      default:
-        return const LogInWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
-}
-
-class LogInWithGoogleFailure implements Exception {
-  /// {@macro log_in_with_google_failure}
-  const LogInWithGoogleFailure([
-    this.message = 'An unknown exception occurred.',
-  ]);
-
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
-  factory LogInWithGoogleFailure.fromCode(String code) {
-    switch (code) {
-      case 'account-exists-with-different-credential':
-        return const LogInWithGoogleFailure(
-          'Account exists with different credentials.',
-        );
-      case 'invalid-credential':
-        return const LogInWithGoogleFailure(
-          'The credential received is malformed or has expired.',
-        );
-      case 'operation-not-allowed':
-        return const LogInWithGoogleFailure(
-          'Operation is not allowed.  Please contact support.',
-        );
-      case 'user-disabled':
-        return const LogInWithGoogleFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'user-not-found':
-        return const LogInWithGoogleFailure(
-          'Email is not found, please create an account.',
-        );
-      case 'wrong-password':
-        return const LogInWithGoogleFailure(
-          'Incorrect password, please try again.',
-        );
-      case 'invalid-verification-code':
-        return const LogInWithGoogleFailure(
-          'The credential verification code received is invalid.',
-        );
-      case 'invalid-verification-id':
-        return const LogInWithGoogleFailure(
-          'The credential verification ID received is invalid.',
-        );
-      default:
-        return const LogInWithGoogleFailure();
-    }
-  }
-
-  /// The associated error message.
-  final String message;
 }

@@ -7,16 +7,6 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authDatasource);
   final AuthDatasource authDatasource;
 
-  @override
-  FutureEither<String> signUp({
-    required String email,
-    required String password,
-  }) {
-    return authDatasource.signUp(
-      email: email,
-      password: password,
-    );
-  }
 
   @override
   FutureEither<AuthEntity> logInWithGoogle() {
