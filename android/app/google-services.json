@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1010082734726",
+    "project_id": "fusion-development-8faa3",
+    "storage_bucket": "fusion-development-8faa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010082734726:android:1cc6fbbb5ebf7191602707",
+        "android_client_info": {
+          "package_name": "com.devangs.fusion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010082734726-bqguj85dlgj6aht8kic6q90hfesacvkk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG2uFgo-MBLCJfL6tDxdofNwihPy9_Hj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010082734726-619h0pe9ng0meh0f3vtr4cd372tudem3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1010082734726-ti0h7s16lv7kq8mtkv5trfbf41urlegk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.devangs.fusion"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
