@@ -16,7 +16,6 @@ class UserFields {
   static const accountnameChangeEligibilityDate =
       'accountnameChangeEligibilityDate';
   static const lastActivityDate = 'lastActivityDate';
-  static const isGuest = 'isGuest';
   static const gameId = 'gameId';
   static const avatarId = 'avatarId';
   static const deck = 'deck';
@@ -57,7 +56,6 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
           .get();
 
       final userDocumentData = documentSnapshot.data() as Map<String, dynamic>?;
-
       if (userDocumentData != null) {
         return Right(
           UserModel.toEntity(

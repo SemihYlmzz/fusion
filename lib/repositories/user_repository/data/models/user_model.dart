@@ -26,6 +26,7 @@ class UserModel extends User {
     }
 
     // TODO map içindekileri UserFields.email olarak hataya yer verme
+
     return UserModel(
       accountDeletionScheduledDate: map['accountDeletionScheduledDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(
@@ -44,8 +45,8 @@ class UserModel extends User {
       lastActivityDate: DateTime.fromMillisecondsSinceEpoch(
         map['lastActivityDate'] as int,
       ),
-      gameId: map['gameId'] as String,
-      deck: [...map['deck'] as List<String>],
+      gameId: map['gameId'] as String?,
+      deck: (map['deck'] as List<dynamic>).cast<String>(),
     );
   }
 
