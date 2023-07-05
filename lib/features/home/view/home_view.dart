@@ -10,12 +10,31 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseColumn(
       children: [
+        Container(
+          width: 73,
+          height: 102,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.white,
+                blurRadius: 5,
+                spreadRadius: 2,
+              ),
+            ],
+            image: const DecorationImage(
+              image: AssetImage('assets/images/air_cards/aero.png'),
+            ),
+          ),
+        ),
+        
         ElevatedButton(
           child: const Text('Sign Out'),
           onPressed: () {
             context.read<AuthBloc>().add(const AuthLogoutRequested());
           },
         ),
+
       ],
     );
   }
