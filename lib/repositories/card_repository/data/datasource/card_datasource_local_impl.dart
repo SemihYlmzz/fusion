@@ -1,5 +1,7 @@
+import 'package:flutter/widgets.dart' hide Element;
 import 'package:fpdart/fpdart.dart';
 import 'package:fusion/gen/assets.gen.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/card_repository/data/datasource/card_datasource.dart';
 import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
 import 'package:fusion/utils/failure.dart';
@@ -31,7 +33,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.emberus.path,
       power: 0,
-      abilityDescription: 'Aldığım tüm hasarı rakibe yansıt.',
     ),
     'ignis': GameCard(
       name: 'Ignis',
@@ -40,7 +41,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.ignis.path,
       power: 1,
-      abilityDescription: '3 Vuruş yaparım.',
     ),
     'blazeon': GameCard(
       name: 'Blazeon',
@@ -49,7 +49,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.blazeon.path,
       power: 2,
-      abilityDescription: "Her savaş sonunda hasarım 2'ye katlanır.",
     ),
     'flamara': GameCard(
       name: 'Flamara',
@@ -58,7 +57,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.flamara.path,
       power: 3,
-      abilityDescription: 'Rakip kart 2 kat hasar alır.',
     ),
     'pyyrhus': GameCard(
       name: 'Pyyrhus',
@@ -67,7 +65,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.pyyrhus.path,
       power: 4,
-      abilityDescription: 'Öldürdüğüm rakibin gücünü soğururum.',
     ),
     'embrella': GameCard(
       name: 'Embrella',
@@ -76,7 +73,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.embrella.path,
       power: 5,
-      abilityDescription: 'Rakip oyuncu 2 kat hasar yer.',
     ),
     'solara': GameCard(
       name: 'Solara',
@@ -85,7 +81,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.solara.path,
       power: 6,
-      abilityDescription: 'Rakip kart yerine rakip oyuncuya vururum.',
     ),
     'flamorion': GameCard(
       name: 'Flamorion',
@@ -94,7 +89,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.flamorion.path,
       power: 7,
-      abilityDescription: 'Bu tur ölen kartın sahibi 3 kat hasar yer.',
     ),
     'solarius': GameCard(
       name: 'Solarius',
@@ -103,7 +97,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.solarius.path,
       power: 8,
-      abilityDescription: 'Vereceğim hasarlar azaltılamaz.',
     ),
     'dramber': GameCard(
       name: 'Dramber',
@@ -112,7 +105,6 @@ class CardDatas {
       element: Element.fire,
       imagePath: Assets.images.fireCards.dramber.path,
       power: 9,
-      abilityDescription: 'Öldürdüğüm kartlar ateş kartlarını 1 güçlendirir',
     ),
     // WATER CARDS
     'triton': GameCard(
@@ -122,7 +114,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.triton.path,
       power: 0,
-      abilityDescription: 'Aldığım tüm hasarı rakibe yansıt.',
     ),
     'oceanus': GameCard(
       name: 'Oceanus',
@@ -131,7 +122,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.oceanus.path,
       power: 1,
-      abilityDescription: '3 Vuruş yaparım.',
     ),
     'river': GameCard(
       name: 'River',
@@ -140,7 +130,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.river.path,
       power: 2,
-      abilityDescription: "Her savaş sonunda hasarım 2'ye katlanır.",
     ),
     'nereus': GameCard(
       name: 'Nereus',
@@ -149,7 +138,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.nereus.path,
       power: 3,
-      abilityDescription: 'Rakip kart 2 kat hasar alır.',
     ),
     'dylan': GameCard(
       name: 'Dylan',
@@ -158,7 +146,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.dylan.path,
       power: 4,
-      abilityDescription: 'Öldürdüğüm rakibin gücünü soğururum.',
     ),
     'kai': GameCard(
       name: 'Kai',
@@ -167,7 +154,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.kai.path,
       power: 5,
-      abilityDescription: 'Rakip oyuncu 2 kat hasar yer.',
     ),
     'marina': GameCard(
       name: 'Marina',
@@ -176,7 +162,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.marina.path,
       power: 6,
-      abilityDescription: 'Rakip kart yerine rakip oyuncuya vururum.',
     ),
     'neptune': GameCard(
       name: 'Neptune',
@@ -185,7 +170,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.neptune.path,
       power: 7,
-      abilityDescription: 'Bu tur ölen kartın sahibi 3 kat hasar yer.',
     ),
     'caroline': GameCard(
       name: 'Caroline',
@@ -194,7 +178,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.caroline.path,
       power: 8,
-      abilityDescription: 'Vereceğim hasarlar azaltılamaz.',
     ),
     'aquarius': GameCard(
       name: 'Aquarius',
@@ -203,7 +186,6 @@ class CardDatas {
       element: Element.water,
       imagePath: Assets.images.waterCards.aquarius.path,
       power: 9,
-      abilityDescription: 'Öldürdüğüm kartlar ateş kartlarını 1 güçlendirir',
     ),
     // EARTH CARDS
     'terra': GameCard(
@@ -213,7 +195,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.terra.path,
       power: 0,
-      abilityDescription: 'Aldığım tüm hasarı rakibe yansıt.',
     ),
     'gaia': GameCard(
       name: 'Gaia',
@@ -222,7 +203,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.gaia.path,
       power: 1,
-      abilityDescription: '3 Vuruş yaparım.',
     ),
     'lyra': GameCard(
       name: 'Lyra',
@@ -231,7 +211,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.lyra.path,
       power: 2,
-      abilityDescription: "Her savaş sonunda hasarım 2'ye katlanır.",
     ),
     'flint': GameCard(
       name: 'Flint',
@@ -240,7 +219,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.flint.path,
       power: 3,
-      abilityDescription: 'Rakip kart 2 kat hasar alır.',
     ),
     'boulder': GameCard(
       name: 'Boulder',
@@ -249,7 +227,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.boulder.path,
       power: 4,
-      abilityDescription: 'Öldürdüğüm rakibin gücünü soğururum.',
     ),
     'arvid': GameCard(
       name: 'Arvid',
@@ -258,7 +235,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.arvid.path,
       power: 5,
-      abilityDescription: 'Rakip oyuncu 2 kat hasar yer.',
     ),
     'gideon': GameCard(
       name: 'Gideon',
@@ -267,7 +243,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.gideon.path,
       power: 6,
-      abilityDescription: 'Rakip kart yerine rakip oyuncuya vururum.',
     ),
     'onyx': GameCard(
       name: 'Onyx',
@@ -276,7 +251,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.onyx.path,
       power: 7,
-      abilityDescription: 'Bu tur ölen kartın sahibi 3 kat hasar yer.',
     ),
     'ragnar': GameCard(
       name: 'Ragnar',
@@ -285,7 +259,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.ragnar.path,
       power: 8,
-      abilityDescription: 'Vereceğim hasarlar azaltılamaz.',
     ),
     'thorin': GameCard(
       name: 'Thorin',
@@ -294,7 +267,6 @@ class CardDatas {
       element: Element.earth,
       imagePath: Assets.images.earthCards.thorin.path,
       power: 9,
-      abilityDescription: 'Öldürdüğüm kartlar ateş kartlarını 1 güçlendirir',
     ),
     // AIR CARDS
     'aero': GameCard(
@@ -304,7 +276,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.aero.path,
       power: 0,
-      abilityDescription: 'Aldığım tüm hasarı rakibe yansıt.',
     ),
     'nova': GameCard(
       name: 'nova',
@@ -313,7 +284,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.nova.path,
       power: 1,
-      abilityDescription: '3 Vuruş yaparım.',
     ),
     'aurora': GameCard(
       name: 'aurora',
@@ -322,7 +292,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.aurora.path,
       power: 2,
-      abilityDescription: "Her savaş sonunda hasarım 2'ye katlanır.",
     ),
     'seraphina': GameCard(
       name: 'seraphina',
@@ -331,7 +300,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.seraphina.path,
       power: 3,
-      abilityDescription: 'Rakip kart 2 kat hasar alır.',
     ),
     'celeste': GameCard(
       name: 'celeste',
@@ -340,7 +308,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.celeste.path,
       power: 4,
-      abilityDescription: 'Öldürdüğüm rakibin gücünü soğururum.',
     ),
     'luna': GameCard(
       name: 'luna',
@@ -349,7 +316,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.luna.path,
       power: 5,
-      abilityDescription: 'Rakip oyuncu 2 kat hasar yer.',
     ),
     'ember': GameCard(
       name: 'ember',
@@ -358,7 +324,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.ember.path,
       power: 6,
-      abilityDescription: 'Rakip kart yerine rakip oyuncuya vururum.',
     ),
     'aria': GameCard(
       name: 'aria',
@@ -367,7 +332,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.aria.path,
       power: 7,
-      abilityDescription: 'Bu tur ölen kartın sahibi 3 kat hasar yer.',
     ),
     'zephyr': GameCard(
       name: 'zephyr',
@@ -376,7 +340,6 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.zephyr.path,
       power: 8,
-      abilityDescription: 'Vereceğim hasarlar azaltılamaz.',
     ),
     'orion': GameCard(
       name: 'orion',
@@ -385,7 +348,48 @@ class CardDatas {
       element: Element.air,
       imagePath: Assets.images.airCards.orion.path,
       power: 9,
-      abilityDescription: 'Öldürdüğüm kartlar ateş kartlarını 1 güçlendirir',
     ),
   };
+  static Map<String, String> cardDescriptions(BuildContext context) => {
+        'emberus': AppLocalizations.of(context).emberusAbilityDescription,
+        'ignis': AppLocalizations.of(context).ignisAbilityDescription,
+        'blazeon': AppLocalizations.of(context).blazeonAbilityDescription,
+        'flamara': AppLocalizations.of(context).flamaraAbilityDescription,
+        'pyyrhus': AppLocalizations.of(context).pyyrhusAbilityDescription,
+        'embrella': AppLocalizations.of(context).embrellaAbilityDescription,
+        'solara': AppLocalizations.of(context).solaraAbilityDescription,
+        'flamorion': AppLocalizations.of(context).flamorionAbilityDescription,
+        'solarius': AppLocalizations.of(context).solariusAbilityDescription,
+        'dramber': AppLocalizations.of(context).dramberAbilityDescription,
+        'triton': AppLocalizations.of(context).tritonAbilityDescription,
+        'oceanus': AppLocalizations.of(context).oceanusAbilityDescription,
+        'river': AppLocalizations.of(context).riverAbilityDescription,
+        'nereus': AppLocalizations.of(context).nereusAbilityDescription,
+        'dylan': AppLocalizations.of(context).dylanAbilityDescription,
+        'kai': AppLocalizations.of(context).kaiAbilityDescription,
+        'marina': AppLocalizations.of(context).marinaAbilityDescription,
+        'neptune': AppLocalizations.of(context).neptuneAbilityDescription,
+        'caroline': AppLocalizations.of(context).carolineAbilityDescription,
+        'aquarius': AppLocalizations.of(context).aquariusAbilityDescription,
+        'terra': AppLocalizations.of(context).terraAbilityDescription,
+        'gaia': AppLocalizations.of(context).gaiaAbilityDescription,
+        'lyra': AppLocalizations.of(context).lyraAbilityDescription,
+        'flint': AppLocalizations.of(context).flintAbilityDescription,
+        'boulder': AppLocalizations.of(context).boulderAbilityDescription,
+        'arvid': AppLocalizations.of(context).arvidAbilityDescription,
+        'gideon': AppLocalizations.of(context).gideonAbilityDescription,
+        'onyx': AppLocalizations.of(context).onyxAbilityDescription,
+        'ragnar': AppLocalizations.of(context).ragnarAbilityDescription,
+        'thorin': AppLocalizations.of(context).thorinAbilityDescription,
+        'aero': AppLocalizations.of(context).aeroAbilityDescription,
+        'nova': AppLocalizations.of(context).novaAbilityDescription,
+        'aurora': AppLocalizations.of(context).auroraAbilityDescription,
+        'seraphina': AppLocalizations.of(context).seraphinaAbilityDescription,
+        'celeste': AppLocalizations.of(context).celesteAbilityDescription,
+        'luna': AppLocalizations.of(context).lunaAbilityDescription,
+        'ember': AppLocalizations.of(context).emberAbilityDescription,
+        'aria': AppLocalizations.of(context).ariaAbilityDescription,
+        'zephyr': AppLocalizations.of(context).zephyrAbilityDescription,
+        'orion': AppLocalizations.of(context).orionAbilityDescription,
+      };
 }

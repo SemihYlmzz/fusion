@@ -13,7 +13,7 @@ class CardRepositoryImpl implements CardRepository {
   FutureEither<GameCard> getCard({
     required String cardId,
   }) async {
-    return await _cardDatasource.getCard(
+    return _cardDatasource.getCard(
       cardId: cardId,
     );
   }

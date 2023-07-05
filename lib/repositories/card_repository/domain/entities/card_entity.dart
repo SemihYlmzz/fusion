@@ -8,7 +8,6 @@ class GameCard extends Equatable {
     required this.power,
     required this.imagePath,
     required this.cardId,
-    required this.abilityDescription,
   });
   final String name;
   final Element element;
@@ -16,7 +15,6 @@ class GameCard extends Equatable {
   final int power;
   final String imagePath;
   final String cardId;
-  final String abilityDescription;
 
   GameCard copyWith({
     String? name,
@@ -25,7 +23,6 @@ class GameCard extends Equatable {
     int? power,
     String? imagePath,
     String? cardId,
-    String? abilityDescription,
   }) {
     return GameCard(
       name: name ?? this.name,
@@ -34,7 +31,6 @@ class GameCard extends Equatable {
       power: power ?? this.power,
       imagePath: imagePath ?? this.imagePath,
       cardId: cardId ?? this.cardId,
-      abilityDescription: abilityDescription ?? this.abilityDescription,
     );
   }
 
@@ -46,7 +42,6 @@ class GameCard extends Equatable {
         power,
         imagePath,
         cardId,
-        abilityDescription,
       ];
 }
 

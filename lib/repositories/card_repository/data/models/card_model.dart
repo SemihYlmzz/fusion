@@ -8,7 +8,6 @@ class CardModel extends GameCard {
     required super.power,
     required super.imagePath,
     required super.cardId,
-    required super.abilityDescription,
   });
   factory CardModel.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('name') ||
@@ -16,8 +15,7 @@ class CardModel extends GameCard {
         !map.containsKey('abilityId') ||
         !map.containsKey('power') ||
         !map.containsKey('imagePath') ||
-        !map.containsKey('cardId') ||
-        !map.containsKey('abilityDescription')) {
+        !map.containsKey('cardId')) {
       throw Exception('Invalid map data');
     }
     return CardModel(
@@ -29,7 +27,6 @@ class CardModel extends GameCard {
       power: map['power'] as int,
       imagePath: map['imagePath'] as String,
       cardId: map['cardId'] as String,
-      abilityDescription: map['abilityDescription'] as String,
     );
   }
 
@@ -41,7 +38,6 @@ class CardModel extends GameCard {
       'power': power,
       'imagePath': imagePath,
       'cardId': cardId,
-      'abilityDescription': abilityDescription,
     };
   }
 
@@ -53,7 +49,6 @@ class CardModel extends GameCard {
       power: cardEntity.power,
       imagePath: cardEntity.imagePath,
       cardId: cardEntity.cardId,
-      abilityDescription: cardEntity.abilityDescription,
     );
   }
 
@@ -65,7 +60,6 @@ class CardModel extends GameCard {
       power: authModel.power,
       imagePath: authModel.imagePath,
       cardId: authModel.cardId,
-      abilityDescription: authModel.abilityDescription,
     );
   }
 }

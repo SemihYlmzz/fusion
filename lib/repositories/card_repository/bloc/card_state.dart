@@ -1,12 +1,12 @@
 part of 'card_bloc.dart';
 
 abstract class CardState extends Equatable {
-  final String? errorMessage;
-  final GameCard? card;
   const CardState({
     this.errorMessage,
     this.card,
   });
+  final String? errorMessage;
+  final GameCard? card;
 
   @override
   List<Object?> get props => [
