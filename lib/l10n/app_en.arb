@@ -23,6 +23,26 @@
     "@welcome": {
         "description": "Welcome text in all languages."
     },
+
+    "refreshDeck": "REFRESH DECK",
+    "@refreshDeck": {
+        "description": "Text for taking new random deck instead of current one."
+    },
+
+   "play": "PLAY",
+    "@play": {
+        "description": "Text for starting game."
+    },
+
+   "signOut": "Sign Out",
+    "@signOut": {
+        "description": "Simple Sign Out text."
+    },
+
+   "settings": "SETTINGS",
+    "@settings": {
+        "description": "Simple Settings text."
+    },
     
     "emberusAbilityDescription": "2x the damage I take is reduced from the opponent's HP.",
     "@emberusAbilityDescription": {

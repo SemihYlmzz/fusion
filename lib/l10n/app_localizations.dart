@@ -123,6 +123,30 @@ abstract class AppLocalizations {
   /// **'Welcome'**
   String get welcome;
 
+  /// Text for taking new random deck instead of current one.
+  ///
+  /// In en, this message translates to:
+  /// **'REFRESH DECK'**
+  String get refreshDeck;
+
+  /// Text for starting game.
+  ///
+  /// In en, this message translates to:
+  /// **'PLAY'**
+  String get play;
+
+  /// Simple Sign Out text.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// Simple Settings text.
+  ///
+  /// In en, this message translates to:
+  /// **'SETTINGS'**
+  String get settings;
+
   /// Ability description of Emberus GameCard
   ///
   /// In en, this message translates to:

@@ -20,6 +20,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome';
 
   @override
+  String get refreshDeck => 'REFRESH DECK';
+
+  @override
+  String get play => 'PLAY';
+
+  @override
+  String get signOut => 'Sign Out';
+
+  @override
+  String get settings => 'SETTINGS';
+
+  @override
   String get emberusAbilityDescription => '2x the damage I take is reduced from the opponent\'s HP.';
 
   @override

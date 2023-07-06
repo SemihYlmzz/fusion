@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class WelcomeDivider extends StatelessWidget {
   const WelcomeDivider({super.key});
@@ -17,7 +18,7 @@ class WelcomeDivider extends StatelessWidget {
           ),
         ),
         Text(
-          AppLocalizations.of(context)?.welcome ?? ' ',
+          AppLocalizations.of(context).welcome,
           style: GoogleFonts.abel(fontSize: 22),
         ),
         const Expanded(

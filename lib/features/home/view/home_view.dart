@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -67,12 +68,18 @@ class HomeView extends StatelessWidget {
                       deck: state.user!.deck,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'GET NEW CARDS',
-                      style: TextStyle(color: Colors.greenAccent),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.refresh),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          AppLocalizations.of(context).refreshDeck,
+                          style: const TextStyle(color: Colors.greenAccent),
+                        ),
+                      ),
+                    ],
                   ),
                   const PlayButton()
                 ],
@@ -82,60 +89,6 @@ class HomeView extends StatelessWidget {
         }
         return const BaseColumn();
       },
-    );
-  }
-}
-
-class DeckPreview extends StatelessWidget {
-  const DeckPreview({required this.deck, super.key});
-  final List<String> deck;
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GameCardPreview(),
-            GameCardPreview(),
-            GameCardPreview(),
-            GameCardPreview(),
-          ],
-        ),
-        SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GameCardPreview(),
-            GameCardPreview(),
-            GameCardPreview(),
-            GameCardPreview(),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class GameCardPreview extends StatelessWidget {
-  const GameCardPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 65,
-      height: 115,
-      color: Colors.white.withOpacity(0.1),
-      child: Stack(
-        children: [
-          Container(
-            width: 65,
-            height: 100,
-            color: Colors.green.withOpacity(0.2),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -4,6 +4,12 @@
     "signInWithGoogle": "Google ile Giriş yap",
     "signInWithFacebook": "Facebook ile Giriş yap",
     "welcome": "Hos geldin",
+
+    "refreshDeck": "DESTEYI YENILE",
+    "play": "OYNA",
+    "settings": "AYARLAR",
+    "signOut": "Çıkış Yap",
+
     "emberusAbilityDescription": "Aldığım hasarın 2 katı, rakibimin can puanından düşer.",
     "ignisAbilityDescription": "Düşmanıma 2 kere vururum.",
     "blazeonAbilityDescription": "Gücüm 2'ye katlanır.",

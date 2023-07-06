@@ -13,6 +13,8 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesAirCardsGen get airCards => const $AssetsImagesAirCardsGen();
+  $AssetsImagesCardPreviewGen get cardPreview =>
+      const $AssetsImagesCardPreviewGen();
   $AssetsImagesEarthCardsGen get earthCards =>
       const $AssetsImagesEarthCardsGen();
   $AssetsImagesFireCardsGen get fireCards => const $AssetsImagesFireCardsGen();
@@ -76,6 +78,17 @@ class $AssetsImagesAirCardsGen {
         seraphina,
         zephyr
       ];
+}
+
+class $AssetsImagesCardPreviewGen {
+  const $AssetsImagesCardPreviewGen();
+
+  /// File path: assets/images/card_preview/card_power.png
+  AssetGenImage get cardPower =>
+      const AssetGenImage('assets/images/card_preview/card_power.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [cardPower];
 }
 
 class $AssetsImagesEarthCardsGen {

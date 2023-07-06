@@ -20,6 +20,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcome => 'Hos geldin';
 
   @override
+  String get refreshDeck => 'DESTEYI YENILE';
+
+  @override
+  String get play => 'OYNA';
+
+  @override
+  String get signOut => 'Çıkış Yap';
+
+  @override
+  String get settings => 'AYARLAR';
+
+  @override
   String get emberusAbilityDescription => 'Aldığım hasarın 2 katı, rakibimin can puanından düşer.';
 
   @override

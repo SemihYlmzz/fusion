@@ -4,6 +4,7 @@ import 'package:fusion/config/style/colors.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 
 class SettingsButton extends StatelessWidget {
@@ -30,14 +31,14 @@ class SettingsButton extends StatelessWidget {
               height: 520,
               child: BaseColumn(
                 children: [
-                  const Text('SETTINGS'),
+                  Text(AppLocalizations.of(context).settings),
                   ElevatedButton(
                     onPressed: () {
                       context.read<AuthBloc>().add(
                             const AuthLogoutRequested(),
                           );
                     },
-                    child: const Text('Sign Out'),
+                    child: Text(AppLocalizations.of(context).signOut),
                   )
                 ],
               ),

@@ -24,9 +24,6 @@ class UserModel extends User {
         !map.containsKey('deck')) {
       throw Exception('Map data does not contain all keys');
     }
-
-    // TODO map içindekileri UserFields.email olarak hataya yer verme
-
     return UserModel(
       accountDeletionScheduledDate: map['accountDeletionScheduledDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(
