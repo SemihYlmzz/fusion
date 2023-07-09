@@ -18,34 +18,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        if (state is UserEmpty) {
-          return BaseColumn(
-            children: [
-              const Text('Something went wrong.'),
-              Column(
-                children: [
-                  TextButton(
-                    child: const Text('RETRY'),
-                    onPressed: () {
-                      context.read<UserBloc>().add(
-                            UserReadWithUidRequested(uid),
-                          );
-                    },
-                  ),
-                  TextButton(
-                    child: const Text('LOGOUT'),
-                    onPressed: () {
-                      context.read<AuthBloc>().add(const AuthLogoutRequested());
-                    },
-                  ),
-                ],
-              )
-            ],
-          );
-        }
-        if (state is UserLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
         if (state is UserHasData) {
           return BaseColumn(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +45,7 @@ class HomeView extends StatelessWidget {
                     children: [
                       const Icon(Icons.refresh),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () async {},
                         child: Text(
                           AppLocalizations.of(context).refreshDeck,
                           style: const TextStyle(color: Colors.greenAccent),
@@ -86,6 +58,16 @@ class HomeView extends StatelessWidget {
               ),
             ],
           );
+        }
+
+        if (state is UserLoading) {
+          return UserLoadingView(uid: uid);
+        }
+        if (state is UserEmpty) {
+          if (state.errorMessage != null) {
+            context.read<AuthBloc>().add(const AuthLogoutRequested());
+          }
+          return const SizedBox();
         }
         return const BaseColumn();
       },

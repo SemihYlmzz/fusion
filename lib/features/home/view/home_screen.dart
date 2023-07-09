@@ -1,13 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/home/view/home_view.dart';
+import 'package:fusion/features/home/home.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../injection_container.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../widgets/user_loading_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,57 +15,35 @@ class HomeScreen extends StatelessWidget {
       key: Key('login'),
     );
   }
-
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage!),
-              ),
-            );
-        }
-      },
-      child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, authState) {
-          return BlocProvider<UserBloc>(
-            create: (_) => getIt<UserBloc>()
-              ..add(UserReadWithUidRequested(authState.authEntity.id)),
-            child: BlocListener<UserBloc, UserState>(
-              listener: (context, state) {
-                if (state.errorMessage != null) {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        content: Text(state.errorMessage!),
-                      ),
-                    );
-                }
-              },
-              child: LoadingScreen(
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, authState) {
+        return BlocBuilder<UserBloc, UserState>(
+          builder: (context, userState) {
+            if (userState is UserHasData) {
+              return LoadingScreen(
                 isLoading: authState is AuthLoading,
-                size: size,
+                size: MediaQuery.of(context).size,
                 child: BaseScaffold(
                   safeArea: true,
-                  body: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: HomeView(
-                      uid: authState.authEntity.id,
-                    ),
+                  body: HomeView(
+                    uid: authState.authEntity.id,
                   ),
                 ),
-              ),
-            ),
-          );
-        },
-      ),
+              );
+            }
+            if (userState is UserLoading) {
+              return UserLoadingView(uid: authState.authEntity.id);
+            }
+            if (userState is UserEmpty) {
+              return const HomeNoUserDataView();
+            }
+
+            return const UserOutStateView();
+          },
+        );
+      },
     );
   }
 }

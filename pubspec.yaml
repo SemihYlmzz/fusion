@@ -13,6 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Audio
+  audioplayers: ^4.1.0
 
   # SHARED PACKAGES
   shared_constants:
@@ -41,7 +43,8 @@ dependencies:
   # State Man.
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
-  
+  multi_value_listenable_builder: ^0.0.2
+
   # ROUTER
   go_router: ^6.5.8
   
@@ -84,3 +87,4 @@ flutter:
     - assets/images/water_cards/
     - assets/images/fire_cards/
     - assets/images/card_preview/
+    - assets/music/background/

@@ -22,6 +22,12 @@ class $AssetsImagesGen {
       const $AssetsImagesWaterCardsGen();
 }
 
+class $AssetsMusicGen {
+  const $AssetsMusicGen();
+
+  $AssetsMusicBackgroundGen get background => const $AssetsMusicBackgroundGen();
+}
+
 class $AssetsImagesAirCardsGen {
   const $AssetsImagesAirCardsGen();
 
@@ -255,10 +261,21 @@ class $AssetsImagesWaterCardsGen {
       ];
 }
 
+class $AssetsMusicBackgroundGen {
+  const $AssetsMusicBackgroundGen();
+
+  /// File path: assets/music/background/main_menu_loop.mp3
+  String get mainMenuLoop => 'assets/music/background/main_menu_loop.mp3';
+
+  /// List of all assets
+  List<String> get values => [mainMenuLoop];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsMusicGen music = $AssetsMusicGen();
 }
 
 class AssetGenImage {

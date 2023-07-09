@@ -8,20 +8,34 @@ import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = getIt<AuthBloc>();
+    final userBloc = getIt<UserBloc>();
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<AuthBloc>()),
+        BlocProvider<AuthBloc>(create: (_) => authBloc),
+        BlocProvider<UserBloc>(create: (_) => userBloc),
       ],
       child: MaterialApp.router(
         darkTheme: darkTheme,
         themeMode: ThemeMode.dark,
         routerConfig: AppRouter.router,
+        builder: (_, router) {
+          return MultiBlocListener(
+            listeners: [
+              _buildAuthBlocListener(userBloc),
+              _buildUserBlocListener(),
+            ],
+            child: router!,
+          );
+        },
         supportedLocales: L10n.all,
         localizationsDelegates: const [
           ...AppLocalizations.localizationsDelegates,
@@ -31,5 +45,37 @@ class App extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  BlocListener<AuthBloc, AuthState> _buildAuthBlocListener(UserBloc userBloc) {
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.errorMessage != null) {
+          _showSnackBar(context, state.errorMessage!);
+        } else if (state is AuthAuthenticated) {
+          userBloc.add(UserReadWithUidRequested(state.authEntity.id));
+        }
+      },
+    );
+  }
+
+  BlocListener<UserBloc, UserState> _buildUserBlocListener() {
+    return BlocListener<UserBloc, UserState>(
+      listener: (context, state) {
+        if (state.errorMessage != null) {
+          _showSnackBar(context, state.errorMessage!);
+        }
+      },
+    );
+  }
+
+  void _showSnackBar(BuildContext context, String errorMessage) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
   }
 }
