@@ -9,6 +9,11 @@ import 'package:shared_widgets/shared_widgets.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+  factory LoginScreen.routeBuilder(_,__) {
+    return const LoginScreen(
+      key: Key('login'),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     // To make status bar white
@@ -18,21 +23,19 @@ class LoginScreen extends StatelessWidget {
       ),
     );
 
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage!),
-              ),
-            );
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, authState) {
+        if (authState is AuthUnAuthenticated || authState is AuthLoading) {
+          return BaseScaffold(
+            body: LoadingScreen(
+              size: MediaQuery.of(context).size,
+              isLoading: authState is AuthLoading,
+              child: const LoginView(),
+            ),
+          );
         }
+        return const AuthOutStateView();
       },
-      child: const BaseScaffold(
-        body: LoginView(),
-      ),
     );
   }
 }

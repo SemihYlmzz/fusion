@@ -1,11 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_widgets/shared_widgets.dart';
 
 class UserOutStateView extends StatelessWidget {
   const UserOutStateView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BaseScaffold(
+      body: Container(),
+    );
   }
 }

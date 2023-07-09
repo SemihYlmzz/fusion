@@ -10,9 +10,9 @@ import '../widgets/user_loading_view.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  factory HomeScreen.routeBuilder(_) {
+  factory HomeScreen.routeBuilder(_,__) {
     return const HomeScreen(
-      key: Key('login'),
+      key: Key('home'),
     );
   }
   @override
@@ -37,7 +37,9 @@ class HomeScreen extends StatelessWidget {
               return UserLoadingView(uid: authState.authEntity.id);
             }
             if (userState is UserEmpty) {
-              return const HomeNoUserDataView();
+              return HomeNoUserDataView(
+                uid: authState.authEntity.id,
+              );
             }
 
             return const UserOutStateView();

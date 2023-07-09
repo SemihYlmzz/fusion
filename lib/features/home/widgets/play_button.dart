@@ -10,6 +10,9 @@ class PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientButton(text: AppLocalizations.of(context).play);
+    return GradientButton(
+      text: AppLocalizations.of(context).play,
+      onPressed: () {},
+    );
   }
 }

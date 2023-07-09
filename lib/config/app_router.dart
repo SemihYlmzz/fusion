@@ -12,14 +12,18 @@ class AppRouter {
     routes: <GoRoute>[
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return const LoginScreen();
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return NoTransitionPage(
+            child: LoginScreen.routeBuilder(context, state),
+          );
         },
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) {
-          return const HomeScreen();
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: HomeScreen.routeBuilder(context, state),
+          );
         },
       ),
     ],
