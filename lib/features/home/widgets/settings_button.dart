@@ -55,7 +55,7 @@ class SettingsButton extends StatelessWidget {
     return IconButton(
       onPressed: () {
         // openSettingsPopUp(context);
-        GoRouter.of(context).go('/home/settings');
+        context.go('/home/settings');
       },
       icon: const Icon(Icons.settings),
       iconSize: 40,

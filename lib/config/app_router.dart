@@ -12,36 +12,41 @@ import '../features/settings/settings.dart';
 
 mixin RouterMixin on State<App> {
   final _router = GoRouter(
-    initialLocation: '/',
+    initialLocation: LoginScreen.path,
     routes: [
       GoRoute(
-        path: '/',
-        builder: (context, state) => const LoginScreen(),
+        path: LoginScreen.path,
+        name: LoginScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: LoginScreen(),
+        ),
       ),
       GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeScreen(),
+        path: HomeScreen.path,
+        name: HomeScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: HomeScreen(),
+        ),
         routes: [
           GoRoute(
-            path: 'settings',
-            pageBuilder: (context, state) {
-              return NoTransitionPage(
-                child: SettingsScreen.routeBuilder(context, state),
-              );
+            path: SettingsScreen.path,
+            name: SettingsScreen.name,
+            builder: (context, state) {
+              return const SettingsScreen();
             },
           ),
         ],
       ),
     ],
     redirect: (context, state) async {
-      final onLoginScreen = state.matchedLocation == '/';
+      final onLoginScreen = state.matchedLocation == LoginScreen.path;
 
       final authState = context.read<AuthBloc>().state;
       if (authState is AuthUnAuthenticated) {
-        return '/';
+        return LoginScreen.path;
       }
       if (authState is AuthAuthenticated && onLoginScreen) {
-        return '/home';
+        return HomeScreen.path;
       }
       return null;
     },

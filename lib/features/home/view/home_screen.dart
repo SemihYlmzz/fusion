@@ -9,12 +9,9 @@ import '../widgets/user_loading_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+  static const String path = '/home';
+  static const String name = 'home';
 
-  factory HomeScreen.routeBuilder(_,__) {
-    return const HomeScreen(
-      key: Key('home'),
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
