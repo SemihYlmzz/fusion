@@ -12,7 +12,8 @@ class PlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GradientButton(
       text: AppLocalizations.of(context).play,
-      onPressed: () {},
+      onPressed: () {
+      },
     );
   }
 }

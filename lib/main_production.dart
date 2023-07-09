@@ -5,7 +5,7 @@ import 'package:fusion/features/app/view/app.dart';
 
 void main() async {
   unawaited(
-    bootstrap((firestore,firebaseAuth) {
+    bootstrap((firestore, firebaseAuth) {
       return const App();
     }),
   );

@@ -10,9 +10,14 @@ import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> with RouterMixin {
   @override
   Widget build(BuildContext context) {
     final authBloc = getIt<AuthBloc>();
@@ -26,7 +31,7 @@ class App extends StatelessWidget {
       child: MaterialApp.router(
         darkTheme: darkTheme,
         themeMode: ThemeMode.dark,
-        routerConfig: AppRouter.router,
+        routerConfig: router,
         builder: (_, router) {
           return MultiBlocListener(
             listeners: [
