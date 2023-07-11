@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/config/style/colors.dart';
+import 'package:fusion/features/settings/view/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -55,7 +56,7 @@ class SettingsButton extends StatelessWidget {
     return IconButton(
       onPressed: () {
         // openSettingsPopUp(context);
-        context.go('/home/settings');
+        context.go(SettingsScreen.path);
       },
       icon: const Icon(Icons.settings),
       iconSize: 40,

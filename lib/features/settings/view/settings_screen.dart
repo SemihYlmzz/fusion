@@ -9,7 +9,7 @@ import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-  static const String path = 'settings';
+  static const String path = '/settings';
   static const String name = 'settings';
 
   @override
@@ -26,15 +26,38 @@ class SettingsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            context.read<AuthBloc>().add(
-                  const AuthLogoutRequested(),
-                );
-          },
-          child: Text(AppLocalizations.of(context).signOut),
-        ),
+      body: BaseColumn(
+        children: [
+          
+          // Account Details
+          const Text('Change Username'),
+
+          // Connected Social Account
+          const Text('Google'),
+          const Text('Facebook'),
+          const Text('Apple'),
+          const Text('Sign Out'),
+
+          // Player Support
+          const Text('Report a Bug'),
+          const Text('Player Support'),
+          const Text('Privacy'),
+          const Text('Terms of Service'),
+          const Text('Credits'),
+          const Text('Delete Account'),
+
+          // Centered Text
+          const Text('Version'),
+
+          ElevatedButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(
+                    const AuthLogoutRequested(),
+                  );
+            },
+            child: Text(AppLocalizations.of(context).signOut),
+          ),
+        ],
       ),
     );
   }

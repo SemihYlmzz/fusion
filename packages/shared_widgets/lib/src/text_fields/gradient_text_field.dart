@@ -112,7 +112,7 @@ class _GradientTextFieldState extends State<GradientTextField> {
                   )
                 : null,
             labelStyle: (widget.labelTextStyle ?? const TextStyle()).copyWith(
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).primaryColorLight,
             ),
             // AppTextStyles.labelLarge.
             floatingLabelAlignment: FloatingLabelAlignment.start,
@@ -120,7 +120,7 @@ class _GradientTextFieldState extends State<GradientTextField> {
             labelText: widget.hintText,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.black,
+                color: Colors.white54,
                 width: 1,
               ),
             ),

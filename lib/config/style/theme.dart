@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final darkTheme = ThemeData.dark().copyWith(
+class AppTheme {
+  static final darkTheme = ThemeData.dark().copyWith(
   textTheme: GoogleFonts.aBeeZeeTextTheme(
     ThemeData.dark().textTheme,
   ),
@@ -14,3 +15,5 @@ final darkTheme = ThemeData.dark().copyWith(
     ),
   ),
 );
+
+}

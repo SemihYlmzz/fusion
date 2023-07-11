@@ -27,15 +27,13 @@ mixin RouterMixin on State<App> {
         pageBuilder: (context, state) => const NoTransitionPage(
           child: HomeScreen(),
         ),
-        routes: [
-          GoRoute(
-            path: SettingsScreen.path,
-            name: SettingsScreen.name,
-            builder: (context, state) {
-              return const SettingsScreen();
-            },
-          ),
-        ],
+      ),
+      GoRoute(
+        path: SettingsScreen.path,
+        name: SettingsScreen.name,
+        builder: (context, state) {
+          return const SettingsScreen();
+        },
       ),
     ],
     redirect: (context, state) async {
