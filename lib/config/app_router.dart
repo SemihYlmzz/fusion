@@ -8,8 +8,6 @@ import 'package:fusion/injection_container.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/settings/settings.dart';
-
 mixin RouterMixin on State<App> {
   final _router = GoRouter(
     initialLocation: LoginScreen.path,
@@ -27,13 +25,6 @@ mixin RouterMixin on State<App> {
         pageBuilder: (context, state) => const NoTransitionPage(
           child: HomeScreen(),
         ),
-      ),
-      GoRoute(
-        path: SettingsScreen.path,
-        name: SettingsScreen.name,
-        builder: (context, state) {
-          return const SettingsScreen();
-        },
       ),
     ],
     redirect: (context, state) async {
