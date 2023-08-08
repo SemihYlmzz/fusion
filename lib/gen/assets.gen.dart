@@ -13,6 +13,7 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesAirCardsGen get airCards => const $AssetsImagesAirCardsGen();
+  $AssetsImagesBordersGen get borders => const $AssetsImagesBordersGen();
   $AssetsImagesCardPreviewGen get cardPreview =>
       const $AssetsImagesCardPreviewGen();
   $AssetsImagesEarthCardsGen get earthCards =>
@@ -84,6 +85,21 @@ class $AssetsImagesAirCardsGen {
         seraphina,
         zephyr
       ];
+}
+
+class $AssetsImagesBordersGen {
+  const $AssetsImagesBordersGen();
+
+  /// File path: assets/images/borders/settings_border_bottom.png
+  AssetGenImage get settingsBorderBottom =>
+      const AssetGenImage('assets/images/borders/settings_border_bottom.png');
+
+  /// File path: assets/images/borders/settings_border_top.png
+  AssetGenImage get settingsBorderTop =>
+      const AssetGenImage('assets/images/borders/settings_border_top.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [settingsBorderBottom, settingsBorderTop];
 }
 
 class $AssetsImagesCardPreviewGen {
@@ -267,8 +283,11 @@ class $AssetsMusicBackgroundGen {
   /// File path: assets/music/background/main_menu_loop.mp3
   String get mainMenuLoop => 'assets/music/background/main_menu_loop.mp3';
 
+  /// File path: assets/music/background/queue_loop.mp3
+  String get queueLoop => 'assets/music/background/queue_loop.mp3';
+
   /// List of all assets
-  List<String> get values => [mainMenuLoop];
+  List<String> get values => [mainMenuLoop, queueLoop];
 }
 
 class Assets {

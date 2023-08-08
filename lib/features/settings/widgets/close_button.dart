@@ -9,18 +9,23 @@ class SettingsCloseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 55,
-      height: 55,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          colors: [AppColors.orange, AppColors.pink],
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        width: 55,
+        height: 55,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: [AppColors.orange, AppColors.pink],
+          ),
         ),
-      ),
-      child: const Icon(
-        Icons.clear,
-        size: 34,
+        child: const Icon(
+          Icons.clear,
+          size: 34,
+        ),
       ),
     );
   }
