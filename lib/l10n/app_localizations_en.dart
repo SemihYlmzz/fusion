@@ -5,7 +5,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get language => 'English';
+  String get currentLanguage => 'English';
 
   @override
   String get signInWithApple => 'Sign In with Apple';
@@ -30,6 +30,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'SETTINGS';
+
+  @override
+  String get general => 'General ';
+
+  @override
+  String get backgroundMusic => 'Background Music';
+
+  @override
+  String get soundEffects => 'Sound Effects';
+
+  @override
+  String get dialogues => 'Dialogues';
+
+  @override
+  String get haptics => 'Haptics';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get defaultText => 'Default';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get reportABug => 'REPORT A BUG';
+
+  @override
+  String get sendUsAMail => 'SEND US A MAIL';
+
+  @override
+  String get privacy => 'PRIVACY';
+
+  @override
+  String get termsOfService => 'TERMS OF SERVICE';
+
+  @override
+  String get credits => 'CREDITS';
+
+  @override
+  String get deleteAccount => 'DELETE ACCOUNT';
 
   @override
   String get emberusAbilityDescription => '2x the damage I take is reduced from the opponent\'s HP.';

@@ -5,7 +5,7 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get language => 'Türkçe';
+  String get currentLanguage => 'English';
 
   @override
   String get signInWithApple => 'Apple ile Giriş yap';
@@ -30,6 +30,51 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settings => 'AYARLAR';
+
+  @override
+  String get general => 'Genel';
+
+  @override
+  String get backgroundMusic => 'Arkaplan Müziği';
+
+  @override
+  String get soundEffects => 'Ses Efektleri';
+
+  @override
+  String get dialogues => 'Diyaloglar';
+
+  @override
+  String get haptics => 'Titreşimler';
+
+  @override
+  String get language => 'Dil';
+
+  @override
+  String get defaultText => 'Varsayılan';
+
+  @override
+  String get username => 'Kullanıcı Adı';
+
+  @override
+  String get account => 'Hesap';
+
+  @override
+  String get reportABug => 'HATA BILDIR';
+
+  @override
+  String get sendUsAMail => 'BIZE MAIL GONDER';
+
+  @override
+  String get privacy => 'GIZLILIK';
+
+  @override
+  String get termsOfService => 'KULLANIM SARTLARI';
+
+  @override
+  String get credits => 'KATKIDA BULUNANLAR';
+
+  @override
+  String get deleteAccount => 'HESABI SIL';
 
   @override
   String get emberusAbilityDescription => 'Aldığım hasarın 2 katı, rakibimin can puanından düşer.';

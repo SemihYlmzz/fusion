@@ -1,9 +1,9 @@
 {
-    "language": "English",
-    "@language": {
+    "currentLanguage": "English",
+    "@currentLanguage": {
         "description": "The current Language"
     },
-
+    
     "signInWithApple": "Sign In with Apple",
     "@signInWithApple": {
         "description": "Social Apple login text."
@@ -43,7 +43,82 @@
     "@settings": {
         "description": "Simple Settings text."
     },
+
+   "general": "General ",
+    "@general": {
+        "description": "Simple General text."
+    },
+
+   "backgroundMusic": "Background Music",
+    "@backgroundMusic": {
+        "description": "Simple Background Music text."
+    },
+
+   "soundEffects": "Sound Effects",
+    "@soundEffects": {
+        "description": "Simple Sound Effects text."
+    },
+
+   "dialogues": "Dialogues",
+    "@dialogues": {
+        "description": "Simple Dialogue text."
+    },
+
+   "haptics": "Haptics",
+    "@haptics": {
+        "description": "Simple Haptics text."
+    },
+
+   "language": "Language",
+    "@language": {
+        "description": "Simple Language text."
+    },
+
+   "defaultText": "Default",
+    "@defaultText": {
+        "description": "Simple Default text."
+    },
+
+   "username": "Username",
+    "@username": {
+        "description": "Simple Username text."
+    },
+
+   "account": "Account",
+    "@account": {
+        "description": "Simple Account text."
+    },
+
+   "reportABug": "REPORT A BUG",
+    "@reportABug": {
+        "description": "Text for bug report button"
+    },
     
+   "sendUsAMail": "SEND US A MAIL",
+    "@sendUsAMail": {
+        "description": "Text for mail send button"
+    },
+
+   "privacy": "PRIVACY",
+    "@privacy": {
+        "description": "Text for privacy button"
+    },
+
+   "termsOfService": "TERMS OF SERVICE",
+    "@termsOfService": {
+        "description": "Show Terms Button text."
+    },
+
+   "credits": "CREDITS",
+    "@credits": {
+        "description": "Show Credits Button text."
+    },
+
+   "deleteAccount": "DELETE ACCOUNT",
+    "@deleteAccount": {
+        "description": "Delete Account Button text."
+    },
+
     "emberusAbilityDescription": "2x the damage I take is reduced from the opponent's HP.",
     "@emberusAbilityDescription": {
         "description": "Ability description of Emberus GameCard"

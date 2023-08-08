@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'English'**
-  String get language;
+  String get currentLanguage;
 
   /// Social Apple login text.
   ///
@@ -146,6 +146,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'SETTINGS'**
   String get settings;
+
+  /// Simple General text.
+  ///
+  /// In en, this message translates to:
+  /// **'General '**
+  String get general;
+
+  /// Simple Background Music text.
+  ///
+  /// In en, this message translates to:
+  /// **'Background Music'**
+  String get backgroundMusic;
+
+  /// Simple Sound Effects text.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound Effects'**
+  String get soundEffects;
+
+  /// Simple Dialogue text.
+  ///
+  /// In en, this message translates to:
+  /// **'Dialogues'**
+  String get dialogues;
+
+  /// Simple Haptics text.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get haptics;
+
+  /// Simple Language text.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Simple Default text.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get defaultText;
+
+  /// Simple Username text.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// Simple Account text.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// Text for bug report button
+  ///
+  /// In en, this message translates to:
+  /// **'REPORT A BUG'**
+  String get reportABug;
+
+  /// Text for mail send button
+  ///
+  /// In en, this message translates to:
+  /// **'SEND US A MAIL'**
+  String get sendUsAMail;
+
+  /// Text for privacy button
+  ///
+  /// In en, this message translates to:
+  /// **'PRIVACY'**
+  String get privacy;
+
+  /// Show Terms Button text.
+  ///
+  /// In en, this message translates to:
+  /// **'TERMS OF SERVICE'**
+  String get termsOfService;
+
+  /// Show Credits Button text.
+  ///
+  /// In en, this message translates to:
+  /// **'CREDITS'**
+  String get credits;
+
+  /// Delete Account Button text.
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE ACCOUNT'**
+  String get deleteAccount;
 
   /// Ability description of Emberus GameCard
   ///

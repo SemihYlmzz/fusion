@@ -78,24 +78,28 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 SettingsVolumeSlider(
                                   volumeLevel: generalVolumeLevel,
-                                  volumeText: 'General Volume',
+                                  volumeText:
+                                      AppLocalizations.of(context).general,
                                 ),
                                 SettingsVolumeSlider(
                                   volumeLevel: musicVolumeLevel,
-                                  volumeText: 'Music Volume',
+                                  volumeText: AppLocalizations.of(context)
+                                      .backgroundMusic,
                                 ),
                                 SettingsVolumeSlider(
-                                  volumeText: 'Sound Effects Volume',
+                                  volumeText:
+                                      AppLocalizations.of(context).soundEffects,
                                   volumeLevel: soundEffectVolumeLevel,
                                 ),
                                 SettingsVolumeSlider(
-                                  volumeText: 'Dialogue Volume',
+                                  volumeText:
+                                      AppLocalizations.of(context).dialogues,
                                   volumeLevel: dialogueVolumeLevel,
                                 ),
                               ],
                             ),
                             SettingsBorderedButton(
-                              buttonText: 'HAPTICS',
+                              buttonText: AppLocalizations.of(context).haptics,
                               buttonWidget: StatefulBuilder(
                                 builder: (context, setstate) {
                                   return Switch.adaptive(
@@ -107,17 +111,19 @@ class SettingsScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-                            const SettingsBorderedButton(
-                              buttonText: 'LANGUAGE',
-                              buttonWidget: Text('Device'),
+                            SettingsBorderedButton(
+                              buttonText: AppLocalizations.of(context).language,
+                              buttonWidget: Text(
+                                AppLocalizations.of(context).defaultText,
+                              ),
                             ),
-                            const SettingsBorderedButton(
-                              buttonText: 'USERNAME',
-                              buttonWidget: Text('CL4Y'),
+                            SettingsBorderedButton(
+                              buttonText: AppLocalizations.of(context).username,
+                              buttonWidget: const Text('CL4Y'),
                             ),
-                            const SettingsBorderedButton(
-                              buttonText: 'ACCOUNT',
-                              buttonWidget: Text('Google'),
+                            SettingsBorderedButton(
+                              buttonText: AppLocalizations.of(context).account,
+                              buttonWidget: const Text('Google'),
                             ),
                             ElevatedButton(
                               onPressed: () {
@@ -129,19 +135,27 @@ class SettingsScreen extends StatelessWidget {
                                 AppLocalizations.of(context).signOut,
                               ),
                             ),
-                            const SettingsThickButton(
-                              buttonText: 'REPORT A BUG',
+                            SettingsThickButton(
+                              buttonText:
+                                  AppLocalizations.of(context).reportABug,
                             ),
-                            const SettingsThickButton(
-                              buttonText: 'SEND US A MAIL',
+                            SettingsThickButton(
+                              buttonText:
+                                  AppLocalizations.of(context).sendUsAMail,
                             ),
-                            const SettingsThickButton(buttonText: 'PRIVACY'),
-                            const SettingsThickButton(
-                              buttonText: 'TERMS OF SERVICE',
+                            SettingsThickButton(
+                              buttonText: AppLocalizations.of(context).privacy,
                             ),
-                            const SettingsThickButton(buttonText: 'CREDITS'),
-                            const SettingsThickButton(
-                              buttonText: 'DELETE ACCOUNT',
+                            SettingsThickButton(
+                              buttonText:
+                                  AppLocalizations.of(context).termsOfService,
+                            ),
+                            SettingsThickButton(
+                              buttonText: AppLocalizations.of(context).credits,
+                            ),
+                            SettingsThickButton(
+                              buttonText:
+                                  AppLocalizations.of(context).deleteAccount,
                             ),
                             const SizedBox(height: 12),
                             const Text('v1.0.0'),
