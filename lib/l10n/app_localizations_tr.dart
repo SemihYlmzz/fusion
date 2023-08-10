@@ -5,7 +5,7 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get currentLanguage => 'English';
+  String get currentLanguage => 'Türkçe';
 
   @override
   String get signInWithApple => 'Apple ile Giriş yap';
@@ -116,7 +116,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get riverAbilityDescription => 'Can puanlarım düşeceği zaman onun yerine aynı oranda rakip iyileşir.';
 
   @override
-  String get nereusAbilityDescription => 'Düşmanımın gücü 1 olur.';
+  String get nereusAbilityDescription => 'Düşmanımın gücü 1 volur.';
 
   @override
   String get dylanAbilityDescription => 'Bu oyunda iyileştiğin her tur için 3 güç kazanırım.';
