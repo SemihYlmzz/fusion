@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -16,7 +17,7 @@ class PlayButton extends StatelessWidget {
       builder: (context, userState) {
         return GradientButton(
           text: AppLocalizations.of(context).play,
-          onPressed: () {},
+          onPressed: HapticFeedback.heavyImpact,
         );
       },
     );

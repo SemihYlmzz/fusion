@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
@@ -52,7 +53,9 @@ class HomeView extends StatelessWidget {
                   children: [
                     const Icon(Icons.refresh),
                     TextButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        await HapticFeedback.heavyImpact();
+                      },
                       child: Text(
                         AppLocalizations.of(context).refreshDeck,
                         style: const TextStyle(color: Colors.greenAccent),
@@ -73,6 +76,8 @@ class HomeView extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) {
+        HapticFeedback.heavyImpact();
+
         return const SettingsScreen(
           generalVolumeLevel: 0.5,
           musicVolumeLevel: 0.7,

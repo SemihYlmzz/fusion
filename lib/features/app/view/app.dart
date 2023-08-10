@@ -29,6 +29,7 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<UserBloc>(create: (_) => userBloc),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         darkTheme: AppTheme.darkTheme,
         // theme: AppTheme.lightTheme,
         themeMode: ThemeMode.dark,

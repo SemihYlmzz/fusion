@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -63,6 +64,7 @@ class SettingsScreen extends StatelessWidget {
                     Expanded(
                       child: RawScrollbar(
                         thumbVisibility: true,
+                        interactive: false,
                         thumbColor: Colors.redAccent,
                         radius: const Radius.circular(20),
                         thickness: 5,
@@ -182,6 +184,7 @@ class SettingsScreen extends StatelessWidget {
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
+        HapticFeedback.mediumImpact();
         return AlertDialog(
           contentPadding: SharedPaddings.all8,
           content: Container(
@@ -190,6 +193,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             child: RawScrollbar(
               thumbVisibility: true,
+              interactive: false,
               thumbColor: Colors.redAccent,
               radius: const Radius.circular(20),
               thickness: 5,
@@ -241,7 +245,11 @@ class SettingsScreen extends StatelessWidget {
               color: Colors.white,
             )
           : null,
-      onTap: onPressed,
+      onTap: () {
+        HapticFeedback.mediumImpact();
+
+        onPressed();
+      },
     );
   }
 }
