@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/features/home/home.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
@@ -14,6 +15,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // To make status bar white
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
         return BlocBuilder<UserBloc, UserState>(

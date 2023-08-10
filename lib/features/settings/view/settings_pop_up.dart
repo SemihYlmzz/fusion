@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/gen/assets.gen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -10,7 +7,6 @@ import 'package:shared_widgets/shared_widgets.dart';
 import '../../../config/style/colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../widgets/settings_text.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -113,6 +109,8 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             SettingsBorderedButton(
                               buttonText: AppLocalizations.of(context).language,
+                              onTap: () =>
+                                  _showLanguageSelectionDialog(context),
                               buttonWidget: Text(
                                 AppLocalizations.of(context).defaultText,
                               ),
@@ -177,156 +175,73 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class SettingsThickButton extends StatelessWidget {
-  const SettingsThickButton({
-    required this.buttonText,
-    super.key,
-  });
-  final String buttonText;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: SharedPaddings.vertical4,
-      child: Padding(
-        padding: SharedPaddings.horizontal32,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white12,
-            border: GradientBoxBorder(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.orange.withOpacity(0.65),
-                  Colors.pink.withOpacity(0.65),
-                ],
+  Future<void> _showLanguageSelectionDialog(BuildContext context) async {
+    final selectedLanguage = AppLocalizations.of(context).defaultText;
+
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: SharedPaddings.all8,
+          content: Container(
+            constraints: const BoxConstraints(
+              maxHeight: 320,
+            ),
+            child: RawScrollbar(
+              thumbVisibility: true,
+              thumbColor: Colors.redAccent,
+              radius: const Radius.circular(20),
+              thickness: 5,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    _buildLanguageOption(
+                      AppLocalizations.of(context).defaultText,
+                      selectedLanguage,
+                      Navigator.of(context).pop,
+                    ),
+                    const Divider(),
+
+                    _buildLanguageOption(
+                      'English',
+                      selectedLanguage,
+                      Navigator.of(context).pop,
+                    ),
+                    const Divider(),
+
+                    _buildLanguageOption(
+                      'Türkçe',
+                      selectedLanguage,
+                      Navigator.of(context).pop,
+                    ),
+
+                    // Diğer dilleri benzer şekilde ekleyebilirsiniz.
+                  ],
+                ),
               ),
             ),
           ),
-          height: 40,
-          width: 320,
-          child: Center(
-            child: Text(
-              buttonText,
-              style: GoogleFonts.bangers(
-                fontSize: 24,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ClosableAnimatedScaffold extends StatelessWidget {
-  const ClosableAnimatedScaffold({required this.child, super.key});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
+        );
       },
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: GestureDetector(
-          onTap: () {},
-          child: Center(
-            child: Animate(
-              effects: const [
-                FadeEffect(),
-                ScaleEffect(
-                  begin: Offset(0.85, 0.85),
-                  end: Offset(1, 1),
-                ),
-                ShimmerEffect()
-              ],
-              child: child,
-            ),
-          ),
-        ),
-      ),
     );
   }
-}
 
-class SettingsBorderedButton extends StatelessWidget {
-  const SettingsBorderedButton({
-    required this.buttonText,
-    required this.buttonWidget,
-    super.key,
-  });
-  final String buttonText;
-  final Widget buttonWidget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: SharedPaddings.vertical8,
-      child: Column(
-        children: [
-          Image.asset(
-            Assets.images.borders.settingsBorderTop.path,
-          ),
-          Padding(
-            padding: SharedPaddings.horizontal16,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  buttonText,
-                  style: GoogleFonts.bangers(
-                    fontSize: 28,
-                  ),
-                ),
-                SizedBox(
-                  height: 44,
-                  child: Center(child: buttonWidget),
-                ),
-              ],
-            ),
-          ),
-          Image.asset(
-            Assets.images.borders.settingsBorderBottom.path,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SettingsVolumeSlider extends StatelessWidget {
-  const SettingsVolumeSlider({
-    required this.volumeText,
-    required this.volumeLevel,
-    super.key,
-  });
-
-  final String volumeText;
-  final double volumeLevel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: SharedPaddings.left32,
-          child: Text(volumeText),
-        ),
-        StatefulBuilder(
-          builder: (context, setstate) {
-            return Slider(
-              value: volumeLevel,
-              onChanged: (newValue) {
-                setstate(() {});
-              },
-            );
-          },
-        ),
-      ],
+  Widget _buildLanguageOption(
+    String language,
+    String selectedLanguage,
+    VoidCallback onPressed,
+  ) {
+    return ListTile(
+      title: Text(language),
+      trailing: language == selectedLanguage
+          ? const Icon(
+              Icons.check,
+              color: Colors.white,
+            )
+          : null,
+      onTap: onPressed,
     );
   }
 }
