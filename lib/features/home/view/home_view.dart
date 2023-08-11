@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/gen/assets.gen.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../audio/audio_cubit.dart';
 import '../../settings/settings.dart';
 import '../widgets/widgets.dart';
 
@@ -17,6 +19,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AudioCubit>().playBackgroundSound(
+          Assets.music.background.mainMenuLoop,
+        );
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
         return BaseColumn(
@@ -29,9 +34,10 @@ class HomeView extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.settings),
                   onPressed: () {
-                    if (userState.user?.username == '') {
-                      openSettingsPopUp(context);
-                    } else {}
+                    context.read<AudioCubit>().playSoundEffect(
+                          Assets.music.sfx.settingsButtonSfx,
+                        );
+                    openSettingsPopUp(context);
                   },
                   iconSize: 44,
                 ),
@@ -54,6 +60,9 @@ class HomeView extends StatelessWidget {
                     const Icon(Icons.refresh),
                     TextButton(
                       onPressed: () async {
+                        await context.read<AudioCubit>().playSoundEffect(
+                              Assets.music.sfx.refreshDeckButtonSfx,
+                            );
                         await HapticFeedback.heavyImpact();
                       },
                       child: Text(

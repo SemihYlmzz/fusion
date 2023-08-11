@@ -27,6 +27,7 @@ class $AssetsMusicGen {
   const $AssetsMusicGen();
 
   $AssetsMusicBackgroundGen get background => const $AssetsMusicBackgroundGen();
+  $AssetsMusicSfxGen get sfx => const $AssetsMusicSfxGen();
 }
 
 class $AssetsImagesAirCardsGen {
@@ -288,6 +289,24 @@ class $AssetsMusicBackgroundGen {
 
   /// List of all assets
   List<String> get values => [mainMenuLoop, queueLoop];
+}
+
+class $AssetsMusicSfxGen {
+  const $AssetsMusicSfxGen();
+
+  /// File path: assets/music/sfx/play_button_sfx.mp3
+  String get playButtonSfx => 'assets/music/sfx/play_button_sfx.mp3';
+
+  /// File path: assets/music/sfx/refresh_deck_button_sfx.mp3
+  String get refreshDeckButtonSfx =>
+      'assets/music/sfx/refresh_deck_button_sfx.mp3';
+
+  /// File path: assets/music/sfx/settings_button_sfx.mp3
+  String get settingsButtonSfx => 'assets/music/sfx/settings_button_sfx.mp3';
+
+  /// List of all assets
+  List<String> get values =>
+      [playButtonSfx, refreshDeckButtonSfx, settingsButtonSfx];
 }
 
 class Assets {

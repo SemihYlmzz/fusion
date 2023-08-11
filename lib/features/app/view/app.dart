@@ -7,6 +7,7 @@ import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 
+import '../../../audio/audio_cubit.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
@@ -27,6 +28,7 @@ class _AppState extends State<App> with RouterMixin {
       providers: [
         BlocProvider<AuthBloc>(create: (_) => authBloc),
         BlocProvider<UserBloc>(create: (_) => userBloc),
+        BlocProvider<AudioCubit>(create: (_) => AudioCubit()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
