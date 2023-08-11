@@ -39,6 +39,10 @@ dependencies:
   cloud_firestore: ^4.8.2
   firebase_auth: ^4.6.3
 
+  # Local Database
+  shared_preferences: ^2.2.0
+  
+
   # Social Login Packages
   google_sign_in: ^6.1.0
   flutter_social_button: ^1.1.4+1

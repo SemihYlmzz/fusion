@@ -1,8 +1,7 @@
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/device_prefs.dart';
 
-import '../entities/device_prefs.dart';
-
-abstract class DevicePrefsRepository {
+abstract class DevicePrefsDatasource {
   FutureEither<DevicePrefs> createDevicePrefs();
 
   FutureEither<DevicePrefs> readDevicePrefs();

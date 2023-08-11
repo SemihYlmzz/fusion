@@ -15,6 +15,14 @@ class DevicePrefs extends Equatable {
   final double dialogsSoundVolume;
   final bool isHapticsOn;
   final String language;
+  static const empty = DevicePrefs(
+    generalSoundVolume: 0.7,
+    backGroundSoundVolume: 0.7,
+    dialogsSoundVolume: 0.7,
+    soundEffectsSoundVolume: 0.7,
+    isHapticsOn: true,
+    language: '',
+  );
 
   DevicePrefs copyWith({
     double? generalSoundVolume,
