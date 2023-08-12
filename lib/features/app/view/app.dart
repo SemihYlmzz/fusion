@@ -36,28 +36,35 @@ class _AppState extends State<App> with RouterMixin {
         ),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        darkTheme: AppTheme.darkTheme,
-        // theme: AppTheme.lightTheme,
-        themeMode: ThemeMode.dark,
-        routerConfig: router,
-        builder: (_, router) {
-          return MultiBlocListener(
-            listeners: [
-              _buildAuthBlocListener(userBloc),
-              _buildUserBlocListener(),
+      child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+        builder: (context, devicePrefsState) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            darkTheme: AppTheme.darkTheme,
+            // theme: AppTheme.lightTheme,
+            themeMode: ThemeMode.dark,
+            routerConfig: router,
+            builder: (_, router) {
+              return MultiBlocListener(
+                listeners: [
+                  _buildAuthBlocListener(userBloc),
+                  _buildUserBlocListener(),
+                ],
+                child: router!,
+              );
+            },
+            supportedLocales: L10n.all,
+            locale: devicePrefsState.devicePrefs.language == 'Default'
+                ? null
+                : Locale(devicePrefsState.devicePrefs.language),
+            localizationsDelegates: const [
+              ...AppLocalizations.localizationsDelegates,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
             ],
-            child: router!,
           );
         },
-        supportedLocales: L10n.all,
-        localizationsDelegates: const [
-          ...AppLocalizations.localizationsDelegates,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
       ),
     );
   }

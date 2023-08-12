@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -162,10 +163,13 @@ class SettingsScreen extends StatelessWidget {
                                 SettingsBorderedButton(
                                   buttonText:
                                       AppLocalizations.of(context).language,
-                                  onTap: () =>
-                                      _showLanguageSelectionDialog(context),
+                                  onTap: () => _showLanguageSelectionDialog(
+                                    context,
+                                    state.devicePrefs,
+                                  ),
                                   buttonWidget: Text(
-                                    AppLocalizations.of(context).defaultText,
+                                    AppLocalizations.of(context)
+                                        .currentLanguage,
                                   ),
                                 ),
                                 SettingsBorderedButton(
@@ -235,9 +239,10 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _showLanguageSelectionDialog(BuildContext context) async {
-    final selectedLanguage = AppLocalizations.of(context).defaultText;
-
+  Future<void> _showLanguageSelectionDialog(
+    BuildContext context,
+    DevicePrefs currentDevicePrefs,
+  ) async {
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
@@ -259,23 +264,53 @@ class SettingsScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     _buildLanguageOption(
-                      AppLocalizations.of(context).defaultText,
-                      selectedLanguage,
-                      Navigator.of(context).pop,
+                      'Default',
+                      currentDevicePrefs.language,
+                      currentDevicePrefs.isHapticsOn,
+                      () {
+                        Navigator.of(context).pop();
+                        context.read<DevicePrefsBloc>().add(
+                              UpdateDevicePrefs(
+                                currentDevicePrefs.copyWith(
+                                  language: 'Default',
+                                ),
+                              ),
+                            );
+                      },
                     ),
                     const Divider(),
 
                     _buildLanguageOption(
                       'English',
-                      selectedLanguage,
-                      Navigator.of(context).pop,
+                      currentDevicePrefs.language,
+                      currentDevicePrefs.isHapticsOn,
+                      () {
+                        Navigator.of(context).pop();
+                        context.read<DevicePrefsBloc>().add(
+                              UpdateDevicePrefs(
+                                currentDevicePrefs.copyWith(
+                                  language: 'en',
+                                ),
+                              ),
+                            );
+                      },
                     ),
                     const Divider(),
 
                     _buildLanguageOption(
                       'Türkçe',
-                      selectedLanguage,
-                      Navigator.of(context).pop,
+                      currentDevicePrefs.language,
+                      currentDevicePrefs.isHapticsOn,
+                      () {
+                        Navigator.of(context).pop();
+                        context.read<DevicePrefsBloc>().add(
+                              UpdateDevicePrefs(
+                                currentDevicePrefs.copyWith(
+                                  language: 'tr',
+                                ),
+                              ),
+                            );
+                      },
                     ),
 
                     // Diğer dilleri benzer şekilde ekleyebilirsiniz.
@@ -292,6 +327,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildLanguageOption(
     String language,
     String selectedLanguage,
+    bool isHapticsOn,
     VoidCallback onPressed,
   ) {
     return ListTile(
@@ -303,8 +339,9 @@ class SettingsScreen extends StatelessWidget {
             )
           : null,
       onTap: () {
-        HapticFeedback.mediumImpact();
-
+        if (isHapticsOn) {
+          HapticFeedback.mediumImpact();
+        }
         onPressed();
       },
     );
