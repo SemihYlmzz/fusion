@@ -54,9 +54,12 @@ class _AppState extends State<App> with RouterMixin {
               );
             },
             supportedLocales: L10n.all,
-            locale: devicePrefsState.devicePrefs.language == 'Default'
-                ? null
-                : Locale(devicePrefsState.devicePrefs.language),
+            locale: switch (devicePrefsState.devicePrefs.language) {
+              'tr' => const Locale('tr'),
+              'en' => const Locale('en'),
+              _ => null,
+            },
+
             localizationsDelegates: const [
               ...AppLocalizations.localizationsDelegates,
               GlobalMaterialLocalizations.delegate,
