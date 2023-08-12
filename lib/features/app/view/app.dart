@@ -30,7 +30,9 @@ class _AppState extends State<App> with RouterMixin {
       providers: [
         BlocProvider<AuthBloc>(create: (_) => authBloc),
         BlocProvider<UserBloc>(create: (_) => userBloc),
-        BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
+        BlocProvider<DevicePrefsBloc>(
+          create: (_) => devicePrefsBloc..add(const ReadDevicePrefs()),
+        ),
         BlocProvider<AudioCubit>(create: (_) => AudioCubit()),
       ],
       child: MaterialApp.router(
@@ -44,7 +46,7 @@ class _AppState extends State<App> with RouterMixin {
             listeners: [
               _buildAuthBlocListener(userBloc),
               _buildUserBlocListener(),
-              _buildDevicePrefsBlocListener(),
+              _buildAudioBlocListener(devicePrefsBloc),
             ],
             child: router!,
           );
@@ -60,16 +62,20 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
-  BlocListener<DevicePrefsBloc, DevicePrefsState>
-      _buildDevicePrefsBlocListener() {
-    return BlocListener<DevicePrefsBloc, DevicePrefsState>(
-      listener: (context, state) {},
-    );
-  }
-
-  BlocListener<AudioCubit, AudioState> _buildAudioBlocListener() {
+  BlocListener<AudioCubit, AudioState> _buildAudioBlocListener(
+    DevicePrefsBloc devicePrefsBloc,
+  ) {
     return BlocListener<AudioCubit, AudioState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (!state.isDevicePrefsConnected) {
+          context.read<AudioCubit>().connectDevicePrefs(
+                devicePrefsBloc.state.devicePrefs.generalSoundVolume,
+                devicePrefsBloc.state.devicePrefs.backGroundSoundVolume,
+                devicePrefsBloc.state.devicePrefs.soundEffectsSoundVolume,
+                devicePrefsBloc.state.devicePrefs.dialogsSoundVolume,
+              );
+        }
+      },
     );
   }
 

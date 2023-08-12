@@ -84,7 +84,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         );
-      },
+      }, 
     );
   }
 
@@ -94,13 +94,7 @@ class HomeView extends StatelessWidget {
       builder: (context) {
         HapticFeedback.heavyImpact();
 
-        return const SettingsScreen(
-          generalVolumeLevel: 0.5,
-          musicVolumeLevel: 0.7,
-          soundEffectVolumeLevel: 0.35,
-          dialogueVolumeLevel: 0.2,
-          isHapticsOn: true,
-        );
+        return const SettingsScreen();
       },
     );
   }

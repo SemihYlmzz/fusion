@@ -14,21 +14,10 @@ import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
-    required this.generalVolumeLevel,
-    required this.musicVolumeLevel,
-    required this.soundEffectVolumeLevel,
-    required this.dialogueVolumeLevel,
-    required this.isHapticsOn,
     super.key,
   });
   static const String path = '/settings';
   static const String name = 'settings';
-
-  final double generalVolumeLevel;
-  final double musicVolumeLevel;
-  final double soundEffectVolumeLevel;
-  final double dialogueVolumeLevel;
-  final bool isHapticsOn;
 
   static const double settingsBoxWidth = 320;
   static const double settingsCardWidth = 300;
@@ -136,7 +125,8 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsVolumeSlider(
                                       volumeText: AppLocalizations.of(context)
                                           .dialogues,
-                                      volumeLevel: dialogueVolumeLevel,
+                                      volumeLevel:
+                                          state.devicePrefs.dialogsSoundVolume,
                                     ),
                                   ],
                                 ),

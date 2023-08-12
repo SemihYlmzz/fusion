@@ -8,6 +8,7 @@ class AudioCubit extends Cubit<AudioState> {
   AudioCubit()
       : super(
           const AudioState(
+            isDevicePrefsConnected: false,
             backgroundVolume: 1,
             generalVolume: 1,
             soundEffectsVolume: 1,
@@ -17,6 +18,23 @@ class AudioCubit extends Cubit<AudioState> {
 
   final AudioPlayer _audioPlayerForBGM = AudioPlayer();
   final AudioPlayer _audioPlayerForSFX = AudioPlayer();
+
+  void connectDevicePrefs(
+    double backgroundVolume,
+    double dialogueVolume,
+    double generalVolume,
+    double soundEffectsVolume,
+  ) {
+    emit(
+      state.copyWith(
+        backgroundVolume: backgroundVolume,
+        dialogueVolume: dialogueVolume,
+        generalVolume: generalVolume,
+        soundEffectsVolume: soundEffectsVolume,
+        isDevicePrefsConnected: true,
+      ),
+    );
+  }
 
   // SOUND EFFECTS
   Future<void> playSoundEffect(
@@ -56,12 +74,10 @@ class AudioCubit extends Cubit<AudioState> {
       volume: backgroundMusicVolume * generalVolume,
     );
     await _audioPlayerForBGM.setReleaseMode(ReleaseMode.loop);
-    emit(state.copyWith(isBackgroundSoundPlaying: true));
   }
 
   Future<void> stopBackgroundMusic() async {
     await _audioPlayerForBGM.stop();
-    emit(state.copyWith(isBackgroundSoundPlaying: false));
   }
 
   void setBackgroundMusicVolume(
