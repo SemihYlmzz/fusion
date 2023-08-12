@@ -68,15 +68,13 @@ class AudioCubit extends Cubit<AudioState> {
     double newBackgroundMusicVolume,
     double generalVolume,
   ) {
-    // Güncellenmiş ses seviyesi değeri ile yeni bir AudioState oluşturun.
     final updatedState = state.copyWith(
       backgroundVolume: newBackgroundMusicVolume * generalVolume,
     );
 
-    // Oluşturulan güncellenmiş state'i emit edin.
     emit(updatedState);
 
-    // _audioPlayerForBGM.setVolume(newBackgroundMusicVolume * generalVolume);
+    _audioPlayerForBGM.setVolume(newBackgroundMusicVolume * generalVolume);
   }
 
   @override
