@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/gen/assets.gen.dart';
 import 'package:fusion/l10n/app_localizations.dart';
+import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -13,14 +14,18 @@ import '../widgets/widgets.dart';
 class HomeView extends StatelessWidget {
   const HomeView({
     required this.uid,
+    required this.devicePrefs,
     super.key,
   });
   final String uid;
+  final DevicePrefs devicePrefs;
 
   @override
   Widget build(BuildContext context) {
     context.read<AudioCubit>().playBackgroundSound(
           Assets.music.background.mainMenuLoop,
+          devicePrefs.soundEffectsSoundVolume,
+          devicePrefs.generalSoundVolume,
         );
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
@@ -72,7 +77,9 @@ class HomeView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const PlayButton()
+                PlayButton(
+                  devicePrefs: devicePrefs,
+                )
               ],
             ),
           ],

@@ -5,26 +5,55 @@ import 'package:equatable/equatable.dart';
 part 'audio_state.dart';
 
 class AudioCubit extends Cubit<AudioState> {
-  AudioCubit() : super(const AudioState(isBackgroundSoundPlaying: false));
+  AudioCubit()
+      : super(
+          const AudioState(
+            backgroundVolume: 1,
+            generalVolume: 1,
+            soundEffectsVolume: 1,
+            dialogueVolume: 1,
+          ),
+        );
+
   final AudioPlayer _audioPlayerForBGM = AudioPlayer();
   final AudioPlayer _audioPlayerForSFX = AudioPlayer();
 
-  Future<void> playSoundEffect(String sfxAssetPath) async {
+  // SOUND EFFECTS
+  Future<void> playSoundEffect(
+    String sfxAssetPath,
+  ) async {
     final clearedAssetPath = sfxAssetPath.replaceFirst('assets/', '');
 
     await _audioPlayerForSFX.play(
       AssetSource(
         clearedAssetPath,
       ),
+      volume: state.soundEffectsVolume * state.generalVolume,
     );
   }
 
-  Future<void> playBackgroundSound(String bgmAssetPath) async {
+  void setSoundEffectsVolume(
+    double newSoundEffectsVolume,
+    double generalVolume,
+  ) {
+    final updatedState = state.copyWith(
+      soundEffectsVolume: newSoundEffectsVolume * generalVolume,
+    );
+    emit(updatedState);
+  }
+
+  // BACKGROUND MUSICS
+  Future<void> playBackgroundSound(
+    String bgmAssetPath,
+    double backgroundMusicVolume,
+    double generalVolume,
+  ) async {
     final clearedAssetPath = bgmAssetPath.replaceFirst('assets/', '');
     await _audioPlayerForBGM.play(
       AssetSource(
         clearedAssetPath,
       ),
+      volume: backgroundMusicVolume * generalVolume,
     );
     await _audioPlayerForBGM.setReleaseMode(ReleaseMode.loop);
     emit(state.copyWith(isBackgroundSoundPlaying: true));
@@ -33,6 +62,21 @@ class AudioCubit extends Cubit<AudioState> {
   Future<void> stopBackgroundMusic() async {
     await _audioPlayerForBGM.stop();
     emit(state.copyWith(isBackgroundSoundPlaying: false));
+  }
+
+  void setBackgroundMusicVolume(
+    double newBackgroundMusicVolume,
+    double generalVolume,
+  ) {
+    // Güncellenmiş ses seviyesi değeri ile yeni bir AudioState oluşturun.
+    final updatedState = state.copyWith(
+      backgroundVolume: newBackgroundMusicVolume * generalVolume,
+    );
+
+    // Oluşturulan güncellenmiş state'i emit edin.
+    emit(updatedState);
+
+    // _audioPlayerForBGM.setVolume(newBackgroundMusicVolume * generalVolume);
   }
 
   @override

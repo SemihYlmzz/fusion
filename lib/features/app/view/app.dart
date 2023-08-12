@@ -6,6 +6,7 @@ import 'package:fusion/config/style/theme.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 
 import '../../../audio/audio_cubit.dart';
 import '../../../l10n/app_localizations.dart';
@@ -23,11 +24,13 @@ class _AppState extends State<App> with RouterMixin {
   Widget build(BuildContext context) {
     final authBloc = getIt<AuthBloc>();
     final userBloc = getIt<UserBloc>();
+    final devicePrefsBloc = getIt<DevicePrefsBloc>();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (_) => authBloc),
         BlocProvider<UserBloc>(create: (_) => userBloc),
+        BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
         BlocProvider<AudioCubit>(create: (_) => AudioCubit()),
       ],
       child: MaterialApp.router(
@@ -41,6 +44,7 @@ class _AppState extends State<App> with RouterMixin {
             listeners: [
               _buildAuthBlocListener(userBloc),
               _buildUserBlocListener(),
+              _buildDevicePrefsBlocListener(),
             ],
             child: router!,
           );
@@ -53,6 +57,19 @@ class _AppState extends State<App> with RouterMixin {
           GlobalWidgetsLocalizations.delegate,
         ],
       ),
+    );
+  }
+
+  BlocListener<DevicePrefsBloc, DevicePrefsState>
+      _buildDevicePrefsBlocListener() {
+    return BlocListener<DevicePrefsBloc, DevicePrefsState>(
+      listener: (context, state) {},
+    );
+  }
+
+  BlocListener<AudioCubit, AudioState> _buildAudioBlocListener() {
+    return BlocListener<AudioCubit, AudioState>(
+      listener: (context, state) {},
     );
   }
 

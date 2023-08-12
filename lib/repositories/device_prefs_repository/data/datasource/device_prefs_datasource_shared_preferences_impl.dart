@@ -31,7 +31,6 @@ class DevicePrefsDataSourceSharedPreferencesImpl
   @override
   FutureEither<DevicePrefs> readDevicePrefs() async {
     final prefs = await SharedPreferences.getInstance();
-
     return Right(
       DevicePrefs(
         generalSoundVolume:
@@ -59,7 +58,6 @@ class DevicePrefsDataSourceSharedPreferencesImpl
     required DevicePrefs updatedDevicePrefs,
   }) async {
     final prefs = await SharedPreferences.getInstance();
-
     await prefs.setDouble(
       DevicePrefsFields.generalSoundVolume,
       updatedDevicePrefs.generalSoundVolume,

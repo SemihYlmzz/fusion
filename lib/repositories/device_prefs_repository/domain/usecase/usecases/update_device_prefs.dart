@@ -6,9 +6,9 @@ import '../../../../../utils/typedefs.dart';
 import '../../../../../utils/usecase.dart';
 import '../../repository/device_prefs_repository.dart';
 
-class CreateDevicePrefsUseCase
+class UpdateDevicePrefsUseCase
     extends UseCase<Either<Failure, DevicePrefs>, DevicePrefs> {
-  CreateDevicePrefsUseCase({required this.devicePrefsRepository});
+  UpdateDevicePrefsUseCase({required this.devicePrefsRepository});
   final DevicePrefsRepository devicePrefsRepository;
 
   @override

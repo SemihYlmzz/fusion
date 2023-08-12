@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 class SettingsVolumeSlider extends StatelessWidget {
   const SettingsVolumeSlider({
     required this.volumeText,
     required this.volumeLevel,
+    this.onChanged,
     super.key,
   });
 
   final String volumeText;
   final double volumeLevel;
+  final DoubleCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +23,10 @@ class SettingsVolumeSlider extends StatelessWidget {
           padding: SharedPaddings.left32,
           child: Text(volumeText),
         ),
-        StatefulBuilder(
-          builder: (context, setstate) {
-            return Slider(
-              value: volumeLevel,
-              onChanged: (newValue) {
-                setstate(() {});
-              },
-            );
+        Slider(
+          value: volumeLevel,
+          onChanged: (newValue) {
+            onChanged?.call(newValue);
           },
         ),
       ],
