@@ -28,7 +28,9 @@ class PlayButton extends StatelessWidget {
                 context.read<AudioCubit>().playSoundEffect(
                       Assets.music.sfx.playButtonSfx,
                     );
-                HapticFeedback.heavyImpact();
+                if (devicePrefs.isHapticsOn) {
+                  HapticFeedback.heavyImpact();
+                }
               },
             );
           },

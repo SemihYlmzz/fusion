@@ -72,7 +72,9 @@ class HomeView extends StatelessWidget {
                         await context.read<AudioCubit>().playSoundEffect(
                               Assets.music.sfx.refreshDeckButtonSfx,
                             );
-                        await HapticFeedback.heavyImpact();
+                        if (devicePrefs.isHapticsOn) {
+                          await HapticFeedback.heavyImpact();
+                        }
                       },
                       child: Text(
                         AppLocalizations.of(context).refreshDeck,
@@ -96,7 +98,9 @@ class HomeView extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) {
-        HapticFeedback.heavyImpact();
+        if (devicePrefs.isHapticsOn) {
+          HapticFeedback.heavyImpact();
+        }
 
         return const SettingsScreen();
       },
