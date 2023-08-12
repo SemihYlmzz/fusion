@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/audio/audio.dart';
 import 'package:fusion/features/home/home.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -29,16 +30,20 @@ class HomeScreen extends StatelessWidget {
             return BlocBuilder<UserBloc, UserState>(
               builder: (context, userState) {
                 if (userState is UserHasData) {
-                  return LoadingScreen(
-                    isLoading: authState is AuthLoading,
-                    size: MediaQuery.of(context).size,
-                    child: BaseScaffold(
-                      safeArea: true,
-                      body: HomeView(
-                        uid: authState.authEntity.id,
-                        devicePrefs: devicePrefsState.devicePrefs,
-                      ),
-                    ),
+                  return BlocBuilder<AudioCubit, AudioState>(
+                    builder: (context, audioState) {
+                      return LoadingScreen(
+                        isLoading: authState is AuthLoading,
+                        size: MediaQuery.of(context).size,
+                        child: BaseScaffold(
+                          safeArea: true,
+                          body: HomeView(
+                            uid: authState.authEntity.id,
+                            devicePrefs: devicePrefsState.devicePrefs,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 }
                 if (userState is UserLoading) {

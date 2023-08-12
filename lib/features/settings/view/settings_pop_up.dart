@@ -127,6 +127,15 @@ class SettingsScreen extends StatelessWidget {
                                           .dialogues,
                                       volumeLevel:
                                           state.devicePrefs.dialogsSoundVolume,
+                                      onChanged: (newValue) {
+                                        context.read<DevicePrefsBloc>().add(
+                                              UpdateDevicePrefs(
+                                                state.devicePrefs.copyWith(
+                                                  dialogsSoundVolume: newValue,
+                                                ),
+                                              ),
+                                            );
+                                      },
                                     ),
                                   ],
                                 ),

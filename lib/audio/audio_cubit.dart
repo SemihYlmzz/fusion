@@ -9,10 +9,10 @@ class AudioCubit extends Cubit<AudioState> {
       : super(
           const AudioState(
             isDevicePrefsConnected: false,
-            backgroundVolume: 1,
-            generalVolume: 1,
-            soundEffectsVolume: 1,
-            dialogueVolume: 1,
+            backgroundVolume: 0,
+            generalVolume: 0,
+            soundEffectsVolume: 0,
+            dialogueVolume: 0,
           ),
         );
 
@@ -25,15 +25,17 @@ class AudioCubit extends Cubit<AudioState> {
     double generalVolume,
     double soundEffectsVolume,
   ) {
-    emit(
-      state.copyWith(
-        backgroundVolume: backgroundVolume,
-        dialogueVolume: dialogueVolume,
-        generalVolume: generalVolume,
-        soundEffectsVolume: soundEffectsVolume,
-        isDevicePrefsConnected: true,
-      ),
-    );
+    if (!state.isDevicePrefsConnected) {
+      emit(
+        state.copyWith(
+          backgroundVolume: backgroundVolume,
+          dialogueVolume: dialogueVolume,
+          generalVolume: generalVolume,
+          soundEffectsVolume: soundEffectsVolume,
+          isDevicePrefsConnected: true,
+        ),
+      );
+    }
   }
 
   // SOUND EFFECTS
@@ -63,15 +65,13 @@ class AudioCubit extends Cubit<AudioState> {
   // BACKGROUND MUSICS
   Future<void> playBackgroundSound(
     String bgmAssetPath,
-    double backgroundMusicVolume,
-    double generalVolume,
   ) async {
     final clearedAssetPath = bgmAssetPath.replaceFirst('assets/', '');
     await _audioPlayerForBGM.play(
       AssetSource(
         clearedAssetPath,
       ),
-      volume: backgroundMusicVolume * generalVolume,
+      volume: state.backgroundVolume * state.generalVolume,
     );
     await _audioPlayerForBGM.setReleaseMode(ReleaseMode.loop);
   }
@@ -96,6 +96,7 @@ class AudioCubit extends Cubit<AudioState> {
   @override
   Future<void> close() {
     _audioPlayerForBGM.dispose();
+    _audioPlayerForSFX.dispose();
     return super.close();
   }
 }

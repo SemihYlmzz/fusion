@@ -22,10 +22,14 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AudioCubit>().connectDevicePrefs(
+          devicePrefs.backGroundSoundVolume,
+          devicePrefs.dialogsSoundVolume,
+          devicePrefs.generalSoundVolume,
+          devicePrefs.soundEffectsSoundVolume,
+        );
     context.read<AudioCubit>().playBackgroundSound(
           Assets.music.background.mainMenuLoop,
-          devicePrefs.soundEffectsSoundVolume,
-          devicePrefs.generalSoundVolume,
         );
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
@@ -84,7 +88,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         );
-      }, 
+      },
     );
   }
 
