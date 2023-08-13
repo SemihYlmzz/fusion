@@ -7,6 +7,7 @@ import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:shared_constants/shared_constants.dart';
 
 import '../../../audio/audio_cubit.dart';
 import '../../../l10n/app_localizations.dart';
@@ -54,11 +55,8 @@ class _AppState extends State<App> with RouterMixin {
               );
             },
             supportedLocales: L10n.all,
-            locale: switch (devicePrefsState.devicePrefs.language) {
-              'tr' => const Locale('tr'),
-              'en' => const Locale('en'),
-              _ => null,
-            },
+            locale: Localization
+                .languageCodeToLocale[devicePrefsState.devicePrefs.language],
 
             localizationsDelegates: const [
               ...AppLocalizations.localizationsDelegates,

@@ -24,6 +24,15 @@ class SettingsScreen extends StatelessWidget {
   static const double settingsCardWidth = 300;
   static const double settingsBoxHeight = 600;
   static const double settingsCardHeight = 570;
+
+  static const String languageCodeDefault = 'df';
+  static const String languageCodeEnglish = 'en';
+  static const String languageCodeTurkish = 'tr';
+
+  static const String languageDefault = 'Default';
+  static const String languageEnglish = 'English';
+  static const String languageTurkish = 'Türkçe';
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
@@ -264,7 +273,7 @@ class SettingsScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     _buildLanguageOption(
-                      'Default',
+                      languageDefault,
                       currentDevicePrefs.language,
                       currentDevicePrefs.isHapticsOn,
                       () {
@@ -272,7 +281,7 @@ class SettingsScreen extends StatelessWidget {
                         context.read<DevicePrefsBloc>().add(
                               UpdateDevicePrefs(
                                 currentDevicePrefs.copyWith(
-                                  language: 'Default',
+                                  language: languageCodeDefault,
                                 ),
                               ),
                             );
@@ -281,7 +290,7 @@ class SettingsScreen extends StatelessWidget {
                     const Divider(),
 
                     _buildLanguageOption(
-                      'English',
+                      languageEnglish,
                       currentDevicePrefs.language,
                       currentDevicePrefs.isHapticsOn,
                       () {
@@ -289,7 +298,7 @@ class SettingsScreen extends StatelessWidget {
                         context.read<DevicePrefsBloc>().add(
                               UpdateDevicePrefs(
                                 currentDevicePrefs.copyWith(
-                                  language: 'en',
+                                  language: languageCodeEnglish,
                                 ),
                               ),
                             );
@@ -298,7 +307,7 @@ class SettingsScreen extends StatelessWidget {
                     const Divider(),
 
                     _buildLanguageOption(
-                      'Türkçe',
+                      languageTurkish,
                       currentDevicePrefs.language,
                       currentDevicePrefs.isHapticsOn,
                       () {
@@ -306,7 +315,7 @@ class SettingsScreen extends StatelessWidget {
                         context.read<DevicePrefsBloc>().add(
                               UpdateDevicePrefs(
                                 currentDevicePrefs.copyWith(
-                                  language: 'tr',
+                                  language: languageCodeTurkish,
                                 ),
                               ),
                             );
@@ -332,7 +341,7 @@ class SettingsScreen extends StatelessWidget {
   ) {
     return ListTile(
       title: Text(language),
-      trailing: language == selectedLanguage
+      trailing: Localization.languageNameToCode[language] == selectedLanguage
           ? const Icon(
               Icons.check,
               color: Colors.white,
