@@ -1,3 +1,4 @@
+import 'package:fusion/audio/audio_cubit_injection.dart';
 import 'package:fusion/repositories/auth_repository/auth_injection.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc_injection.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc_injection.dart';
@@ -24,4 +25,8 @@ Future<void> initializeDependencies() async {
   UserBlocInjection.inject();
   // -- Device Preferences
   DevicePrefsBlocInjection.inject();
+
+  // Cubits
+  // -- Audio Cubit
+  AudioCubitInjection.inject();
 }

@@ -26,7 +26,7 @@ class _AppState extends State<App> with RouterMixin {
     final authBloc = getIt<AuthBloc>();
     final userBloc = getIt<UserBloc>();
     final devicePrefsBloc = getIt<DevicePrefsBloc>();
-    final audioCubit = AudioCubit();
+    final audioCubit = getIt<AudioCubit>();
 
     return MultiBlocProvider(
       providers: [

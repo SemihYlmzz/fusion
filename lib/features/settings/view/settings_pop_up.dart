@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -25,25 +22,17 @@ class SettingsScreen extends StatelessWidget {
   static const double settingsBoxHeight = 600;
   static const double settingsCardHeight = 570;
 
-  static const String languageCodeDefault = 'df';
-  static const String languageCodeEnglish = 'en';
-  static const String languageCodeTurkish = 'tr';
-
-  static const String languageDefault = 'Default';
-  static const String languageEnglish = 'English';
-  static const String languageTurkish = 'Türkçe';
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
-      builder: (context, state) {
+      builder: (context, devicePrefsState) {
         context.read<AudioCubit>().setBackgroundMusicVolume(
-              state.devicePrefs.backGroundSoundVolume,
-              state.devicePrefs.generalSoundVolume,
+              devicePrefsState.devicePrefs.backGroundSoundVolume,
+              devicePrefsState.devicePrefs.generalSoundVolume,
             );
         context.read<AudioCubit>().setSoundEffectsVolume(
-              state.devicePrefs.soundEffectsSoundVolume,
-              state.devicePrefs.generalSoundVolume,
+              devicePrefsState.devicePrefs.soundEffectsSoundVolume,
+              devicePrefsState.devicePrefs.generalSoundVolume,
             );
         return ClosableAnimatedScaffold(
           child: SizedBox(
@@ -85,146 +74,39 @@ class SettingsScreen extends StatelessWidget {
                                 const SizedBox(height: 8),
                                 Column(
                                   children: [
-                                    SettingsVolumeSlider(
-                                      volumeLevel:
-                                          state.devicePrefs.generalSoundVolume,
-                                      volumeText:
-                                          AppLocalizations.of(context).general,
-                                      onChanged: (newValue) {
-                                        context.read<DevicePrefsBloc>().add(
-                                              UpdateDevicePrefs(
-                                                state.devicePrefs.copyWith(
-                                                  generalSoundVolume: newValue,
-                                                ),
-                                              ),
-                                            );
-                                      },
+                                    GeneralSoundVolumeChanger(
+                                      devicePrefs: devicePrefsState.devicePrefs,
                                     ),
-                                    SettingsVolumeSlider(
-                                      volumeLevel: state
-                                          .devicePrefs.backGroundSoundVolume,
-                                      volumeText: AppLocalizations.of(context)
-                                          .backgroundMusic,
-                                      onChanged: (newValue) {
-                                        context.read<DevicePrefsBloc>().add(
-                                              UpdateDevicePrefs(
-                                                state.devicePrefs.copyWith(
-                                                  backGroundSoundVolume:
-                                                      newValue,
-                                                ),
-                                              ),
-                                            );
-                                      },
+                                    BackgroundMusicVolumeChanger(
+                                      devicePrefs: devicePrefsState.devicePrefs,
                                     ),
-                                    SettingsVolumeSlider(
-                                      volumeText: AppLocalizations.of(context)
-                                          .soundEffects,
-                                      volumeLevel: state
-                                          .devicePrefs.soundEffectsSoundVolume,
-                                      onChanged: (newValue) {
-                                        context.read<DevicePrefsBloc>().add(
-                                              UpdateDevicePrefs(
-                                                state.devicePrefs.copyWith(
-                                                  soundEffectsSoundVolume:
-                                                      newValue,
-                                                ),
-                                              ),
-                                            );
-                                      },
+                                    SoundEffectsVolumeChanger(
+                                      devicePrefs: devicePrefsState.devicePrefs,
                                     ),
-                                    SettingsVolumeSlider(
-                                      volumeText: AppLocalizations.of(context)
-                                          .dialogues,
-                                      volumeLevel:
-                                          state.devicePrefs.dialogsSoundVolume,
-                                      onChanged: (newValue) {
-                                        context.read<DevicePrefsBloc>().add(
-                                              UpdateDevicePrefs(
-                                                state.devicePrefs.copyWith(
-                                                  dialogsSoundVolume: newValue,
-                                                ),
-                                              ),
-                                            );
-                                      },
+                                    DialoguesVolumeChanger(
+                                      devicePrefs: devicePrefsState.devicePrefs,
                                     ),
                                   ],
                                 ),
-                                SettingsBorderedButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).haptics,
-                                  buttonWidget: StatefulBuilder(
-                                    builder: (context, setstate) {
-                                      return Switch.adaptive(
-                                        value: state.devicePrefs.isHapticsOn,
-                                        onChanged: (newValue) {
-                                          context.read<DevicePrefsBloc>().add(
-                                                UpdateDevicePrefs(
-                                                  state.devicePrefs.copyWith(
-                                                    isHapticsOn: newValue,
-                                                  ),
-                                                ),
-                                              );
-                                        },
-                                      );
-                                    },
-                                  ),
+                                HapticsPreferencesChanger(
+                                  devicePrefs: devicePrefsState.devicePrefs,
                                 ),
-                                SettingsBorderedButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).language,
-                                  onTap: () => _showLanguageSelectionDialog(
-                                    context,
-                                    state.devicePrefs,
-                                  ),
-                                  buttonWidget: Text(
-                                    AppLocalizations.of(context)
-                                        .currentLanguage,
-                                  ),
+                                ChangeLanguageButton(
+                                  devicePrefs: devicePrefsState.devicePrefs,
                                 ),
-                                SettingsBorderedButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).username,
-                                  buttonWidget: const Text('CL4Y'),
-                                ),
+                                const UsernameChanger(),
                                 SettingsBorderedButton(
                                   buttonText:
                                       AppLocalizations.of(context).account,
                                   buttonWidget: const Text('Google'),
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    context.read<AuthBloc>().add(
-                                          const AuthLogoutRequested(),
-                                        );
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context).signOut,
-                                  ),
-                                ),
-                                SettingsThickButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).reportABug,
-                                ),
-                                SettingsThickButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).sendUsAMail,
-                                ),
-                                SettingsThickButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).privacy,
-                                ),
-                                SettingsThickButton(
-                                  buttonText: AppLocalizations.of(context)
-                                      .termsOfService,
-                                ),
-                                SettingsThickButton(
-                                  buttonText:
-                                      AppLocalizations.of(context).credits,
-                                ),
-                                SettingsThickButton(
-                                  buttonText: AppLocalizations.of(context)
-                                      .deleteAccount,
-                                ),
+                                const SignOutButton(),
+                                const ReportBugButton(),
+                                const SendMailButton(),
+                                const ShowPrivacyButton(),
+                                const ShowTermsButton(),
+                                const ShowCreditsButton(),
+                                const DeleteAccountButton(),
                                 const SizedBox(height: 12),
                                 const Text('v1.0.0'),
                                 const SizedBox(height: 20),
@@ -244,114 +126,6 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
-  }
-
-  Future<void> _showLanguageSelectionDialog(
-    BuildContext context,
-    DevicePrefs currentDevicePrefs,
-  ) async {
-    await showDialog<String>(
-      context: context,
-      builder: (BuildContext context) {
-        HapticFeedback.mediumImpact();
-        return AlertDialog(
-          contentPadding: SharedPaddings.all8,
-          content: Container(
-            constraints: const BoxConstraints(
-              maxHeight: 320,
-            ),
-            child: RawScrollbar(
-              thumbVisibility: true,
-              interactive: false,
-              thumbColor: Colors.redAccent,
-              radius: const Radius.circular(20),
-              thickness: 5,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    _buildLanguageOption(
-                      languageDefault,
-                      currentDevicePrefs.language,
-                      currentDevicePrefs.isHapticsOn,
-                      () {
-                        Navigator.of(context).pop();
-                        context.read<DevicePrefsBloc>().add(
-                              UpdateDevicePrefs(
-                                currentDevicePrefs.copyWith(
-                                  language: languageCodeDefault,
-                                ),
-                              ),
-                            );
-                      },
-                    ),
-                    const Divider(),
-
-                    _buildLanguageOption(
-                      languageEnglish,
-                      currentDevicePrefs.language,
-                      currentDevicePrefs.isHapticsOn,
-                      () {
-                        Navigator.of(context).pop();
-                        context.read<DevicePrefsBloc>().add(
-                              UpdateDevicePrefs(
-                                currentDevicePrefs.copyWith(
-                                  language: languageCodeEnglish,
-                                ),
-                              ),
-                            );
-                      },
-                    ),
-                    const Divider(),
-
-                    _buildLanguageOption(
-                      languageTurkish,
-                      currentDevicePrefs.language,
-                      currentDevicePrefs.isHapticsOn,
-                      () {
-                        Navigator.of(context).pop();
-                        context.read<DevicePrefsBloc>().add(
-                              UpdateDevicePrefs(
-                                currentDevicePrefs.copyWith(
-                                  language: languageCodeTurkish,
-                                ),
-                              ),
-                            );
-                      },
-                    ),
-
-                    // Diğer dilleri benzer şekilde ekleyebilirsiniz.
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLanguageOption(
-    String language,
-    String selectedLanguage,
-    bool isHapticsOn,
-    VoidCallback onPressed,
-  ) {
-    return ListTile(
-      title: Text(language),
-      trailing: Localization.languageNameToCode[language] == selectedLanguage
-          ? const Icon(
-              Icons.check,
-              color: Colors.white,
-            )
-          : null,
-      onTap: () {
-        if (isHapticsOn) {
-          HapticFeedback.mediumImpact();
-        }
-        onPressed();
       },
     );
   }
