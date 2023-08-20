@@ -81,6 +81,7 @@ dependencies:
   intl: ^0.18.0
   equatable: ^2.0.5
   fpdart: ^0.6.0
+  profanity_filter: ^2.0.0
 
 dev_dependencies:
   flutter_test:

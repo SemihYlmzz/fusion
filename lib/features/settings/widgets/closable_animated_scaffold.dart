@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class ClosableAnimatedScaffold extends StatelessWidget {
-  const ClosableAnimatedScaffold({required this.child, super.key});
+  const ClosableAnimatedScaffold({
+    required this.child,
+    this.backgroundColor,
+    super.key,
+  });
   final Widget child;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class ClosableAnimatedScaffold extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: backgroundColor ?? Colors.transparent,
         body: GestureDetector(
           onTap: () {},
           child: Center(
