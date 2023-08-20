@@ -92,3 +92,37 @@ exports.createUserDocument = functions.auth.user().onCreate((user) => {
     "deck": deck,
   });
 });
+
+exports.changeUsername = functions.https.onRequest(async (req, res) => {
+  try {
+    const newUsername = req.body.newUsername;
+    const usernameExists = await admin.firestore().collection("users")
+        .where("username", "==", newUsername)
+        .get();
+
+    if (newUsername.length < 3) {
+      return res.status(400).send("Username too short.");
+    }
+    if (newUsername.length > 20) {
+      return res.status(400).send("Username too long.");
+    }
+    if (!/^[a-zA-Z0-9]+$/.test(newUsername)) {
+      return res.status(400).send("Username has special characters.");
+    }
+
+    if (!usernameExists.empty) {
+      return res.status(400).send("Username not unique.");
+    }
+    const userId = req.body.userId;
+    const userRef = admin.firestore().collection("users").doc(userId);
+
+    await userRef.update({
+      username: newUsername,
+    });
+
+    return res.status(200).send("Username succesfuly changed.");
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Error while updating username.");
+  }
+});
