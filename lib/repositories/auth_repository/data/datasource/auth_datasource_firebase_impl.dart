@@ -205,7 +205,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
-        _facebookAuth.logOut()
+        _facebookAuth.logOut(),
       ]);
       return const Right(unit);
     } catch (e) {

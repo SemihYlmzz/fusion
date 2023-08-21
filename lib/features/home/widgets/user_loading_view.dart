@@ -26,7 +26,7 @@ class _UserLoadingViewState extends State<UserLoadingView> {
     timer = Timer.periodic(
       SharedDurations.ms1500,
       (timer) {
-        context.read<UserBloc>().add(UserReadWithUidRequested(widget.uid));
+        context.read<UserBloc>().add(ReadWithUidRequested(widget.uid));
       },
     );
   }

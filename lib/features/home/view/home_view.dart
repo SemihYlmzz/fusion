@@ -85,7 +85,7 @@ class HomeView extends StatelessWidget {
                 ),
                 PlayButton(
                   devicePrefs: devicePrefs,
-                )
+                ),
               ],
             ),
           ],
@@ -106,4 +106,5 @@ class HomeView extends StatelessWidget {
       },
     );
   }
+  
 }

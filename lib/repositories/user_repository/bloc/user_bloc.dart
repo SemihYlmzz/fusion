@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:fusion/repositories/user_repository/domain/usecase/params/user_name_params.dart';
+import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
 
 import '../../../utils/failure.dart';
 import '../domain/entities/user.dart';
@@ -23,33 +25,37 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     required this.readUserWithUidUseCase,
     required this.watchUserWithUidUseCase,
     required this.updateUserWithUidUseCase,
+    required this.changeUsernameUseCase,
     required this.deleteUserUseCase,
   }) : super(const UserEmpty()) {
-    on<UserReadWithUidRequested>(onUserReadWithUidRequested);
-    on<UserWatchRequested>(onUserWatchRequested);
-    on<UserUpdateRequested>(onUserUpdateRequested);
-    on<UserDeleteRequested>(onUserDeleteRequested);
+    on<ReadWithUidRequested>(onReadWithUidRequested);
+    on<WatchWithUidRequested>(onUserWatchRequested);
+    on<UpdateRequested>(onUserUpdateRequested);
+    on<ChangeUsernameRequested>(onUsernameChangeRequested);
+    on<DeleteRequested>(onUserDeleteRequested);
   }
   final CreateUserUseCase createUserUseCase;
   final ReadUserWithUidUseCase readUserWithUidUseCase;
   final WatchUserWithUidUseCase watchUserWithUidUseCase;
   final UpdateUserWithUidUseCase updateUserWithUidUseCase;
+  final ChangeUsernameUseCase changeUsernameUseCase;
   final DeleteUserUseCase deleteUserUseCase;
 
   StreamSubscription<Either<Failure, User>>? _userSubscription;
 
-  Future<void> onUserReadWithUidRequested(
-    UserReadWithUidRequested event,
+  Future<void> onReadWithUidRequested(
+    ReadWithUidRequested event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserLoading());
-    final tryReadUser =
-        await readUserWithUidUseCase.execute(UidParams(uid: event.uid));
+    emit(const UserInitializing());
+    final tryReadUser = await readUserWithUidUseCase.execute(
+      UidParams(uid: event.uid),
+    );
 
     tryReadUser.fold(
       (failure) {
         if (failure.message == 'No document found with the specified uid.') {
-          emit(const UserLoading());
+          emit(UserLoading(user: state.user));
         } else {
           emit(UserEmpty(errorMessage: failure.message));
         }
@@ -61,14 +67,14 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
   }
 
   Future<void> onUserWatchRequested(
-    UserWatchRequested event,
+    WatchWithUidRequested event,
     Emitter<UserState> emit,
   ) async {
     if (_userSubscription != null) {
       return;
     }
 
-    emit(const UserLoading());
+    emit(UserLoading(user: state.user));
 
     _userSubscription = watchUserWithUidUseCase
         .execute(UidParams(uid: event.uid))
@@ -90,11 +96,11 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
   }
 
   Future<void> onUserUpdateRequested(
-    UserUpdateRequested event,
+    UpdateRequested event,
     Emitter<UserState> emit,
   ) async {
     final oldState = state;
-    emit(const UserLoading());
+    emit(UserLoading(user: state.user));
     final tryUpdateUser = await updateUserWithUidUseCase.execute(event.user);
     tryUpdateUser.fold(
       (failure) => emit(
@@ -107,12 +113,36 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     );
   }
 
-  Future<void> onUserDeleteRequested(
-    UserDeleteRequested event,
+  Future<void> onUsernameChangeRequested(
+    ChangeUsernameRequested event,
     Emitter<UserState> emit,
   ) async {
     final oldState = state;
-    emit(const UserLoading());
+    emit(UserLoading(user: state.user));
+    final tryUpdateUser = await changeUsernameUseCase.execute(
+      UsernameParams(username: event.newUsername),
+    );
+    tryUpdateUser.fold(
+      (failure) => emit(
+        UserHasData(
+          user: oldState.user,
+          errorMessage: failure.message,
+        ),
+      ),
+      (userEntity) => emit(
+        UserHasData(
+          user: oldState.user?.copyWith(username: event.newUsername),
+        ),
+      ),
+    );
+  }
+
+  Future<void> onUserDeleteRequested(
+    DeleteRequested event,
+    Emitter<UserState> emit,
+  ) async {
+    final oldState = state;
+    emit(UserLoading(user: state.user));
     final tryTest = await deleteUserUseCase.execute(UidParams(uid: event.uid));
     tryTest.fold(
       (failure) => emit(
@@ -127,6 +157,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
 
   @override
   Future<void> close() {
+    _userSubscription?.cancel();
     _userSubscription = null;
     return super.close();
   }

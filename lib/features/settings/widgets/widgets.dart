@@ -4,6 +4,7 @@ export 'closable_animated_scaffold.dart';
 export 'close_button.dart';
 export 'delete_account_button.dart';
 export 'dialogues_volume_changer.dart';
+export 'enter_name_pop_up.dart';
 export 'general_sound_volume_changer.dart';
 export 'haptics_preferences_changer.dart';
 export 'report_bug_button.dart';

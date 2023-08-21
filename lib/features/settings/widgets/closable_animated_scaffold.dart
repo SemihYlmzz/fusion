@@ -28,7 +28,7 @@ class ClosableAnimatedScaffold extends StatelessWidget {
                   begin: Offset(0.85, 0.85),
                   end: Offset(1, 1),
                 ),
-                ShimmerEffect()
+                ShimmerEffect(),
               ],
               child: child,
             ),

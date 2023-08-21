@@ -18,9 +18,12 @@ abstract class UserState extends Equatable {
 class UserEmpty extends UserState {
   const UserEmpty({super.user, super.errorMessage});
 }
+class UserInitializing extends UserState {
+  const UserInitializing({super.user,super.errorMessage});
+}
 
 class UserLoading extends UserState {
-  const UserLoading({super.user, super.errorMessage});
+  const UserLoading({required super.user, super.errorMessage});
 }
 
 class UserHasData extends UserState {

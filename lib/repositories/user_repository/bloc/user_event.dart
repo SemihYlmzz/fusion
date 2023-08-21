@@ -4,26 +4,30 @@ sealed class UserEvent {
   const UserEvent();
 }
 
-
-final class UserReadWithUidRequested extends UserEvent {
-  const UserReadWithUidRequested(this.uid);
+final class ReadWithUidRequested extends UserEvent {
+  const ReadWithUidRequested(this.uid);
   final String uid;
 }
 
-final class UserWatchRequested extends UserEvent {
-  const UserWatchRequested(this.uid);
+final class WatchWithUidRequested extends UserEvent {
+  const WatchWithUidRequested(this.uid);
 
   final String uid;
 }
 
-final class UserUpdateRequested extends UserEvent {
-  const UserUpdateRequested(this.user);
+final class UpdateRequested extends UserEvent {
+  const UpdateRequested(this.user);
 
   final User user;
 }
 
-final class UserDeleteRequested extends UserEvent {
-  const UserDeleteRequested(this.uid);
+final class ChangeUsernameRequested extends UserEvent {
+  const ChangeUsernameRequested(this.newUsername);
+  final String newUsername;
+}
+
+final class DeleteRequested extends UserEvent {
+  const DeleteRequested(this.uid);
 
   final String uid;
 }

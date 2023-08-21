@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
 import 'package:fusion/utils/typedefs.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../utils/failure.dart';
 import '../../domain/entities/user.dart';
@@ -109,6 +113,41 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       return Left(
         Failure('Something went wrong. Error code : ${exception.hashCode}'),
       );
+    }
+  }
+
+  @override
+  FutureUnit changeUsername({required String newUsername}) async {
+    const cloudFunctionUrl =
+        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/changeUsername';
+
+    // Firebase Authentication'ı kullanarak kullanıcı kimliğini alma
+    final user = auth.FirebaseAuth.instance.currentUser;
+    final userId = user?.uid; // Kullanıcı kimliği
+    if (userId == null) {
+      return Left(Failure('No current user detected.'));
+    }
+    try {
+      final response = await http.post(
+        Uri.parse(cloudFunctionUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'newUsername': newUsername,
+          'userId': userId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(unit);
+      } else if (response.statusCode == 400) {
+        return Left(Failure(response.body));
+      } else {
+        return Left(Failure('Error occured while changing username.'));
+      }
+    } catch (e) {
+      return Left(Failure('Error occured while changing username.'));
     }
   }
 

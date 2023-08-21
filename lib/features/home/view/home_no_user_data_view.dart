@@ -4,7 +4,7 @@ import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 class HomeNoUserDataView extends StatelessWidget {
-  const HomeNoUserDataView({required this.uid,super.key});
+  const HomeNoUserDataView({required this.uid, super.key});
   final String uid;
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HomeNoUserDataView extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.read<UserBloc>().add(UserReadWithUidRequested(uid));
+              context.read<UserBloc>().add(ReadWithUidRequested(uid));
             },
             child: const Text('Please try again.'),
           ),

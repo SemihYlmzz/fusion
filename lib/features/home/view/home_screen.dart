@@ -29,11 +29,12 @@ class HomeScreen extends StatelessWidget {
           builder: (context, authState) {
             return BlocBuilder<UserBloc, UserState>(
               builder: (context, userState) {
-                if (userState is UserHasData) {
+                if (userState is UserHasData || userState is UserLoading) {
                   return BlocBuilder<AudioCubit, AudioState>(
                     builder: (context, audioState) {
                       return LoadingScreen(
-                        isLoading: authState is AuthLoading,
+                        isLoading: authState is AuthLoading ||
+                            userState is UserLoading,
                         size: MediaQuery.of(context).size,
                         child: BaseScaffold(
                           safeArea: true,
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     },
                   );
                 }
-                if (userState is UserLoading) {
+                if (userState is UserInitializing) {
                   return UserLoadingView(uid: authState.authEntity.id);
                 }
                 if (userState is UserEmpty) {

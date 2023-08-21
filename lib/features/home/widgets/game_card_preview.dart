@@ -42,7 +42,7 @@ class GameCardPreview extends StatelessWidget {
                           Element.water => Colors.blueAccent,
                           Element.earth => Colors.brown.shade400,
                         },
-                      )
+                      ),
                     ],
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(

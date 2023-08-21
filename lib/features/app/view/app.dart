@@ -76,7 +76,7 @@ class _AppState extends State<App> with RouterMixin {
         if (state.errorMessage != null) {
           _showSnackBar(context, state.errorMessage!);
         } else if (state is AuthAuthenticated) {
-          userBloc.add(UserReadWithUidRequested(state.authEntity.id));
+          userBloc.add(ReadWithUidRequested(state.authEntity.id));
         }
       },
     );
@@ -92,13 +92,17 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
-  void _showSnackBar(BuildContext context, String errorMessage) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-        ),
-      );
+  Future<void> _showSnackBar(BuildContext context, String errorMessage) async {
+    await Future<void>.delayed(SharedDurations.ms200);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+          ),
+        );
+    }
   }
 }

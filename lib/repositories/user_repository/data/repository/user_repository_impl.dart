@@ -38,6 +38,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  FutureUnit changeUsername({required String newUsername}) {
+    return _userDatasource.changeUsername(newUsername: newUsername);
+  }
+
+  @override
   FutureEither<User> updateUserWithUid({
     required User updatedUser,
   }) async {
