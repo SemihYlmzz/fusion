@@ -135,6 +135,12 @@ abstract class AppLocalizations {
   /// **'PLAY'**
   String get play;
 
+  /// Done word.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get done;
+
   /// Simple Sign Out text.
   ///
   /// In en, this message translates to:
@@ -236,6 +242,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'DELETE ACCOUNT'**
   String get deleteAccount;
+
+  /// Enter a Username text in all langs.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Username'**
+  String get enterUsername;
+
+  /// NOT UNIQUE word in all langs.
+  ///
+  /// In en, this message translates to:
+  /// **'NOT UNIQUE'**
+  String get notUnique;
+
+  /// Error for short username usage.
+  ///
+  /// In en, this message translates to:
+  /// **'Username too short'**
+  String get usernameTooShortError;
+
+  /// Error for long username usage.
+  ///
+  /// In en, this message translates to:
+  /// **'Username too long'**
+  String get usernameTooLongError;
+
+  /// Error for username contains special chars.
+  ///
+  /// In en, this message translates to:
+  /// **'No special characters.'**
+  String get usernameHasSpecialCharsError;
+
+  /// Profanity error for username.
+  ///
+  /// In en, this message translates to:
+  /// **'Has bad words.'**
+  String get usernameHasBadWordsError;
+
+  /// Simple warning telling username can be change oncea month.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change your name every 30 days.'**
+  String get usernameChangeLimitWarning;
 
   /// Ability description of Emberus GameCard
   ///

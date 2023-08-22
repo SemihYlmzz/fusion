@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/features/settings/widgets/widgets.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profanity_filter/profanity_filter.dart';
@@ -68,14 +69,14 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                       children: [
                         Text(
                           isAnimationPlaying > 0
-                              ? 'NOT UNIQUE'
-                              : 'ENTER A USERNAME',
+                              ? AppLocalizations.of(context).notUnique
+                              : AppLocalizations.of(context).enterUsername,
                           style: GoogleFonts.bangers(fontSize: 56),
                         ),
                         Padding(
                           padding: SharedPaddings.horizontal16,
                           child: GradientTextField(
-                            hintText: 'Username',
+                            hintText: AppLocalizations.of(context).username,
                             linearGradient: const LinearGradient(
                               colors: [
                                 Colors.orange,
@@ -86,23 +87,27 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                               final filter = ProfanityFilter();
 
                               if (newUsernameValue.length < 3) {
-                                errorText = 'Username too short';
+                                errorText = AppLocalizations.of(context)
+                                    .usernameTooShortError;
                                 setState(() {});
                                 return;
                               }
                               if (newUsernameValue.length > 20) {
-                                errorText = 'Username too long';
+                                errorText = AppLocalizations.of(context)
+                                    .usernameTooLongError;
                                 setState(() {});
                                 return;
                               }
                               if (!RegExp(r'^[a-zA-Z0-9]+$')
                                   .hasMatch(newUsernameValue)) {
-                                errorText = 'No special characters.';
+                                errorText = AppLocalizations.of(context)
+                                    .usernameHasSpecialCharsError;
                                 setState(() {});
                                 return;
                               }
                               if (filter.hasProfanity(newUsernameValue)) {
-                                errorText = 'Has bad words.';
+                                errorText = AppLocalizations.of(context)
+                                    .usernameHasBadWordsError;
                                 setState(() {});
                                 return;
                               }
@@ -115,14 +120,15 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                         ),
                         if (userState.user?.username != '' &&
                             userState.user?.username == oldUsername)
-                          const Text(
-                            'You can change your name once a month.',
+                          Text(
+                            AppLocalizations.of(context)
+                                .usernameChangeLimitWarning,
                           ),
                       ],
                     ),
                   ),
                   GradientButton(
-                    text: 'DONE',
+                    text: AppLocalizations.of(context).done,
                     onPressed: () async {
                       if (newUsername == '' && mounted) {
                         await popBack(context);
@@ -135,6 +141,7 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                         return;
                       }
                       if (errorText == null && newUsername != '') {
+                        FocusScope.of(context).unfocus();
                         context
                             .read<UserBloc>()
                             .add(ChangeUsernameRequested(newUsername));

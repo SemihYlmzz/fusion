@@ -26,6 +26,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get play => 'PLAY';
 
   @override
+  String get done => 'DONE';
+
+  @override
   String get signOut => 'Sign Out';
 
   @override
@@ -75,6 +78,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccount => 'DELETE ACCOUNT';
+
+  @override
+  String get enterUsername => 'Enter a Username';
+
+  @override
+  String get notUnique => 'NOT UNIQUE';
+
+  @override
+  String get usernameTooShortError => 'Username too short';
+
+  @override
+  String get usernameTooLongError => 'Username too long';
+
+  @override
+  String get usernameHasSpecialCharsError => 'No special characters.';
+
+  @override
+  String get usernameHasBadWordsError => 'Has bad words.';
+
+  @override
+  String get usernameChangeLimitWarning => 'You can change your name every 30 days.';
 
   @override
   String get emberusAbilityDescription => '2x the damage I take is reduced from the opponent\'s HP.';

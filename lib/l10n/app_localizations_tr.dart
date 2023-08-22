@@ -26,6 +26,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get play => 'OYNA';
 
   @override
+  String get done => 'BİTTİ';
+
+  @override
   String get signOut => 'Çıkış Yap';
 
   @override
@@ -75,6 +78,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get deleteAccount => 'HESABI SIL';
+
+  @override
+  String get enterUsername => 'Kullanıcı adı gir';
+
+  @override
+  String get notUnique => 'AD KULLANILIYOR';
+
+  @override
+  String get usernameTooShortError => 'Kullanıcı adı çok kısa';
+
+  @override
+  String get usernameTooLongError => 'Kullanıcı adı çok uzun';
+
+  @override
+  String get usernameHasSpecialCharsError => 'Özel harf içeriyor';
+
+  @override
+  String get usernameHasBadWordsError => 'Yasak kelime içeriyor';
+
+  @override
+  String get usernameChangeLimitWarning => 'Kullanıcı adını 30 günde 1 değiştirebilirsin.';
 
   @override
   String get emberusAbilityDescription => 'Aldığım hasarın 2 katı, rakibimin can puanından düşer.';

@@ -6,6 +6,7 @@
    "welcome": "Hos geldin",   
    "refreshDeck": "DESTEYI YENILE",
    "play": "OYNA",
+   "done": "BİTTİ",
    "signOut": "Çıkış Yap",
    "settings": "AYARLAR",
    "general": "Genel",
@@ -24,6 +25,14 @@
    "credits": "KATKIDA BULUNANLAR",
    "deleteAccount": "HESABI SIL",
 
+   "enterUsername": "Kullanıcı adı gir",
+   "notUnique": "AD KULLANILIYOR",
+   "usernameTooShortError": "Kullanıcı adı çok kısa",
+   "usernameTooLongError": "Kullanıcı adı çok uzun",
+   "usernameHasSpecialCharsError": "Özel harf içeriyor",
+   "usernameHasBadWordsError": "Yasak kelime içeriyor",
+   "usernameChangeLimitWarning": "Kullanıcı adını 30 günde 1 değiştirebilirsin.",
+    
     "emberusAbilityDescription": "Aldığım hasarın 2 katı, rakibimin can puanından düşer.",
     "ignisAbilityDescription": "Düşmanıma 2 kere vururum.",
     "blazeonAbilityDescription": "Gücüm 2'ye katlanır.",

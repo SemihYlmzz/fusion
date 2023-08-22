@@ -34,6 +34,11 @@
         "description": "Text for starting game."
     },
 
+   "done": "DONE",
+    "@done": {
+        "description": "Done word."
+    },
+
    "signOut": "Sign Out",
     "@signOut": {
         "description": "Simple Sign Out text."
@@ -119,6 +124,38 @@
         "description": "Delete Account Button text."
     },
 
+   "enterUsername": "Enter a Username",
+    "@enterUsername": {
+        "description": "Enter a Username text in all langs."
+    }, 
+
+   "notUnique": "NOT UNIQUE",
+    "@notUnique": {
+        "description": "NOT UNIQUE word in all langs."
+    },
+
+   "usernameTooShortError": "Username too short",
+    "@usernameTooShortError": {
+        "description": "Error for short username usage."
+    },
+   "usernameTooLongError": "Username too long",
+    "@usernameTooLongError": {
+        "description": "Error for long username usage."
+    },
+   "usernameHasSpecialCharsError": "No special characters.",
+    "@usernameHasSpecialCharsError": {
+        "description": "Error for username contains special chars."
+    },
+   "usernameHasBadWordsError": "Has bad words.",
+    "@usernameHasBadWordsError": {
+        "description": "Profanity error for username."
+    },
+
+   "usernameChangeLimitWarning": "You can change your name every 30 days.",
+    "@usernameChangeLimitWarning": {
+        "description": "Simple warning telling username can be change oncea month."
+    }, 
+    
     "emberusAbilityDescription": "2x the damage I take is reduced from the opponent's HP.",
     "@emberusAbilityDescription": {
         "description": "Ability description of Emberus GameCard"
