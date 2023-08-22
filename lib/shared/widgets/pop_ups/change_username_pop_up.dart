@@ -22,15 +22,25 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
   final nonUniqueUsernamesList = <String>[];
 
   double isAnimationPlaying = 0;
+
+  Future<void> popBack(BuildContext context) async {
+    await Future<void>.delayed(Duration.zero);
+    if (mounted) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
         if (oldUsername != null && oldUsername != userState.user!.username) {
-          Navigator.pop(context);
+          popBack(context);
         }
         oldUsername = userState.user!.username;
-
+        if (!nonUniqueUsernamesList.contains(oldUsername)) {
+          nonUniqueUsernamesList.add(oldUsername ?? '');
+        }
         return LoadingScreen(
           isLoading: userState is UserLoading,
           size: MediaQuery.of(context).size,
@@ -38,8 +48,9 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
             backgroundColor: Colors.black87,
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+                if (mounted) {
+                  Navigator.pop(context);
+                }
               },
               child: BaseColumn(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,6 +61,7 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                     target: isAnimationPlaying,
                     onComplete: (controller) {
                       isAnimationPlaying = 0;
+
                       setState(() {});
                     },
                     child: Column(
@@ -101,15 +113,19 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                             errorText: errorText,
                           ),
                         ),
+                        if (userState.user?.username != '' &&
+                            userState.user?.username == oldUsername)
+                          const Text(
+                            'You can change your name once a month.',
+                          ),
                       ],
                     ),
                   ),
                   GradientButton(
                     text: 'DONE',
                     onPressed: () async {
-                      if (newUsername == '') {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                      if (newUsername == '' && mounted) {
+                        await popBack(context);
                         return;
                       }
                       if (nonUniqueUsernamesList.contains(newUsername)) {

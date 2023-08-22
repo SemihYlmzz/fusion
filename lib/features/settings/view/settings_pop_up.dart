@@ -9,6 +9,7 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/shared.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
