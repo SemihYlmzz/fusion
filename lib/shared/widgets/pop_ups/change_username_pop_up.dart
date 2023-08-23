@@ -39,6 +39,7 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
           popBack(context);
         }
         oldUsername = userState.user!.username;
+
         if (!nonUniqueUsernamesList.contains(oldUsername)) {
           nonUniqueUsernamesList.add(oldUsername ?? '');
         }

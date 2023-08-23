@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
                             userState is UserLoading,
                         size: MediaQuery.of(context).size,
                         child: BaseScaffold(
+                        
                           safeArea: true,
                           body: HomeView(
                             uid: authState.authEntity.id,

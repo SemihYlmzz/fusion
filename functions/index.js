@@ -95,6 +95,13 @@ exports.createUserDocument = functions.auth.user().onCreate((user) => {
 
 exports.changeUsername = functions.https.onRequest(async (req, res) => {
   try {
+    const currentDate = new Date();
+    const oneMonthFromNow = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1, currentDate.getDate(),
+    );
+    const millisecondsSinceEpoch = oneMonthFromNow.getTime();
+
     const newUsername = req.body.newUsername;
     const usernameExists = await admin.firestore().collection("users")
         .where("username", "==", newUsername)
@@ -118,6 +125,7 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
 
     await userRef.update({
       username: newUsername,
+      accountnameChangeEligibilityDate: millisecondsSinceEpoch,
     });
 
     return res.status(200).send("Username succesfuly changed.");

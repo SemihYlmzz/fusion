@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
@@ -18,10 +19,18 @@ class UsernameChanger extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
+        final month = userState.user!.accountnameChangeEligibilityDate
+            .difference(DateTime.now());
         return SettingsBorderedButton(
           buttonText: AppLocalizations.of(context).username,
           buttonWidget: const Text('CL4Y'),
-          onTap: () => openEnterNamePopUp(context, userState),
+          onTap: () {
+            if (month.isNegative) {
+              openEnterNamePopUp(context, userState);
+            } else {
+              openCantRenamePopUp(context, userState);
+            }
+          },
         );
       },
     );
@@ -39,6 +48,22 @@ class UsernameChanger extends StatelessWidget {
         }
 
         return const EnterNamePopUp();
+      },
+    );
+  }
+
+  Future<void> openCantRenamePopUp(
+    BuildContext context,
+    UserState userState,
+  ) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        if (devicePrefs.isHapticsOn) {
+          HapticFeedback.heavyImpact();
+        }
+
+        return const CantRenamePopUp();
       },
     );
   }
