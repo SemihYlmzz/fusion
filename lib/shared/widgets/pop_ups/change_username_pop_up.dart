@@ -131,7 +131,11 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                   GradientButton(
                     text: AppLocalizations.of(context).done,
                     onPressed: () async {
-                      if (newUsername == '' && mounted) {
+                      final canChangeUsername = userState
+                          .user!.accountnameChangeEligibilityDate
+                          .isBefore(DateTime.now());
+                      if ((newUsername == '' || !canChangeUsername) &&
+                          mounted) {
                         await popBack(context);
                         return;
                       }

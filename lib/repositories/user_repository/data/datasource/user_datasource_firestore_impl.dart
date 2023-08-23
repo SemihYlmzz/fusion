@@ -120,22 +120,22 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   FutureUnit changeUsername({required String newUsername}) async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/changeUsername';
-
-    // Firebase Authentication'ı kullanarak kullanıcı kimliğini alma
     final user = auth.FirebaseAuth.instance.currentUser;
-    final userId = user?.uid; // Kullanıcı kimliği
-    if (userId == null) {
-      return Left(Failure('No current user detected.'));
-    }
+
     try {
+      if (user == null) {
+        return Left(Failure('Please sign in again.'));
+      }
+      final idToken = await user.getIdToken();
+      print(idToken);
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
         },
         body: jsonEncode({
           'newUsername': newUsername,
-          'userId': userId,
         }),
       );
 
@@ -147,7 +147,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         return Left(Failure('Error occured while changing username.'));
       }
     } catch (e) {
-      return Left(Failure('Error occured while changing username.'));
+      return Left(Failure('Error occured while changing username. $e'));
     }
   }
 

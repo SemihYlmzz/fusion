@@ -94,15 +94,19 @@ exports.createUserDocument = functions.auth.user().onCreate((user) => {
 });
 
 exports.changeUsername = functions.https.onRequest(async (req, res) => {
+  const idToken = req.header("Authorization").split("Bearer ")[1];
   try {
     const currentDate = new Date();
     const oneMonthFromNow = new Date(
         currentDate.getFullYear(),
         currentDate.getMonth() + 1, currentDate.getDate(),
+        currentDate.getHours(),
     );
     const millisecondsSinceEpoch = oneMonthFromNow.getTime();
 
     const newUsername = req.body.newUsername;
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
     const usernameExists = await admin.firestore().collection("users")
         .where("username", "==", newUsername)
         .get();
@@ -120,7 +124,9 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
     if (!usernameExists.empty) {
       return res.status(400).send("Username not unique.");
     }
-    const userId = req.body.userId;
+    if (userId == null) {
+      return res.status(400).send("No user detected.");
+    }
     const userRef = admin.firestore().collection("users").doc(userId);
 
     await userRef.update({
