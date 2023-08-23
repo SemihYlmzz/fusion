@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
@@ -9,12 +8,10 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../shared/shared.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
-    this.openUsername = false,
     super.key,
   });
   static const String path = '/settings';
@@ -24,33 +21,12 @@ class SettingsScreen extends StatelessWidget {
   static const double settingsCardWidth = 300;
   static const double settingsBoxHeight = 600;
   static const double settingsCardHeight = 570;
-  final bool openUsername;
 
-  Future<void> checkOpenUsername(
-    BuildContext context,
-    DevicePrefsState devicePrefsState,
-  ) async {
-    if (openUsername) {
-      await Future<void>.delayed(Duration.zero);
-      if (context.mounted) {
-        await showDialog<void>(
-          context: context,
-          builder: (context) {
-            if (devicePrefsState.devicePrefs.isHapticsOn) {
-              HapticFeedback.heavyImpact();
-            }
-            return const EnterNamePopUp();
-          },
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
       builder: (context, devicePrefsState) {
-        checkOpenUsername(context, devicePrefsState);
 
         context.read<AudioCubit>().setBackgroundMusicVolume(
               devicePrefsState.devicePrefs.backGroundSoundVolume,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:shared_constants/shared_constants.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../repositories/card_repository/domain/entities/card_entity.dart';
@@ -44,7 +45,7 @@ class GameCardPreview extends StatelessWidget {
                         },
                       ),
                     ],
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: SharedBorderRadius.circular8,
                     image: DecorationImage(
                       image: AssetImage(
                         gameCard.imagePath,
