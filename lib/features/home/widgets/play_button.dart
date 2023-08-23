@@ -24,6 +24,9 @@ class PlayButton extends StatelessWidget {
         return GradientButton(
           text: AppLocalizations.of(context).play,
           onPressed: () {
+            if (devicePrefs.isHapticsOn) {
+              HapticFeedback.heavyImpact();
+            }
             if (userState.user!.username == '') {
               openEnterNamePopUp(context);
               return;
@@ -31,9 +34,7 @@ class PlayButton extends StatelessWidget {
             context.read<AudioCubit>().playSoundEffect(
                   Assets.music.sfx.playButtonSfx,
                 );
-            if (devicePrefs.isHapticsOn) {
-              HapticFeedback.heavyImpact();
-            }
+            
           },
         );
       },
