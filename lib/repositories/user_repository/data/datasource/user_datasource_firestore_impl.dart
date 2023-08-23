@@ -127,7 +127,6 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         return Left(Failure('Please sign in again.'));
       }
       final idToken = await user.getIdToken();
-      print(idToken);
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {

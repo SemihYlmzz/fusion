@@ -1,4 +1,9 @@
 {
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Canceling Text"
+    },
+
     "currentLanguage": "English",
     "@currentLanguage": {
         "description": "The current Language"

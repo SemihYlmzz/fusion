@@ -112,9 +112,10 @@ class SettingsScreen extends StatelessWidget {
                                 const ShowTermsButton(),
                                 const ShowCreditsButton(),
                                 const DeleteAccountButton(),
-                                const SizedBox(height: 12),
-                                const Text('v1.0.0'),
-                                const SizedBox(height: 20),
+                                Padding(
+                                  padding: SharedPaddings.vertical20,
+                                  child: const Text('v1.0.0'),
+                                ),
                               ],
                             ),
                           ),
