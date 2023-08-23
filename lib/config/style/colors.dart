@@ -2,7 +2,6 @@ import 'package:flutter/painting.dart';
 
 class AppColor extends ColorSwatch<int> {
   const AppColor(super.primary, super.swatch);
-
   Color get shade200 => this[200]!;
   Color get shade300 => this[300]!;
   Color get shade400 => this[400]!;

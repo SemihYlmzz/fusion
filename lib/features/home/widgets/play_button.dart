@@ -25,7 +25,7 @@ class PlayButton extends StatelessWidget {
           text: AppLocalizations.of(context).play,
           onPressed: () {
             if (userState.user!.username == '') {
-              openSettingsPopUp(context);
+              openEnterNamePopUp(context);
               return;
             }
             context.read<AudioCubit>().playSoundEffect(
@@ -40,7 +40,7 @@ class PlayButton extends StatelessWidget {
     );
   }
 
-  Future<void> openSettingsPopUp(BuildContext context) async {
+  Future<void> openEnterNamePopUp(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (context) {
