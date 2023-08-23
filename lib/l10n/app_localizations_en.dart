@@ -86,6 +86,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notUnique => 'NOT UNIQUE';
 
   @override
+  String get cantRenameYet => 'Can\'t rename yet';
+
+  @override
+  String get hoursText => 'HOURS';
+
+  @override
+  String get youShouldWait => 'You should wait';
+
+  @override
   String get usernameTooShortError => 'Username too short';
 
   @override

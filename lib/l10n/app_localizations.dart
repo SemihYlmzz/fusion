@@ -255,6 +255,24 @@ abstract class AppLocalizations {
   /// **'NOT UNIQUE'**
   String get notUnique;
 
+  /// Cant rename yet text in all langs.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t rename yet'**
+  String get cantRenameYet;
+
+  /// HOURS text in all langs
+  ///
+  /// In en, this message translates to:
+  /// **'HOURS'**
+  String get hoursText;
+
+  /// You should wait text in all langs
+  ///
+  /// In en, this message translates to:
+  /// **'You should wait'**
+  String get youShouldWait;
+
   /// Error for short username usage.
   ///
   /// In en, this message translates to:

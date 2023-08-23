@@ -86,6 +86,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notUnique => 'AD KULLANILIYOR';
 
   @override
+  String get cantRenameYet => 'Henüz erken';
+
+  @override
+  String get hoursText => 'SAAT';
+
+  @override
+  String get youShouldWait => 'Beklemelisin';
+
+  @override
   String get usernameTooShortError => 'Kullanıcı adı çok kısa';
 
   @override

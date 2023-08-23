@@ -32,7 +32,10 @@
    "usernameHasSpecialCharsError": "Özel harf içeriyor",
    "usernameHasBadWordsError": "Yasak kelime içeriyor",
    "usernameChangeLimitWarning": "Kullanıcı adını 30 günde 1 değiştirebilirsin.",
-    
+   "cantRenameYet": "Henüz erken",
+   "hoursText": "SAAT",
+   "youShouldWait": "Beklemelisin",
+
     "emberusAbilityDescription": "Aldığım hasarın 2 katı, rakibimin can puanından düşer.",
     "ignisAbilityDescription": "Düşmanıma 2 kere vururum.",
     "blazeonAbilityDescription": "Gücüm 2'ye katlanır.",

@@ -51,21 +51,34 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                   child: Column(
                     children: [
                       Text(
-                        "Can't rename yet",
+                        AppLocalizations.of(context).cantRenameYet,
                         style: GoogleFonts.bangers(fontSize: 40),
                       ),
                       const SizedBox(height: 32),
-                      Text(
-                        '${month.inHours} HOURS',
-                        style: const TextStyle(
-                          fontSize: 28,
-                          color: Colors.redAccent,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${month.inHours}',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            AppLocalizations.of(context).hoursText,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 32),
-                      const Text(
-                        'You should wait',
-                        style: TextStyle(fontSize: 28),
+                      Text(
+                        AppLocalizations.of(context).youShouldWait,
+                        style: const TextStyle(fontSize: 28),
                       ),
                     ],
                   ),

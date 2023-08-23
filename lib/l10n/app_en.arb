@@ -134,6 +134,19 @@
         "description": "NOT UNIQUE word in all langs."
     },
 
+   "cantRenameYet": "Can't rename yet",
+    "@cantRenameYet": {
+        "description": "Cant rename yet text in all langs."
+    },
+   "hoursText": "HOURS",
+    "@hoursText": {
+        "description": "HOURS text in all langs"
+    },
+   "youShouldWait": "You should wait",
+    "@youShouldWait": {
+        "description": "You should wait text in all langs"
+    },
+    
    "usernameTooShortError": "Username too short",
     "@usernameTooShortError": {
         "description": "Error for short username usage."
