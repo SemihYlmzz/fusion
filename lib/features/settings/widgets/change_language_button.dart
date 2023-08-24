@@ -39,7 +39,9 @@ class ChangeLanguageButton extends StatelessWidget {
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
-        HapticFeedback.mediumImpact();
+        if (devicePrefs.isHapticsOn) {
+          HapticFeedback.mediumImpact();
+        }
         return AlertDialog(
           contentPadding: SharedPaddings.all8,
           content: Container(
