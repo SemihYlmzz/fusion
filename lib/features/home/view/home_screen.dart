@@ -8,7 +8,7 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
-import '../widgets/user_loading_view.dart';
+import 'user_loading_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

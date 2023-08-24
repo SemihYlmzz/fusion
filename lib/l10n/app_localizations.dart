@@ -93,6 +93,12 @@ abstract class AppLocalizations {
     Locale('tr')
   ];
 
+  /// Canceling Text
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
   /// The current Language
   ///
   /// In en, this message translates to:

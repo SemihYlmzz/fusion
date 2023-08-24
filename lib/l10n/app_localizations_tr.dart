@@ -5,6 +5,9 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
+  String get cancel => 'İptal';
+
+  @override
   String get currentLanguage => 'Türkçe';
 
   @override
