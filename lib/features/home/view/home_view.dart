@@ -46,6 +46,9 @@ class HomeView extends StatelessWidget {
                     context.read<AudioCubit>().playSoundEffect(
                           Assets.music.sfx.settingsButtonSfx,
                         );
+                    if (devicePrefs.isHapticsOn) {
+                      HapticFeedback.heavyImpact();
+                    }
                     openSettingsPopUp(context);
                   },
                   iconSize: 44,
@@ -94,17 +97,12 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Future<void> openSettingsPopUp(BuildContext context) async {
+  Future<void> openSettingsPopUp(BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) {
-        if (devicePrefs.isHapticsOn) {
-          HapticFeedback.heavyImpact();
-        }
-
         return const SettingsScreen();
       },
     );
   }
-  
 }
