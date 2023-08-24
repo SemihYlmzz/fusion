@@ -131,7 +131,12 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
       ),
       (userEntity) => emit(
         UserHasData(
-          user: oldState.user?.copyWith(username: event.newUsername),
+          user: oldState.user?.copyWith(
+            username: event.newUsername,
+            accountnameChangeEligibilityDate: DateTime.now().add(
+              const Duration(days: 30),
+            ),
+          ),
         ),
       ),
     );

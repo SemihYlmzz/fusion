@@ -103,6 +103,7 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
         currentDate.getHours(),
     );
     const millisecondsSinceEpoch = oneMonthFromNow.getTime();
+    const currentMilliseconds = new Date().getTime();
 
     const newUsername = req.body.newUsername;
     const decodedToken = await admin.auth().verifyIdToken(idToken);
@@ -110,7 +111,9 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
     const usernameExists = await admin.firestore().collection("users")
         .where("username", "==", newUsername)
         .get();
-
+    const currentUserData = await admin.firestore().collection("users")
+        .doc(userId)
+        .get();
     if (newUsername.length < 3) {
       return res.status(400).send("Username too short.");
     }
@@ -126,6 +129,13 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
     }
     if (userId == null) {
       return res.status(400).send("No user detected.");
+    }
+    const accountnameChangeEligibilityDate = currentUserData
+        .data()
+        .accountnameChangeEligibilityDate;
+    if (accountnameChangeEligibilityDate &&
+        accountnameChangeEligibilityDate > currentMilliseconds) {
+      return res.status(400).send("Too early to change username.");
     }
     const userRef = admin.firestore().collection("users").doc(userId);
 
