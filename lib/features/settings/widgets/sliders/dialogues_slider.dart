@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'settings_volume_slider.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'base_slider.dart';
 
-class DialoguesVolumeChanger extends StatefulWidget {
-  const DialoguesVolumeChanger({
+class DialoguesSlider extends StatefulWidget {
+  const DialoguesSlider({
     required this.devicePrefs,
     super.key,
   });
   final DevicePrefs devicePrefs;
 
   @override
-  State<DialoguesVolumeChanger> createState() => _DialoguesVolumeChangerState();
+  State<DialoguesSlider> createState() => _DialoguesSliderState();
 }
 
-class _DialoguesVolumeChangerState extends State<DialoguesVolumeChanger> {
+class _DialoguesSliderState extends State<DialoguesSlider> {
   double dialogsVolumeLevelController = 1;
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _DialoguesVolumeChangerState extends State<DialoguesVolumeChanger> {
 
   @override
   Widget build(BuildContext context) {
-    return SettingsVolumeSlider(
+    return BaseSlider(
       volumeText: AppLocalizations.of(context).dialogues,
       volumeLevel: dialogsVolumeLevelController,
       onChanged: (val) {
@@ -40,9 +40,7 @@ class _DialoguesVolumeChangerState extends State<DialoguesVolumeChanger> {
       onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                widget.devicePrefs.copyWith(
-                  dialogsSoundVolume: newValue,
-                ),
+                widget.devicePrefs.copyWith(dialogsSoundVolume: newValue),
               ),
             );
       },

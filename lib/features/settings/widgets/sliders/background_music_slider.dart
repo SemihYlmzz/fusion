@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio_cubit.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'settings_volume_slider.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'base_slider.dart';
 
-class BackgroundMusicVolumeChanger extends StatefulWidget {
-  const BackgroundMusicVolumeChanger({
+class BackgroundMusicSlider extends StatefulWidget {
+  const BackgroundMusicSlider({
     required this.devicePrefs,
     super.key,
   });
   final DevicePrefs devicePrefs;
 
   @override
-  State<BackgroundMusicVolumeChanger> createState() =>
-      _BackgroundMusicVolumeChangerState();
+  State<BackgroundMusicSlider> createState() => _BackgroundMusicSliderState();
 }
 
-class _BackgroundMusicVolumeChangerState
-    extends State<BackgroundMusicVolumeChanger> {
+class _BackgroundMusicSliderState extends State<BackgroundMusicSlider> {
   double volumeLevelController = 1;
   @override
   void initState() {
@@ -30,7 +28,7 @@ class _BackgroundMusicVolumeChangerState
 
   @override
   Widget build(BuildContext context) {
-    return SettingsVolumeSlider(
+    return BaseSlider(
       volumeLevel: volumeLevelController,
       volumeText: AppLocalizations.of(context).backgroundMusic,
       onChanged: (newValue) {

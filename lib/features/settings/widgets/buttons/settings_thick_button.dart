@@ -16,13 +16,13 @@ class SettingsThickButton extends StatelessWidget {
       child: Padding(
         padding: SharedPaddings.horizontal32,
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white12,
             border: GradientBoxBorder(
               gradient: LinearGradient(
                 colors: [
-                  Colors.orange.withOpacity(0.65),
-                  Colors.pink.withOpacity(0.65),
+                  Colors.white24,
+                  Colors.white24,
                 ],
               ),
             ),

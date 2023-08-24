@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio_cubit.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'settings_volume_slider.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'base_slider.dart';
 
-class GeneralSoundVolumeChanger extends StatefulWidget {
-  const GeneralSoundVolumeChanger({
+class GeneralSoundSlider extends StatefulWidget {
+  const GeneralSoundSlider({
     required this.devicePrefs,
     super.key,
   });
   final DevicePrefs devicePrefs;
 
   @override
-  State<GeneralSoundVolumeChanger> createState() =>
-      _GeneralSoundVolumeChangerState();
+  State<GeneralSoundSlider> createState() => _GeneralSoundSliderState();
 }
 
-class _GeneralSoundVolumeChangerState extends State<GeneralSoundVolumeChanger> {
+class _GeneralSoundSliderState extends State<GeneralSoundSlider> {
   double generalVolumeLevelController = 1;
   @override
   void initState() {
@@ -29,7 +28,7 @@ class _GeneralSoundVolumeChangerState extends State<GeneralSoundVolumeChanger> {
 
   @override
   Widget build(BuildContext context) {
-    return SettingsVolumeSlider(
+    return BaseSlider(
       volumeLevel: generalVolumeLevelController,
       volumeText: AppLocalizations.of(context).general,
       onChanged: (newValue) {

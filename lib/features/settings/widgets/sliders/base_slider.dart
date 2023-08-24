@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 
-class SettingsVolumeSlider extends StatelessWidget {
-  const SettingsVolumeSlider({
+class BaseSlider extends StatelessWidget {
+  const BaseSlider({
     required this.volumeText,
     required this.volumeLevel,
     super.key,
