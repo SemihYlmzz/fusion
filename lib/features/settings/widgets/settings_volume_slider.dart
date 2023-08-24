@@ -6,13 +6,17 @@ class SettingsVolumeSlider extends StatelessWidget {
   const SettingsVolumeSlider({
     required this.volumeText,
     required this.volumeLevel,
-    this.onChanged,
     super.key,
+    this.onChangeStart,
+    this.onChanged,
+    this.onChangeEnd,
   });
 
   final String volumeText;
   final double volumeLevel;
+  final DoubleCallback? onChangeStart;
   final DoubleCallback? onChanged;
+  final DoubleCallback? onChangeEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,14 @@ class SettingsVolumeSlider extends StatelessWidget {
         ),
         Slider(
           value: volumeLevel,
+          onChangeStart: (newValue) {
+            onChangeStart?.call(newValue);
+          },
           onChanged: (newValue) {
             onChanged?.call(newValue);
+          },
+          onChangeEnd: (newValue) {
+            onChangeEnd?.call(newValue);
           },
         ),
       ],

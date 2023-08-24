@@ -6,21 +6,41 @@ import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dar
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'settings_volume_slider.dart';
 
-class DialoguesVolumeChanger extends StatelessWidget {
+class DialoguesVolumeChanger extends StatefulWidget {
   const DialoguesVolumeChanger({
     required this.devicePrefs,
     super.key,
   });
   final DevicePrefs devicePrefs;
+
+  @override
+  State<DialoguesVolumeChanger> createState() => _DialoguesVolumeChangerState();
+}
+
+class _DialoguesVolumeChangerState extends State<DialoguesVolumeChanger> {
+  double dialogsVolumeLevelController = 1;
+  @override
+  void initState() {
+    dialogsVolumeLevelController = widget.devicePrefs.dialogsSoundVolume;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SettingsVolumeSlider(
       volumeText: AppLocalizations.of(context).dialogues,
-      volumeLevel: devicePrefs.dialogsSoundVolume,
-      onChanged: (newValue) {
+      volumeLevel: dialogsVolumeLevelController,
+      onChanged: (val) {
+        if (val == null) {
+          return;
+        }
+        dialogsVolumeLevelController = val;
+        setState(() {});
+      },
+      onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                devicePrefs.copyWith(
+                widget.devicePrefs.copyWith(
                   dialogsSoundVolume: newValue,
                 ),
               ),

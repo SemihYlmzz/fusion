@@ -52,14 +52,15 @@ class AudioCubit extends Cubit<AudioState> {
     );
   }
 
-  void setSoundEffectsVolume(
-    double newSoundEffectsVolume,
-    double generalVolume,
-  ) {
+  void setSoundEffectsVolume({
+    required double newSoundEffectsVolume,
+    required double generalVolume,
+  }) {
     final updatedState = state.copyWith(
       soundEffectsVolume: newSoundEffectsVolume * generalVolume,
     );
     emit(updatedState);
+    _audioPlayerForSFX.setVolume(newSoundEffectsVolume * generalVolume);
   }
 
   // BACKGROUND MUSICS
@@ -80,10 +81,10 @@ class AudioCubit extends Cubit<AudioState> {
     await _audioPlayerForBGM.stop();
   }
 
-  void setBackgroundMusicVolume(
-    double newBackgroundMusicVolume,
-    double generalVolume,
-  ) {
+  void setBackgroundMusicVolume({
+    required double newBackgroundMusicVolume,
+    required double generalVolume,
+  }) {
     final updatedState = state.copyWith(
       backgroundVolume: newBackgroundMusicVolume * generalVolume,
     );

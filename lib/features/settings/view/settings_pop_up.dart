@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/audio/audio.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -22,21 +21,10 @@ class SettingsScreen extends StatelessWidget {
   static const double settingsBoxHeight = 600;
   static const double settingsCardHeight = 570;
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
       builder: (context, devicePrefsState) {
-
-        context.read<AudioCubit>().setBackgroundMusicVolume(
-              devicePrefsState.devicePrefs.backGroundSoundVolume,
-              devicePrefsState.devicePrefs.generalSoundVolume,
-            );
-        context.read<AudioCubit>().setSoundEffectsVolume(
-              devicePrefsState.devicePrefs.soundEffectsSoundVolume,
-              devicePrefsState.devicePrefs.generalSoundVolume,
-            );
-
         return ClosableAnimatedScaffold(
           child: SizedBox(
             width: settingsBoxWidth,
@@ -112,9 +100,9 @@ class SettingsScreen extends StatelessWidget {
                                 const ShowTermsButton(),
                                 const ShowCreditsButton(),
                                 const DeleteAccountButton(),
-                                Padding(
+                                const Padding(
                                   padding: SharedPaddings.vertical20,
-                                  child: const Text('v1.0.0'),
+                                  child: Text('v1.0.0'),
                                 ),
                               ],
                             ),
