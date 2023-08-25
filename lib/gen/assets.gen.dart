@@ -19,6 +19,7 @@ class $AssetsImagesGen {
   $AssetsImagesEarthCardsGen get earthCards =>
       const $AssetsImagesEarthCardsGen();
   $AssetsImagesFireCardsGen get fireCards => const $AssetsImagesFireCardsGen();
+  $AssetsImagesSplashGen get splash => const $AssetsImagesSplashGen();
   $AssetsImagesWaterCardsGen get waterCards =>
       const $AssetsImagesWaterCardsGen();
 }
@@ -218,6 +219,17 @@ class $AssetsImagesFireCardsGen {
         solara,
         solarius
       ];
+}
+
+class $AssetsImagesSplashGen {
+  const $AssetsImagesSplashGen();
+
+  /// File path: assets/images/splash/fusion_splash_image.png
+  AssetGenImage get fusionSplashImage =>
+      const AssetGenImage('assets/images/splash/fusion_splash_image.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [fusionSplashImage];
 }
 
 class $AssetsImagesWaterCardsGen {

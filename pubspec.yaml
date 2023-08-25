@@ -105,5 +105,6 @@ flutter:
     - assets/images/fire_cards/
     - assets/images/card_preview/
     - assets/images/borders/
+    - assets/images/splash/
     - assets/music/background/
     - assets/music/sfx/
