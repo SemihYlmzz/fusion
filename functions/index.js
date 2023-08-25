@@ -158,7 +158,6 @@ exports.createDeleteRequest = functions.https.onRequest(async (req, res) => {
     const oneMonthFromNow = new Date(
         currentDate.getFullYear(),
         currentDate.getMonth() + 1, currentDate.getDate(),
-        currentDate.getHours(),
     );
     const millisecondsSinceEpoch = oneMonthFromNow.getTime();
 
@@ -217,3 +216,44 @@ exports.cancelDeleteRequest = functions.https.onRequest(async (req, res) => {
     return res.status(500).send("Error while Canceling Delete Request.");
   }
 });
+
+exports.deleteOldDeleteRequestedUserDatas = functions.pubsub
+    .schedule("0 5 * * *")
+    .timeZone("UTC")
+    .onRun(async (context) => {
+      const nowMillis = Date.now();
+      const deleteRequestsRef = admin.firestore()
+          .collection("delete_requests");
+
+      const querySnapshot = await deleteRequestsRef
+          .where("scheduledDeleteDate", "<=", nowMillis)
+          .get();
+
+      const batch = admin.firestore().batch();
+      const deletedUserUIDs = [];
+
+      querySnapshot.forEach((doc) => {
+        const uid = doc.data().uid;
+
+        deletedUserUIDs.push(uid);
+        const userDocRef = admin.firestore().collection("users").doc(uid);
+        batch.delete(userDocRef);
+        batch.delete(doc.ref);
+      });
+
+      for (const uidToDelete of deletedUserUIDs) {
+        try {
+          await admin.auth().deleteUser(uidToDelete);
+          console.log(`Firebase Auth User deleted for UID: ${uidToDelete}`);
+        } catch (error) {
+          console.error(
+              `Error deleting Firebase Auth User for UID: ${uidToDelete}`,
+              error,
+          );
+        }
+      }
+      await batch.commit();
+
+      console.log("Old Delete Requested Users Deleted!");
+      return null;
+    });
