@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/features/home/home.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
+import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
@@ -27,37 +28,47 @@ class HomeScreen extends StatelessWidget {
       builder: (context, devicePrefsState) {
         return BlocBuilder<AuthBloc, AuthState>(
           builder: (context, authState) {
-            return BlocBuilder<UserBloc, UserState>(
-              builder: (context, userState) {
-                if (userState is UserHasData || userState is UserLoading) {
-                  return BlocBuilder<AudioCubit, AudioState>(
-                    builder: (context, audioState) {
-                      return LoadingScreen(
-                        isLoading: authState is AuthLoading ||
-                            userState is UserLoading,
-                        size: MediaQuery.of(context).size,
-                        child: BaseScaffold(
-                          safeArea: true,
-                          body: HomeView(
-                            uid: authState.authEntity.id,
-                            devicePrefs: devicePrefsState.devicePrefs,
-                            user: userState.user!,
-                          ),
-                        ),
+            return BlocBuilder<DeleteRequestBloc, DeleteRequestState>(
+              builder: (context, deleteRequestState) {
+                if (authState is AuthAuthenticated &&
+                    deleteRequestState is DeleteRequestNotChecked) {
+                  context.read<DeleteRequestBloc>().add(
+                        CheckDeleteRequestRequested(authState.authEntity.id),
                       );
-                    },
-                  );
                 }
-                if (userState is UserInitializing) {
-                  return UserLoadingView(uid: authState.authEntity.id);
-                }
-                if (userState is UserEmpty) {
-                  return HomeNoUserDataView(
-                    uid: authState.authEntity.id,
-                  );
-                }
+                return BlocBuilder<UserBloc, UserState>(
+                  builder: (context, userState) {
+                    if (userState is UserHasData || userState is UserLoading) {
+                      return BlocBuilder<AudioCubit, AudioState>(
+                        builder: (context, audioState) {
+                          return LoadingScreen(
+                            isLoading: authState is AuthLoading ||
+                                userState is UserLoading,
+                            size: MediaQuery.of(context).size,
+                            child: BaseScaffold(
+                              safeArea: true,
+                              body: HomeView(
+                                uid: authState.authEntity.id,
+                                devicePrefs: devicePrefsState.devicePrefs,
+                                user: userState.user!,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    if (userState is UserInitializing) {
+                      return UserLoadingView(uid: authState.authEntity.id);
+                    }
+                    if (userState is UserEmpty) {
+                      return HomeNoUserDataView(
+                        uid: authState.authEntity.id,
+                      );
+                    }
 
-                return const UserOutStateView();
+                    return const UserOutStateView();
+                  },
+                );
               },
             );
           },

@@ -6,6 +6,7 @@ import 'package:fusion/config/style/theme.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
+import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
@@ -26,6 +27,7 @@ class _AppState extends State<App> with RouterMixin {
     final authBloc = getIt<AuthBloc>();
     final userBloc = getIt<UserBloc>();
     final devicePrefsBloc = getIt<DevicePrefsBloc>();
+    final deleteRequestBloc = getIt<DeleteRequestBloc>();
     final audioCubit = getIt<AudioCubit>();
 
     return MultiBlocProvider(
@@ -35,6 +37,7 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<DevicePrefsBloc>(
           create: (_) => devicePrefsBloc..add(const ReadDevicePrefs()),
         ),
+        BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(

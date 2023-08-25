@@ -150,3 +150,70 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
     return res.status(500).send("Error while updating username.");
   }
 });
+
+exports.createDeleteRequest = functions.https.onRequest(async (req, res) => {
+  const idToken = req.header("Authorization").split("Bearer ")[1];
+  try {
+    const currentDate = new Date();
+    const oneMonthFromNow = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1, currentDate.getDate(),
+        currentDate.getHours(),
+    );
+    const millisecondsSinceEpoch = oneMonthFromNow.getTime();
+
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    if (userId == null) {
+      return res.status(400).send("No user detected.");
+    }
+    const deleteRequestExists = await admin.firestore()
+        .collection("delete_requests")
+        .where("uid", "==", userId)
+        .get();
+
+    if (!deleteRequestExists.empty) {
+      return res.status(400).send("Account already in delete progress.");
+    }
+
+    const deleteRequestRef = admin.firestore()
+        .collection("delete_requests").doc(userId);
+
+    await deleteRequestRef.create({
+      uid: userId,
+      scheduledDeleteDate: millisecondsSinceEpoch,
+    });
+
+    return res.status(200).send("Deletion Request Succesfully created.");
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Error while creating Delete Request.");
+  }
+});
+
+exports.cancelDeleteRequest = functions.https.onRequest(async (req, res) => {
+  const idToken = req.header("Authorization").split("Bearer ")[1];
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    if (userId == null) {
+      return res.status(400).send("No user detected.");
+    }
+    const deleteRequestSnapshot = await admin.firestore()
+        .collection("delete_requests")
+        .doc(userId)
+        .get();
+
+    if (!deleteRequestSnapshot.exists) {
+      return res.status(400).send("No delete request found for this user.");
+    }
+
+    // Delete the delete request document
+    await deleteRequestSnapshot.ref.delete();
+
+    return res.status(200).send("Delete Request Succesfully canceled.");
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Error while Canceling Delete Request.");
+  }
+});

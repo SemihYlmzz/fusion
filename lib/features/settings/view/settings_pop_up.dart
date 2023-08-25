@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
 import 'package:fusion/shared/widgets/pop_ups/change_username_pop_up.dart';
@@ -103,16 +105,12 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsBorderedButton(
                                       buttonText:
                                           AppLocalizations.of(context).language,
-                                      onTap: () => showDialog<void>(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          if (devicePrefs.isHapticsOn) {
-                                            HapticFeedback.mediumImpact();
-                                          }
-                                          return SelectableLanguagesPopUp(
-                                            devicePrefs: devicePrefs,
-                                          );
-                                        },
+                                      onTap: () => showPopUp(
+                                        SelectableLanguagesPopUp(
+                                          devicePrefs: devicePrefs,
+                                        ),
+                                        devicePrefs,
+                                        context,
                                       ),
                                       buttonWidget: Text(
                                         AppLocalizations.of(context)
@@ -128,26 +126,16 @@ class SettingsScreen extends StatelessWidget {
                                             .accountnameChangeEligibilityDate
                                             .difference(DateTime.now());
                                         if (month.isNegative) {
-                                          showDialog<void>(
-                                            context: context,
-                                            builder: (context) {
-                                              if (devicePrefs.isHapticsOn) {
-                                                HapticFeedback.heavyImpact();
-                                              }
-
-                                              return const EnterNamePopUp();
-                                            },
+                                          showPopUp(
+                                            const EnterNamePopUp(),
+                                            devicePrefs,
+                                            context,
                                           );
                                         } else {
-                                          showDialog<void>(
-                                            context: context,
-                                            builder: (context) {
-                                              if (devicePrefs.isHapticsOn) {
-                                                HapticFeedback.heavyImpact();
-                                              }
-
-                                              return const CantRenamePopUp();
-                                            },
+                                          showPopUp(
+                                            const CantRenamePopUp(),
+                                            devicePrefs,
+                                            context,
                                           );
                                         }
                                       },
@@ -185,6 +173,15 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsThickButton(
                                       buttonText: AppLocalizations.of(context)
                                           .deleteAccount,
+                                      onTap: () {
+                                        showPopUp(
+                                          DeleteAccountPopUp(
+                                            devicePrefs: devicePrefs,
+                                          ),
+                                          devicePrefs,
+                                          context,
+                                        );
+                                      },
                                     ),
 
                                     // GAME VERSION
@@ -213,4 +210,19 @@ class SettingsScreen extends StatelessWidget {
       },
     );
   }
+
+  Future<void> showPopUp(
+    Widget popUpWidget,
+    DevicePrefs devicePrefs,
+    BuildContext context,
+  ) =>
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          if (devicePrefs.isHapticsOn) {
+            HapticFeedback.mediumImpact();
+          }
+          return popUpWidget;
+        },
+      );
 }
