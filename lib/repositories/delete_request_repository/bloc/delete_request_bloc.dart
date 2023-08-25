@@ -24,6 +24,7 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
     on<CreateDeleteRequestRequested>(onCreateDeleteRequestRequested);
     on<CancelDeleteRequestRequested>(onCancelDeleteRequestRequested);
     on<CheckDeleteRequestRequested>(onCheckDeleteRequestRequested);
+    on<ClearDeleteRequestStateRequested>(onClearDeleteRequestStateRequested);
   }
 
   final CancelDeleteRequestUseCase cancelDeleteRequestUseCase;
@@ -42,7 +43,7 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
 
     tryCreateDeleteRequest.fold(
       (failure) {
-        emit(const DeleteRequestEmpty());
+        emit(DeleteRequestEmpty(errorMessage: failure.message));
       },
       (deleteRequest) {
         emit(DeleteRequestHasData(deleteRequest: deleteRequest));
@@ -63,7 +64,12 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
 
     tryCancelDeleteRequest.fold(
       (failure) {
-        emit(oldState);
+        emit(
+          DeleteRequestHasData(
+            deleteRequest: oldState.deleteRequest,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (deleteRequest) {
         emit(const DeleteRequestEmpty());
@@ -75,7 +81,6 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
     CheckDeleteRequestRequested event,
     Emitter<DeleteRequestState> emit,
   ) async {
-    final oldState = state;
     emit(const DeleteRequestLoading());
 
     final tryCheckDeleteRequest =
@@ -83,9 +88,15 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
     tryCheckDeleteRequest.fold(
       (failure) {
         if (failure.message == 'No Delete Request Data') {
-          emit(const DeleteRequestEmpty());
+          emit(
+            const DeleteRequestEmpty(),
+          );
         } else {
-          emit(oldState);
+          emit(
+            DeleteRequestNotChecked(
+              errorMessage: failure.message,
+            ),
+          );
         }
       },
       (deleteRequest) => emit(
@@ -94,5 +105,12 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
         ),
       ),
     );
+  }
+
+  void onClearDeleteRequestStateRequested(
+    ClearDeleteRequestStateRequested event,
+    Emitter<DeleteRequestState> emit,
+  ) {
+    emit(const DeleteRequestNotChecked());
   }
 }

@@ -53,6 +53,7 @@ class _AppState extends State<App> with RouterMixin {
                 listeners: [
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
+                  _buildDeleteRequestBlocListener(),
                 ],
                 child: router!,
               );
@@ -87,6 +88,17 @@ class _AppState extends State<App> with RouterMixin {
 
   BlocListener<UserBloc, UserState> _buildUserBlocListener() {
     return BlocListener<UserBloc, UserState>(
+      listener: (context, state) {
+        if (state.errorMessage != null) {
+          _showSnackBar(context, state.errorMessage!);
+        }
+      },
+    );
+  }
+
+  BlocListener<DeleteRequestBloc, DeleteRequestState>
+      _buildDeleteRequestBlocListener() {
+    return BlocListener<DeleteRequestBloc, DeleteRequestState>(
       listener: (context, state) {
         if (state.errorMessage != null) {
           _showSnackBar(context, state.errorMessage!);

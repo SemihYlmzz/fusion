@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -33,7 +35,13 @@ class DeleteAccountPopUp extends StatelessWidget {
                         text: 'YES',
                         width: 100,
                         onPressed: () {
-                         
+                          Navigator.popUntil(context, (route) => route.isFirst);
+                          // context.read<DeleteRequestBloc>().add(
+                          // const CreateDeleteRequestRequested(),
+                          // );
+                          context.goNamed(
+                            DeleteAccountScreen.name,
+                          );
                         },
                       ),
                     ),

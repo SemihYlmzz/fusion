@@ -36,6 +36,11 @@ class HomeScreen extends StatelessWidget {
                         CheckDeleteRequestRequested(authState.authEntity.id),
                       );
                 }
+                if (deleteRequestState is DeleteRequestHasData) {
+                  context
+                      .read<DeleteRequestBloc>()
+                      .add(const CancelDeleteRequestRequested());
+                }
                 return BlocBuilder<UserBloc, UserState>(
                   builder: (context, userState) {
                     if (userState is UserHasData || userState is UserLoading) {
