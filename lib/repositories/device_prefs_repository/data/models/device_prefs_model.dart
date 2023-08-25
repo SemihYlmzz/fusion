@@ -8,6 +8,7 @@ class DevicePrefsModel extends DevicePrefs {
     required super.dialogsSoundVolume,
     required super.isHapticsOn,
     required super.language,
+    required super.isTermsAndConditionsAccepted,
   });
   factory DevicePrefsModel.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('generalSoundVolume') ||
@@ -15,7 +16,8 @@ class DevicePrefsModel extends DevicePrefs {
         !map.containsKey('soundEffectsSoundVolume') ||
         !map.containsKey('dialogsSoundVolume') ||
         !map.containsKey('isHapticsOn') ||
-        !map.containsKey('language')) {
+        !map.containsKey('language') ||
+        !map.containsKey('isTermsAndConditionsAccepted')) {
       throw Exception('Map data does not contain all keys');
     }
     return DevicePrefsModel(
@@ -25,6 +27,7 @@ class DevicePrefsModel extends DevicePrefs {
       dialogsSoundVolume: map['dialogsSoundVolume'] as double,
       isHapticsOn: map['isHapticsOn'] as bool,
       language: map['language'] as String,
+      isTermsAndConditionsAccepted: map['isTermsAndConditionsAccepted'] as bool,
     );
   }
 
@@ -36,6 +39,7 @@ class DevicePrefsModel extends DevicePrefs {
       'dialogsSoundVolume': dialogsSoundVolume,
       'isHapticsOn': isHapticsOn,
       'language': language,
+      'isTermsAndConditionsAccepted': isTermsAndConditionsAccepted,
     };
   }
 
@@ -48,6 +52,8 @@ class DevicePrefsModel extends DevicePrefs {
       dialogsSoundVolume: devicePrefsEntity.dialogsSoundVolume,
       isHapticsOn: devicePrefsEntity.isHapticsOn,
       language: devicePrefsEntity.language,
+      isTermsAndConditionsAccepted:
+          devicePrefsEntity.isTermsAndConditionsAccepted,
     );
   }
 
@@ -59,6 +65,8 @@ class DevicePrefsModel extends DevicePrefs {
       dialogsSoundVolume: devicePrefsModel.dialogsSoundVolume,
       isHapticsOn: devicePrefsModel.isHapticsOn,
       language: devicePrefsModel.language,
+      isTermsAndConditionsAccepted:
+          devicePrefsModel.isTermsAndConditionsAccepted,
     );
   }
 }

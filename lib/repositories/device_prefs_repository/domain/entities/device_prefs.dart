@@ -8,6 +8,7 @@ class DevicePrefs extends Equatable {
     required this.dialogsSoundVolume,
     required this.isHapticsOn,
     required this.language,
+    required this.isTermsAndConditionsAccepted,
   });
   final double generalSoundVolume;
   final double backGroundSoundVolume;
@@ -15,6 +16,8 @@ class DevicePrefs extends Equatable {
   final double dialogsSoundVolume;
   final bool isHapticsOn;
   final String language;
+  final bool isTermsAndConditionsAccepted;
+
   static const empty = DevicePrefs(
     generalSoundVolume: 0.7,
     backGroundSoundVolume: 0.7,
@@ -22,6 +25,7 @@ class DevicePrefs extends Equatable {
     soundEffectsSoundVolume: 0.7,
     isHapticsOn: true,
     language: '',
+    isTermsAndConditionsAccepted: false,
   );
 
   DevicePrefs copyWith({
@@ -31,6 +35,7 @@ class DevicePrefs extends Equatable {
     double? dialogsSoundVolume,
     bool? isHapticsOn,
     String? language,
+    bool? isTermsAndConditionsAccepted,
   }) {
     return DevicePrefs(
       generalSoundVolume: generalSoundVolume ?? this.generalSoundVolume,
@@ -41,6 +46,8 @@ class DevicePrefs extends Equatable {
       dialogsSoundVolume: dialogsSoundVolume ?? this.dialogsSoundVolume,
       isHapticsOn: isHapticsOn ?? this.isHapticsOn,
       language: language ?? this.language,
+      isTermsAndConditionsAccepted:
+          isTermsAndConditionsAccepted ?? this.isTermsAndConditionsAccepted,
     );
   }
 
@@ -52,5 +59,6 @@ class DevicePrefs extends Equatable {
         dialogsSoundVolume,
         isHapticsOn,
         language,
+        isTermsAndConditionsAccepted,
       ];
 }

@@ -11,6 +11,7 @@ class DevicePrefsFields {
   static const dialogsSoundVolume = 'dialogsSoundVolume';
   static const isHapticsOn = 'isHapticsOn';
   static const language = 'language';
+  static const isTermsAndConditionsAccepted = 'isTermsAndConditionsAccepted';
 }
 
 class DevicePrefsDataSourceSharedPreferencesImpl
@@ -25,6 +26,7 @@ class DevicePrefsDataSourceSharedPreferencesImpl
     await prefs.setDouble(DevicePrefsFields.dialogsSoundVolume, 0.7);
     await prefs.setBool(DevicePrefsFields.isHapticsOn, true);
     await prefs.setString(DevicePrefsFields.language, '');
+    await prefs.setBool(DevicePrefsFields.isTermsAndConditionsAccepted, false);
     return const Right(DevicePrefs.empty);
   }
 
@@ -49,6 +51,10 @@ class DevicePrefsDataSourceSharedPreferencesImpl
             DevicePrefs.empty.isHapticsOn,
         language: prefs.getString(DevicePrefsFields.language) ??
             DevicePrefs.empty.language,
+        isTermsAndConditionsAccepted: prefs.getBool(
+              DevicePrefsFields.isTermsAndConditionsAccepted,
+            ) ??
+            DevicePrefs.empty.isTermsAndConditionsAccepted,
       ),
     );
   }
@@ -81,6 +87,10 @@ class DevicePrefsDataSourceSharedPreferencesImpl
     await prefs.setString(
       DevicePrefsFields.language,
       updatedDevicePrefs.language,
+    );
+    await prefs.setBool(
+      DevicePrefsFields.isTermsAndConditionsAccepted,
+      updatedDevicePrefs.isTermsAndConditionsAccepted,
     );
     return Right(updatedDevicePrefs);
   }
