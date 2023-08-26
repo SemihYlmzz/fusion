@@ -39,7 +39,7 @@ class GradientButton extends StatelessWidget {
                 .createShader(bounds),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: double.infinity,
+              width: width ?? double.infinity,
               height: 58,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),

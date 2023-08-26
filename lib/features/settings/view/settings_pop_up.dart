@@ -5,6 +5,7 @@ import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.d
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
+import 'package:fusion/shared/widgets/bottom_sheets/privacy_bottom_sheet.dart';
 import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
 import 'package:fusion/shared/widgets/pop_ups/change_username_pop_up.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -161,6 +162,13 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsThickButton(
                                       buttonText:
                                           AppLocalizations.of(context).privacy,
+                                      onTap: () {
+                                        showBottomSheett(
+                                          const PrivacyBottomSheet(),
+                                          devicePrefs,
+                                          context,
+                                        );
+                                      },
                                     ),
                                     SettingsThickButton(
                                       buttonText: AppLocalizations.of(context)
@@ -223,6 +231,20 @@ class SettingsScreen extends StatelessWidget {
             HapticFeedback.mediumImpact();
           }
           return popUpWidget;
+        },
+      );
+  Future<void> showBottomSheett(
+    Widget bottomSheetWidget,
+    DevicePrefs devicePrefs,
+    BuildContext context,
+  ) =>
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          if (devicePrefs.isHapticsOn) {
+            HapticFeedback.mediumImpact();
+          }
+          return bottomSheetWidget;
         },
       );
 }

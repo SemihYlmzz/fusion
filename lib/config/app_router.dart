@@ -5,14 +5,23 @@ import 'package:fusion/features/app/view/app.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/home/view/home_screen.dart';
 import 'package:fusion/features/login/login.dart';
+import 'package:fusion/features/terms_of_use/view/terms_of_use_screen.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 mixin RouterMixin on State<App> {
   final _router = GoRouter(
     initialLocation: LoginScreen.path,
     routes: [
+      GoRoute(
+        path: TermsOfUseScreen.path,
+        name: TermsOfUseScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: TermsOfUseScreen(),
+        ),
+      ),
       GoRoute(
         path: LoginScreen.path,
         name: LoginScreen.name,
@@ -39,6 +48,10 @@ mixin RouterMixin on State<App> {
       final onLoginScreen = state.matchedLocation == LoginScreen.path;
 
       final authState = context.read<AuthBloc>().state;
+      // final devicePrefsState = context.read<DevicePrefsBloc>().state;
+      // if (!devicePrefsState.devicePrefs.isTermsAndConditionsAccepted) {
+      // return TermsOfUseScreen.path;
+      // }
       if (authState is AuthUnAuthenticated) {
         return LoginScreen.path;
       }
