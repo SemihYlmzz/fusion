@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 class PrivacyBottomSheet extends StatelessWidget {
@@ -54,7 +55,7 @@ class PrivacyBottomSheet extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height,
       child: Padding(
-        padding: const EdgeInsets.only(top: 60, left: 10, right: 2),
+        padding: SharedPaddings.all20,
         child: BaseColumn(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +66,7 @@ class PrivacyBottomSheet extends StatelessWidget {
               lastUpdateDate: _lastUpdateDateString,
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: SharedPaddings.top12,
               child: Text(
                 _welcomeToAppText,
                 style: TextStyle(
