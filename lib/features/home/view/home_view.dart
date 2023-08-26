@@ -39,6 +39,7 @@ class HomeView extends StatelessWidget {
         AppBar(
           leadingWidth: 115,
           title: Text(user.username),
+          centerTitle: true,
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
