@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1010082734726-9b77vp32nhhqi20prjis6feo8u1uoirm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devangs.fusion",
+            "certificate_hash": "5e6b72f41373deff3df4829f10a73c04978d2896"
+          }
+        },
+        {
+          "client_id": "1010082734726-g8pvhdvo2ufo337qnehc8bflr7mks059.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devangs.fusion",
+            "certificate_hash": "5bb1d10df0e3ccfeb862d9e71960a64d8d59019a"
+          }
+        },
+        {
           "client_id": "1010082734726-bqguj85dlgj6aht8kic6q90hfesacvkk.apps.googleusercontent.com",
           "client_type": 3
         }
