@@ -164,7 +164,7 @@ class SettingsScreen extends StatelessWidget {
                                           AppLocalizations.of(context).privacy,
                                       onTap: () {
                                         showBottomSheett(
-                                          const PrivacyBottomSheet(),
+                                          PrivacyBottomSheet(),
                                           devicePrefs,
                                           context,
                                         );
