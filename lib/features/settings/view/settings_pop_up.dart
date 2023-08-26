@@ -164,7 +164,7 @@ class SettingsScreen extends StatelessWidget {
                                           AppLocalizations.of(context).privacy,
                                       onTap: () {
                                         showBottomSheett(
-                                          PrivacyBottomSheet(),
+                                          const PrivacyBottomSheet(),
                                           devicePrefs,
                                           context,
                                         );
@@ -240,6 +240,7 @@ class SettingsScreen extends StatelessWidget {
   ) =>
       showModalBottomSheet<void>(
         context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
           if (devicePrefs.isHapticsOn) {
             HapticFeedback.mediumImpact();
