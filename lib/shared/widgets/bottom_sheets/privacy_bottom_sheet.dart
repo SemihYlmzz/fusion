@@ -50,7 +50,7 @@ class PrivacyBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 568,
+      height: MediaQuery.sizeOf(context).height,
       child: Padding(
         padding: EdgeInsets.only(top: 60.0, left: 10.0, right: 2),
         child: BaseColumn(
