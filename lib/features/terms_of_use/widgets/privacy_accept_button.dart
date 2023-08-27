@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/app_localizations.dart';
+import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../../shared/shared.dart';
 
 class PrivacyAcceptButton extends StatelessWidget {
   const PrivacyAcceptButton({
@@ -14,50 +21,77 @@ class PrivacyAcceptButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: SharedPaddings.vertical8,
-      child: Row(
-        children: [
-          Transform.scale(
-            scale: 2,
-            child: Checkbox(
-              value: isAcceptedPrivacy,
-              shape: const CircleBorder(),
-              onChanged: (val) {
-                onAccept(value: val ?? false);
-              },
-            ),
-          ),
-          const Expanded(
-            child: Column(
-              children: [
-                Text(
-                  'I have read and agree to the',
-                  textAlign: TextAlign.center,
+    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+      builder: (context, devicePrefsState) {
+        return Padding(
+          padding: SharedPaddings.vertical8,
+          child: Row(
+            children: [
+              Transform.scale(
+                scale: 2,
+                child: Checkbox(
+                  value: isAcceptedPrivacy,
+                  shape: const CircleBorder(),
+                  onChanged: (val) {
+                    onAccept(value: val ?? false);
+                  },
                 ),
-                Wrap(
-                  spacing: 8,
+              ),
+              Expanded(
+                child: Column(
                   children: [
-                    GradientTextButton(
-                      'Nuverse Privacy',
-                      maxLines: 2,
-                      align: TextAlign.center,
-                    ),
                     Text(
-                      'and',
+                      AppLocalizations.of(context).iAgreeToThe,
+                      textAlign: TextAlign.center,
                     ),
-                    GradientTextButton(
-                      'Second Dinner Privacy Notice',
-                      maxLines: 2,
-                      align: TextAlign.center,
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        GradientTextButton(
+                          AppLocalizations.of(context).devangsPrivacy,
+                          maxLines: 2,
+                          align: TextAlign.center,
+                          onTap: () async {
+                            await showBottomSheett(
+                              const PrivacyBottomSheet(),
+                              devicePrefsState.devicePrefs,
+                              context,
+                            );
+                          },
+                        ),
+                        Text(
+                          AppLocalizations.of(context).andText,
+                        ),
+                        GradientTextButton(
+                          AppLocalizations.of(context).fusionPrivacyNotice,
+                          maxLines: 2,
+                          align: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
+
+  Future<void> showBottomSheett(
+    Widget bottomSheetWidget,
+    DevicePrefs devicePrefs,
+    BuildContext context,
+  ) =>
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          if (devicePrefs.isHapticsOn) {
+            HapticFeedback.mediumImpact();
+          }
+          return bottomSheetWidget;
+        },
+      );
 }

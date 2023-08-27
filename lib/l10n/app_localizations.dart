@@ -216,37 +216,37 @@ abstract class AppLocalizations {
   /// Text for bug report button
   ///
   /// In en, this message translates to:
-  /// **'REPORT A BUG'**
+  /// **'Report a Bug'**
   String get reportABug;
 
   /// Text for mail send button
   ///
   /// In en, this message translates to:
-  /// **'SEND US A MAIL'**
+  /// **'Send Us a Mail'**
   String get sendUsAMail;
 
   /// Text for privacy button
   ///
   /// In en, this message translates to:
-  /// **'PRIVACY'**
+  /// **'Privacy'**
   String get privacy;
 
   /// Show Terms Button text.
   ///
   /// In en, this message translates to:
-  /// **'TERMS OF SERVICE'**
+  /// **'Terms of Service'**
   String get termsOfService;
 
   /// Show Credits Button text.
   ///
   /// In en, this message translates to:
-  /// **'CREDITS'**
+  /// **'Credits'**
   String get credits;
 
   /// Delete Account Button text.
   ///
   /// In en, this message translates to:
-  /// **'DELETE ACCOUNT'**
+  /// **'Delete account'**
   String get deleteAccount;
 
   /// Enter a Username text in all langs.
@@ -548,6 +548,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ally air elements gain 3 power.'**
   String get orionAbilityDescription;
+
+  /// Information text for Terms of use accept screen.
+  ///
+  /// In en, this message translates to:
+  /// **'To continue to the game,\nplease read and confirm the following:'**
+  String get termsOfUseInformation;
+
+  /// Text says accepting upcoming sentences.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and agree to the'**
+  String get iAgreeToThe;
+
+  /// Devangs Privacy Text.
+  ///
+  /// In en, this message translates to:
+  /// **'Devangs Privacy'**
+  String get devangsPrivacy;
+
+  /// Simple and text.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get andText;
+
+  /// Fusion Privacy Notice Text.
+  ///
+  /// In en, this message translates to:
+  /// **'Fusion Privacy Notice'**
+  String get fusionPrivacyNotice;
+
+  /// Text that saying devangs and fusions terms readed and accepted by user.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Devangs and Fusion.'**
+  String get termsOfUseWarningText;
+
+  /// Simple Accept text in all languages.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get acceptText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

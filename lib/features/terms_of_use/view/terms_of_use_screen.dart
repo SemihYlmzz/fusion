@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/login/view/view.dart';
+import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'view.dart';
 
@@ -9,6 +13,13 @@ class TermsOfUseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TermsOfUseView();
+    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+      builder: (context, devicePrefsState) {
+        if (devicePrefsState.devicePrefs.isTermsAndConditionsAccepted) {
+          context.goNamed(LoginScreen.name);
+        }
+        return const TermsOfUseView();
+      },
+    );
   }
 }

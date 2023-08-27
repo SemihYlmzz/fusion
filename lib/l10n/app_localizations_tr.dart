@@ -65,22 +65,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get account => 'Hesap';
 
   @override
-  String get reportABug => 'HATA BILDIR';
+  String get reportABug => 'Hata Bildir';
 
   @override
-  String get sendUsAMail => 'BIZE MAIL GONDER';
+  String get sendUsAMail => 'Bize Mail Gönder';
 
   @override
-  String get privacy => 'GIZLILIK';
+  String get privacy => 'Gizlilik';
 
   @override
-  String get termsOfService => 'KULLANIM SARTLARI';
+  String get termsOfService => 'Kullanım Şartları';
 
   @override
-  String get credits => 'KATKIDA BULUNANLAR';
+  String get credits => 'Katkıda Bulunanlar';
 
   @override
-  String get deleteAccount => 'HESABI SIL';
+  String get deleteAccount => 'Hesabı Sil';
 
   @override
   String get enterUsername => 'Kullanıcı adı gir';
@@ -231,4 +231,25 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get orionAbilityDescription => 'Dost hava kartları 3 güç kazanır.';
+
+  @override
+  String get termsOfUseInformation => 'Oyuna devam etmek için,\nlütfen lütfen aşağıdakileri okuyun ve kabul edin:';
+
+  @override
+  String get iAgreeToThe => 'Okudum ve kabul ediyorum.';
+
+  @override
+  String get devangsPrivacy => 'Devangs Gizlilik';
+
+  @override
+  String get andText => 've';
+
+  @override
+  String get fusionPrivacyNotice => 'Fusion Gizlilik Sözleşmesi';
+
+  @override
+  String get termsOfUseWarningText => 'Devam ederek, Hizmet Şartları\'nı kabul ediyorum ve Devangs ve Fusion Gizlilik Sözleşmelerini okuduğumu kabul ediyorum.';
+
+  @override
+  String get acceptText => 'Kabul et';
 }

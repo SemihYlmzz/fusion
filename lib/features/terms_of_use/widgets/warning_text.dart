@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 class WarningText extends StatelessWidget {
@@ -8,11 +9,11 @@ class WarningText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: SharedPaddings.all8,
       child: Text(
-        'By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Nuverse and Second Dinner.',
-        style: TextStyle(
+        AppLocalizations.of(context).termsOfUseWarningText,
+        style: const TextStyle(
           fontSize: 14,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -28,12 +29,12 @@ class TermsAcceptButton extends StatelessWidget {
               },
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Column(
               children: [
-                Text('I agree to the FUSION'),
+                Text(AppLocalizations.of(context).iAgreeToThe),
                 GradientTextButton(
-                  'Terms of Service',
+                  AppLocalizations.of(context).termsOfService,
                 ),
               ],
             ),

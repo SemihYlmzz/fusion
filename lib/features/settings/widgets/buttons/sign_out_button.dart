@@ -13,6 +13,8 @@ class SignOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        Navigator.popUntil(context, (route) => route.isFirst);
+
         context.read<AuthBloc>().add(
               const AuthLogoutRequested(),
             );

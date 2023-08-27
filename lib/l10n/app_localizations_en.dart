@@ -65,22 +65,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account => 'Account';
 
   @override
-  String get reportABug => 'REPORT A BUG';
+  String get reportABug => 'Report a Bug';
 
   @override
-  String get sendUsAMail => 'SEND US A MAIL';
+  String get sendUsAMail => 'Send Us a Mail';
 
   @override
-  String get privacy => 'PRIVACY';
+  String get privacy => 'Privacy';
 
   @override
-  String get termsOfService => 'TERMS OF SERVICE';
+  String get termsOfService => 'Terms of Service';
 
   @override
-  String get credits => 'CREDITS';
+  String get credits => 'Credits';
 
   @override
-  String get deleteAccount => 'DELETE ACCOUNT';
+  String get deleteAccount => 'Delete account';
 
   @override
   String get enterUsername => 'Enter a Username';
@@ -231,4 +231,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orionAbilityDescription => 'Ally air elements gain 3 power.';
+
+  @override
+  String get termsOfUseInformation => 'To continue to the game,\nplease read and confirm the following:';
+
+  @override
+  String get iAgreeToThe => 'I have read and agree to the';
+
+  @override
+  String get devangsPrivacy => 'Devangs Privacy';
+
+  @override
+  String get andText => 'and';
+
+  @override
+  String get fusionPrivacyNotice => 'Fusion Privacy Notice';
+
+  @override
+  String get termsOfUseWarningText => 'By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Devangs and Fusion.';
+
+  @override
+  String get acceptText => 'Accept';
 }

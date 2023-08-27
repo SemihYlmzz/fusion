@@ -23,6 +23,13 @@ class GameCardPreview extends StatelessWidget {
             if (devicePrefsState.devicePrefs.isHapticsOn) {
               HapticFeedback.heavyImpact();
             }
+            context.read<DevicePrefsBloc>().add(
+                  UpdateDevicePrefs(
+                    devicePrefsState.devicePrefs.copyWith(
+                      isTermsAndConditionsAccepted: false,
+                    ),
+                  ),
+                );
           },
           child: SizedBox(
             width: 65,

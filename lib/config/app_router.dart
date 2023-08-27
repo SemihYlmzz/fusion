@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 
 mixin RouterMixin on State<App> {
   final _router = GoRouter(
-    initialLocation: LoginScreen.path,
+    initialLocation: TermsOfUseScreen.path,
     routes: [
       GoRoute(
         path: TermsOfUseScreen.path,
@@ -45,9 +45,11 @@ mixin RouterMixin on State<App> {
     ],
     redirect: (context, state) async {
       final onLoginScreen = state.matchedLocation == LoginScreen.path;
+      final onTermsScreen = state.matchedLocation == TermsOfUseScreen.path;
 
       final authState = context.read<AuthBloc>().state;
-      if (authState is AuthUnAuthenticated) {
+
+      if (authState is AuthUnAuthenticated && !onTermsScreen) {
         return LoginScreen.path;
       }
       if (authState is AuthAuthenticated && onLoginScreen) {

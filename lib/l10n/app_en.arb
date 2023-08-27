@@ -99,32 +99,32 @@
         "description": "Simple Account text."
     },
 
-   "reportABug": "REPORT A BUG",
+   "reportABug": "Report a Bug",
     "@reportABug": {
         "description": "Text for bug report button"
     },
     
-   "sendUsAMail": "SEND US A MAIL",
+   "sendUsAMail": "Send Us a Mail",
     "@sendUsAMail": {
         "description": "Text for mail send button"
     },
 
-   "privacy": "PRIVACY",
+   "privacy": "Privacy",
     "@privacy": {
         "description": "Text for privacy button"
     },
 
-   "termsOfService": "TERMS OF SERVICE",
+   "termsOfService": "Terms of Service",
     "@termsOfService": {
         "description": "Show Terms Button text."
     },
 
-   "credits": "CREDITS",
+   "credits": "Credits",
     "@credits": {
         "description": "Show Credits Button text."
     },
 
-   "deleteAccount": "DELETE ACCOUNT",
+   "deleteAccount": "Delete account",
     "@deleteAccount": {
         "description": "Delete Account Button text."
     },
@@ -378,5 +378,34 @@
     "orionAbilityDescription": "Ally air elements gain 3 power.",
     "@orionAbilityDescription": {
         "description": "Ability description of Orion GameCard"
+    },
+
+    "termsOfUseInformation": "To continue to the game,\nplease read and confirm the following:",
+    "@termsOfUseInformation": {
+        "description": "Information text for Terms of use accept screen."
+    }, 
+    "iAgreeToThe": "I have read and agree to the",
+    "@iAgreeToThe": {
+        "description": "Text says accepting upcoming sentences."
+    },
+    "devangsPrivacy": "Devangs Privacy",
+    "@devangsPrivacy": {
+        "description": "Devangs Privacy Text."
+    },
+    "andText": "and",
+    "@andText": {
+        "description": "Simple and text."
+    },
+    "fusionPrivacyNotice": "Fusion Privacy Notice",
+    "@fusionPrivacyNotice": {
+        "description": "Fusion Privacy Notice Text."
+    },
+    "termsOfUseWarningText": "By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Devangs and Fusion.",
+    "@termsOfUseWarningText": {
+        "description": "Text that saying devangs and fusions terms readed and accepted by user."
+    },
+    "acceptText": "Accept",
+    "@acceptText": {
+        "description": "Simple Accept text in all languages."
     }
 }
