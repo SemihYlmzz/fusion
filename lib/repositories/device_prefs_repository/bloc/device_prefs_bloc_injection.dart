@@ -8,8 +8,8 @@ import '../domain/usecase/usecases/read_device_prefs.dart';
 class DevicePrefsBlocInjection {
   static void inject() {
     // UserBloc <-connection-> UseCases
-    getIt.registerFactory<DevicePrefsBloc>(
-      () => DevicePrefsBloc(
+    getIt.registerSingleton<DevicePrefsBloc>(
+      DevicePrefsBloc(
         createDevicePrefsUseCase: getIt<CreateDevicePrefsUseCase>(),
         readDevicePrefsUseCase: getIt<ReadDevicePrefsUseCase>(),
         updateDevicePrefsUseCase: getIt<UpdateDevicePrefsUseCase>(),

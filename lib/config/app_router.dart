@@ -8,7 +8,6 @@ import 'package:fusion/features/login/login.dart';
 import 'package:fusion/features/terms_of_use/view/terms_of_use_screen.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 mixin RouterMixin on State<App> {
@@ -48,10 +47,6 @@ mixin RouterMixin on State<App> {
       final onLoginScreen = state.matchedLocation == LoginScreen.path;
 
       final authState = context.read<AuthBloc>().state;
-      // final devicePrefsState = context.read<DevicePrefsBloc>().state;
-      // if (!devicePrefsState.devicePrefs.isTermsAndConditionsAccepted) {
-      // return TermsOfUseScreen.path;
-      // }
       if (authState is AuthUnAuthenticated) {
         return LoginScreen.path;
       }
@@ -60,7 +55,9 @@ mixin RouterMixin on State<App> {
       }
       return null;
     },
-    refreshListenable: GoRouterRefreshStream(getIt<AuthBloc>().stream),
+    refreshListenable: GoRouterRefreshStream(
+      getIt<AuthBloc>().stream,
+    ),
   );
 
   GoRouter get router => _router;

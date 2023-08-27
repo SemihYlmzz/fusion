@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fusion/config/app_router.dart';
 import 'package:fusion/config/style/theme.dart';
+import 'package:fusion/features/terms_of_use/view/terms_of_use_screen.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
@@ -55,7 +56,9 @@ class _AppState extends State<App> with RouterMixin {
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
                 ],
-                child: router!,
+                child: devicePrefsState.devicePrefs.isTermsAndConditionsAccepted
+                    ? router!
+                    : const TermsOfUseScreen(),
               );
             },
             supportedLocales: L10n.all,
