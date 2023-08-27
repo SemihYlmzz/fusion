@@ -6,6 +6,7 @@ import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bl
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:fusion/shared/widgets/bottom_sheets/privacy_bottom_sheet.dart';
+import 'package:fusion/shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
 import 'package:fusion/shared/widgets/pop_ups/change_username_pop_up.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -173,6 +174,13 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsThickButton(
                                       buttonText: AppLocalizations.of(context)
                                           .termsOfService,
+                                      onTap: () {
+                                        showBottomSheett(
+                                          const TermsOfService(),
+                                          devicePrefs,
+                                          context,
+                                        );
+                                      },
                                     ),
                                     SettingsThickButton(
                                       buttonText:

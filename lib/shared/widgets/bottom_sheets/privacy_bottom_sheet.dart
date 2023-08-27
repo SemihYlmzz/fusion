@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/shared/text/aligned_text.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -47,7 +48,7 @@ class PrivacyBottomSheet extends StatelessWidget {
   static const String _mainTitle = 'Privacy Policy';
   static const String _lastUpdateText = 'Last Update';
   static const String _lastUpdateDateString = '26/08/23';
-  static const String _welcomeToAppText =
+  static const String _welcomeText =
       'Welcome to MARVEL SNAP (the “Game”)!The Game is provided, operated and managed by Nuverse (Hong Kong) Limited ("Nuverse") and Second Dinner Studio, Inc ("SecondDinner"). Each Nuverse and Second Dinner collects and processes your personal data independently.You are reading this Privacy Notice, which explains how we collect, use and disclose your personal data when you visit, access, or use http://marvelsnap.com/ and its sub-domains (the “Website”), and the rights you may have under applicable data protection laws. The Website is provided, operated and controlled by Nuverse (Hong Kong) Limited, whose registered address is at Unit 1003, 10/F., Tower 2, Silvercord, 30 Canton Road, Tsim Sha Tsui, Kowloon, Hong Kong (“Operator”, “we” or “us”).For information regarding how SecondDinner collects, uses, discloses and otherwise processes your personal data, please refer to SecondDinner Privacy Notice .If you do not agree with the processing of your personal data as described in this Privacy Notice, you should not use the Website or provide your data to us.If you have any questions about how we use your personal data, please contact us via legal@marvelsnap.com.';
 
   @override
@@ -68,25 +69,25 @@ class PrivacyBottomSheet extends StatelessWidget {
             const Padding(
               padding: SharedPaddings.top12,
               child: Text(
-                _welcomeToAppText,
+                _welcomeText,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
               ),
             ),
-            _myTextWidget(title: _title1, text: _text1),
-            _myTextWidget(title: _title2, text: _text2),
-            _myTextWidget(title: _title3, text: _text3),
-            _myTextWidget(title: _title4, text: _text4),
-            _myTextWidget(title: _title5, text: _text5),
-            _myTextWidget(title: _title6, text: _text6),
-            _myTextWidget(title: _title7, text: _text7),
-            _myTextWidget(title: _title8, text: _text8),
-            _myTextWidget(title: _title9, text: _text9),
-            _myTextWidget(title: _title10, text: _text10),
-            _myTextWidget(title: _title11, text: _text11),
-            _myTextWidget(title: _title12, text: _text12),
+            BottomSheetText(title: _title1, text: _text1),
+            BottomSheetText(title: _title2, text: _text2),
+            BottomSheetText(title: _title3, text: _text3),
+            BottomSheetText(title: _title4, text: _text4),
+            BottomSheetText(title: _title5, text: _text5),
+            BottomSheetText(title: _title6, text: _text6),
+            BottomSheetText(title: _title7, text: _text7),
+            BottomSheetText(title: _title8, text: _text8),
+            BottomSheetText(title: _title9, text: _text9),
+            BottomSheetText(title: _title10, text: _text10),
+            BottomSheetText(title: _title11, text: _text11),
+            BottomSheetText(title: _title12, text: _text12),
           ],
         ),
       ),
@@ -115,35 +116,5 @@ class PrivacyBottomSheet extends StatelessWidget {
           color: Colors.grey,
           fontWeight: FontWeight.w800,
         ),
-      );
-
-  Column _myTextWidget({
-    required String title,
-    required String text,
-  }) =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 2),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-        ],
       );
 }
