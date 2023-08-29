@@ -93,28 +93,14 @@ class ElementShadows extends StatelessWidget {
           Row(
             children: [
               if (gameCardElement.contains(Element.fire))
-                Container(
-                  width: 32,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                      colors: [
-                        Color(0xFFc94c2d),
-                        Color(0xFFFBF276),
-                      ],
-                    ),
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(8)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFFFF4D00),
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
+                elementShadow(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: const [
+                    Color(0xFFc94c2d),
+                    Color(0xFFFBF276),
+                  ],
+                  boxShadowColor: const Color(0xFFFF4D00),
                 )
               else
                 const SizedBox(
@@ -122,56 +108,28 @@ class ElementShadows extends StatelessWidget {
                   height: 48,
                 ),
               if (gameCardElement.contains(Element.water))
-                Container(
-                  width: 32,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        Color(0xFF33658E),
-                        Color(0xFF87F8F8),
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFF3F7A9E),
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(8)),
-                  ),
+                elementShadow(
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                  colors: [
+                    const Color(0xFF33658E),
+                    const Color(0xFF87F8F8),
+                  ],
+                  boxShadowColor: const Color(0xFF3F7A9E),
                 ),
             ],
           ),
           Row(
             children: [
               if (gameCardElement.contains(Element.earth))
-                Container(
-                  width: 32,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color(0xFF46966B),
-                        Color(0xFF8BB987),
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFF2E7900),
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(8)),
-                  ),
+                elementShadow(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    const Color(0xFF46966B),
+                    const Color(0xFF8BB987),
+                  ],
+                  boxShadowColor: const Color(0xFF2E7900),
                 )
               else
                 const SizedBox(
@@ -179,30 +137,43 @@ class ElementShadows extends StatelessWidget {
                   height: 48,
                 ),
               if (gameCardElement.contains(Element.air))
-                Container(
-                  width: 32,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color(0xFFADADAD),
-                        Color(0xFFEBEBEB),
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(8)),
-                  ),
+                elementShadow(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    const Color(0xFFADADAD),
+                    const Color(0xFFEBEBEB),
+                  ],
+                  boxShadowColor: Colors.white,
                 ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container elementShadow({
+    required Alignment begin,
+    required Alignment end,
+    required List<Color> colors,
+    required Color boxShadowColor,
+  }) {
+    return Container(
+      width: 32,
+      height: 48,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: begin,
+          end: end,
+          colors: colors,
+        ),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(8)),
+        boxShadow: [
+          BoxShadow(
+            color: boxShadowColor,
+            blurRadius: 10,
+            spreadRadius: 2,
           ),
         ],
       ),
