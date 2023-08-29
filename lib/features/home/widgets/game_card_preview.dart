@@ -36,26 +36,20 @@ class GameCardPreview extends StatelessWidget {
             height: 115,
             child: Stack(
               children: [
-                Container(
-                  width: 65,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        spreadRadius: 1,
-                        color: switch (gameCard.element) {
-                          Element.air => Colors.white,
-                          Element.fire => Colors.redAccent,
-                          Element.water => Colors.blueAccent,
-                          Element.earth => Colors.brown.shade400,
-                        },
-                      ),
-                    ],
-                    borderRadius: SharedBorderRadius.circular8,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        gameCard.imagePath,
+                ElementShadows(
+                  gameCardElement: gameCard.elements,
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: 60,
+                    height: 95,
+                    decoration: BoxDecoration(
+                      borderRadius: SharedBorderRadius.circular12,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          gameCard.imagePath,
+                        ),
                       ),
                     ),
                   ),
@@ -82,6 +76,136 @@ class GameCardPreview extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ElementShadows extends StatelessWidget {
+  const ElementShadows({required this.gameCardElement, super.key});
+  final List<Element> gameCardElement;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 65,
+      height: 115,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              if (gameCardElement.contains(Element.fire))
+                Container(
+                  width: 32,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        Color(0xFFc94c2d),
+                        Color(0xFFFBF276),
+                      ],
+                    ),
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(8)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFFFF4D00),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                )
+              else
+                const SizedBox(
+                  width: 32,
+                  height: 48,
+                ),
+              if (gameCardElement.contains(Element.water))
+                Container(
+                  width: 32,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Color(0xFF33658E),
+                        Color(0xFF87F8F8),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF3F7A9E),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(8)),
+                  ),
+                ),
+            ],
+          ),
+          Row(
+            children: [
+              if (gameCardElement.contains(Element.earth))
+                Container(
+                  width: 32,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF46966B),
+                        Color(0xFF8BB987),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF2E7900),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(8)),
+                  ),
+                )
+              else
+                const SizedBox(
+                  width: 32,
+                  height: 48,
+                ),
+              if (gameCardElement.contains(Element.air))
+                Container(
+                  width: 32,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Color(0xFFADADAD),
+                        Color(0xFFEBEBEB),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(8)),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

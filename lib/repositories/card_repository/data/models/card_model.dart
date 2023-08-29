@@ -3,7 +3,7 @@ import 'package:fusion/repositories/card_repository/domain/entities/card_entity.
 class CardModel extends GameCard {
   const CardModel({
     required super.name,
-    required super.element,
+    required super.elements,
     required super.abilityId,
     required super.power,
     required super.imagePath,
@@ -11,18 +11,25 @@ class CardModel extends GameCard {
   });
   factory CardModel.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('name') ||
-        !map.containsKey('element') ||
+        !map.containsKey('elements') ||
         !map.containsKey('abilityId') ||
         !map.containsKey('power') ||
         !map.containsKey('imagePath') ||
         !map.containsKey('cardId')) {
       throw Exception('Invalid map data');
     }
+    final settedElementList = <Element>[];
+
+    for (final elements in map['elements'] as List) {
+      settedElementList.add(
+        Element.values.firstWhere(
+          (e) => e.toString().split('.').last == elements,
+        ),
+      );
+    }
     return CardModel(
       name: map['name'] as String,
-      element: Element.values.firstWhere(
-        (e) => e.toString().split('.').last == map['element'],
-      ),
+      elements: settedElementList,
       abilityId: map['abilityId'] as String,
       power: map['power'] as int,
       imagePath: map['imagePath'] as String,
@@ -33,7 +40,7 @@ class CardModel extends GameCard {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      'element': element.toString().split('.').last,
+      'element': elements.toString().split('.').last,
       'abilityId': abilityId,
       'power': power,
       'imagePath': imagePath,
@@ -44,7 +51,7 @@ class CardModel extends GameCard {
   CardModel fromEntity(GameCard cardEntity) {
     return CardModel(
       name: cardEntity.name,
-      element: cardEntity.element,
+      elements: cardEntity.elements,
       abilityId: cardEntity.abilityId,
       power: cardEntity.power,
       imagePath: cardEntity.imagePath,
@@ -55,7 +62,7 @@ class CardModel extends GameCard {
   static GameCard toEntity(CardModel authModel) {
     return GameCard(
       name: authModel.name,
-      element: authModel.element,
+      elements: authModel.elements,
       abilityId: authModel.abilityId,
       power: authModel.power,
       imagePath: authModel.imagePath,
