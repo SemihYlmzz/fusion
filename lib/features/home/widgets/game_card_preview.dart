@@ -2,6 +2,8 @@ import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'package:fusion/shared/widgets/pop_ups/detailed_game_card_pop_up.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../../../gen/assets.gen.dart';
@@ -23,13 +25,13 @@ class GameCardPreview extends StatelessWidget {
             if (devicePrefsState.devicePrefs.isHapticsOn) {
               HapticFeedback.heavyImpact();
             }
-            context.read<DevicePrefsBloc>().add(
-                  UpdateDevicePrefs(
-                    devicePrefsState.devicePrefs.copyWith(
-                      isTermsAndConditionsAccepted: false,
-                    ),
-                  ),
-                );
+            showPopUp(
+              DetailedGameCardPopUp(
+                gameCard: gameCard,
+              ),
+              devicePrefsState.devicePrefs,
+              context,
+            );
           },
           child: SizedBox(
             width: 65,
@@ -78,6 +80,21 @@ class GameCardPreview extends StatelessWidget {
       },
     );
   }
+
+  Future<void> showPopUp(
+    Widget popUpWidget,
+    DevicePrefs devicePrefs,
+    BuildContext context,
+  ) =>
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          if (devicePrefs.isHapticsOn) {
+            HapticFeedback.mediumImpact();
+          }
+          return popUpWidget;
+        },
+      );
 }
 
 class ElementShadows extends StatelessWidget {
