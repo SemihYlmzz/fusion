@@ -239,12 +239,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iAgreeToThe => 'I have read and agree to the';
 
   @override
-  String get devangsPrivacy => 'Devangs Privacy';
-
-  @override
-  String get andText => 'and';
-
-  @override
   String get fusionPrivacyNotice => 'Fusion Privacy Notice';
 
   @override

@@ -388,14 +388,7 @@
     "@iAgreeToThe": {
         "description": "Text says accepting upcoming sentences."
     },
-    "devangsPrivacy": "Devangs Privacy",
-    "@devangsPrivacy": {
-        "description": "Devangs Privacy Text."
-    },
-    "andText": "and",
-    "@andText": {
-        "description": "Simple and text."
-    },
+
     "fusionPrivacyNotice": "Fusion Privacy Notice",
     "@fusionPrivacyNotice": {
         "description": "Fusion Privacy Notice Text."

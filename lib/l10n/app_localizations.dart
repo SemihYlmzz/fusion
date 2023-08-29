@@ -561,18 +561,6 @@ abstract class AppLocalizations {
   /// **'I have read and agree to the'**
   String get iAgreeToThe;
 
-  /// Devangs Privacy Text.
-  ///
-  /// In en, this message translates to:
-  /// **'Devangs Privacy'**
-  String get devangsPrivacy;
-
-  /// Simple and text.
-  ///
-  /// In en, this message translates to:
-  /// **'and'**
-  String get andText;
-
   /// Fusion Privacy Notice Text.
   ///
   /// In en, this message translates to:

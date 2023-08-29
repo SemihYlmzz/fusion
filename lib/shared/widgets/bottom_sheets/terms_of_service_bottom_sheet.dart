@@ -78,8 +78,9 @@ class TermsOfService extends StatelessWidget {
           children: [
             _mainTitleText(mainTitle: 'Terms of Service'),
             _lastUpdateDate(
-                lastUpdateText: 'Last updated',
-                lastUpdateDate: 'March 7, 2022'),
+              lastUpdateText: 'Last updated',
+              lastUpdateDate: 'March 7, 2022',
+            ),
             const Padding(
               padding: SharedPaddings.top12,
               child: Text(
@@ -90,55 +91,55 @@ class TermsOfService extends StatelessWidget {
                 ),
               ),
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title1,
               text: _text1,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title2,
               text: _text2,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title3,
               text: _text3,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title4,
               text: _text4,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title5,
               text: _text5,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title6,
               text: _text6,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title7,
               text: _text7,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title8,
               text: _text8,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title9,
               text: _text9,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title10,
               text: _text10,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title11,
               text: _text11,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title12,
               text: _text12,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title13,
               text: _text13,
             ),
@@ -146,23 +147,23 @@ class TermsOfService extends StatelessWidget {
               title: _title14,
               text: _text14,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title15,
               text: _text15,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title16,
               text: _text16,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title17,
               text: _text17,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title18,
               text: _text18,
             ),
-            BottomSheetText(
+            const BottomSheetText(
               title: _title19,
               text: _text19,
             ),

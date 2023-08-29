@@ -44,30 +44,17 @@ class PrivacyAcceptButton extends StatelessWidget {
                       AppLocalizations.of(context).iAgreeToThe,
                       textAlign: TextAlign.center,
                     ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        GradientTextButton(
-                          AppLocalizations.of(context).devangsPrivacy,
-                          maxLines: 2,
-                          align: TextAlign.center,
-                          onTap: () async {
-                            await showBottomSheett(
-                              const PrivacyBottomSheet(),
-                              devicePrefsState.devicePrefs,
-                              context,
-                            );
-                          },
-                        ),
-                        Text(
-                          AppLocalizations.of(context).andText,
-                        ),
-                        GradientTextButton(
-                          AppLocalizations.of(context).fusionPrivacyNotice,
-                          maxLines: 2,
-                          align: TextAlign.center,
-                        ),
-                      ],
+                    GradientTextButton(
+                      AppLocalizations.of(context).fusionPrivacyNotice,
+                      maxLines: 2,
+                      align: TextAlign.center,
+                      onTap: () async {
+                        await showBottomSheett(
+                          const PrivacyBottomSheet(),
+                          devicePrefsState.devicePrefs,
+                          context,
+                        );
+                      },
                     ),
                   ],
                 ),

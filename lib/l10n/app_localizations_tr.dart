@@ -239,12 +239,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get iAgreeToThe => 'Okudum ve kabul ediyorum.';
 
   @override
-  String get devangsPrivacy => 'Devangs Gizlilik';
-
-  @override
-  String get andText => 've';
-
-  @override
   String get fusionPrivacyNotice => 'Fusion Gizlilik Sözleşmesi';
 
   @override
