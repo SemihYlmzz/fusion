@@ -39,7 +39,7 @@ class GameCardPreview extends StatelessWidget {
             child: Stack(
               children: [
                 ElementShadows(
-                  gameCardElement: gameCard.elements,
+                  gameCardElement: gameCard.element,
                 ),
                 Align(
                   alignment: Alignment.topCenter,
@@ -99,7 +99,7 @@ class GameCardPreview extends StatelessWidget {
 
 class ElementShadows extends StatelessWidget {
   const ElementShadows({required this.gameCardElement, super.key});
-  final List<Element> gameCardElement;
+  final Element gameCardElement;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -109,7 +109,7 @@ class ElementShadows extends StatelessWidget {
         children: [
           Row(
             children: [
-              if (gameCardElement.contains(Element.fire))
+              if (gameCardElement == (Element.fire))
                 elementShadow(
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight,
@@ -124,7 +124,7 @@ class ElementShadows extends StatelessWidget {
                   width: 32,
                   height: 48,
                 ),
-              if (gameCardElement.contains(Element.water))
+              if (gameCardElement == (Element.water))
                 elementShadow(
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
@@ -138,7 +138,7 @@ class ElementShadows extends StatelessWidget {
           ),
           Row(
             children: [
-              if (gameCardElement.contains(Element.earth))
+              if (gameCardElement == (Element.earth))
                 elementShadow(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -153,7 +153,7 @@ class ElementShadows extends StatelessWidget {
                   width: 32,
                   height: 48,
                 ),
-              if (gameCardElement.contains(Element.air))
+              if (gameCardElement == (Element.air))
                 elementShadow(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,

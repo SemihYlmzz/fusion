@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 class GameCard extends Equatable {
   const GameCard({
     required this.name,
-    required this.elements,
+    required this.element,
     required this.abilityId,
     required this.power,
     required this.imagePath,
     required this.cardId,
   });
   final String name;
-  final List<Element> elements;
+  final Element element;
   final String abilityId;
   final int power;
   final String imagePath;
@@ -18,7 +18,7 @@ class GameCard extends Equatable {
 
   GameCard copyWith({
     String? name,
-    List<Element>? elements,
+    Element? element,
     String? abilityId,
     int? power,
     String? imagePath,
@@ -26,7 +26,7 @@ class GameCard extends Equatable {
   }) {
     return GameCard(
       name: name ?? this.name,
-      elements: elements ?? this.elements,
+      element: element ?? this.element,
       abilityId: abilityId ?? this.abilityId,
       power: power ?? this.power,
       imagePath: imagePath ?? this.imagePath,
@@ -37,7 +37,7 @@ class GameCard extends Equatable {
   @override
   List<Object?> get props => [
         name,
-        elements,
+        element,
         abilityId,
         power,
         imagePath,
