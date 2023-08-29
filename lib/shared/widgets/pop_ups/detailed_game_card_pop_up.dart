@@ -169,7 +169,7 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
                 children: [
                   if (isFire)
                     Padding(
-                      padding: SharedPaddings.horizontal12,
+                      padding: SharedPaddings.horizontal4,
                       child: Image.asset(
                         Assets.images.cardPreview.selectedFire.path,
                         scale: 1.5,
@@ -177,7 +177,7 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
                     ),
                   if (isWater)
                     Padding(
-                      padding: SharedPaddings.horizontal12,
+                      padding: SharedPaddings.horizontal4,
                       child: Image.asset(
                         Assets.images.cardPreview.selectedWater.path,
                         scale: 1.5,
@@ -185,7 +185,7 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
                     ),
                   if (isEarth)
                     Padding(
-                      padding: SharedPaddings.horizontal12,
+                      padding: SharedPaddings.horizontal4,
                       child: Image.asset(
                         Assets.images.cardPreview.selectedEarth.path,
                         scale: 1.5,
@@ -193,7 +193,7 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
                     ),
                   if (isAir)
                     Padding(
-                      padding: SharedPaddings.horizontal12,
+                      padding: SharedPaddings.horizontal4,
                       child: Image.asset(
                         Assets.images.cardPreview.selectedAir.path,
                         scale: 1.5,
