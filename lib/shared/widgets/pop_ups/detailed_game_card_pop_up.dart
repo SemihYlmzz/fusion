@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Element;
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:fusion/features/settings/widgets/widgets.dart';
 import 'package:fusion/gen/assets.gen.dart';
@@ -19,10 +19,10 @@ class DetailedGameCardPopUp extends StatefulWidget {
 
 class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
   bool isFire = false;
-  bool isWate = false;
-  bool isFire = false;
-  bool isFire = false;
-  
+  bool isWater = false;
+  bool isEarth = false;
+  bool isAir = false;
+
   Future<void> popBack(BuildContext context) async {
     await Future<void>.delayed(Duration.zero);
     if (mounted) {
@@ -32,7 +32,10 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
 
   @override
   Widget build(BuildContext context) {
-   widget.gameCard.elements.contains(gameCard.Element.fire)
+    isFire = widget.gameCard.elements.contains(Element.fire);
+    isWater = widget.gameCard.elements.contains(Element.water);
+    isEarth = widget.gameCard.elements.contains(Element.earth);
+    isAir = widget.gameCard.elements.contains(Element.air);
 
     return ClosableAnimatedScaffold(
       backgroundColor: Colors.black87,
@@ -162,26 +165,34 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
               height: 100,
               width: 320,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  
+                  if (isFire)
+                    Padding(
+                      padding: SharedPaddings.horizontal12,
+                      child: Image.asset(
+                        Assets.images.cardPreview.selectedFire.path,
+                        scale: 1.5,
+                      ),
+                    ),
+                  if (isWater)
+                    Padding(
+                      padding: SharedPaddings.horizontal12,
+                      child: Image.asset(
+                        Assets.images.cardPreview.selectedWater.path,
+                        scale: 1.5,
+                      ),
+                    ),
+                  if (isEarth)
                     Image.asset(
-                      Assets.images.cardPreview.selectedFire.path,
+                      Assets.images.cardPreview.selectedEarth.path,
                       scale: 1.5,
                     ),
-                  if (widget.gameCard.elements.contains(gameCard.Element.fire))
+                  if (isAir)
                     Image.asset(
-                      Assets.images.cardPreview.selectedFire.path,
+                      Assets.images.cardPreview.selectedAir.path,
                       scale: 1.5,
                     ),
-                  Image.asset(
-                    Assets.images.cardPreview.selectedFire.path,
-                    scale: 1.5,
-                  ),
-                  Image.asset(
-                    Assets.images.cardPreview.selectedFire.path,
-                    scale: 1.5,
-                  ),
                 ],
               ),
             ),

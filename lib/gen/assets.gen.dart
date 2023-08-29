@@ -111,8 +111,50 @@ class $AssetsImagesCardPreviewGen {
   AssetGenImage get cardPower =>
       const AssetGenImage('assets/images/card_preview/card_power.png');
 
+  /// File path: assets/images/card_preview/selected_air.png
+  AssetGenImage get selectedAir =>
+      const AssetGenImage('assets/images/card_preview/selected_air.png');
+
+  /// File path: assets/images/card_preview/selected_earth.png
+  AssetGenImage get selectedEarth =>
+      const AssetGenImage('assets/images/card_preview/selected_earth.png');
+
+  /// File path: assets/images/card_preview/selected_fire.png
+  AssetGenImage get selectedFire =>
+      const AssetGenImage('assets/images/card_preview/selected_fire.png');
+
+  /// File path: assets/images/card_preview/selected_water.png
+  AssetGenImage get selectedWater =>
+      const AssetGenImage('assets/images/card_preview/selected_water.png');
+
+  /// File path: assets/images/card_preview/unselected_air.png
+  AssetGenImage get unselectedAir =>
+      const AssetGenImage('assets/images/card_preview/unselected_air.png');
+
+  /// File path: assets/images/card_preview/unselected_earth.png
+  AssetGenImage get unselectedEarth =>
+      const AssetGenImage('assets/images/card_preview/unselected_earth.png');
+
+  /// File path: assets/images/card_preview/unselected_fire.png
+  AssetGenImage get unselectedFire =>
+      const AssetGenImage('assets/images/card_preview/unselected_fire.png');
+
+  /// File path: assets/images/card_preview/unselected_water.png
+  AssetGenImage get unselectedWater =>
+      const AssetGenImage('assets/images/card_preview/unselected_water.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [cardPower];
+  List<AssetGenImage> get values => [
+        cardPower,
+        selectedAir,
+        selectedEarth,
+        selectedFire,
+        selectedWater,
+        unselectedAir,
+        unselectedEarth,
+        unselectedFire,
+        unselectedWater
+      ];
 }
 
 class $AssetsImagesEarthCardsGen {

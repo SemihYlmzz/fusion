@@ -119,7 +119,12 @@ class CardDatas {
       name: 'Oceanus',
       abilityId: 'oceanus',
       cardId: 'oceanus',
-      elements: const [Element.water],
+      elements: const [
+        Element.water,
+        Element.fire,
+        Element.earth,
+        Element.a,
+      ],
       imagePath: Assets.images.waterCards.oceanus.path,
       power: 1,
     ),
