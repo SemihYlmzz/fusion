@@ -123,7 +123,7 @@ class CardDatas {
         Element.water,
         Element.fire,
         Element.earth,
-        Element.a,
+        Element.air,
       ],
       imagePath: Assets.images.waterCards.oceanus.path,
       power: 1,

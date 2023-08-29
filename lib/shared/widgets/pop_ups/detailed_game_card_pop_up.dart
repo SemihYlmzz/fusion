@@ -184,14 +184,20 @@ class _DetailedGameCardPopUpState extends State<DetailedGameCardPopUp> {
                       ),
                     ),
                   if (isEarth)
-                    Image.asset(
-                      Assets.images.cardPreview.selectedEarth.path,
-                      scale: 1.5,
+                    Padding(
+                      padding: SharedPaddings.horizontal12,
+                      child: Image.asset(
+                        Assets.images.cardPreview.selectedEarth.path,
+                        scale: 1.5,
+                      ),
                     ),
                   if (isAir)
-                    Image.asset(
-                      Assets.images.cardPreview.selectedAir.path,
-                      scale: 1.5,
+                    Padding(
+                      padding: SharedPaddings.horizontal12,
+                      child: Image.asset(
+                        Assets.images.cardPreview.selectedAir.path,
+                        scale: 1.5,
+                      ),
                     ),
                 ],
               ),
