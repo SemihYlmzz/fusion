@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/shared/widgets/pop_ups/detailed_game_card_pop_up.dart';
@@ -26,7 +27,7 @@ class GameCardPreview extends StatelessWidget {
               HapticFeedback.heavyImpact();
             }
             showPopUp(
-              DetailedGameCardPopUp(
+              DetailedGameCard(
                 gameCard: gameCard,
               ),
               devicePrefsState.devicePrefs,
@@ -38,7 +39,11 @@ class GameCardPreview extends StatelessWidget {
             height: 115,
             child: Stack(
               children: [
+<<<<<<< HEAD
                 ElementShadows(
+=======
+                ElementShadow(
+>>>>>>> 41f9c62 (- Multi elemented gamecards removed.)
                   gameCardElement: gameCard.element,
                 ),
                 Align(
@@ -97,6 +102,7 @@ class GameCardPreview extends StatelessWidget {
       );
 }
 
+<<<<<<< HEAD
 class ElementShadows extends StatelessWidget {
   const ElementShadows({required this.gameCardElement, super.key});
   final Element gameCardElement;
@@ -176,19 +182,26 @@ class ElementShadows extends StatelessWidget {
     required List<Color> colors,
     required Color boxShadowColor,
   }) {
+=======
+class ElementShadow extends StatelessWidget {
+  const ElementShadow({required this.gameCardElement, super.key});
+  final Element gameCardElement;
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> 41f9c62 (- Multi elemented gamecards removed.)
     return Container(
-      width: 32,
-      height: 48,
+      width: 65,
+      height: 95,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: begin,
-          end: end,
-          colors: colors,
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: CardDatas.elementGradientColor(gameCardElement),
         ),
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(8)),
+        borderRadius: SharedBorderRadius.circular4,
         boxShadow: [
           BoxShadow(
-            color: boxShadowColor,
+            color: CardDatas.elementShadowColor(gameCardElement),
             blurRadius: 10,
             spreadRadius: 2,
           ),
