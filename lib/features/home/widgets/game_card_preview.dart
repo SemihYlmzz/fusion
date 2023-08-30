@@ -27,7 +27,7 @@ class GameCardPreview extends StatelessWidget {
               HapticFeedback.heavyImpact();
             }
             showPopUp(
-              DetailedGameCard(
+              DetailedGameCardPopUp(
                 gameCard: gameCard,
               ),
               devicePrefsState.devicePrefs,
@@ -39,11 +39,7 @@ class GameCardPreview extends StatelessWidget {
             height: 115,
             child: Stack(
               children: [
-<<<<<<< HEAD
                 ElementShadows(
-=======
-                ElementShadow(
->>>>>>> 41f9c62 (- Multi elemented gamecards removed.)
                   gameCardElement: gameCard.element,
                 ),
                 Align(
@@ -102,93 +98,11 @@ class GameCardPreview extends StatelessWidget {
       );
 }
 
-<<<<<<< HEAD
 class ElementShadows extends StatelessWidget {
   const ElementShadows({required this.gameCardElement, super.key});
   final Element gameCardElement;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 65,
-      height: 115,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              if (gameCardElement == (Element.fire))
-                elementShadow(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: const [
-                    Color(0xFFc94c2d),
-                    Color(0xFFFBF276),
-                  ],
-                  boxShadowColor: const Color(0xFFFF4D00),
-                )
-              else
-                const SizedBox(
-                  width: 32,
-                  height: 48,
-                ),
-              if (gameCardElement == (Element.water))
-                elementShadow(
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                  colors: [
-                    const Color(0xFF33658E),
-                    const Color(0xFF87F8F8),
-                  ],
-                  boxShadowColor: const Color(0xFF3F7A9E),
-                ),
-            ],
-          ),
-          Row(
-            children: [
-              if (gameCardElement == (Element.earth))
-                elementShadow(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF46966B),
-                    const Color(0xFF8BB987),
-                  ],
-                  boxShadowColor: const Color(0xFF2E7900),
-                )
-              else
-                const SizedBox(
-                  width: 32,
-                  height: 48,
-                ),
-              if (gameCardElement == (Element.air))
-                elementShadow(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    const Color(0xFFADADAD),
-                    const Color(0xFFEBEBEB),
-                  ],
-                  boxShadowColor: Colors.white,
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container elementShadow({
-    required Alignment begin,
-    required Alignment end,
-    required List<Color> colors,
-    required Color boxShadowColor,
-  }) {
-=======
-class ElementShadow extends StatelessWidget {
-  const ElementShadow({required this.gameCardElement, super.key});
-  final Element gameCardElement;
-  @override
-  Widget build(BuildContext context) {
->>>>>>> 41f9c62 (- Multi elemented gamecards removed.)
     return Container(
       width: 65,
       height: 95,
