@@ -151,6 +151,37 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   }
 
   @override
+  FutureUnit refreshDeck() async {
+    const cloudFunctionUrl =
+        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/refreshMyDeck';
+    final user = auth.FirebaseAuth.instance.currentUser;
+
+    try {
+      if (user == null) {
+        return Left(Failure('Please sign in again.'));
+      }
+      final idToken = await user.getIdToken();
+      final response = await http.post(
+        Uri.parse(cloudFunctionUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(unit);
+      } else if (response.statusCode == 400) {
+        return Left(Failure(response.body));
+      } else {
+        return Left(Failure('Error occured while refreshing Deck.'));
+      }
+    } catch (e) {
+      return Left(Failure('Error occured while refreshing Deck. $e'));
+    }
+  }
+
+  @override
   FutureUnit deleteUser({required String uid}) async {
     try {
       await FirebaseFirestore.instance

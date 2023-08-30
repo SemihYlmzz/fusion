@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/gen/assets.gen.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:fusion/repositories/user_repository/domain/entities/user.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -78,6 +79,11 @@ class HomeView extends StatelessWidget {
                         );
                     if (devicePrefs.isHapticsOn) {
                       await HapticFeedback.heavyImpact();
+                    }
+                    if (context.mounted) {
+                      context
+                          .read<UserBloc>()
+                          .add(const RefreshDeckRequested());
                     }
                   },
                   child: Text(

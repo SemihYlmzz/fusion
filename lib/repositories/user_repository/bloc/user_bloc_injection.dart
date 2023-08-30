@@ -1,4 +1,5 @@
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
+import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
 
 import '../../../injection_container.dart';
 
@@ -19,7 +20,9 @@ class UserBlocInjection {
         readUserWithUidUseCase: getIt<ReadUserWithUidUseCase>(),
         updateUserWithUidUseCase: getIt<UpdateUserWithUidUseCase>(),
         changeUsernameUseCase: getIt<ChangeUsernameUseCase>(),
+        refreshDeckUseCase: getIt<RefreshDeckUseCase>(),
         watchUserWithUidUseCase: getIt<WatchUserWithUidUseCase>(),
+
       ),
     );
   }

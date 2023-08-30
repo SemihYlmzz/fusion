@@ -4,8 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:fusion/repositories/auth_repository/domain/usecase/params/no_params.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/params/user_name_params.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
+import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
 
 import '../../../utils/failure.dart';
 import '../domain/entities/user.dart';
@@ -26,6 +28,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     required this.watchUserWithUidUseCase,
     required this.updateUserWithUidUseCase,
     required this.changeUsernameUseCase,
+    required this.refreshDeckUseCase,
     required this.deleteUserUseCase,
   }) : super(const UserEmpty()) {
     on<ReadWithUidRequested>(onReadWithUidRequested);
@@ -33,12 +36,14 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     on<UpdateRequested>(onUserUpdateRequested);
     on<ChangeUsernameRequested>(onUsernameChangeRequested);
     on<DeleteRequested>(onUserDeleteRequested);
+    on<RefreshDeckRequested>(onRefreshDeckRequested);
   }
   final CreateUserUseCase createUserUseCase;
   final ReadUserWithUidUseCase readUserWithUidUseCase;
   final WatchUserWithUidUseCase watchUserWithUidUseCase;
   final UpdateUserWithUidUseCase updateUserWithUidUseCase;
   final ChangeUsernameUseCase changeUsernameUseCase;
+  final RefreshDeckUseCase refreshDeckUseCase;
   final DeleteUserUseCase deleteUserUseCase;
 
   StreamSubscription<Either<Failure, User>>? _userSubscription;
@@ -139,6 +144,24 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> onRefreshDeckRequested(
+    RefreshDeckRequested event,
+    Emitter<UserState> emit,
+  ) async {
+    final oldState = state;
+    emit(UserLoading(user: state.user));
+    final tryUpdateUser = await refreshDeckUseCase.execute(const NoParams());
+    tryUpdateUser.fold(
+      (failure) => emit(
+        UserHasData(
+          user: oldState.user,
+          errorMessage: failure.message,
+        ),
+      ),
+      (userEntity) => add(ReadWithUidRequested(oldState.user!.uid)),
     );
   }
 

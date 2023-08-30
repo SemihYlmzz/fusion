@@ -108,6 +108,7 @@ exports.changeUsername = functions.https.onRequest(async (req, res) => {
     const newUsername = req.body.newUsername;
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const userId = decodedToken.uid;
+
     const usernameExists = await admin.firestore().collection("users")
         .where("username", "==", newUsername)
         .get();
@@ -257,3 +258,20 @@ exports.deleteOldDeleteRequestedUserDatas = functions.pubsub
       console.log("Old Delete Requested Users Deleted!");
       return null;
     });
+
+exports.refreshMyDeck = functions.https.onRequest(async (req, res) => {
+  try {
+    const deck = getRandomUniqueItemsFromArray(deckOptions, 8);
+    const idToken = req.header("Authorization").split("Bearer ")[1];
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    const userRef = admin.firestore().collection("users").doc(userId);
+    await userRef.update({
+      deck: deck,
+    });
+    res.status(200).send("Deck refreshed successfully");
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("An error occurred while refreshing the deck.");
+  }
+});

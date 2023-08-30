@@ -43,6 +43,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  FutureUnit refreshDeck() {
+    return _userDatasource.refreshDeck();
+  }
+
+  @override
   FutureEither<User> updateUserWithUid({
     required User updatedUser,
   }) async {

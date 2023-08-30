@@ -26,6 +26,10 @@ final class ChangeUsernameRequested extends UserEvent {
   final String newUsername;
 }
 
+final class RefreshDeckRequested extends UserEvent {
+  const RefreshDeckRequested();
+}
+
 final class DeleteRequested extends UserEvent {
   const DeleteRequested(this.uid);
 

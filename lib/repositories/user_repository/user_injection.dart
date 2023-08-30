@@ -1,5 +1,6 @@
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
+import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/update_user_with_uid.dart';
 
 import 'data/datasource/user_datasource.dart';
@@ -49,6 +50,11 @@ class UserRepositoryInjection {
       )
       ..registerSingleton<ChangeUsernameUseCase>(
         ChangeUsernameUseCase(
+          userRepository: getIt<UserRepository>(),
+        ),
+      )
+      ..registerSingleton<RefreshDeckUseCase>(
+        RefreshDeckUseCase(
           userRepository: getIt<UserRepository>(),
         ),
       );

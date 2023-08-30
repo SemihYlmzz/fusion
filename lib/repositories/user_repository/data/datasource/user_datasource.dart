@@ -9,8 +9,10 @@ abstract class UserDatasource {
   StreamEither<User> watchUserWithUid({required String uid});
 
   FutureEither<User> updateUserWithUid({required User updatedUser});
-  
+
   FutureUnit changeUsername({required String newUsername});
+
+  FutureUnit refreshDeck();
 
   FutureUnit deleteUser({required String uid});
 }

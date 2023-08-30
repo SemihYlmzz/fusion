@@ -11,6 +11,8 @@ abstract class UserRepository {
 
   FutureUnit changeUsername({required String newUsername});
 
+  FutureUnit refreshDeck();
+
   FutureEither<User> updateUserWithUid({required User updatedUser});
 
   FutureUnit deleteUser({required String uid});
