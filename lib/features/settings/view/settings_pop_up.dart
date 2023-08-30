@@ -5,6 +5,7 @@ import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.d
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
+import 'package:fusion/shared/widgets/bottom_sheets/credits_bottom_sheet.dart';
 import 'package:fusion/shared/widgets/bottom_sheets/privacy_bottom_sheet.dart';
 import 'package:fusion/shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
@@ -164,7 +165,7 @@ class SettingsScreen extends StatelessWidget {
                                       buttonText:
                                           AppLocalizations.of(context).privacy,
                                       onTap: () {
-                                        showBottomSheett(
+                                        displayBottomSheet(
                                           const PrivacyBottomSheet(),
                                           devicePrefs,
                                           context,
@@ -175,7 +176,7 @@ class SettingsScreen extends StatelessWidget {
                                       buttonText: AppLocalizations.of(context)
                                           .termsOfService,
                                       onTap: () {
-                                        showBottomSheett(
+                                        displayBottomSheet(
                                           const TermsOfService(),
                                           devicePrefs,
                                           context,
@@ -185,6 +186,13 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsThickButton(
                                       buttonText:
                                           AppLocalizations.of(context).credits,
+                                      onTap: () {
+                                        displayBottomSheet(
+                                          const CreditsBottomSheet(),
+                                          devicePrefs,
+                                          context,
+                                        );
+                                      },
                                     ),
                                     SettingsThickButton(
                                       buttonText: AppLocalizations.of(context)
@@ -241,7 +249,7 @@ class SettingsScreen extends StatelessWidget {
           return popUpWidget;
         },
       );
-  Future<void> showBottomSheett(
+  Future<void> displayBottomSheet(
     Widget bottomSheetWidget,
     DevicePrefs devicePrefs,
     BuildContext context,
