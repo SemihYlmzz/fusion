@@ -23,10 +23,9 @@ class DeleteAccountPopUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey.shade900,
-      //contentPadding: SharedPaddings.all8,
       content: Container(
         constraints: const BoxConstraints(
-          maxHeight: 500,
+          maxHeight: 533,
         ),
         child: RawScrollbar(
           thumbVisibility: true,
@@ -36,7 +35,7 @@ class DeleteAccountPopUp extends StatelessWidget {
           thickness: 5,
           child: SingleChildScrollView(
             child: Padding(
-              padding: SharedPaddings.all8,
+              padding: SharedPaddings.all4,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
