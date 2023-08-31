@@ -13,6 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
+  # Ads
+  google_mobile_ads: ^3.0.0
 
   # Audio
   audioplayers: ^4.1.0

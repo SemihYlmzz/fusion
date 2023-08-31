@@ -1,3 +1,4 @@
+import 'package:fusion/ad/ad.dart';
 import 'package:fusion/audio/audio_cubit_injection.dart';
 import 'package:fusion/repositories/auth_repository/auth_injection.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc_injection.dart';
@@ -34,4 +35,5 @@ Future<void> initializeDependencies() async {
   // Cubits
   // -- Audio Cubit
   AudioCubitInjection.inject();
+  AdBlocInjection.inject();
 }

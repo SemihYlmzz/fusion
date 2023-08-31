@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/ad/ad.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/features/home/home.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
@@ -46,18 +47,24 @@ class HomeScreen extends StatelessWidget {
                     if (userState is UserHasData || userState is UserLoading) {
                       return BlocBuilder<AudioCubit, AudioState>(
                         builder: (context, audioState) {
-                          return LoadingScreen(
-                            isLoading: authState is AuthLoading ||
-                                userState is UserLoading,
-                            size: MediaQuery.of(context).size,
-                            child: BaseScaffold(
-                              safeArea: true,
-                              body: HomeView(
-                                uid: authState.authEntity.id,
-                                devicePrefs: devicePrefsState.devicePrefs,
-                                user: userState.user!,
-                              ),
-                            ),
+                          return BlocBuilder<AdCubit, AdState>(
+                            builder: (context, adState) {
+                              print('adstate');
+                              return LoadingScreen(
+                                isLoading: authState is AuthLoading ||
+                                    userState is UserLoading,
+                                size: MediaQuery.of(context).size,
+                                child: BaseScaffold(
+                                  safeArea: true,
+                                  body: HomeView(
+                                    uid: authState.authEntity.id,
+                                    devicePrefs: devicePrefsState.devicePrefs,
+                                    user: userState.user!,
+                                    adState: adState,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

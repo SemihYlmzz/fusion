@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fusion/injection_container.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -43,6 +44,8 @@ Future<void> bootstrap(BootstrapBuilder builder) async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
       await initializeDependencies();
+      await MobileAds.instance.initialize();
+
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitDown,
         DeviceOrientation.portraitUp,

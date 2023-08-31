@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
@@ -13,9 +14,11 @@ import '../../../repositories/card_repository/domain/entities/card_entity.dart';
 class GameCardPreview extends StatelessWidget {
   const GameCardPreview({
     required this.gameCard,
+    required this.index,
     super.key,
   });
   final GameCard gameCard;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -34,47 +37,60 @@ class GameCardPreview extends StatelessWidget {
               context,
             );
           },
-          child: SizedBox(
-            width: 65,
-            height: 115,
-            child: Stack(
-              children: [
-                ElementShadows(
-                  gameCardElement: gameCard.element,
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    width: 60,
-                    height: 95,
-                    decoration: BoxDecoration(
-                      borderRadius: SharedBorderRadius.circular12,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          gameCard.imagePath,
+          child: Animate(
+            effects: [
+              MoveEffect(
+                begin: const Offset(0, 75),
+                end: Offset.zero,
+                delay: Duration(milliseconds: 150 * index + 1),
+              ),
+              FadeEffect(
+                delay: Duration(milliseconds: 150 * index + 1),
+                duration: SharedDurations.ms500,
+              ),
+            ],
+            child: SizedBox(
+              width: 65,
+              height: 115,
+              child: Stack(
+                children: [
+                  ElementShadows(
+                    gameCardElement: gameCard.element,
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      width: 60,
+                      height: 95,
+                      decoration: BoxDecoration(
+                        borderRadius: SharedBorderRadius.circular12,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            gameCard.imagePath,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: 37,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          Assets.images.cardPreview.cardPower.path,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: 37,
+                      height: 37,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            Assets.images.cardPreview.cardPower.path,
+                          ),
                         ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(gameCard.power.toString()),
+                      child: Center(
+                        child: Text(gameCard.power.toString()),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

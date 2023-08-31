@@ -1,35 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/ad/ad.dart';
 import 'package:fusion/gen/assets.gen.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:fusion/repositories/user_repository/domain/entities/user.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../audio/audio_cubit.dart';
 import '../../settings/settings.dart';
 import '../widgets/widgets.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({
     required this.uid,
     required this.devicePrefs,
     required this.user,
+    required this.adState,
     super.key,
   });
   final String uid;
   final DevicePrefs devicePrefs;
   final User user;
+  final AdState adState;
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     context.read<AudioCubit>().connectDevicePrefs(
-          devicePrefs.backGroundSoundVolume,
-          devicePrefs.dialogsSoundVolume,
-          devicePrefs.generalSoundVolume,
-          devicePrefs.soundEffectsSoundVolume,
+          widget.devicePrefs.backGroundSoundVolume,
+          widget.devicePrefs.dialogsSoundVolume,
+          widget.devicePrefs.generalSoundVolume,
+          widget.devicePrefs.soundEffectsSoundVolume,
         );
     context.read<AudioCubit>().playBackgroundSound(
           Assets.music.background.mainMenuLoop,
@@ -39,7 +48,7 @@ class HomeView extends StatelessWidget {
       children: [
         AppBar(
           leadingWidth: 115,
-          title: Text(user.username),
+          title: Text(widget.user.username),
           centerTitle: true,
           actions: [
             IconButton(
@@ -48,7 +57,7 @@ class HomeView extends StatelessWidget {
                 context.read<AudioCubit>().playSoundEffect(
                       Assets.music.sfx.settingsButtonSfx,
                     );
-                if (devicePrefs.isHapticsOn) {
+                if (widget.devicePrefs.isHapticsOn) {
                   HapticFeedback.heavyImpact();
                 }
                 openSettingsPopUp(context);
@@ -65,7 +74,7 @@ class HomeView extends StatelessWidget {
               width: 320,
               height: 250,
               child: DeckPreview(
-                deck: user.deck,
+                deck: widget.user.deck,
               ),
             ),
             Row(
@@ -74,27 +83,38 @@ class HomeView extends StatelessWidget {
                 const Icon(Icons.refresh),
                 TextButton(
                   onPressed: () async {
-                    await context.read<AudioCubit>().playSoundEffect(
-                          Assets.music.sfx.refreshDeckButtonSfx,
-                        );
-                    if (devicePrefs.isHapticsOn) {
-                      await HapticFeedback.heavyImpact();
+                    if (widget.adState.rewardedAd == null) {
+                      return;
                     }
-                    if (context.mounted) {
-                      context
-                          .read<UserBloc>()
-                          .add(const RefreshDeckRequested());
-                    }
+                    await context
+                        .read<AdCubit>()
+                        .onShowRewardedAdRequested(() async {
+                      await context.read<AudioCubit>().playSoundEffect(
+                            Assets.music.sfx.refreshDeckButtonSfx,
+                          );
+                      if (widget.devicePrefs.isHapticsOn) {
+                        await HapticFeedback.heavyImpact();
+                      }
+                      if (context.mounted) {
+                        context
+                            .read<UserBloc>()
+                            .add(const RefreshDeckRequested());
+                      }
+                    });
                   },
                   child: Text(
                     AppLocalizations.of(context).refreshDeck,
-                    style: const TextStyle(color: Colors.greenAccent),
+                    style: TextStyle(
+                      color: widget.adState.rewardedAd != null
+                          ? Colors.greenAccent
+                          : Colors.redAccent,
+                    ),
                   ),
                 ),
               ],
             ),
             PlayButton(
-              devicePrefs: devicePrefs,
+              devicePrefs: widget.devicePrefs,
             ),
           ],
         ),

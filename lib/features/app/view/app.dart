@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fusion/ad/ad.dart';
 import 'package:fusion/config/app_router.dart';
 import 'package:fusion/config/style/theme.dart';
 import 'package:fusion/injection_container.dart';
@@ -29,6 +30,7 @@ class _AppState extends State<App> with RouterMixin {
     final devicePrefsBloc = getIt<DevicePrefsBloc>();
     final deleteRequestBloc = getIt<DeleteRequestBloc>();
     final audioCubit = getIt<AudioCubit>();
+    final adCubit = getIt<AdCubit>();
 
     return MultiBlocProvider(
       providers: [
@@ -39,6 +41,9 @@ class _AppState extends State<App> with RouterMixin {
         ),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
+        BlocProvider<AdCubit>(
+          create: (_) => adCubit..onLoadRewardedAdRequested(),
+        ),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
@@ -54,6 +59,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
+                  _adBlocListener(),
                 ],
                 child: router!,
               );
@@ -102,6 +108,22 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state.errorMessage != null) {
           _showSnackBar(context, state.errorMessage!);
+        }
+      },
+    );
+  }
+
+  BlocListener<AdCubit, AdState> _adBlocListener() {
+    return BlocListener<AdCubit, AdState>(
+      listener: (context, state) async {
+        if (state.errorMessage != null) {
+          await _showSnackBar(context, state.errorMessage!);
+        }
+        if (!state.isLoadingAd && state.rewardedAd == null) {
+          await Future<void>.delayed(SharedDurations.ms200);
+          if (mounted) {
+            await context.read<AdCubit>().onLoadRewardedAdRequested();
+          }
         }
       },
     );
