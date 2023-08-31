@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class BottomSheetText extends StatelessWidget {
   const BottomSheetText({
-    super.key,
     required this.title,
     required this.text,
+    super.key,
   });
   final String title;
   final String text;

@@ -38,7 +38,6 @@ class AdCubit extends Cubit<AdState> {
         return;
       },
     );
-    print('object');
     await onLoadRewardedAdRequested();
   }
 }

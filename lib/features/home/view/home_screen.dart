@@ -49,7 +49,6 @@ class HomeScreen extends StatelessWidget {
                         builder: (context, audioState) {
                           return BlocBuilder<AdCubit, AdState>(
                             builder: (context, adState) {
-                              print('adstate');
                               return LoadingScreen(
                                 isLoading: authState is AuthLoading ||
                                     userState is UserLoading,
