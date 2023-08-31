@@ -7,7 +7,6 @@ import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
 import 'package:fusion/repositories/user_repository/domain/entities/user.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../audio/audio_cubit.dart';

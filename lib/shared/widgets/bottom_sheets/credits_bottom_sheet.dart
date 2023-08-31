@@ -73,9 +73,10 @@ class CreditsBottomSheet extends StatelessWidget {
             _createdBy(title: _title6, text: '$_text6\n$_text6_1'),
             _createdBy(title: _title7, text: _text7),
             _createdBy(
-                title: _title8,
-                text:
-                    '$_text8\n$_text8_1\n$_text8_2\n$_text8_3\n$_text8_4\n$_text8_5'),
+              title: _title8,
+              text:
+                  '$_text8\n$_text8_1\n$_text8_2\n$_text8_3\n$_text8_4\n$_text8_5',
+            ),
             _happinessText(),
           ],
         ),

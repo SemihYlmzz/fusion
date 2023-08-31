@@ -44,7 +44,6 @@ class DeleteAccountPopUp extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 1,
                           child: Icon(
                             Icons.warning,
                             color: Colors.red,
@@ -55,9 +54,10 @@ class DeleteAccountPopUp extends StatelessWidget {
                           child: Text(
                             _warningText,
                             style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
@@ -77,7 +77,9 @@ class DeleteAccountPopUp extends StatelessWidget {
                               width: 100,
                               onPressed: () {
                                 Navigator.popUntil(
-                                    context, (route) => route.isFirst);
+                                  context,
+                                  (route) => route.isFirst,
+                                );
                                 // context.read<DeleteRequestBloc>().add(
                                 // const CreateDeleteRequestRequested(),
                                 // );
@@ -88,14 +90,15 @@ class DeleteAccountPopUp extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                              child: GradientButton(
-                            text: _cancelGradientButtonTitle,
-                            width: 100,
-                            isOutlined: true,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )),
+                            child: GradientButton(
+                              text: _cancelGradientButtonTitle,
+                              width: 100,
+                              isOutlined: true,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ],
