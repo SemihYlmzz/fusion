@@ -4,8 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/ad/ad.dart';
 import 'package:fusion/audio/audio.dart';
 import 'package:fusion/features/home/home.dart';
+import 'package:fusion/features/queue/view/queue_screen.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
@@ -45,23 +48,40 @@ class HomeScreen extends StatelessWidget {
                 return BlocBuilder<UserBloc, UserState>(
                   builder: (context, userState) {
                     if (userState is UserHasData || userState is UserLoading) {
-                      return BlocBuilder<AudioCubit, AudioState>(
-                        builder: (context, audioState) {
-                          return BlocBuilder<AdCubit, AdState>(
-                            builder: (context, adState) {
-                              return LoadingScreen(
-                                isLoading: authState is AuthLoading ||
-                                    userState is UserLoading,
-                                size: MediaQuery.of(context).size,
-                                child: BaseScaffold(
-                                  safeArea: true,
-                                  body: HomeView(
-                                    uid: authState.authEntity.id,
-                                    devicePrefs: devicePrefsState.devicePrefs,
-                                    user: userState.user!,
-                                    adState: adState,
-                                  ),
-                                ),
+                      return BlocBuilder<QueueBloc, QueueState>(
+                        builder: (context, queueState) {
+                          if ((queueState is QueueEmpty ||
+                                  queueState is QueueLeaved) &&
+                              queueState.errorMessage == null) {
+                            context
+                                .read<QueueBloc>()
+                                .add(const CheckQueueRequested());
+                          }
+                          
+                          if (queueState is QueueHasData) {
+                            context.goNamed(QueueScreen.name);
+                          }
+
+                          return BlocBuilder<AudioCubit, AudioState>(
+                            builder: (context, audioState) {
+                              return BlocBuilder<AdCubit, AdState>(
+                                builder: (context, adState) {
+                                  return LoadingScreen(
+                                    isLoading: authState is AuthLoading ||
+                                        userState is UserLoading,
+                                    size: MediaQuery.of(context).size,
+                                    child: BaseScaffold(
+                                      safeArea: true,
+                                      body: HomeView(
+                                        uid: authState.authEntity.id,
+                                        devicePrefs:
+                                            devicePrefsState.devicePrefs,
+                                        user: userState.user!,
+                                        adState: adState,
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
                           );

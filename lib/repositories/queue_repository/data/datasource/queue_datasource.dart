@@ -5,4 +5,6 @@ abstract class QueueDatasource {
   FutureEither<Queue> enterQueue();
 
   FutureUnit leaveQueue();
+
+  FutureEither<Queue> checkQueue();
 }

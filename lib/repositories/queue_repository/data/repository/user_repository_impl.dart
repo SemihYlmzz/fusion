@@ -18,4 +18,9 @@ class QueueRepositoryImpl implements QueueRepository {
   FutureUnit leaveQueue() {
     return _userDatasource.leaveQueue();
   }
+
+  @override
+  FutureEither<Queue> checkQueue() async {
+    return _userDatasource.checkQueue();
+  }
 }

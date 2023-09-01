@@ -275,3 +275,67 @@ exports.refreshMyDeck = functions.https.onRequest(async (req, res) => {
     res.status(500).send("An error occurred while refreshing the deck.");
   }
 });
+
+exports.leaveQueue = functions.https.onRequest(async (req, res) => {
+  const idToken = req.header("Authorization").split("Bearer ")[1];
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    if (userId == null) {
+      return res.status(400).send("No user detected.");
+    }
+    const queueExists = await admin.firestore()
+        .collection("queue")
+        .where("uid", "==", userId)
+        .get();
+
+    if (queueExists.empty) {
+      return res.status(400).send("Not in queue.");
+    }
+
+    const queueRequestRef = admin.firestore()
+        .collection("queue").doc(userId);
+
+    await queueRequestRef.delete();
+
+    return res.status(200).send("Succesfully leaved queue.");
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Error while Leaving Queue.");
+  }
+});
+
+exports.enterQueue = functions.https.onRequest(async (req, res) => {
+  const idToken = req.header("Authorization").split("Bearer ")[1];
+  try {
+    const currentDate = new Date();
+    const millisecondsSinceEpoch = currentDate.getTime();
+
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    if (userId == null) {
+      return res.status(400).send("No user detected.");
+    }
+    const queueExists = await admin.firestore()
+        .collection("queue")
+        .where("uid", "==", userId)
+        .get();
+
+    if (!queueExists.empty) {
+      return res.status(400).send("Already in Queue.");
+    }
+
+    const queueRequestRef = admin.firestore()
+        .collection("queue").doc(userId);
+
+    await queueRequestRef.create({
+      uid: userId,
+      dateOfCreate: millisecondsSinceEpoch,
+    });
+
+    return res.status(200).send("Succesfully entered queue.");
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Error while Entering Queue.");
+  }
+});

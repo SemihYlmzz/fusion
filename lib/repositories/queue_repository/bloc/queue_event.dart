@@ -11,3 +11,6 @@ final class EnterQueueRequested extends QueueEvent {
 final class LeaveQueueRequested extends QueueEvent {
   const LeaveQueueRequested();
 }
+final class CheckQueueRequested extends QueueEvent {
+  const CheckQueueRequested();
+}

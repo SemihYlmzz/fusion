@@ -6,8 +6,7 @@ class QueueModel extends Queue {
     required super.uid,
   });
   factory QueueModel.fromMap(Map<String, dynamic> map) {
-    if (!map.containsKey('accountDeletionScheduledDate') ||
-        !map.containsKey('dateOfCreate')) {
+    if (!map.containsKey('uid') || !map.containsKey('dateOfCreate')) {
       throw Exception('Map data does not contain all keys');
     }
     return QueueModel(

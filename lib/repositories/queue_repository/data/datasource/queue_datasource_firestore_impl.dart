@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
+import 'package:fusion/repositories/queue_repository/data/models/queue_model.dart';
 import 'package:fusion/utils/typedefs.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,7 @@ class QueueFields {
 
 class QueueDataSourceFirebaseImpl implements QueueDatasource {
   final firebaseFirestore = FirebaseFirestore.instance;
-  final usersCollectionNameString = 'users';
+  final queueCollectionNameString = 'queue';
 
   @override
   FutureEither<Queue> enterQueue() async {
@@ -81,6 +82,30 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       }
     } catch (e) {
       return Left(Failure('Error occured while refreshing Deck. $e'));
+    }
+  }
+
+  @override
+  FutureEither<Queue> checkQueue() async {
+    try {
+      final user = auth.FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        return Left(Failure('Please sign in again.'));
+      }
+      final userQueueDoc = await firebaseFirestore
+          .collection(queueCollectionNameString)
+          .doc(user.uid)
+          .get();
+      if (!userQueueDoc.exists) {
+        return Left(Failure('No queue document.'));
+      }
+      return Right(
+        QueueModel.toEntity(
+          QueueModel.fromMap(userQueueDoc.data()!),
+        ),
+      );
+    } catch (exception) {
+      return Left(Failure(exception.toString()));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/check_queue.dart';
 import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/enter_queue.dart';
 import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/leave_queue.dart';
 
@@ -12,6 +13,7 @@ class QueueBlocInjection {
       () => QueueBloc(
         enterQueueUseCase: getIt<EnterQueueUseCase>(),
         leaveQueueUseCase: getIt<LeaveQueueUseCase>(),
+        checkQueueUseCase: getIt<CheckQueueUseCase>(),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:fusion/features/app/view/app.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/home/view/home_screen.dart';
 import 'package:fusion/features/login/login.dart';
+import 'package:fusion/features/queue/view/queue_screen.dart';
 import 'package:fusion/features/terms_of_use/view/terms_of_use_screen.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
@@ -42,6 +43,13 @@ mixin RouterMixin on State<App> {
           child: DeleteAccountScreen(),
         ),
       ),
+      GoRoute(
+        path: QueueScreen.path,
+        name: QueueScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: QueueScreen(),
+        ),
+      ),
     ],
     redirect: (context, state) async {
       final onLoginScreen = state.matchedLocation == LoginScreen.path;
@@ -52,6 +60,7 @@ mixin RouterMixin on State<App> {
       if (authState is AuthUnAuthenticated && !onTermsScreen) {
         return LoginScreen.path;
       }
+
       if (authState is AuthAuthenticated && onLoginScreen) {
         return HomeScreen.path;
       }

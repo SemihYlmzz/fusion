@@ -19,14 +19,18 @@ class QueueEmpty extends QueueState {
   const QueueEmpty({super.queue, super.errorMessage});
 }
 
-class EnteringQueue extends QueueState {
-  const EnteringQueue({super.queue, super.errorMessage});
+class QueueLoading extends QueueState {
+  const QueueLoading({super.queue, super.errorMessage});
 }
 
-class LeavingQueue extends QueueState {
-  const LeavingQueue({required super.queue, super.errorMessage});
+class QueueReadyToEnter extends QueueState {
+  const QueueReadyToEnter({super.queue, super.errorMessage});
 }
 
 class QueueHasData extends QueueState {
   const QueueHasData({required super.queue, super.errorMessage});
+}
+
+class QueueLeaved extends QueueState {
+  const QueueLeaved({super.queue, super.errorMessage});
 }

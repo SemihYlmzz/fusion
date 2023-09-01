@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/gen/assets.gen.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../audio/audio_cubit.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/shared.dart';
+import '../../queue/view/queue_screen.dart';
 
 class PlayButton extends StatelessWidget {
   const PlayButton({
@@ -34,7 +36,7 @@ class PlayButton extends StatelessWidget {
             context.read<AudioCubit>().playSoundEffect(
                   Assets.music.sfx.playButtonSfx,
                 );
-            
+            context.goNamed(QueueScreen.name);
           },
         );
       },

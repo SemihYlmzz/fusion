@@ -1,4 +1,5 @@
 import 'package:fusion/injection_container.dart';
+import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/check_queue.dart';
 
 import 'data/datasource/queue_datasource.dart';
 import 'data/datasource/queue_datasource_firestore_impl.dart';
@@ -28,6 +29,9 @@ class QueueRepositoryInjection {
         LeaveQueueUseCase(
           queueRepository: getIt<QueueRepository>(),
         ),
+      )
+      ..registerSingleton<CheckQueueUseCase>(
+        CheckQueueUseCase(queueRepository: getIt<QueueRepository>()),
       );
   }
 }
