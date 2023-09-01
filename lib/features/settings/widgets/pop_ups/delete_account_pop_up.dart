@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
+import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -10,7 +11,6 @@ class DeleteAccountPopUp extends StatelessWidget {
   final DevicePrefs devicePrefs;
   static const _warningText = 'If you delete this account';
   static const _deleteGradientButtonTitle = 'Delete';
-  static const _cancelGradientButtonTitle = 'Cancel';
   static const String _text1 = 'The account is removed from your phone.';
   static const String _text2 =
       'In your accountyour edited decks of cards are deleted.';
@@ -22,6 +22,8 @@ class DeleteAccountPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      contentPadding:
+          MediaQuery.sizeOf(context).width < 340 ? SharedPaddings.all4 : null,
       backgroundColor: Colors.grey.shade900,
       content: Container(
         constraints: const BoxConstraints(
@@ -91,7 +93,7 @@ class DeleteAccountPopUp extends StatelessWidget {
                           ),
                           Expanded(
                             child: GradientButton(
-                              text: _cancelGradientButtonTitle,
+                              text: AppLocalizations.of(context).cancel,
                               width: 100,
                               isOutlined: true,
                               onPressed: () {
