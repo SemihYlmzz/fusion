@@ -6,6 +6,8 @@ import 'package:fusion/repositories/delete_request_repository/bloc/delete_reques
 import 'package:fusion/repositories/delete_request_repository/delete_request_injection.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc_injection.dart';
 import 'package:fusion/repositories/device_prefs_repository/device_prefs_repository_injection.dart';
+import 'package:fusion/repositories/queue_repository/bloc/queue_bloc_injection.dart';
+import 'package:fusion/repositories/queue_repository/queue_injection.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc_injection.dart';
 import 'package:fusion/repositories/user_repository/user_injection.dart';
 
@@ -20,6 +22,7 @@ Future<void> initializeDependencies() async {
   await UserRepositoryInjection.inject();
   await DevicePrefsRepositoryInjection.inject();
   await DeleteRequestRepositoryInjection.inject();
+  await QueueRepositoryInjection.inject();
 
   // BLOCS OF REPOSITORIES
   //
@@ -29,8 +32,10 @@ Future<void> initializeDependencies() async {
   UserBlocInjection.inject();
   // -- Device Preferences
   DevicePrefsBlocInjection.inject();
-  // Delete Request
+  // -- Delete Request
   DeleteRequestBlocInjection.inject();
+  // -- Queue
+  QueueBlocInjection.inject();
 
   // Cubits
   // -- Audio Cubit

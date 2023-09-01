@@ -9,6 +9,7 @@ import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../../../audio/audio_cubit.dart';
@@ -29,6 +30,8 @@ class _AppState extends State<App> with RouterMixin {
     final userBloc = getIt<UserBloc>();
     final devicePrefsBloc = getIt<DevicePrefsBloc>();
     final deleteRequestBloc = getIt<DeleteRequestBloc>();
+    final queueBloc = getIt<QueueBloc>();
+
     final audioCubit = getIt<AudioCubit>();
     final adCubit = getIt<AdCubit>();
 
@@ -43,6 +46,9 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
         BlocProvider<AdCubit>(
           create: (_) => adCubit..onLoadRewardedAdRequested(),
+        ),
+        BlocProvider<QueueBloc>(
+          create: (_) => queueBloc,
         ),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
