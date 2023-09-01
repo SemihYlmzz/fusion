@@ -316,6 +316,20 @@ exports.enterQueue = functions.https.onRequest(async (req, res) => {
     if (userId == null) {
       return res.status(400).send("No user detected.");
     }
+
+    // Kullanıcı adını "users" koleksiyonundan çek
+    const userSnapshot = await admin.firestore()
+        .collection("users")
+        .doc(userId)
+        .get();
+
+    if (!userSnapshot.exists) {
+      return res.status(400).send("User not found.");
+    }
+
+    const username = userSnapshot.data().username;
+
+    // Kullanıcının zaten sıraya girmiş olup olmadığını kontrol et
     const queueExists = await admin.firestore()
         .collection("queue")
         .where("uid", "==", userId)
@@ -330,6 +344,7 @@ exports.enterQueue = functions.https.onRequest(async (req, res) => {
 
     await queueRequestRef.create({
       uid: userId,
+      username: username,
       dateOfCreate: millisecondsSinceEpoch,
     });
 
@@ -339,3 +354,50 @@ exports.enterQueue = functions.https.onRequest(async (req, res) => {
     return res.status(500).send("Error while Entering Queue.");
   }
 });
+
+exports.createGameWithQueue = functions.firestore
+    .document("queue/{docId}")
+    .onCreate(async (snap) => {
+      const db = admin.firestore();
+      const queueRef = db.collection("queue");
+      const usersRef = db.collection("users");
+      const gamesRef = db.collection("games");
+      const snapshot = await queueRef
+          .orderBy("dateOfCreate", "asc")
+          .limit(2)
+          .get();
+      if (snapshot.size < 2) {
+        return null;
+      }
+      const batch = db.batch();
+      const playerNames = snapshot.docs.map((doc) => doc.data().username);
+      const playerUids = snapshot.docs.map((doc) => doc.data().uid);
+      const gameDoc = gamesRef.doc();
+      const gameDocData = {
+        gameId: gameDoc.id,
+        player1: {
+          username: playerNames[0],
+          isReady: false,
+        },
+        player2: {
+          username: playerNames[1],
+          isReady: false,
+        },
+        gameStatus: 0,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        currentTurn: 0,
+      };
+      batch.set(gameDoc, gameDocData);
+      snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      playerUids.forEach(async (uid) => {
+        const userDoc = usersRef.doc(uid);
+        batch.update(userDoc, {
+          gameId: gameDoc.id,
+        });
+      });
+      await batch.commit();
+      return null;
+    });

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/config/app_router_refresh_stream.dart';
 import 'package:fusion/features/app/view/app.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
+import 'package:fusion/features/game/view/game_screen.dart';
 import 'package:fusion/features/home/view/home_screen.dart';
 import 'package:fusion/features/login/login.dart';
 import 'package:fusion/features/queue/view/queue_screen.dart';
@@ -48,6 +49,13 @@ mixin RouterMixin on State<App> {
         name: QueueScreen.name,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: QueueScreen(),
+        ),
+      ),
+      GoRoute(
+        path: GameScreen.path,
+        name: GameScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: GameScreen(),
         ),
       ),
     ],

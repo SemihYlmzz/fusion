@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/game/view/game_screen.dart';
 import 'package:fusion/features/home/view/view.dart';
 import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
@@ -19,7 +20,7 @@ class QueueScreen extends StatelessWidget {
           builder: (context, queueState) {
             if (queueState is QueueReadyToEnter) {
               if (userState.user!.gameId != null) {
-                // Go to game screen
+                context.goNamed(GameScreen.name);
               } else {
                 context.read<QueueBloc>().add(const EnterQueueRequested());
               }
