@@ -7,7 +7,7 @@ abstract class UserRepository {
 
   FutureEither<User> readUserWithUid({required String uid});
 
-  StreamEither<User> watchUserWithUid({required String uid});
+  StreamEither<User> watchUserWithUid();
 
   FutureUnit changeUsername({required String newUsername});
 

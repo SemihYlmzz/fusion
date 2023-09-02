@@ -10,9 +10,7 @@ final class ReadWithUidRequested extends UserEvent {
 }
 
 final class WatchWithUidRequested extends UserEvent {
-  const WatchWithUidRequested(this.uid);
-
-  final String uid;
+  const WatchWithUidRequested();
 }
 
 final class UpdateRequested extends UserEvent {
@@ -34,4 +32,9 @@ final class DeleteRequested extends UserEvent {
   const DeleteRequested(this.uid);
 
   final String uid;
+}
+
+final class StopWatchingUserRequested extends UserEvent {
+  const StopWatchingUserRequested();
+
 }

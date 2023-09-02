@@ -75,11 +75,17 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   }
 
   @override
-  StreamEither<User> watchUserWithUid({required String uid}) async* {
-    final DocumentReference userDocRef =
-        firebaseFirestore.collection(usersCollectionNameString).doc(uid);
-
+  StreamEither<User> watchUserWithUid() async* {
     try {
+      final user = auth.FirebaseAuth.instance.currentUser;
+      if (user == null) {
+
+        yield Left(Failure('No current user founded'));
+      }
+      final DocumentReference userDocRef =
+          firebaseFirestore.collection(usersCollectionNameString).doc(
+                user!.uid,
+              );
       yield* userDocRef.snapshots().map((snapshot) {
         if (snapshot.exists && snapshot.data() != null) {
           final data = snapshot.data() as Map<String, dynamic>?;

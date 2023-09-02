@@ -4,13 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/params/no_params.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/params/user_name_params.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
 import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
 
 import '../../../utils/failure.dart';
 import '../domain/entities/user.dart';
+import '../domain/usecase/params/no_params.dart';
 import '../domain/usecase/params/uid_params.dart';
 import '../domain/usecase/usecases/create_user.dart';
 import '../domain/usecase/usecases/delete_user.dart';
@@ -37,6 +37,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     on<ChangeUsernameRequested>(onUsernameChangeRequested);
     on<DeleteRequested>(onUserDeleteRequested);
     on<RefreshDeckRequested>(onRefreshDeckRequested);
+    on<StopWatchingUserRequested>(onStopWatchingUserRequested);
   }
   final CreateUserUseCase createUserUseCase;
   final ReadUserWithUidUseCase readUserWithUidUseCase;
@@ -75,29 +76,22 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     WatchWithUidRequested event,
     Emitter<UserState> emit,
   ) async {
-    if (_userSubscription != null) {
-      return;
-    }
-
+    await _userSubscription?.cancel();
     emit(UserLoading(user: state.user));
 
-    _userSubscription = watchUserWithUidUseCase
-        .execute(UidParams(uid: event.uid))
-        .listen((event) {
+    _userSubscription =
+        watchUserWithUidUseCase.execute(NoParams()).listen((event) {
       event.fold(
         (failure) {
-          emit(
-            UserHasData(
-              user: state.user,
-              errorMessage: failure.message,
-            ),
-          );
+          emit(UserHasData(user: state.user, errorMessage: failure.message));
         },
-        (userEntity) {
-          emit(UserHasData(user: userEntity));
+        (user) {
+          emit(UserHasData(user: user));
         },
       );
     });
+
+    await _userSubscription?.asFuture<void>();
   }
 
   Future<void> onUserUpdateRequested(
@@ -153,7 +147,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
   ) async {
     final oldState = state;
     emit(UserLoading(user: state.user));
-    final tryUpdateUser = await refreshDeckUseCase.execute(const NoParams());
+    final tryUpdateUser = await refreshDeckUseCase.execute(NoParams());
     tryUpdateUser.fold(
       (failure) => emit(
         UserHasData(
@@ -181,6 +175,13 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
       ),
       (success) => const UserEmpty(),
     );
+  }
+
+  Future<void> onStopWatchingUserRequested(
+    StopWatchingUserRequested event,
+    Emitter<UserState> emit,
+  ) async {
+    await _userSubscription?.cancel();
   }
 
   @override

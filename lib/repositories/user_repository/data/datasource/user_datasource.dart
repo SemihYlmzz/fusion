@@ -6,7 +6,7 @@ abstract class UserDatasource {
 
   FutureEither<User> readUserWithUid({required String uid});
 
-  StreamEither<User> watchUserWithUid({required String uid});
+  StreamEither<User> watchUserWithUid();
 
   FutureEither<User> updateUserWithUid({required User updatedUser});
 

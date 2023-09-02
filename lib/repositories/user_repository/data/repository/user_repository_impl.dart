@@ -29,12 +29,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  StreamEither<User> watchUserWithUid({
-    required String uid,
-  }) {
-    return _userDatasource.watchUserWithUid(
-      uid: uid,
-    );
+  StreamEither<User> watchUserWithUid() {
+    return _userDatasource.watchUserWithUid();
   }
 
   @override
