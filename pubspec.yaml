@@ -31,6 +31,7 @@ dependencies:
   lottie: ^2.3.2
   flutter_animate: ^4.2.0
   flutter_tilt: ^1.0.3
+  newton_particles: ^0.1.5
 
   # Icons
   cupertino_icons: ^1.0.2
@@ -110,5 +111,7 @@ flutter:
     - assets/images/card_preview/
     - assets/images/borders/
     - assets/images/splash/
+    - assets/images/match_searching/
     - assets/music/background/
     - assets/music/sfx/
+    - assets/animations/
