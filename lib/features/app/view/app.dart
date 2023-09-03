@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,6 +7,7 @@ import 'package:fusion/config/app_router.dart';
 import 'package:fusion/config/style/theme.dart';
 import 'package:fusion/injection_container.dart';
 import 'package:fusion/l10n/l10n.dart';
+import 'package:fusion/preload/preload_cubit.dart';
 import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
 import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
@@ -32,8 +34,10 @@ class _AppState extends State<App> with RouterMixin {
     final deleteRequestBloc = getIt<DeleteRequestBloc>();
     final queueBloc = getIt<QueueBloc>();
 
-    final audioCubit = getIt<AudioCubit>();
-    final adCubit = getIt<AdCubit>();
+    final preloadCubit = PreloadCubit(
+      bgmAudioCache: AudioCache(prefix: ''),
+      sfxAudioCache: AudioCache(prefix: ''),
+      );
 
     return MultiBlocProvider(
       providers: [
@@ -43,9 +47,17 @@ class _AppState extends State<App> with RouterMixin {
           create: (_) => devicePrefsBloc..add(const ReadDevicePrefs()),
         ),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
-        BlocProvider<AudioCubit>(create: (_) => audioCubit),
+        BlocProvider<PreloadCubit>(
+          create: (_) => preloadCubit,
+        ),
+        BlocProvider<AudioCubit>(
+          create: (_) => AudioCubit(
+            bgmAudioCache: preloadCubit.bgmAudioCache,
+            sfxAudioCache: preloadCubit.sfxAudioCache,
+          ),
+        ),
         BlocProvider<AdCubit>(
-          create: (_) => adCubit..onLoadRewardedAdRequested(),
+          create: (_) => AdCubit()..onLoadRewardedAdRequested(),
         ),
         BlocProvider<QueueBloc>(
           create: (_) => queueBloc,

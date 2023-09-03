@@ -6,6 +6,7 @@ import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/game/view/game_screen.dart';
 import 'package:fusion/features/home/view/home_screen.dart';
 import 'package:fusion/features/login/login.dart';
+import 'package:fusion/features/preload/view/preload_screen.dart';
 import 'package:fusion/features/queue/view/queue_screen.dart';
 import 'package:fusion/features/terms_of_use/view/terms_of_use_screen.dart';
 import 'package:fusion/injection_container.dart';
@@ -21,6 +22,13 @@ mixin RouterMixin on State<App> {
         name: TermsOfUseScreen.name,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: TermsOfUseScreen(),
+        ),
+      ),
+      GoRoute(
+        path: PreloadScreen.path,
+        name: PreloadScreen.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: PreloadScreen(),
         ),
       ),
       GoRoute(

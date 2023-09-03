@@ -5,8 +5,12 @@ import 'package:equatable/equatable.dart';
 part 'audio_state.dart';
 
 class AudioCubit extends Cubit<AudioState> {
-  AudioCubit()
-      : super(
+  AudioCubit({
+    required AudioCache bgmAudioCache,
+    required AudioCache sfxAudioCache,
+  })  : _bgmPlayer = AudioPlayer()..audioCache = bgmAudioCache,
+        _sfxPlayer = AudioPlayer()..audioCache = sfxAudioCache,
+        super(
           const AudioState(
             isDevicePrefsConnected: false,
             backgroundVolume: 0,
@@ -16,8 +20,8 @@ class AudioCubit extends Cubit<AudioState> {
           ),
         );
 
-  final AudioPlayer _audioPlayerForBGM = AudioPlayer();
-  final AudioPlayer _audioPlayerForSFX = AudioPlayer();
+  final AudioPlayer _bgmPlayer;
+  final AudioPlayer _sfxPlayer;
 
   void connectDevicePrefs(
     double backgroundVolume,
@@ -42,11 +46,9 @@ class AudioCubit extends Cubit<AudioState> {
   Future<void> playSoundEffect(
     String sfxAssetPath,
   ) async {
-    final clearedAssetPath = sfxAssetPath.replaceFirst('assets/', '');
-
-    await _audioPlayerForSFX.play(
+    await _sfxPlayer.play(
       AssetSource(
-        clearedAssetPath,
+        sfxAssetPath,
       ),
       volume: state.soundEffectsVolume * state.generalVolume,
     );
@@ -60,25 +62,24 @@ class AudioCubit extends Cubit<AudioState> {
       soundEffectsVolume: newSoundEffectsVolume * generalVolume,
     );
     emit(updatedState);
-    _audioPlayerForSFX.setVolume(newSoundEffectsVolume * generalVolume);
+    _sfxPlayer.setVolume(newSoundEffectsVolume * generalVolume);
   }
 
   // BACKGROUND MUSICS
   Future<void> playBackgroundSound(
     String bgmAssetPath,
   ) async {
-    final clearedAssetPath = bgmAssetPath.replaceFirst('assets/', '');
-    await _audioPlayerForBGM.play(
+    await _bgmPlayer.play(
       AssetSource(
-        clearedAssetPath,
+        bgmAssetPath,
       ),
       volume: state.backgroundVolume * state.generalVolume,
     );
-    await _audioPlayerForBGM.setReleaseMode(ReleaseMode.loop);
+    await _bgmPlayer.setReleaseMode(ReleaseMode.loop);
   }
 
   Future<void> stopBackgroundMusic() async {
-    await _audioPlayerForBGM.stop();
+    await _bgmPlayer.stop();
   }
 
   void setBackgroundMusicVolume({
@@ -91,13 +92,13 @@ class AudioCubit extends Cubit<AudioState> {
 
     emit(updatedState);
 
-    _audioPlayerForBGM.setVolume(newBackgroundMusicVolume * generalVolume);
+    _bgmPlayer.setVolume(newBackgroundMusicVolume * generalVolume);
   }
 
   @override
   Future<void> close() {
-    _audioPlayerForBGM.dispose();
-    _audioPlayerForSFX.dispose();
+    _bgmPlayer.dispose();
+    _sfxPlayer.dispose();
     return super.close();
   }
 }

@@ -65,8 +65,12 @@ class GameCardPreview extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: SharedBorderRadius.circular12,
                         image: DecorationImage(
-                          image: AssetImage(
-                            gameCard.imagePath,
+                          image: ResizeImage(
+                            width: 60,
+                            height: 90,
+                            AssetImage(
+                              gameCard.imagePath,
+                            ),
                           ),
                         ),
                       ),
