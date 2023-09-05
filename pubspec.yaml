@@ -1,31 +1,35 @@
-
+# Project Information
 name: fusion
 description: A new Flutter project.
 publish_to: 'none'
-
 version: 1.0.0+1
 
-
+# SDK Version
 environment:
   sdk: '>=3.0.5 <4.0.0'
 
-
+# Dependencies
 dependencies:
   flutter:
     sdk: flutter
-    
+
+# Ads and Audio
   # Ads
   google_mobile_ads: ^3.0.0
 
   # Audio
   audioplayers: ^4.1.0
 
-  # SHARED PACKAGES
+# Shared Packages
+  # Constants
   shared_constants:
     path: packages/shared_constants
+
+  # Widgets
   shared_widgets:
     path: packages/shared_widgets
 
+# Animation and Graphics
   # Animation
   animate_do: ^3.0.2
   lottie: ^2.3.2
@@ -33,72 +37,61 @@ dependencies:
   flutter_tilt: ^1.0.3
   newton_particles: ^0.1.5
 
-  # Icons
+  # Icons and Fonts
   cupertino_icons: ^1.0.2
-
-  # Fonts
   google_fonts: ^4.0.4
 
-  # Firebase Packages
+# Firebase and Social Login
+  # Firebase
   firebase_core: ^2.14.0
   cloud_firestore: ^4.8.2
   firebase_auth: ^4.6.3
-
-  # Local Database
-  shared_preferences: ^2.2.0
-  
-
-  # Social Login Packages
+  # Social Logins
   google_sign_in: ^6.1.0
   flutter_social_button: ^1.1.4+1
   sign_in_with_apple: ^5.0.0
-  crypto: ^3.0.3
   flutter_facebook_auth: ^5.0.0
 
-  # State Man.
+# Local Database
+  shared_preferences: ^2.2.0
+  crypto: ^3.0.3
+
+# State Management and Routing
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
-  multi_value_listenable_builder: ^0.0.2
-
-  # ROUTER
   go_router: ^9.0.3
-  
-  # Code Analysis
-  very_good_analysis: ^5.0.0+1
 
-  # LOGGING
+# Code Analysis and Logging
+  very_good_analysis: ^5.0.0+1
   logging: ^1.1.1
 
-  # Widgets
+# Widgets and Views
   social_login_buttons: ^1.0.7
-
-  # View
   gradient_borders: ^1.0.0
-  
-  # Localization
+
+# Localization and Dependency Injection
   flutter_localizations:
     sdk: flutter
-
-  # Dependency Injection
   get_it: ^7.6.0
-  
-  # Dart Packages
+
+# Dart Packages
   intl: ^0.18.0
   equatable: ^2.0.5
   fpdart: ^0.6.0
   profanity_filter: ^2.0.0
-  # Http
+
+# HTTP Requests
   http: ^0.13.6
 
+# Developer Dependencies
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
   build_runner: ^2.4.6
   flutter_gen_runner: ^5.3.1
 
-
+# Flutter Settings
 flutter:
   uses-material-design: true
   generate: true
@@ -111,7 +104,5 @@ flutter:
     - assets/images/card_preview/
     - assets/images/borders/
     - assets/images/splash/
-    - assets/images/match_searching/
     - assets/music/background/
     - assets/music/sfx/
-    - assets/animations/
