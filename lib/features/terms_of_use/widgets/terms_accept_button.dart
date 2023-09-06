@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.dart';
+import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
@@ -26,15 +28,9 @@ class TermsAcceptButton extends StatelessWidget {
           padding: SharedPaddings.vertical8,
           child: Row(
             children: [
-              Transform.scale(
-                scale: 2,
-                child: Checkbox(
-                  value: isAcceptedTerms,
-                  shape: const CircleBorder(),
-                  onChanged: (val) {
-                    onAccept(value: val ?? false);
-                  },
-                ),
+              GreenCheckBox(
+                isAccepted: isAcceptedTerms,
+                onAccept: onAccept,
               ),
               Expanded(
                 child: Column(

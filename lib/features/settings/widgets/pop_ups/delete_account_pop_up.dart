@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
+import 'package:fusion/features/settings/widgets/delete_acceptance.dart';
+import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
 import 'package:fusion/l10n/app_localizations.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import 'package:fusion/utils/typedefs.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -18,13 +21,14 @@ class DeleteAccountPopUp extends StatefulWidget {
       'Your match history and saved game settings will be reset';
   static const String _text4 =
       'You can continue to use the application by logging in to your account again within 30 days.';
-  bool _isCheck = false;
 
   @override
   State<DeleteAccountPopUp> createState() => _DeleteAccountPopUpState();
 }
 
 class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
+  bool _isAccepted = false;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -77,7 +81,14 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                       _conditionsText(text: DeleteAccountPopUp._text2),
                       _conditionsText(text: DeleteAccountPopUp._text3),
                       _conditionsText(text: DeleteAccountPopUp._text4),
-                      CheckBox(isCheck: widget._isCheck),
+                      DeleteAcceptance(
+                        onAccept: ({bool? value}) {
+                          setState(() {
+                            _isAccepted = value ?? false;
+                          });
+                        },
+                        isAccepted: _isAccepted,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -85,7 +96,7 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                                 text: DeleteAccountPopUp
                                     ._deleteGradientButtonTitle,
                                 width: 100,
-                                onPressed: widget._isCheck
+                                onPressed: _isAccepted
                                     ? () {
                                         Navigator.popUntil(
                                           context,
@@ -138,38 +149,6 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CheckBox extends StatefulWidget {
-  CheckBox({super.key, required this.isCheck});
-  bool isCheck;
-
-  @override
-  State<CheckBox> createState() => _CheckBoxState();
-}
-
-class _CheckBoxState extends State<CheckBox> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-            value: widget.isCheck,
-            onChanged: (value) {
-              if (value == null) return;
-              setState(() {
-                widget.isCheck = value;
-              });
-            }),
-        const Expanded(
-          child: Text(
-            'Are you sure you want to delete the account?',
-            style: TextStyle(fontSize: 14, color: Colors.grey),
-          ),
-        ),
-      ],
     );
   }
 }
