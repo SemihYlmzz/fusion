@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,8 +77,6 @@ class HomeScreen extends StatelessWidget {
                                         uid: authState.authEntity.id,
                                         devicePrefs:
                                             devicePrefsState.devicePrefs,
-                                        // Null check operator used on a null value
-                                        // WHEN REGISTERED
                                         user: userState.user!,
                                         adState: adState,
                                       ),

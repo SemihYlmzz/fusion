@@ -15,16 +15,16 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1702907350152965</string>
+			    <string>$(CFBundleURLSchemes)</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>1702907350152965</string>
+	<string>$(FacebookAppID)</string>
 	<key>FacebookClientToken</key>
-	<string>CLIENT-TOKEN</string>
+	<string>$(FacebookClientToken)</string>
 	<key>FacebookDisplayName</key>
-	<string>Fusion</string>
+	<string>$(APP_DISPLAY_NAME)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~3347511713</string>
 	<key>SKAdNetworkItems</key>

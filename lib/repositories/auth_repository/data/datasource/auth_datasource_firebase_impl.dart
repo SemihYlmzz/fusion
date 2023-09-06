@@ -53,6 +53,8 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   @override
   FutureEither<AuthEntity> logInWithGoogle() async {
     try {
+      await logOut();
+
       // Google Credential variable to hold user data
       late final firebase.AuthCredential credential;
 
@@ -109,6 +111,8 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
     final rawNonce = generateNonce();
     final nonce = sha256ofString(rawNonce);
     try {
+      await logOut();
+
       // Request credential for the currently signed in Apple account.
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -156,17 +160,17 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   FutureEither<AuthEntity> logInWithFacebook() async {
     try {
       late final firebase.AuthCredential credential;
+      await logOut();
 
       if (kIsWeb) {
-        final googleProvider = firebase.GoogleAuthProvider();
+        final facebookProvider = firebase.FacebookAuthProvider();
         final userCredential = await _firebaseAuth.signInWithPopup(
-          googleProvider,
+          facebookProvider,
         );
         credential = userCredential.credential!;
       } else {
         final loginResult = await FacebookAuth.instance
             .login(permissions: ['email', 'public_profile']);
-
         if (loginResult.accessToken == null) {
           return Left(
             Failure('Something went wrong while login with Facebook.'),
