@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:fusion/features/login/login.dart';
-import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

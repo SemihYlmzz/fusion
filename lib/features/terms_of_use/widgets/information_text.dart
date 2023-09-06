@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/l10n/app_localizations.dart';
 import 'package:shared_constants/shared_constants.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class InformationText extends StatelessWidget {
   const InformationText({

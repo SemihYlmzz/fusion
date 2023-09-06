@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../l10n/app_localizations.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../shared/shared.dart';
+import '../../../utils/typedefs.dart';
 
 class PrivacyAcceptButton extends StatelessWidget {
   const PrivacyAcceptButton({

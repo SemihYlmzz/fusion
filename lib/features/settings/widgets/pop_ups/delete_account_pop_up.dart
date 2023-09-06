@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../../l10n/app_localizations.dart';
+import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../delete_account/view/delete_account_screen.dart';
+
 class DeleteAccountPopUp extends StatefulWidget {
-  DeleteAccountPopUp({required this.devicePrefs, super.key});
+  const DeleteAccountPopUp({required this.devicePrefs, super.key});
   final DevicePrefs devicePrefs;
   static const _warningText = 'If you delete this account';
   static const _deleteGradientButtonTitle = 'Delete';
@@ -18,13 +19,14 @@ class DeleteAccountPopUp extends StatefulWidget {
       'Your match history and saved game settings will be reset';
   static const String _text4 =
       'You can continue to use the application by logging in to your account again within 30 days.';
-  bool _isCheck = false;
 
   @override
   State<DeleteAccountPopUp> createState() => _DeleteAccountPopUpState();
 }
 
 class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
+  final bool _isCheck = false;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -77,28 +79,29 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                       _conditionsText(text: DeleteAccountPopUp._text2),
                       _conditionsText(text: DeleteAccountPopUp._text3),
                       _conditionsText(text: DeleteAccountPopUp._text4),
-                      CheckBox(isCheck: widget._isCheck),
+                      DeleteCheckBox(isCheck: _isCheck),
                       Row(
                         children: [
                           Expanded(
                             child: GradientButton(
-                                text: DeleteAccountPopUp
-                                    ._deleteGradientButtonTitle,
-                                width: 100,
-                                onPressed: widget._isCheck
-                                    ? () {
-                                        Navigator.popUntil(
-                                          context,
-                                          (route) => route.isFirst,
-                                        );
-                                        // context.read<DeleteRequestBloc>().add(
-                                        // const CreateDeleteRequestRequested(),
-                                        // );
-                                        context.goNamed(
-                                          DeleteAccountScreen.name,
-                                        );
-                                      }
-                                    : null),
+                              text:
+                                  DeleteAccountPopUp._deleteGradientButtonTitle,
+                              width: 100,
+                              onPressed: _isCheck
+                                  ? () {
+                                      Navigator.popUntil(
+                                        context,
+                                        (route) => route.isFirst,
+                                      );
+                                      // context.read<DeleteRequestBloc>().add(
+                                      // const CreateDeleteRequestRequested(),
+                                      // );
+                                      context.goNamed(
+                                        DeleteAccountScreen.name,
+                                      );
+                                    }
+                                  : null,
+                            ),
                           ),
                           Expanded(
                             child: GradientButton(
@@ -142,27 +145,28 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
   }
 }
 
-class CheckBox extends StatefulWidget {
-  CheckBox({super.key, required this.isCheck});
+class DeleteCheckBox extends StatefulWidget {
+  DeleteCheckBox({required this.isCheck, super.key});
   bool isCheck;
 
   @override
-  State<CheckBox> createState() => _CheckBoxState();
+  State<DeleteCheckBox> createState() => _DeleteCheckBoxState();
 }
 
-class _CheckBoxState extends State<CheckBox> {
+class _DeleteCheckBoxState extends State<DeleteCheckBox> {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-            value: widget.isCheck,
-            onChanged: (value) {
-              if (value == null) return;
-              setState(() {
-                widget.isCheck = value;
-              });
-            }),
+          value: widget.isCheck,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() {
+              widget.isCheck = value;
+            });
+          },
+        ),
         const Expanded(
           child: Text(
             'Are you sure you want to delete the account?',

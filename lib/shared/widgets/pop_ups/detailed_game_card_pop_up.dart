@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart' hide Element;
 import 'package:flutter_tilt/flutter_tilt.dart';
-import 'package:fusion/features/settings/widgets/widgets.dart';
-import 'package:fusion/gen/assets.gen.dart';
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
+import '../../../features/settings/widgets/widgets.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
+import '../../../repositories/card_repository/domain/entities/card_entity.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 

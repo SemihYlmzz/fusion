@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:fusion/bootstrap.dart';
-import 'package:fusion/features/app/view/app.dart';
+import 'features/app/view/app.dart';
+import 'initialize/bootstrap.dart';
 
 void main() async {
+  const flavorStaging = 'staging';
+
   unawaited(
-    bootstrap((firestore, firebaseAuth) {
-      const flavorStaging = 'staging';
-      return const App(
+    bootstrap(
+      const App(
         flavor: flavorStaging,
-      );
-    }),
+      ),
+    ),
   );
 }

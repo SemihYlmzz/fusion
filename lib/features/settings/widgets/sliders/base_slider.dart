@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
+
+import '../../../../utils/typedefs.dart';
 
 class BaseSlider extends StatelessWidget {
   const BaseSlider({

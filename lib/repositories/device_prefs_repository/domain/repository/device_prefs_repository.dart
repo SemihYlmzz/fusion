@@ -1,5 +1,4 @@
-import 'package:fusion/utils/typedefs.dart';
-
+import '../../../../utils/typedefs.dart';
 import '../entities/device_prefs.dart';
 
 abstract class DevicePrefsRepository {

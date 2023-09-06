@@ -1,7 +1,7 @@
-import 'package:fusion/repositories/device_prefs_repository/data/datasource/device_prefs_datasource.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/repository/device_prefs_repository.dart';
-import 'package:fusion/utils/typedefs.dart';
+import '../datasource/device_prefs_datasource.dart';
+import '../../domain/entities/device_prefs.dart';
+import '../../domain/repository/device_prefs_repository.dart';
+import '../../../../utils/typedefs.dart';
 
 class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
   DevicePrefsRepositoryImpl(

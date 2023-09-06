@@ -2,20 +2,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fusion/ad/ad.dart';
-import 'package:fusion/config/app_router.dart';
-import 'package:fusion/config/style/theme.dart';
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/l10n/l10n.dart';
-import 'package:fusion/preload/preload_cubit.dart';
-import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
+import '../../../ad/ad.dart';
 import '../../../audio/audio_cubit.dart';
+import '../../../config/app_router.dart';
+import '../../../config/style/theme.dart';
+import '../../../initialize/injection_container.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../l10n/l10n.dart';
+import '../../../preload/preload_cubit.dart';
+import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class App extends StatefulWidget {

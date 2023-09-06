@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/delete_request_repository/domain/entities/delete_request.dart';
-import 'package:fusion/utils/failure.dart';
+import '../../entities/delete_request.dart';
+import '../../../../../utils/failure.dart';
 
 import '../../../../../utils/typedefs.dart';
 import '../../../../../utils/usecase.dart';

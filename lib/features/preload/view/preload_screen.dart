@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/gen/assets.gen.dart';
-import 'package:fusion/preload/preload_cubit.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../gen/assets.gen.dart';
+import '../../../preload/preload_cubit.dart';
 import '../../login/view/view.dart';
 import 'view.dart';
 

@@ -1,5 +1,5 @@
-import 'package:fusion/repositories/auth_repository/domain/entities/auth_entity.dart';
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/auth_entity.dart';
 
 abstract class AuthDatasource {
   FutureEither<AuthEntity> logInWithGoogle();

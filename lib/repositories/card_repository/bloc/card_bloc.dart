@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
-import 'package:fusion/repositories/card_repository/domain/usecase/get_card.dart';
+
+import '../domain/entities/card_entity.dart';
+import '../domain/usecase/get_card.dart';
 
 part 'card_event.dart';
 part 'card_state.dart';

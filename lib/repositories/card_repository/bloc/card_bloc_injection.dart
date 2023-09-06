@@ -1,6 +1,6 @@
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/repositories/card_repository/bloc/card_bloc.dart';
-import 'package:fusion/repositories/card_repository/domain/usecase/get_card.dart';
+import '../../../initialize/injection_container.dart';
+import '../domain/usecase/get_card.dart';
+import 'card_bloc.dart';
 
 class CardBlocInjection {
   static void inject() {

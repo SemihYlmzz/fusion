@@ -1,4 +1,4 @@
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
+import '../../domain/entities/card_entity.dart';
 
 class CardModel extends GameCard {
   const CardModel({

@@ -1,10 +1,7 @@
-import 'package:fusion/repositories/delete_request_repository/domain/usecase/usecases/check_delete_request.dart';
-import 'package:fusion/repositories/delete_request_repository/domain/usecase/usecases/create_delete_request.dart';
-
-import '../../../injection_container.dart';
-
+import '../../../initialize/injection_container.dart';
 import '../domain/usecase/usecases/cancel_delete_request.dart';
-
+import '../domain/usecase/usecases/check_delete_request.dart';
+import '../domain/usecase/usecases/create_delete_request.dart';
 import 'delete_request_bloc.dart';
 
 class DeleteRequestBlocInjection {

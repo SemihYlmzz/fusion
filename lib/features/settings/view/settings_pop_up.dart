@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
-import 'package:fusion/shared/widgets/bottom_sheets/credits_bottom_sheet.dart';
-import 'package:fusion/shared/widgets/bottom_sheets/privacy_bottom_sheet.dart';
-import 'package:fusion/shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
-import 'package:fusion/shared/widgets/pop_ups/cant_rename_pop_up.dart';
-import 'package:fusion/shared/widgets/pop_ups/change_username_pop_up.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../../../shared/widgets/bottom_sheets/credits_bottom_sheet.dart';
+import '../../../shared/widgets/bottom_sheets/privacy_bottom_sheet.dart';
+import '../../../shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
+import '../../../shared/widgets/pop_ups/cant_rename_pop_up.dart';
+import '../../../shared/widgets/pop_ups/change_username_pop_up.dart';
+import '../widgets/pop_ups/delete_account_pop_up.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {

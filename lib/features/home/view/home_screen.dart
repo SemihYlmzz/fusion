@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/ad/ad.dart';
-import 'package:fusion/audio/audio.dart';
-import 'package:fusion/features/home/home.dart';
-import 'package:fusion/features/queue/view/queue_screen.dart';
-import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
-import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../ad/ad.dart';
+import '../../../audio/audio.dart';
+import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../../queue/view/queue_screen.dart';
+import '../home.dart';
 import 'user_loading_view.dart';
 
 class HomeScreen extends StatelessWidget {

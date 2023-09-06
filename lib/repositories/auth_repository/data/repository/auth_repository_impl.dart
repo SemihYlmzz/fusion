@@ -1,7 +1,7 @@
-import 'package:fusion/repositories/auth_repository/data/datasource/auth_datasource.dart';
-import 'package:fusion/repositories/auth_repository/domain/entities/auth_entity.dart';
-import 'package:fusion/repositories/auth_repository/domain/repository/auth_repository.dart';
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/auth_entity.dart';
+import '../../domain/repository/auth_repository.dart';
+import '../datasource/auth_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authDatasource);

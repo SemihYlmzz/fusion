@@ -1,4 +1,4 @@
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
 
 import '../entities/user.dart';
 

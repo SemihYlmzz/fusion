@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart' hide Element;
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/gen/assets.gen.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource.dart';
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
-import 'package:fusion/utils/failure.dart';
-import 'package:fusion/utils/typedefs.dart';
+
+import '../../../../gen/assets.gen.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/card_entity.dart';
+import 'card_datasource.dart';
 
 class CardDataSourceLocalImpl implements CardDatasource {
   @override

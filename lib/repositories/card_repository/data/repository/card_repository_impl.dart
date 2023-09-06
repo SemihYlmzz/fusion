@@ -1,7 +1,7 @@
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource.dart';
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
-import 'package:fusion/repositories/card_repository/domain/repository/card_repository.dart';
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/card_entity.dart';
+import '../../domain/repository/card_repository.dart';
+import '../datasource/card_datasource.dart';
 
 class CardRepositoryImpl implements CardRepository {
   CardRepositoryImpl(

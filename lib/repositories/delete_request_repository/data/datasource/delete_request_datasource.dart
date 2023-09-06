@@ -1,6 +1,5 @@
-import 'package:fusion/repositories/delete_request_repository/domain/entities/delete_request.dart';
-
 import '../../../../utils/typedefs.dart';
+import '../../domain/entities/delete_request.dart';
 
 abstract class DeleteRequestDatasource {
   FutureEither<DeleteRequest> createDeleteRequest();

@@ -1,5 +1,5 @@
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/repositories/delete_request_repository/domain/usecase/usecases/check_delete_request.dart';
+import '../../initialize/injection_container.dart';
+import 'domain/usecase/usecases/check_delete_request.dart';
 import 'data/datasource/delete_request_datasource.dart';
 
 import 'data/datasource/user_datasource_firestore_impl.dart';

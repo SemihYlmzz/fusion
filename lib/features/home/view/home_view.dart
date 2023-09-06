@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/ad/ad.dart';
-import 'package:fusion/gen/assets.gen.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
-import 'package:fusion/repositories/user_repository/domain/entities/user.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../ad/ad.dart';
 import '../../../audio/audio_cubit.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../../../repositories/user_repository/domain/entities/user.dart';
 import '../../settings/settings.dart';
 import '../widgets/widgets.dart';
 

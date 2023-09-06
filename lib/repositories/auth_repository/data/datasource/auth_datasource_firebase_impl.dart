@@ -7,12 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/auth_repository/data/datasource/auth_datasource.dart';
-import 'package:fusion/repositories/auth_repository/domain/entities/auth_entity.dart';
-import 'package:fusion/utils/failure.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
+import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/auth_entity.dart';
+import 'auth_datasource.dart';
 
 class AuthDatasourceFirebaseImpl implements AuthDatasource {
   final firebase.FirebaseAuth _firebaseAuth = firebase.FirebaseAuth.instance;

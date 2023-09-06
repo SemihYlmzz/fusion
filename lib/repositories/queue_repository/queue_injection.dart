@@ -1,11 +1,9 @@
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/check_queue.dart';
-
+import '../../initialize/injection_container.dart';
 import 'data/datasource/queue_datasource.dart';
 import 'data/datasource/queue_datasource_firestore_impl.dart';
 import 'data/repository/user_repository_impl.dart';
-
 import 'domain/repository/queue_repository.dart';
+import 'domain/usecase/usecases/check_queue.dart';
 import 'domain/usecase/usecases/enter_queue.dart';
 import 'domain/usecase/usecases/leave_queue.dart';
 

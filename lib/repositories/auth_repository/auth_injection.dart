@@ -1,14 +1,14 @@
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/repositories/auth_repository/data/datasource/auth_datasource.dart';
-import 'package:fusion/repositories/auth_repository/data/datasource/auth_datasource_firebase_impl.dart';
-import 'package:fusion/repositories/auth_repository/data/repository/auth_repository_impl.dart';
-import 'package:fusion/repositories/auth_repository/domain/repository/auth_repository.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/auth_entity.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/check_user_auth.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_apple.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_facebook.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_google.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_out.dart';
+import '../../initialize/injection_container.dart';
+import 'data/datasource/auth_datasource.dart';
+import 'data/datasource/auth_datasource_firebase_impl.dart';
+import 'data/repository/auth_repository_impl.dart';
+import 'domain/repository/auth_repository.dart';
+import 'domain/usecase/usecases/auth_entity.dart';
+import 'domain/usecase/usecases/check_user_auth.dart';
+import 'domain/usecase/usecases/log_in_with_apple.dart';
+import 'domain/usecase/usecases/log_in_with_facebook.dart';
+import 'domain/usecase/usecases/log_in_with_google.dart';
+import 'domain/usecase/usecases/log_out.dart';
 
 class AuthRepositoryInjection {
   static Future<void> inject() async {

@@ -1,4 +1,4 @@
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
 import '../../domain/entities/queue.dart';
 import '../../domain/repository/queue_repository.dart';
 import '../datasource/queue_datasource.dart';

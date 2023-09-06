@@ -1,11 +1,9 @@
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
-
-import '../../../injection_container.dart';
-
+import '../../../initialize/injection_container.dart';
+import '../domain/usecase/usecases/change_username.dart';
 import '../domain/usecase/usecases/create_user.dart';
 import '../domain/usecase/usecases/delete_user.dart';
 import '../domain/usecase/usecases/read_user_with_uid.dart';
+import '../domain/usecase/usecases/refresh_deck.dart';
 import '../domain/usecase/usecases/update_user_with_uid.dart';
 import '../domain/usecase/usecases/watch_user_with_uid.dart';
 import 'user_bloc.dart';

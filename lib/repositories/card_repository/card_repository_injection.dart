@@ -1,11 +1,9 @@
-import 'package:fusion/injection_container.dart';
-
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource.dart';
-
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
-import 'package:fusion/repositories/card_repository/data/repository/card_repository_impl.dart';
-import 'package:fusion/repositories/card_repository/domain/repository/card_repository.dart';
-import 'package:fusion/repositories/card_repository/domain/usecase/get_card.dart';
+import '../../initialize/injection_container.dart';
+import 'data/datasource/card_datasource.dart';
+import 'data/datasource/card_datasource_local_impl.dart';
+import 'data/repository/card_repository_impl.dart';
+import 'domain/repository/card_repository.dart';
+import 'domain/usecase/get_card.dart';
 
 class CardRepositoryInjection {
   static Future<void> inject() async {

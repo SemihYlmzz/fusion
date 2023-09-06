@@ -1,5 +1,4 @@
-import 'package:fusion/utils/typedefs.dart';
-
+import '../../../../utils/typedefs.dart';
 import '../entities/queue.dart';
 
 abstract class QueueRepository {
