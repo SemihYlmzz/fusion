@@ -4,17 +4,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/params/user_name_params.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
 
 import '../../../utils/failure.dart';
 import '../domain/entities/user.dart';
 import '../domain/usecase/params/no_params.dart';
 import '../domain/usecase/params/uid_params.dart';
+import '../domain/usecase/params/user_name_params.dart';
+import '../domain/usecase/usecases/change_username.dart';
 import '../domain/usecase/usecases/create_user.dart';
 import '../domain/usecase/usecases/delete_user.dart';
 import '../domain/usecase/usecases/read_user_with_uid.dart';
+import '../domain/usecase/usecases/refresh_deck.dart';
 import '../domain/usecase/usecases/update_user_with_uid.dart';
 import '../domain/usecase/usecases/watch_user_with_uid.dart';
 

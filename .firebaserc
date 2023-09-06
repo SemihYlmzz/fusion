@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "fusion-development-8faa3"
+    "development": "fusion-development-8faa3",
+    "staging": "fusion-staging-2b30a",
+    "production": "fusion-7646a"
   }
 }

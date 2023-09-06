@@ -1,9 +1,9 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/queue_repository/domain/entities/queue.dart';
-import 'package:fusion/utils/failure.dart';
 
+import '../../../../../utils/failure.dart';
 import '../../../../../utils/typedefs.dart';
 import '../../../../../utils/usecase.dart';
+import '../../entities/queue.dart';
 import '../../repository/queue_repository.dart';
 import '../params/no_params.dart';
 

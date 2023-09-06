@@ -1,5 +1,5 @@
-import 'package:fusion/repositories/delete_request_repository/domain/entities/delete_request.dart';
-import 'package:fusion/utils/typedefs.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/delete_request.dart';
 import '../../domain/repository/delete_request_repository.dart';
 import '../datasource/delete_request_datasource.dart';
 

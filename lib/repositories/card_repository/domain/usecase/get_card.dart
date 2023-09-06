@@ -1,9 +1,10 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/card_repository/domain/entities/card_entity.dart';
-import 'package:fusion/repositories/card_repository/domain/repository/card_repository.dart';
-import 'package:fusion/utils/failure.dart';
-import 'package:fusion/utils/typedefs.dart';
-import 'package:fusion/utils/usecase.dart';
+
+import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
+import '../../../../utils/usecase.dart';
+import '../entities/card_entity.dart';
+import '../repository/card_repository.dart';
 
 class GetCardUseCase extends UseCase<Either<Failure, GameCard>, CardIdParams> {
   GetCardUseCase({required this.cardRepository});

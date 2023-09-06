@@ -1,4 +1,4 @@
-import 'package:fusion/repositories/auth_repository/domain/entities/auth_entity.dart';
+import '../../domain/entities/auth_entity.dart';
 
 class AuthModel extends AuthEntity {
   const AuthModel({

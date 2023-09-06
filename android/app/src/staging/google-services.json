@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "906030192701",
+    "project_id": "fusion-staging-2b30a",
+    "storage_bucket": "fusion-staging-2b30a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906030192701:android:00b979d4aece6e74c83254",
+        "android_client_info": {
+          "package_name": "com.devangs.fusion.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906030192701-d2su2vpfbe14g3casmuf4llf374n5nqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHAXNQegtarLY989F9xLJxNlweYdQ1jtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906030192701-5fvfq92apf7bicl32arc3u53ftg4cj45.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "906030192701-0nicdtn117laa62bofs13r05fgn92q9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.devangs.fusion"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

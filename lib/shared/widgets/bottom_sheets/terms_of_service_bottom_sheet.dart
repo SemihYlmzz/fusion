@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/shared/text/aligned_text.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../text/aligned_text.dart';
 
 class TermsOfService extends StatelessWidget {
   const TermsOfService({super.key});

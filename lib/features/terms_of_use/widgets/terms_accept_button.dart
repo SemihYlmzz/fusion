@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/settings/widgets/pop_ups/delete_account_pop_up.dart';
 import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
-import 'package:fusion/l10n/app_localizations.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'package:fusion/shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
 
 class TermsAcceptButton extends StatelessWidget {
   const TermsAcceptButton({
@@ -35,9 +35,9 @@ class TermsAcceptButton extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    Text(AppLocalizations.of(context).iAgreeToThe),
+                    Text(context.l10n.iAgreeToThe),
                     GradientTextButton(
-                      AppLocalizations.of(context).termsOfService,
+                      context.l10n.termsOfService,
                       onTap: () async {
                         await showBottomSheett(
                           const TermsOfService(),

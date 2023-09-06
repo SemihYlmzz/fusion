@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/settings/widgets/widgets.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/user_repository/bloc/user_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../../features/settings/widgets/widgets.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class CantRenamePopUp extends StatefulWidget {
   const CantRenamePopUp({super.key});
@@ -51,7 +52,7 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                   child: Column(
                     children: [
                       Text(
-                        AppLocalizations.of(context).cantRenameYet,
+                        context.l10n.cantRenameYet,
                         style: GoogleFonts.bangers(fontSize: 40),
                       ),
                       const SizedBox(height: 32),
@@ -67,7 +68,7 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            AppLocalizations.of(context).hoursText,
+                            context.l10n.hoursText,
                             style: const TextStyle(
                               fontSize: 28,
                               color: Colors.redAccent,
@@ -77,14 +78,14 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                       ),
                       const SizedBox(height: 32),
                       Text(
-                        AppLocalizations.of(context).youShouldWait,
+                        context.l10n.youShouldWait,
                         style: const TextStyle(fontSize: 28),
                       ),
                     ],
                   ),
                 ),
                 GradientButton(
-                  text: AppLocalizations.of(context).done,
+                  text: context.l10n.done,
                   onPressed: () {
                     Navigator.pop(context);
                   },

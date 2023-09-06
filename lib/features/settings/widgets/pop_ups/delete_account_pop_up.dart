@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/settings/widgets/delete_acceptance.dart';
-import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
-import 'package:fusion/l10n/app_localizations.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+
 class DeleteAccountPopUp extends StatefulWidget {
-  DeleteAccountPopUp({required this.devicePrefs, super.key});
+  const DeleteAccountPopUp({required this.devicePrefs, super.key});
   final DevicePrefs devicePrefs;
   static const _warningText = 'If you delete this account';
   static const _deleteGradientButtonTitle = 'Delete';
@@ -28,6 +27,7 @@ class DeleteAccountPopUp extends StatefulWidget {
 
 class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
   bool _isAccepted = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +89,7 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                         },
                         isAccepted: _isAccepted,
                       ),
+
                       Row(
                         children: [
                           Expanded(
@@ -110,10 +111,11 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                                         );
                                       }
                                     : null),
+
                           ),
                           Expanded(
                             child: GradientButton(
-                              text: AppLocalizations.of(context).cancel,
+                              text: context.l10n.cancel,
                               width: 100,
                               isOutlined: true,
                               onPressed: () {
@@ -149,6 +151,40 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
           ),
         ],
       ),
+    );
+  }
+}
+
+
+class DeleteCheckBox extends StatefulWidget {
+   DeleteCheckBox({required this.isCheck, super.key});
+  bool isCheck;
+
+  @override
+  State<DeleteCheckBox> createState() => _DeleteCheckBoxState();
+}
+
+class _DeleteCheckBoxState extends State<DeleteCheckBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+          value: widget.isCheck,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() {
+              widget.isCheck = value;
+            });
+          },
+        ),
+        const Expanded(
+          child: Text(
+            'Are you sure you want to delete the account?',
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+        ),
+      ],
     );
   }
 }

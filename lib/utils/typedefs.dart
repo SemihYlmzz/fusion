@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:fpdart/fpdart.dart';
 
-import 'package:fusion/utils/failure.dart';
+import 'failure.dart';
 
 typedef StringCallback = void Function(String val);
 typedef Uint8ListCallback = void Function(Uint8List? val);
@@ -14,3 +15,8 @@ typedef FutureUnit = FutureEither<Unit>;
 
 typedef StreamEither<T> = Stream<Either<Failure, T>>;
 typedef StreamUnit = StreamEither<Unit>;
+
+// typedef BootstrapBuilder = FutureOr<Widget> Function(
+//   FirebaseFirestore firestore,
+//   FirebaseAuth firebaseAuth,
+// );

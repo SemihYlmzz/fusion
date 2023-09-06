@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/home/view/home_screen.dart';
-import 'package:fusion/features/queue/widgets/queue_rain_effect.dart';
-import 'package:fusion/features/queue/widgets/queue_timer.dart';
-import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
+import '../../home/view/home_screen.dart';
+import '../widgets/queue_rain_effect.dart';
+import '../widgets/queue_timer.dart';
+
 class QueueView extends StatelessWidget {
-  const QueueView({super.key, required this.queueState});
+  const QueueView({required this.queueState, super.key});
 
   final QueueState queueState;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/audio/audio_cubit.dart';
-import 'package:fusion/gen/assets.gen.dart';
+import 'package:fusion/l10n/l10n.dart';
 
-import '../../../../l10n/app_localizations.dart';
+import '../../../../audio/audio_cubit.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'base_slider.dart';
@@ -31,7 +31,7 @@ class _SoundEffectsSliderState extends State<SoundEffectsSlider> {
   @override
   Widget build(BuildContext context) {
     return BaseSlider(
-      volumeText: AppLocalizations.of(context).soundEffects,
+      volumeText: context.l10n.soundEffects,
       volumeLevel: soundEffectVolumeLevelController,
       onChangeStart: (val) async {
         await context.read<AudioCubit>().playSoundEffect(

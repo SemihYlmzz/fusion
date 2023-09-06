@@ -1,4 +1,4 @@
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../domain/entities/device_prefs.dart';
 
 class DevicePrefsModel extends DevicePrefs {
   const DevicePrefsModel({

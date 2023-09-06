@@ -1,25 +1,26 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fusion/ad/ad.dart';
-import 'package:fusion/config/app_router.dart';
-import 'package:fusion/config/style/theme.dart';
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/l10n/l10n.dart';
-import 'package:fusion/preload/preload_cubit.dart';
-import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/delete_request_repository/bloc/delete_request_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/queue_repository/bloc/queue_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
+import '../../../ad/ad.dart';
 import '../../../audio/audio_cubit.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../config/app_router.dart';
+import '../../../config/style/theme.dart';
+import '../../../initialize/injection_container.dart';
+import '../../../l10n/l10n.dart';
+import '../../../preload/preload_cubit.dart';
+import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({required this.flavor, super.key});
+  final String flavor;
 
   @override
   State<App> createState() => _AppState();
@@ -28,47 +29,41 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with RouterMixin {
   @override
   Widget build(BuildContext context) {
+    // BLOCS
     final authBloc = getIt<AuthBloc>();
     final userBloc = getIt<UserBloc>();
-    final devicePrefsBloc = getIt<DevicePrefsBloc>();
+    final devicePrefsBloc = getIt<DevicePrefsBloc>()
+      ..add(const ReadDevicePrefs());
     final deleteRequestBloc = getIt<DeleteRequestBloc>();
     final queueBloc = getIt<QueueBloc>();
 
+    // CUBITS
     final preloadCubit = PreloadCubit(
       bgmAudioCache: AudioCache(prefix: ''),
       sfxAudioCache: AudioCache(prefix: ''),
-      );
+    );
+    final adCubit = AdCubit()..onLoadRewardedAdRequested();
+    final audioCubit = AudioCubit(
+      bgmAudioCache: preloadCubit.bgmAudioCache,
+      sfxAudioCache: preloadCubit.sfxAudioCache,
+    );
 
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (_) => authBloc),
         BlocProvider<UserBloc>(create: (_) => userBloc),
-        BlocProvider<DevicePrefsBloc>(
-          create: (_) => devicePrefsBloc..add(const ReadDevicePrefs()),
-        ),
+        BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
-        BlocProvider<PreloadCubit>(
-          create: (_) => preloadCubit,
-        ),
-        BlocProvider<AudioCubit>(
-          create: (_) => AudioCubit(
-            bgmAudioCache: preloadCubit.bgmAudioCache,
-            sfxAudioCache: preloadCubit.sfxAudioCache,
-          ),
-        ),
-        BlocProvider<AdCubit>(
-          create: (_) => AdCubit()..onLoadRewardedAdRequested(),
-        ),
-        BlocProvider<QueueBloc>(
-          create: (_) => queueBloc,
-        ),
+        BlocProvider<QueueBloc>(create: (_) => queueBloc),
+        BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
+        BlocProvider<AudioCubit>(create: (_) => audioCubit),
+        BlocProvider<AdCubit>(create: (_) => adCubit),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             darkTheme: AppTheme.darkTheme,
-            // theme: AppTheme.lightTheme,
             themeMode: ThemeMode.dark,
             routerConfig: router,
             builder: (_, router) {
@@ -85,9 +80,8 @@ class _AppState extends State<App> with RouterMixin {
             supportedLocales: L10n.all,
             locale: Localization
                 .languageCodeToLocale[devicePrefsState.devicePrefs.language],
-
             localizationsDelegates: const [
-              ...AppLocalizations.localizationsDelegates,
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

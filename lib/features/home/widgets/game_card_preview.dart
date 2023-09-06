@@ -2,14 +2,14 @@ import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/shared/widgets/pop_ups/detailed_game_card_pop_up.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
 import '../../../repositories/card_repository/domain/entities/card_entity.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../shared/widgets/pop_ups/detailed_game_card_pop_up.dart';
 
 class GameCardPreview extends StatelessWidget {
   const GameCardPreview({

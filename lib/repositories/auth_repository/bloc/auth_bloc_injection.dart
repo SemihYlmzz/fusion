@@ -1,11 +1,11 @@
-import 'package:fusion/injection_container.dart';
-import 'package:fusion/repositories/auth_repository/bloc/auth_bloc.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/auth_entity.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/check_user_auth.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_apple.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_facebook.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_in_with_google.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/usecases/log_out.dart';
+import '../../../initialize/injection_container.dart';
+import '../domain/usecase/usecases/auth_entity.dart';
+import '../domain/usecase/usecases/check_user_auth.dart';
+import '../domain/usecase/usecases/log_in_with_apple.dart';
+import '../domain/usecase/usecases/log_in_with_facebook.dart';
+import '../domain/usecase/usecases/log_in_with_google.dart';
+import '../domain/usecase/usecases/log_out.dart';
+import 'auth_bloc.dart';
 
 class AuthBlocInjection {
   static void inject() {

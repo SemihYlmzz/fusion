@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/queue_repository/data/models/queue_model.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
 import '../../domain/entities/queue.dart';
+import '../models/queue_model.dart';
 import 'queue_datasource.dart';
 
 class QueueFields {

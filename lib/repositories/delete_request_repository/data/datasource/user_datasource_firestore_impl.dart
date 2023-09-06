@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/delete_request_repository/data/models/delete_model.dart';
-import 'package:fusion/repositories/delete_request_repository/domain/entities/delete_request.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/delete_request.dart';
+import '../models/delete_model.dart';
 import 'delete_request_datasource.dart';
 
 class DeleteRequestFields {

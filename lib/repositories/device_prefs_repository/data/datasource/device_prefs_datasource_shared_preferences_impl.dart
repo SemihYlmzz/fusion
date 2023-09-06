@@ -1,8 +1,9 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/repositories/device_prefs_repository/data/datasource/device_prefs_datasource.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../utils/typedefs.dart';
+import '../../domain/entities/device_prefs.dart';
+import 'device_prefs_datasource.dart';
 
 class DevicePrefsFields {
   static const generalSoundVolume = 'generalSoundVolume';

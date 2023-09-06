@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/utils/typedefs.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utils/failure.dart';
+import '../../../../utils/typedefs.dart';
 import '../../domain/entities/user.dart';
 import '../models/user_model.dart';
 import 'user_datasource.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/features/preload/view/preload_screen.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../preload/view/preload_screen.dart';
 import 'view.dart';
 
 class TermsOfUseScreen extends StatelessWidget {

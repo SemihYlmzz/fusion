@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/l10n/app_localizations.dart';
-import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 
 class SaveAcceptenceButton extends StatelessWidget {
   const SaveAcceptenceButton({
@@ -16,7 +17,7 @@ class SaveAcceptenceButton extends StatelessWidget {
       builder: (context, devicePrefsState) {
         return GradientButton(
           width: 200,
-          text: AppLocalizations.of(context).acceptText,
+          text: context.l10n.acceptText,
           onPressed: !isReadyToAccept
               ? null
               : () {
