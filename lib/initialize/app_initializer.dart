@@ -10,6 +10,7 @@ import 'injection_container.dart';
 
 abstract final class AppInitializer {
   static Future<void> initialize() async {
+    
     // Configure Logger
     if (kReleaseMode) {
       Logger.root.level = Level.WARNING;
@@ -24,7 +25,7 @@ abstract final class AppInitializer {
     // Initialize Bloc Observer
     Bloc.observer = AppBlocObserver();
 
-    // Initialize Screen Orientation
+    // Initialize Screen Orientation Configs
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -34,8 +35,8 @@ abstract final class AppInitializer {
     await Firebase.initializeApp();
     // Initialize Mobile Ads
     await MobileAds.instance.initialize();
-
-    // Initialize Blocs
+    // Initialize Blocs & Repositories
     await InjectionContainer.initializeDependencies();
+
   }
 }

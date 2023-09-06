@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../l10n/app_localizations.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../shared/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
@@ -40,9 +40,9 @@ class TermsAcceptButton extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    Text(AppLocalizations.of(context).iAgreeToThe),
+                    Text(context.l10n.iAgreeToThe),
                     GradientTextButton(
-                      AppLocalizations.of(context).termsOfService,
+                      context.l10n.termsOfService,
                       onTap: () async {
                         await showBottomSheett(
                           const TermsOfService(),

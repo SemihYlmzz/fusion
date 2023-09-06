@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../features/settings/widgets/widgets.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class EnterNamePopUp extends StatefulWidget {
@@ -71,14 +71,14 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                       children: [
                         Text(
                           isAnimationPlaying > 0
-                              ? AppLocalizations.of(context).notUnique
-                              : AppLocalizations.of(context).enterUsername,
+                              ? context.l10n.notUnique
+                              : context.l10n.enterUsername,
                           style: GoogleFonts.bangers(fontSize: 56),
                         ),
                         Padding(
                           padding: SharedPaddings.horizontal16,
                           child: GradientTextField(
-                            hintText: AppLocalizations.of(context).username,
+                            hintText: context.l10n.username,
                             linearGradient: const LinearGradient(
                               colors: [
                                 Colors.orange,
@@ -89,27 +89,25 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                               final filter = ProfanityFilter();
 
                               if (newUsernameValue.length < 3) {
-                                errorText = AppLocalizations.of(context)
-                                    .usernameTooShortError;
+                                errorText = context.l10n.usernameTooShortError;
                                 setState(() {});
                                 return;
                               }
                               if (newUsernameValue.length > 20) {
-                                errorText = AppLocalizations.of(context)
-                                    .usernameTooLongError;
+                                errorText = context.l10n.usernameTooLongError;
                                 setState(() {});
                                 return;
                               }
                               if (!RegExp(r'^[a-zA-Z0-9]+$')
                                   .hasMatch(newUsernameValue)) {
-                                errorText = AppLocalizations.of(context)
-                                    .usernameHasSpecialCharsError;
+                                errorText =
+                                    context.l10n.usernameHasSpecialCharsError;
                                 setState(() {});
                                 return;
                               }
                               if (filter.hasProfanity(newUsernameValue)) {
-                                errorText = AppLocalizations.of(context)
-                                    .usernameHasBadWordsError;
+                                errorText =
+                                    context.l10n.usernameHasBadWordsError;
                                 setState(() {});
                                 return;
                               }
@@ -123,14 +121,13 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                         if (userState.user?.username != '' &&
                             userState.user?.username == oldUsername)
                           Text(
-                            AppLocalizations.of(context)
-                                .usernameChangeLimitWarning,
+                            context.l10n.usernameChangeLimitWarning,
                           ),
                       ],
                     ),
                   ),
                   GradientButton(
-                    text: AppLocalizations.of(context).done,
+                    text: context.l10n.done,
                     onPressed: () async {
                       final canChangeUsername = userState
                           .user!.accountnameChangeEligibilityDate

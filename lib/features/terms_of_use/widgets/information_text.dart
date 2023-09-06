@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
-
-import '../../../l10n/app_localizations.dart';
 
 class InformationText extends StatelessWidget {
   const InformationText({
@@ -13,7 +12,7 @@ class InformationText extends StatelessWidget {
     return Padding(
       padding: SharedPaddings.vertical8,
       child: Text(
-        AppLocalizations.of(context).termsOfUseInformation,
+        context.l10n.termsOfUseInformation,
         style: const TextStyle(
           fontSize: 14,
         ),

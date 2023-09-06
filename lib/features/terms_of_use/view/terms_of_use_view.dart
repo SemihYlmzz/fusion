@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -7,7 +8,6 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
 import '../../../gen/assets.gen.dart';
-import '../../../l10n/app_localizations.dart';
 import '../widgets/widgets.dart';
 
 class TermsOfUseView extends StatefulWidget {
@@ -61,7 +61,7 @@ class _TermsOfUseViewState extends State<TermsOfUseView> {
                   child: Column(
                     children: [
                       Text(
-                        AppLocalizations.of(context).welcome,
+                        context.l10n.welcome,
                         style: GoogleFonts.bangers(fontSize: 40),
                       ),
                       const InformationText(),

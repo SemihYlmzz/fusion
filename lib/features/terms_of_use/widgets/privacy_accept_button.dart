@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../l10n/app_localizations.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../shared/shared.dart';
@@ -41,11 +41,11 @@ class PrivacyAcceptButton extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context).iAgreeToThe,
+                      context.l10n.iAgreeToThe,
                       textAlign: TextAlign.center,
                     ),
                     GradientTextButton(
-                      AppLocalizations.of(context).fusionPrivacyNotice,
+                      context.l10n.fusionPrivacyNotice,
                       maxLines: 2,
                       align: TextAlign.center,
                       onTap: () async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../l10n/app_localizations.dart';
+import 'package:fusion/l10n/l10n.dart';
 import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'base_slider.dart';
@@ -28,7 +28,7 @@ class _DialoguesSliderState extends State<DialoguesSlider> {
   @override
   Widget build(BuildContext context) {
     return BaseSlider(
-      volumeText: AppLocalizations.of(context).dialogues,
+      volumeText: context.l10n.dialogues,
       volumeLevel: dialogsVolumeLevelController,
       onChanged: (val) {
         if (val == null) {

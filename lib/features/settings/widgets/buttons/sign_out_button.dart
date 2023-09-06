@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../l10n/app_localizations.dart';
+import 'package:fusion/l10n/l10n.dart';
 import '../../../../repositories/auth_repository/bloc/auth_bloc.dart';
 
 class SignOutButton extends StatelessWidget {
@@ -20,7 +20,7 @@ class SignOutButton extends StatelessWidget {
             );
       },
       child: Text(
-        AppLocalizations.of(context).signOut,
+        context.l10n.signOut,
       ),
     );
   }

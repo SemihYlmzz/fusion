@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
 
-import '../../../l10n/app_localizations.dart';
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
@@ -52,7 +52,7 @@ class _UserLoadingViewState extends State<UserLoadingView> {
                 context.read<AuthBloc>().add(const AuthLogoutRequested());
               },
               child: Text(
-                AppLocalizations.of(context).cancel,
+                context.l10n.cancel,
                 style: const TextStyle(
                   color: Colors.white,
                 ),

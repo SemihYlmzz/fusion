@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../config/style/colors.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
@@ -90,8 +90,7 @@ class SettingsScreen extends StatelessWidget {
 
                                     // INFORMATIONAL BUTTONS
                                     SettingsBorderedButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).haptics,
+                                      buttonText: context.l10n.haptics,
                                       buttonWidget: Switch.adaptive(
                                         value: devicePrefs.isHapticsOn,
                                         onChanged: (newValue) {
@@ -106,8 +105,7 @@ class SettingsScreen extends StatelessWidget {
                                       ),
                                     ),
                                     SettingsBorderedButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).language,
+                                      buttonText: context.l10n.language,
                                       onTap: () => showPopUp(
                                         SelectableLanguagesPopUp(
                                           devicePrefs: devicePrefs,
@@ -116,13 +114,11 @@ class SettingsScreen extends StatelessWidget {
                                         context,
                                       ),
                                       buttonWidget: Text(
-                                        AppLocalizations.of(context)
-                                            .currentLanguage,
+                                        context.l10n.currentLanguage,
                                       ),
                                     ),
                                     SettingsBorderedButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).username,
+                                      buttonText: context.l10n.username,
                                       buttonWidget: const Text('CL4Y'),
                                       onTap: () {
                                         final month = user!
@@ -144,8 +140,7 @@ class SettingsScreen extends StatelessWidget {
                                       },
                                     ),
                                     SettingsBorderedButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).account,
+                                      buttonText: context.l10n.account,
                                       buttonWidget: const Text('Google'),
                                     ),
 
@@ -154,16 +149,13 @@ class SettingsScreen extends StatelessWidget {
 
                                     // BASIC BUTTONS
                                     SettingsThickButton(
-                                      buttonText: AppLocalizations.of(context)
-                                          .reportABug,
+                                      buttonText: context.l10n.reportABug,
                                     ),
                                     SettingsThickButton(
-                                      buttonText: AppLocalizations.of(context)
-                                          .sendUsAMail,
+                                      buttonText: context.l10n.sendUsAMail,
                                     ),
                                     SettingsThickButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).privacy,
+                                      buttonText: context.l10n.privacy,
                                       onTap: () {
                                         displayBottomSheet(
                                           const PrivacyBottomSheet(),
@@ -173,8 +165,7 @@ class SettingsScreen extends StatelessWidget {
                                       },
                                     ),
                                     SettingsThickButton(
-                                      buttonText: AppLocalizations.of(context)
-                                          .termsOfService,
+                                      buttonText: context.l10n.termsOfService,
                                       onTap: () {
                                         displayBottomSheet(
                                           const TermsOfService(),
@@ -184,8 +175,7 @@ class SettingsScreen extends StatelessWidget {
                                       },
                                     ),
                                     SettingsThickButton(
-                                      buttonText:
-                                          AppLocalizations.of(context).credits,
+                                      buttonText: context.l10n.credits,
                                       onTap: () {
                                         displayBottomSheet(
                                           const CreditsBottomSheet(),
@@ -195,8 +185,7 @@ class SettingsScreen extends StatelessWidget {
                                       },
                                     ),
                                     SettingsThickButton(
-                                      buttonText: AppLocalizations.of(context)
-                                          .deleteAccount,
+                                      buttonText: context.l10n.deleteAccount,
                                       onTap: () {
                                         showPopUp(
                                           DeleteAccountPopUp(

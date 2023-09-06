@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../l10n/app_localizations.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../delete_account/view/delete_account_screen.dart';
 
@@ -105,7 +105,7 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                           ),
                           Expanded(
                             child: GradientButton(
-                              text: AppLocalizations.of(context).cancel,
+                              text: context.l10n.cancel,
                               width: 100,
                               isOutlined: true,
                               onPressed: () {
@@ -146,7 +146,7 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
 }
 
 class DeleteCheckBox extends StatefulWidget {
-  DeleteCheckBox({required this.isCheck, super.key});
+   DeleteCheckBox({required this.isCheck, super.key});
   bool isCheck;
 
   @override

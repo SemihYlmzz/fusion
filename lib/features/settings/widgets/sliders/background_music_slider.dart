@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/l10n/l10n.dart';
 
 import '../../../../audio/audio_cubit.dart';
-import '../../../../l10n/app_localizations.dart';
 import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'base_slider.dart';
@@ -30,7 +30,7 @@ class _BackgroundMusicSliderState extends State<BackgroundMusicSlider> {
   Widget build(BuildContext context) {
     return BaseSlider(
       volumeLevel: volumeLevelController,
-      volumeText: AppLocalizations.of(context).backgroundMusic,
+      volumeText: context.l10n.backgroundMusic,
       onChanged: (newValue) {
         volumeLevelController = newValue ?? 0.75;
 
