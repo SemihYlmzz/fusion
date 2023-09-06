@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                                 .read<QueueBloc>()
                                 .add(const CheckQueueRequested());
                           }
-                          
+
                           if (queueState is QueueHasData) {
                             context.goNamed(QueueScreen.name);
                           }
@@ -76,6 +76,8 @@ class HomeScreen extends StatelessWidget {
                                         uid: authState.authEntity.id,
                                         devicePrefs:
                                             devicePrefsState.devicePrefs,
+                                        // Null check operator used on a null value
+                                        // WHEN REGISTERED
                                         user: userState.user!,
                                         adState: adState,
                                       ),

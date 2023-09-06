@@ -19,7 +19,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({required this.flavor, super.key});
+  final String flavor;
 
   @override
   State<App> createState() => _AppState();
@@ -37,7 +38,7 @@ class _AppState extends State<App> with RouterMixin {
     final preloadCubit = PreloadCubit(
       bgmAudioCache: AudioCache(prefix: ''),
       sfxAudioCache: AudioCache(prefix: ''),
-      );
+    );
 
     return MultiBlocProvider(
       providers: [

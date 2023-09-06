@@ -6,7 +6,10 @@ import 'package:fusion/features/app/view/app.dart';
 void main() async {
   unawaited(
     bootstrap((firestore, firebaseAuth) {
-      return const App();
+      const flavorStaging = 'staging';
+      return const App(
+        flavor: flavorStaging,
+      );
     }),
   );
 }
