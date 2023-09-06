@@ -1,5 +1,5 @@
-import '../entities/card_entity.dart';
 import '../../../../utils/typedefs.dart';
+import '../entities/card_entity.dart';
 
 // ignore: one_member_abstracts
 abstract class CardRepository {

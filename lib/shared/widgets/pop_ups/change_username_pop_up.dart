@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../features/settings/widgets/widgets.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
+
+import '../../../features/settings/widgets/widgets.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class EnterNamePopUp extends StatefulWidget {
   const EnterNamePopUp({super.key});

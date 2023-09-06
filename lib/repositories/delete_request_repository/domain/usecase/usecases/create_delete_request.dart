@@ -1,9 +1,9 @@
 import 'package:fpdart/fpdart.dart';
-import '../../entities/delete_request.dart';
-import '../../../../../utils/failure.dart';
 
+import '../../../../../utils/failure.dart';
 import '../../../../../utils/typedefs.dart';
 import '../../../../../utils/usecase.dart';
+import '../../entities/delete_request.dart';
 import '../../repository/delete_request_repository.dart';
 import '../params/no_params.dart';
 

@@ -11,7 +11,7 @@ import '../widgets/queue_rain_effect.dart';
 import '../widgets/queue_timer.dart';
 
 class QueueView extends StatelessWidget {
-  const QueueView({super.key, required this.queueState});
+  const QueueView({required this.queueState, super.key});
 
   final QueueState queueState;
 

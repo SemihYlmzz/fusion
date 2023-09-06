@@ -15,7 +15,7 @@ class QueueRainEffect extends StatelessWidget {
       activeEffects: [
         RainEffect(
           particleConfiguration: ParticleConfiguration(
-            color: LinearInterpolationParticleColor(
+            color: const LinearInterpolationParticleColor(
               colors: _colorList,
             ),
             shape: CircleShape(),
@@ -24,7 +24,6 @@ class QueueRainEffect extends StatelessWidget {
           effectConfiguration: const EffectConfiguration(
             minDuration: 4500,
             maxDuration: 4500,
-            particlesPerEmit: 1,
             emitDuration: 50,
             minDistance: 200,
             minFadeOutThreshold: 2,
