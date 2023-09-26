@@ -63,7 +63,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     unawaited(logOutUseCase.execute(const NoParams()));
   }
 
-
   Future<void> onLogInWithGoogleRequested(
     LogInWithGoogleRequested event,
     Emitter<AuthState> emit,

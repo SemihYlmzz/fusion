@@ -18,7 +18,7 @@ dependencies:
   google_mobile_ads: ^3.0.0
 
   # Audio
-  audioplayers: ^4.1.0
+  audioplayers: ^5.1.0
 
 # Shared Packages
   # Constants
@@ -36,6 +36,7 @@ dependencies:
   flutter_animate: ^4.2.0
   flutter_tilt: ^1.0.3
   newton_particles: ^0.1.5
+  rive: ^0.11.16
 
   # Icons and Fonts
   cupertino_icons: ^1.0.2
@@ -50,7 +51,7 @@ dependencies:
   google_sign_in: ^6.1.0
   flutter_social_button: ^1.1.4+1
   sign_in_with_apple: ^5.0.0
-  flutter_facebook_auth: ^5.0.0
+  flutter_facebook_auth: ^6.0.1
 
 # Local Database
   shared_preferences: ^2.2.0
@@ -81,7 +82,11 @@ dependencies:
   profanity_filter: ^2.0.0
 
 # HTTP Requests
-  http: ^0.13.6
+  http: ^1.1.0
+  
+# Network
+  connectivity_plus: ^4.0.2
+  internet_connection_checker: ^1.0.0+1
 
 # Developer Dependencies
 dev_dependencies:

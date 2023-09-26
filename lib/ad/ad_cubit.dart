@@ -12,6 +12,12 @@ class AdCubit extends Cubit<AdState> {
   static const _rewardedAdUnitId = 'ca-app-pub-3940256099942544/5224354917';
 
   Future<void> onLoadRewardedAdRequested() async {
+    if (state.retryLoadAdDate != null) {
+      if (state.retryLoadAdDate!.isBefore(DateTime.now())) {
+        emit(state.copyWith());
+      }
+    }
+
     emit(const AdState(isLoadingAd: true));
 
     await RewardedAd.load(
@@ -19,7 +25,13 @@ class AdCubit extends Cubit<AdState> {
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdFailedToLoad: (LoadAdError error) {
-          emit(AdState(isLoadingAd: false, errorMessage: error.message));
+          emit(
+            AdState(
+              isLoadingAd: false,
+              errorMessage: error.message,
+              retryLoadAdDate: DateTime.now().add(const Duration(seconds: 30)),
+            ),
+          );
         },
         onAdLoaded: (RewardedAd ad) async {
           emit(AdState(isLoadingAd: false, rewardedAd: ad));

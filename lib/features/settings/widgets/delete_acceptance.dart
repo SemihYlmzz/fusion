@@ -4,10 +4,10 @@ import 'package:fusion/utils/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 class DeleteAcceptance extends StatelessWidget {
-  DeleteAcceptance({
-    super.key,
+  const DeleteAcceptance({
     required this.isAccepted,
     required this.onAccept,
+    super.key,
   });
   final bool isAccepted;
   final BoolCallback onAccept;

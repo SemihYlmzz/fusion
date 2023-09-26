@@ -647,14 +647,17 @@ PODS:
     - firebase_core
     - Flutter
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FBAEMKit (16.0.1):
-    - FBSDKCoreKit_Basics (= 16.0.1)
-  - FBSDKCoreKit (16.0.1):
-    - FBAEMKit (= 16.0.1)
-    - FBSDKCoreKit_Basics (= 16.0.1)
-  - FBSDKCoreKit_Basics (16.0.1)
-  - FBSDKLoginKit (16.0.1):
-    - FBSDKCoreKit (= 16.0.1)
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
+  - FBAEMKit (16.1.3):
+    - FBSDKCoreKit_Basics (= 16.1.3)
+  - FBSDKCoreKit (16.1.3):
+    - FBAEMKit (= 16.1.3)
+    - FBSDKCoreKit_Basics (= 16.1.3)
+  - FBSDKCoreKit_Basics (16.1.3)
+  - FBSDKLoginKit (16.1.3):
+    - FBSDKCoreKit (= 16.1.3)
   - Firebase/Auth (10.12.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.12.0)
@@ -670,7 +673,7 @@ PODS:
   - firebase_core (2.15.1):
     - Firebase/CoreOnly (= 10.12.0)
     - Flutter
-  - FirebaseAppCheckInterop (10.13.0)
+  - FirebaseAppCheckInterop (10.15.0)
   - FirebaseAuth (10.12.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -681,7 +684,7 @@ PODS:
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.13.0):
+  - FirebaseCoreInternal (10.15.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseFirestore (10.12.0):
     - abseil/algorithm (~> 1.20220623.0)
@@ -697,8 +700,8 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
-  - flutter_facebook_auth (5.0.9):
-    - FBSDKLoginKit (~> 16.0.1)
+  - flutter_facebook_auth (6.0.1):
+    - FBSDKLoginKit (~> 16.1.3)
     - Flutter
   - flutter_secure_storage (6.0.0):
     - Flutter
@@ -712,21 +715,21 @@ PODS:
   - google_sign_in_ios (0.0.1):
     - Flutter
     - GoogleSignIn (~> 6.2)
-  - GoogleAppMeasurement (10.14.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.14.0)
+  - GoogleAppMeasurement (10.15.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (10.14.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.14.0)
+  - GoogleAppMeasurement/AdIdSupport (10.15.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (10.14.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.15.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
@@ -829,6 +832,9 @@ PODS:
     - Flutter
     - FlutterMacOS
   - PromisesObjC (2.3.1)
+  - ReachabilitySwift (5.0.0)
+  - rive_common (0.0.1):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -840,6 +846,7 @@ PODS:
 DEPENDENCIES:
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
@@ -848,6 +855,7 @@ DEPENDENCIES:
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - rive_common (from `.symlinks/plugins/rive_common/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
@@ -879,12 +887,15 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -901,6 +912,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  rive_common:
+    :path: ".symlinks/plugins/rive_common/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sign_in_with_apple:
@@ -914,25 +927,26 @@ SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: c556fefce96568e422e453bf9aeda683dd435367
-  FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
-  FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
-  FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
-  FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
+  FBAEMKit: af2972f39bb0f3f7c45998f435b007833c32ffb2
+  FBSDKCoreKit: 19e2e18b3be578d7a51fed8fdd8c152bef0b9511
+  FBSDKCoreKit_Basics: dd9826ce3c9fd9f8cdf8dbbd0ef0a53e6c0c9e7e
+  FBSDKLoginKit: c395c63a1a6cf4a8a1e6103fd94b8c46329ee81c
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   firebase_auth: 95f4a6acafa6a7a0d902aa467dd4d7ca336ee4be
   firebase_core: 4a3246a02f828a01c74a2c26427037786d90f17f
-  FirebaseAppCheckInterop: 5e12dc623d443dedffcde9c6f3ed41510125d8ef
+  FirebaseAppCheckInterop: a8c555b1c2db1d9445e6c3a08a848167ddb7eb51
   FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
-  FirebaseCoreInternal: b342e37cd4f5b4454ec34308f073420e7920858e
+  FirebaseCoreInternal: 2f4bee5ed00301b5e56da0849268797a2dd31fb4
   FirebaseFirestore: f94c9541515fa4a49af52269bbc50349009424b4
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_facebook_auth: 42016bec1574eabf69bc2fe4311e8cd55813d352
+  flutter_facebook_auth: 47c7a8594f2d6864618e30b5a6d59dff0d2e59fe
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
   Google-Mobile-Ads-SDK: 32fe7836431a06a29f7734ae092b600137c8108d
   google_mobile_ads: 53b1f0d74445963e5810e34ac38dfb27aabe278e
   google_sign_in_ios: 1256ff9d941db546373826966720b0c24804bcdd
-  GoogleAppMeasurement: 7fee012a868315d418f365fbc8d394d8e020e749
+  GoogleAppMeasurement: 722db6550d1e6d552b08398b69a975ac61039338
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GoogleUserMessagingPlatform: dce302b8f1b84d6e945812ee7a15c3f65a102cbf
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
@@ -944,6 +958,8 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  rive_common: 8a159d68033a8b073e5853acc50f03aa486a2888
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a

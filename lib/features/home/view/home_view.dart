@@ -82,9 +82,6 @@ class _HomeViewState extends State<HomeView> {
                 const Icon(Icons.refresh),
                 TextButton(
                   onPressed: () async {
-                    if (widget.adState.rewardedAd == null) {
-                      return;
-                    }
                     await context
                         .read<AdCubit>()
                         .onShowRewardedAdRequested(() async {

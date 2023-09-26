@@ -21,14 +21,7 @@ class QueueRainEffect extends StatelessWidget {
             shape: CircleShape(),
             size: const Size(5, 5),
           ),
-          effectConfiguration: const EffectConfiguration(
-            minDuration: 4500,
-            maxDuration: 4500,
-            emitDuration: 50,
-            minDistance: 200,
-            minFadeOutThreshold: 2,
-            maxFadeOutThreshold: 2,
-          ),
+          effectConfiguration: const EffectConfiguration(),
         ),
       ],
     );

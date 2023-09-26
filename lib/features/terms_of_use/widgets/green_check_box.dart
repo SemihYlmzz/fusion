@@ -3,9 +3,9 @@ import 'package:fusion/utils/typedefs.dart';
 
 class GreenCheckBox extends StatelessWidget {
   const GreenCheckBox({
-    super.key,
     required this.isAccepted,
     required this.onAccept,
+    super.key,
   });
 
   final bool isAccepted;

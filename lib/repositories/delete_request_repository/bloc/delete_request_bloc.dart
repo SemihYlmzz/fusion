@@ -93,9 +93,7 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
           );
         } else {
           emit(
-            DeleteRequestNotChecked(
-              errorMessage: failure.message,
-            ),
+            const DeleteRequestNotChecked(),
           );
         }
       },

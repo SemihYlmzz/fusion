@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fusion/network/network_cubit.dart';
 import 'package:shared_constants/shared_constants.dart';
+import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../ad/ad.dart';
 import '../../../audio/audio_cubit.dart';
@@ -47,6 +49,7 @@ class _AppState extends State<App> with RouterMixin {
       bgmAudioCache: preloadCubit.bgmAudioCache,
       sfxAudioCache: preloadCubit.sfxAudioCache,
     );
+    final networkCubit = NetworkCubit()..listenConnectionStatus();
 
     return MultiBlocProvider(
       providers: [
@@ -58,34 +61,44 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
         BlocProvider<AdCubit>(create: (_) => adCubit),
+        BlocProvider<NetworkCubit>(create: (_) => networkCubit),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeMode.dark,
-            routerConfig: router,
-            builder: (_, router) {
-              return MultiBlocListener(
-                listeners: [
-                  _buildAuthBlocListener(userBloc),
-                  _buildUserBlocListener(),
-                  _buildDeleteRequestBlocListener(),
-                  _adBlocListener(),
+          return BlocBuilder<NetworkCubit, NetworkState>(
+            builder: (context, networkState) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: ThemeMode.dark,
+                routerConfig: router,
+                builder: (_, router) {
+                  return MultiBlocListener(
+                    listeners: [
+                      _buildAuthBlocListener(userBloc),
+                      _buildUserBlocListener(),
+                      _buildDeleteRequestBlocListener(),
+                      _adBlocListener(networkState),
+                      _networkBlocListener(),
+                    ],
+                    child: NoNetworkScreen(
+                      isLoading: !networkState.hasConnection,
+                      size: MediaQuery.sizeOf(context),
+                      child: router!,
+                    ),
+                  );
+                },
+                supportedLocales: L10n.all,
+                locale: Localization.languageCodeToLocale[
+                    devicePrefsState.devicePrefs.language],
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
                 ],
-                child: router!,
               );
             },
-            supportedLocales: L10n.all,
-            locale: Localization
-                .languageCodeToLocale[devicePrefsState.devicePrefs.language],
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
           );
         },
       ),
@@ -125,19 +138,33 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
-  BlocListener<AdCubit, AdState> _adBlocListener() {
+  BlocListener<AdCubit, AdState> _adBlocListener(
+    NetworkState currentNetworkState,
+  ) {
     return BlocListener<AdCubit, AdState>(
       listener: (context, state) async {
+        if (!currentNetworkState.hasConnection) {
+          return;
+        }
+        final canLoadAd =
+            state.retryLoadAdDate?.isBefore(DateTime.now()) ?? true;
+
         if (state.errorMessage != null) {
           await _showSnackBar(context, state.errorMessage!);
         }
-        if (!state.isLoadingAd && state.rewardedAd == null) {
+        if (!state.isLoadingAd && state.rewardedAd == null && canLoadAd) {
           await Future<void>.delayed(SharedDurations.ms200);
           if (mounted) {
             await context.read<AdCubit>().onLoadRewardedAdRequested();
           }
         }
       },
+    );
+  }
+
+  BlocListener<NetworkCubit, NetworkState> _networkBlocListener() {
+    return BlocListener<NetworkCubit, NetworkState>(
+      listener: (context, state) async {},
     );
   }
 

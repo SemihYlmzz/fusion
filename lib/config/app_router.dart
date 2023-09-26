@@ -83,6 +83,7 @@ mixin RouterMixin on State<App> {
       }
       return null;
     },
+    debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshStream(
       getIt<AuthBloc>().stream,
     ),

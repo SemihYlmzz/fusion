@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-
 class DeleteAccountPopUp extends StatefulWidget {
   const DeleteAccountPopUp({required this.devicePrefs, super.key});
   final DevicePrefs devicePrefs;
@@ -27,7 +26,6 @@ class DeleteAccountPopUp extends StatefulWidget {
 
 class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
   bool _isAccepted = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,29 +87,28 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                         },
                         isAccepted: _isAccepted,
                       ),
-
                       Row(
                         children: [
                           Expanded(
                             child: GradientButton(
-                                text: DeleteAccountPopUp
-                                    ._deleteGradientButtonTitle,
-                                width: 100,
-                                onPressed: _isAccepted
-                                    ? () {
-                                        Navigator.popUntil(
-                                          context,
-                                          (route) => route.isFirst,
-                                        );
-                                        // context.read<DeleteRequestBloc>().add(
-                                        // const CreateDeleteRequestRequested(),
-                                        // );
-                                        context.goNamed(
-                                          DeleteAccountScreen.name,
-                                        );
-                                      }
-                                    : null),
-
+                              text:
+                                  DeleteAccountPopUp._deleteGradientButtonTitle,
+                              width: 100,
+                              onPressed: _isAccepted
+                                  ? () {
+                                      Navigator.popUntil(
+                                        context,
+                                        (route) => route.isFirst,
+                                      );
+                                      // context.read<DeleteRequestBloc>().add(
+                                      // const CreateDeleteRequestRequested(),
+                                      // );
+                                      context.goNamed(
+                                        DeleteAccountScreen.name,
+                                      );
+                                    }
+                                  : null,
+                            ),
                           ),
                           Expanded(
                             child: GradientButton(
@@ -155,9 +152,8 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
   }
 }
 
-
 class DeleteCheckBox extends StatefulWidget {
-   DeleteCheckBox({required this.isCheck, super.key});
+  DeleteCheckBox({required this.isCheck, super.key});
   bool isCheck;
 
   @override
