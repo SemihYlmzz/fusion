@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/delete_request.dart';
 import '../../domain/repository/delete_request_repository.dart';
 import '../datasource/delete_request_datasource.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/l10n/l10n.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../../app/l10n/l10n.dart';
 import '../../../features/settings/widgets/widgets.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 

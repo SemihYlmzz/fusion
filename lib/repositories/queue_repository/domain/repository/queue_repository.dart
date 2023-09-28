@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../entities/queue.dart';
 
 abstract class QueueRepository {

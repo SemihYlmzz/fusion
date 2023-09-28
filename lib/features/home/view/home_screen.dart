@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/network/network_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../ad/ad.dart';
-import '../../../audio/audio.dart';
+import '../../../app/cubits/ad/ad.dart';
+import '../../../app/cubits/audio/audio.dart';
+import '../../../core/network/network.dart';
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';

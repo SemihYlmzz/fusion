@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/utils/typedefs.dart';
+import 'package:fusion/core/typedefs/typedefs.dart';
 
 class GreenCheckBox extends StatelessWidget {
   const GreenCheckBox({

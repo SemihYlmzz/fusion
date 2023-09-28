@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/delete_request.dart';
 
 abstract class DeleteRequestDatasource {

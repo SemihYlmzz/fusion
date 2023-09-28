@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../ad/ad.dart';
-import '../../../audio/audio_cubit.dart';
-import '../../../gen/assets.gen.dart';
-import '../../../l10n/l10n.dart';
+import '../../../app/cubits/ad/ad.dart';
+import '../../../app/cubits/audio/audio.dart';
+import '../../../app/gen/assets.gen.dart';
+import '../../../app/l10n/l10n.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import '../../../repositories/user_repository/bloc/user_bloc.dart';
 import '../../../repositories/user_repository/domain/entities/user.dart';

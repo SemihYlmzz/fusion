@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 
-import '../../../../gen/assets.gen.dart';
+import '../../../../app/gen/assets.gen.dart';
 
 class SettingsBorderedButton extends StatelessWidget {
   const SettingsBorderedButton({

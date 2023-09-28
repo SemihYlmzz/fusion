@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../entities/auth_entity.dart';
 
 abstract class AuthRepository {

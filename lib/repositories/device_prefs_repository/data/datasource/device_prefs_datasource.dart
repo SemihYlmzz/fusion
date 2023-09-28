@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/device_prefs.dart';
 
 abstract class DevicePrefsDatasource {

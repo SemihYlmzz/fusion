@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'features/app/view/app.dart';
+import 'app/app.dart';
 import 'initialize/bootstrap.dart';
 
 void main() async {

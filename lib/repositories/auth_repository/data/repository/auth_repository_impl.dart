@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/auth_entity.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../datasource/auth_datasource.dart';

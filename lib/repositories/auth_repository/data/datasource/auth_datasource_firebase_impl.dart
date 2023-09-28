@@ -10,8 +10,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../../../utils/failure.dart';
-import '../../../../utils/typedefs.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/auth_entity.dart';
 import 'auth_datasource.dart';
 

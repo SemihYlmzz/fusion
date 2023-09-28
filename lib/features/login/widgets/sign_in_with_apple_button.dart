@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
+import '../../../app/l10n/l10n.dart';
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
 
 class SignInWithAppleButton extends StatelessWidget {

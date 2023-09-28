@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/style/colors.dart';
+import '../../../../app/theme/colors.dart';
 
 class SettingsCloseButton extends StatelessWidget {
   const SettingsCloseButton({

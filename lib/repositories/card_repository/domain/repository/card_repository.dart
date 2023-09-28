@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../entities/card_entity.dart';
 
 // ignore: one_member_abstracts

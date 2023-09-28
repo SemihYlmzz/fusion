@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/app/view/app.dart';
-import '../features/delete_account/view/delete_account_screen.dart';
-import '../features/game/view/game_screen.dart';
-import '../features/home/view/home_screen.dart';
-import '../features/login/login.dart';
-import '../features/preload/view/preload_screen.dart';
-import '../features/queue/view/queue_screen.dart';
-import '../features/terms_of_use/view/terms_of_use_screen.dart';
-import '../initialize/injection_container.dart';
-import '../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../../app/app.dart';
+import '../../features/delete_account/view/delete_account_screen.dart';
+import '../../features/game/view/game_screen.dart';
+import '../../features/home/view/home_screen.dart';
+import '../../features/login/login.dart';
+import '../../features/preload/view/preload_screen.dart';
+import '../../features/queue/view/queue_screen.dart';
+import '../../features/terms_of_use/view/terms_of_use_screen.dart';
+import '../../initialize/injection_container.dart';
+import '../../repositories/auth_repository/bloc/auth_bloc.dart';
 import 'app_router_refresh_stream.dart';
 
 mixin RouterMixin on State<App> {

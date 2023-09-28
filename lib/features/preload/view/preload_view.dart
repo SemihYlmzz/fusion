@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../gen/assets.gen.dart';
+import '../../../app/gen/assets.gen.dart';
 
 class PreloadView extends StatefulWidget {
   const PreloadView({

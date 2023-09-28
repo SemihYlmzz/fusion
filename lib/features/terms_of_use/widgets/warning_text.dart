@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/l10n/l10n.dart';
 import 'package:shared_constants/shared_constants.dart';
+
+import '../../../../app/l10n/l10n.dart';
 
 class WarningText extends StatelessWidget {
   const WarningText({

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../text/gradient_fusion_text.dart';
+import '../text/gradient_fusion_text.dart';
 
 class CreditsBottomSheet extends StatelessWidget {
   const CreditsBottomSheet({super.key});

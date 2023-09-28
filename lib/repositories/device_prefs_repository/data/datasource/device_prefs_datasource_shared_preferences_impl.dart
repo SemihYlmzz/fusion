@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/device_prefs.dart';
 import 'device_prefs_datasource.dart';
 

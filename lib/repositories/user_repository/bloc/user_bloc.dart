@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../utils/failure.dart';
+import '../../../core/failure/failure.dart';
 import '../domain/entities/user.dart';
 import '../domain/usecase/params/no_params.dart';
 import '../domain/usecase/params/uid_params.dart';

@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../utils/failure.dart';
-import '../../../../utils/typedefs.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/queue.dart';
 import '../models/queue_model.dart';
 import 'queue_datasource.dart';

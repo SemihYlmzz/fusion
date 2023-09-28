@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repository/user_repository.dart';
 import '../datasource/user_datasource.dart';

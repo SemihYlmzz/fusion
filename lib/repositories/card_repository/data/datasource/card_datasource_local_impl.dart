@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart' hide Element;
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/l10n/l10n.dart';
 
-import '../../../../gen/assets.gen.dart';
-import '../../../../utils/failure.dart';
-import '../../../../utils/typedefs.dart';
+import '../../../../app/gen/assets.gen.dart';
+import '../../../../app/l10n/l10n.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/card_entity.dart';
 import 'card_datasource.dart';
 

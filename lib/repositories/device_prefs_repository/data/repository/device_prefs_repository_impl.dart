@@ -1,4 +1,4 @@
-import '../../../../utils/typedefs.dart';
+import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/device_prefs.dart';
 import '../../domain/repository/device_prefs_repository.dart';
 import '../datasource/device_prefs_datasource.dart';

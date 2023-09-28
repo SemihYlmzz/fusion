@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '../../../../app/gen/assets.gen.dart';
 import '../../../features/settings/widgets/widgets.dart';
-import '../../../gen/assets.gen.dart';
 import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
 import '../../../repositories/card_repository/domain/entities/card_entity.dart';
 

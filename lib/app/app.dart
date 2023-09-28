@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fusion/network/network_cubit.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../ad/ad.dart';
-import '../../../audio/audio_cubit.dart';
-import '../../../config/app_router.dart';
-import '../../../config/style/theme.dart';
-import '../../../initialize/injection_container.dart';
-import '../../../l10n/l10n.dart';
-import '../../../preload/preload_cubit.dart';
-import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../core/network/network.dart';
+import '../features/preload/cubit/preload.dart';
+import '../initialize/injection_container.dart';
+import '../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../repositories/queue_repository/bloc/queue_bloc.dart';
+import '../repositories/user_repository/bloc/user_bloc.dart';
+import 'cubits/ad/ad.dart';
+import 'cubits/audio/audio_cubit.dart';
+import 'l10n/l10n.dart';
+import 'router/app_router.dart';
+import 'theme/theme.dart';
 
 class App extends StatefulWidget {
   const App({required this.flavor, super.key});
@@ -40,10 +40,10 @@ class _AppState extends State<App> with RouterMixin {
     final queueBloc = getIt<QueueBloc>();
 
     // CUBITS
-    final preloadCubit = PreloadCubit(
-      bgmAudioCache: AudioCache(prefix: ''),
-      sfxAudioCache: AudioCache(prefix: ''),
-    );
+     final preloadCubit = PreloadCubit(
+       bgmAudioCache: AudioCache(prefix: ''),
+       sfxAudioCache: AudioCache(prefix: ''),
+     );
     final adCubit = AdCubit()..onLoadRewardedAdRequested();
     final audioCubit = AudioCubit(
       bgmAudioCache: preloadCubit.bgmAudioCache,
@@ -58,7 +58,7 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
         BlocProvider<QueueBloc>(create: (_) => queueBloc),
-        BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
+        // BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
         BlocProvider<AdCubit>(create: (_) => adCubit),
         BlocProvider<NetworkCubit>(create: (_) => networkCubit),
