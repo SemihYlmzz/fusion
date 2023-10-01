@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../core/failure/failure.dart';
-import '../../../../core/typedefs/typedefs.dart';
+import '../../../../core/errors/exceptions/exceptions.dart';
+import '../../../../core/errors/failure/failure.dart';
 import '../../domain/entities/user.dart';
 import '../models/user_model.dart';
 import 'user_datasource.dart';
@@ -30,29 +30,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   final usersCollectionNameString = 'users';
 
   @override
-  FutureEither<User> createUser({required User userEntity}) async {
-    try {
-      await firebaseFirestore.runTransaction<void>((transaction) async {
-        final DocumentReference userDocRef = firebaseFirestore
-            .collection(usersCollectionNameString)
-            .doc(userEntity.uid);
-
-        final userSnapshot = await transaction.get(userDocRef);
-
-        if (userSnapshot.exists) {
-          throw Exception('Username already exists');
-        }
-
-        transaction.set(userDocRef, UserModel.fromEntity(userEntity).toMap());
-      });
-      return Right(userEntity);
-    } catch (e) {
-      return Left(Failure('An unexpected error occurred: $e'));
-    }
-  }
-
-  @override
-  FutureEither<User> readUserWithUid({required String uid}) async {
+  Future<UserModel?> readUserWithUid({required String uid}) async {
     try {
       final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection(usersCollectionNameString)
@@ -60,79 +38,58 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
           .get();
 
       final userDocumentData = documentSnapshot.data() as Map<String, dynamic>?;
-      if (userDocumentData != null) {
-        return Right(
-          UserModel.toEntity(
-            UserModel.fromMap(userDocumentData),
-          ),
-        );
-      } else {
-        return Left(Failure('No document found with the specified uid.'));
+      if (userDocumentData == null) {
+        return null;
       }
+      return UserModel.fromMap(userDocumentData);
     } catch (e) {
-      return Left(Failure('An unexpected error occurred: $e'));
+      throw const ServerException(message: 'Error occured while reading user.');
     }
   }
 
   @override
-  StreamEither<User> watchUserWithUid() async* {
+  Stream<UserModel> watchUserWithUid() async* {
     try {
       final user = auth.FirebaseAuth.instance.currentUser;
       if (user == null) {
-
-        yield Left(Failure('No current user founded'));
+        yield throw const ServerException(message: 'You must be signed in.');
       }
       final DocumentReference userDocRef =
           firebaseFirestore.collection(usersCollectionNameString).doc(
-                user!.uid,
+                user.uid,
               );
       yield* userDocRef.snapshots().map((snapshot) {
         if (snapshot.exists && snapshot.data() != null) {
           final data = snapshot.data() as Map<String, dynamic>?;
           final currentUserModel = UserModel.fromMap(data!);
           final userEntity = UserModel.toEntity(currentUserModel);
-          return Right(userEntity);
+          return UserModel.fromEntity(userEntity);
         } else {
-          return Left(
-            Failure('Document not found.'),
-          );
+          throw const ServerException(message: 'User data not found.');
         }
       });
     } catch (exception) {
-      yield Left(
-        Failure(
-          exception.toString(),
-        ),
+      yield throw const ServerException(
+        message: 'Error occured while Listening User data.',
       );
     }
   }
 
   @override
-  FutureEither<User> updateUserWithUid({required User updatedUser}) async {
-    try {
-      await firebaseFirestore
-          .doc(updatedUser.uid)
-          .update(UserModel.fromEntity(updatedUser).toMap());
-
-      return Right(updatedUser);
-    } catch (exception) {
-      return Left(
-        Failure('Something went wrong. Error code : ${exception.hashCode}'),
-      );
-    }
-  }
-
-  @override
-  FutureUnit changeUsername({required String newUsername}) async {
+  Future<void> changeUsername({required String newUsername}) async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/changeUsername';
     final user = auth.FirebaseAuth.instance.currentUser;
-
+    if (user == null) {
+      throw const ServerException(message: 'You must be signed in.');
+    }
     try {
-      if (user == null) {
-        return Left(Failure('Please sign in again.'));
-      }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while Changing Username. Please try again.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -145,28 +102,38 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       );
 
       if (response.statusCode == 200) {
-        return const Right(unit);
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+        return;
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while changing username.'));
+        throw ServerException(
+          message:
+              'Error occured while Changing Username. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while changing username. $e'));
+      throw const ServerException(
+        message: 'Error occured while Changing Username.',
+      );
     }
   }
 
   @override
-  FutureUnit refreshDeck() async {
+  Future<void> refreshDeck() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/refreshMyDeck';
     final user = auth.FirebaseAuth.instance.currentUser;
-
+    if (user == null) {
+      throw const ServerException(message: 'You must be signed in.');
+    }
     try {
-      if (user == null) {
-        return Left(Failure('Please sign in again.'));
-      }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while Refreshing Deck. Please try again.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -176,27 +143,20 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       );
 
       if (response.statusCode == 200) {
-        return const Right(unit);
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+        return;
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while refreshing Deck.'));
+        throw ServerException(
+          message:
+              'Error occured while Refreshing Deck. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while refreshing Deck. $e'));
-    }
-  }
-
-  @override
-  FutureUnit deleteUser({required String uid}) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection(usersCollectionNameString)
-          .doc(uid)
-          .delete();
-      return const Right(unit);
-    } catch (e) {
-      return Left(Failure('An unexpected error occurred: $e'));
+      throw const ServerException(
+        message: 'Error occured while Refreshing Deck.',
+      );
     }
   }
 }

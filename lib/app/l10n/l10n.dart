@@ -10,5 +10,4 @@ class L10n {
     const Locale('en'),
     const Locale('tr'),
   ];
-  
 }

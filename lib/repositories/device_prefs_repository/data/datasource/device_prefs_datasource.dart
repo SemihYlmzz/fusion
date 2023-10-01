@@ -1,12 +1,13 @@
-import '../../../../core/typedefs/typedefs.dart';
+import 'package:fusion/repositories/device_prefs_repository/data/models/device_prefs_model.dart';
+
 import '../../domain/entities/device_prefs.dart';
 
 abstract class DevicePrefsDatasource {
-  FutureEither<DevicePrefs> createDevicePrefs();
+  Future<DevicePrefsModel> createDevicePrefs();
 
-  FutureEither<DevicePrefs> readDevicePrefs();
+  Future<DevicePrefsModel> readDevicePrefs();
 
-  FutureEither<DevicePrefs> updateDevicePrefs({
+  Future<DevicePrefsModel> updateDevicePrefs({
     required DevicePrefs updatedDevicePrefs,
   });
 }

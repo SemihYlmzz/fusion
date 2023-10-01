@@ -1,5 +1,9 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:fusion/core/errors/exceptions/exceptions.dart';
+import 'package:fusion/core/errors/failure/failure.dart';
+
 import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/card_entity.dart';
+import '../../domain/entities/game_card_entity.dart';
 import '../../domain/repository/card_repository.dart';
 import '../datasource/card_datasource.dart';
 
@@ -13,8 +17,13 @@ class CardRepositoryImpl implements CardRepository {
   FutureEither<GameCard> getCard({
     required String cardId,
   }) async {
-    return _cardDatasource.getCard(
-      cardId: cardId,
-    );
+    try {
+      final gameCardModel = _cardDatasource.getCard(
+        cardId: cardId,
+      );
+      return Right(gameCardModel);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
   }
 }

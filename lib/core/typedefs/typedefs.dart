@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:fpdart/fpdart.dart';
 
-import '../failure/failure.dart';
+import '../errors/failure/failure.dart';
 
 typedef StringCallback = void Function(String val);
 typedef Uint8ListCallback = void Function(Uint8List? val);

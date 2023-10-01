@@ -15,7 +15,9 @@ class QueueRepositoryInjection {
       ..registerSingleton<QueueDatasource>(QueueDataSourceFirebaseImpl())
 
       // UserRepository <-connection-> UserDataSource
-      ..registerSingleton<QueueRepository>(QueueRepositoryImpl(getIt()))
+      ..registerSingleton<QueueRepository>(
+        QueueRepositoryImpl(getIt(), getIt()),
+      )
 
       // UserUseCases <-connection-> UserRepository
       ..registerSingleton<EnterQueueUseCase>(

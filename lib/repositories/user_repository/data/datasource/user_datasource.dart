@@ -1,18 +1,14 @@
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/user.dart';
+import 'package:fusion/repositories/user_repository/data/models/user_model.dart';
+
 
 abstract class UserDatasource {
-  FutureEither<User> createUser({required User userEntity});
 
-  FutureEither<User> readUserWithUid({required String uid});
+  Future<UserModel?> readUserWithUid({required String uid});
 
-  StreamEither<User> watchUserWithUid();
+  Stream<UserModel> watchUserWithUid();
 
-  FutureEither<User> updateUserWithUid({required User updatedUser});
+  Future<void> changeUsername({required String newUsername});
 
-  FutureUnit changeUsername({required String newUsername});
+  Future<void> refreshDeck();
 
-  FutureUnit refreshDeck();
-
-  FutureUnit deleteUser({required String uid});
 }

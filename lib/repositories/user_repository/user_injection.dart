@@ -4,11 +4,8 @@ import 'data/datasource/user_datasource_firestore_impl.dart';
 import 'data/repository/user_repository_impl.dart';
 import 'domain/repository/user_repository.dart';
 import 'domain/usecase/usecases/change_username.dart';
-import 'domain/usecase/usecases/create_user.dart';
-import 'domain/usecase/usecases/delete_user.dart';
 import 'domain/usecase/usecases/read_user_with_uid.dart';
 import 'domain/usecase/usecases/refresh_deck.dart';
-import 'domain/usecase/usecases/update_user_with_uid.dart';
 import 'domain/usecase/usecases/watch_user_with_uid.dart';
 
 class UserRepositoryInjection {
@@ -19,14 +16,9 @@ class UserRepositoryInjection {
       ..registerSingleton<UserDatasource>(UserDataSourceFirebaseImpl())
 
       // UserRepository <-connection-> UserDataSource
-      ..registerSingleton<UserRepository>(UserRepositoryImpl(getIt()))
+      ..registerSingleton<UserRepository>(UserRepositoryImpl(getIt(), getIt()))
 
       // UserUseCases <-connection-> UserRepository
-      ..registerSingleton<CreateUserUseCase>(
-        CreateUserUseCase(
-          userRepository: getIt<UserRepository>(),
-        ),
-      )
       ..registerSingleton<ReadUserWithUidUseCase>(
         ReadUserWithUidUseCase(
           userRepository: getIt<UserRepository>(),
@@ -34,16 +26,6 @@ class UserRepositoryInjection {
       )
       ..registerSingleton<WatchUserWithUidUseCase>(
         WatchUserWithUidUseCase(
-          userRepository: getIt<UserRepository>(),
-        ),
-      )
-      ..registerSingleton<UpdateUserWithUidUseCase>(
-        UpdateUserWithUidUseCase(
-          userRepository: getIt<UserRepository>(),
-        ),
-      )
-      ..registerSingleton<DeleteUserUseCase>(
-        DeleteUserUseCase(
           userRepository: getIt<UserRepository>(),
         ),
       )

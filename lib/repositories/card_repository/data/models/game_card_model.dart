@@ -1,7 +1,7 @@
-import '../../domain/entities/card_entity.dart';
+import '../../domain/entities/game_card_entity.dart';
 
-class CardModel extends GameCard {
-  const CardModel({
+class GameCardModel extends GameCard {
+  const GameCardModel({
     required super.name,
     required super.element,
     required super.abilityId,
@@ -9,7 +9,7 @@ class CardModel extends GameCard {
     required super.imagePath,
     required super.cardId,
   });
-  factory CardModel.fromMap(Map<String, dynamic> map) {
+  factory GameCardModel.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('name') ||
         !map.containsKey('element') ||
         !map.containsKey('abilityId') ||
@@ -18,7 +18,7 @@ class CardModel extends GameCard {
         !map.containsKey('cardId')) {
       throw Exception('Invalid map data');
     }
-    return CardModel(
+    return GameCardModel(
       name: map['name'] as String,
       element: Element.values.firstWhere(
         (e) => e.toString().split('.').last == map['element'],
@@ -41,8 +41,8 @@ class CardModel extends GameCard {
     };
   }
 
-  CardModel fromEntity(GameCard cardEntity) {
-    return CardModel(
+  GameCardModel fromEntity(GameCard cardEntity) {
+    return GameCardModel(
       name: cardEntity.name,
       element: cardEntity.element,
       abilityId: cardEntity.abilityId,
@@ -52,7 +52,7 @@ class CardModel extends GameCard {
     );
   }
 
-  static GameCard toEntity(CardModel authModel) {
+  static GameCard toEntity(GameCardModel authModel) {
     return GameCard(
       name: authModel.name,
       element: authModel.element,

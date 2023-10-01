@@ -1,7 +1,7 @@
-import 'package:fpdart/fpdart.dart';
+import 'package:fusion/repositories/device_prefs_repository/data/models/device_prefs_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/typedefs/typedefs.dart';
+import '../../../../core/errors/exceptions/exceptions.dart';
 import '../../domain/entities/device_prefs.dart';
 import 'device_prefs_datasource.dart';
 
@@ -18,81 +18,120 @@ class DevicePrefsFields {
 class DevicePrefsDataSourceSharedPreferencesImpl
     implements DevicePrefsDatasource {
   @override
-  FutureEither<DevicePrefs> createDevicePrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setDouble(DevicePrefsFields.generalSoundVolume, 0.7);
-    await prefs.setDouble(DevicePrefsFields.backGroundSoundVolume, 0.7);
-    await prefs.setDouble(DevicePrefsFields.soundEffectsSoundVolume, 0.7);
-    await prefs.setDouble(DevicePrefsFields.dialogsSoundVolume, 0.7);
-    await prefs.setBool(DevicePrefsFields.isHapticsOn, true);
-    await prefs.setString(DevicePrefsFields.language, '');
-    await prefs.setBool(DevicePrefsFields.isTermsAndConditionsAccepted, false);
-    return const Right(DevicePrefs.empty);
+  Future<DevicePrefsModel> createDevicePrefs() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setDouble(DevicePrefsFields.generalSoundVolume, 0.7);
+      await prefs.setDouble(DevicePrefsFields.backGroundSoundVolume, 0.7);
+      await prefs.setDouble(DevicePrefsFields.soundEffectsSoundVolume, 0.7);
+      await prefs.setDouble(DevicePrefsFields.dialogsSoundVolume, 0.7);
+      await prefs.setBool(DevicePrefsFields.isHapticsOn, true);
+      await prefs.setString(DevicePrefsFields.language, '');
+      await prefs.setBool(
+        DevicePrefsFields.isTermsAndConditionsAccepted,
+        false,
+      );
+      return const DevicePrefsModel(
+        generalSoundVolume: 0.7,
+        backGroundSoundVolume: 0.7,
+        soundEffectsSoundVolume: 0.7,
+        dialogsSoundVolume: 0.7,
+        isHapticsOn: true,
+        language: '',
+        isTermsAndConditionsAccepted: false,
+      );
+    } catch (exception) {
+      throw const CacheException(
+        message: 'Error occured while creating Device Prefs.',
+      );
+    }
   }
 
   @override
-  FutureEither<DevicePrefs> readDevicePrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    return Right(
-      DevicePrefs(
-        generalSoundVolume:
-            prefs.getDouble(DevicePrefsFields.generalSoundVolume) ??
-                DevicePrefs.empty.generalSoundVolume,
-        backGroundSoundVolume:
-            prefs.getDouble(DevicePrefsFields.backGroundSoundVolume) ??
-                DevicePrefs.empty.backGroundSoundVolume,
-        soundEffectsSoundVolume:
-            prefs.getDouble(DevicePrefsFields.soundEffectsSoundVolume) ??
-                DevicePrefs.empty.soundEffectsSoundVolume,
-        dialogsSoundVolume:
-            prefs.getDouble(DevicePrefsFields.dialogsSoundVolume) ??
-                DevicePrefs.empty.soundEffectsSoundVolume,
-        isHapticsOn: prefs.getBool(DevicePrefsFields.isHapticsOn) ??
-            DevicePrefs.empty.isHapticsOn,
-        language: prefs.getString(DevicePrefsFields.language) ??
-            DevicePrefs.empty.language,
-        isTermsAndConditionsAccepted: prefs.getBool(
-              DevicePrefsFields.isTermsAndConditionsAccepted,
-            ) ??
-            DevicePrefs.empty.isTermsAndConditionsAccepted,
-      ),
-    );
+  Future<DevicePrefsModel> readDevicePrefs() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      final generalSoundVolume =
+          prefs.getDouble(DevicePrefsFields.generalSoundVolume);
+      final backGroundSoundVolume =
+          prefs.getDouble(DevicePrefsFields.backGroundSoundVolume);
+      final soundEffectsSoundVolume =
+          prefs.getDouble(DevicePrefsFields.soundEffectsSoundVolume);
+      final dialogsSoundVolume =
+          prefs.getDouble(DevicePrefsFields.dialogsSoundVolume);
+      final isHapticsOn = prefs.getBool(DevicePrefsFields.isHapticsOn);
+      final language = prefs.getString(DevicePrefsFields.language);
+      final isTermsAndConditionsAccepted = prefs.getBool(
+        DevicePrefsFields.isTermsAndConditionsAccepted,
+      );
+      if (generalSoundVolume == null ||
+          backGroundSoundVolume == null ||
+          soundEffectsSoundVolume == null ||
+          dialogsSoundVolume == null ||
+          isHapticsOn == null ||
+          language == null ||
+          isTermsAndConditionsAccepted == null) {
+        throw const CacheException(
+          message: "Some of Device datas empty. Device datas isn't readed.",
+        );
+      }
+
+      return DevicePrefsModel(
+        generalSoundVolume: generalSoundVolume,
+        backGroundSoundVolume: backGroundSoundVolume,
+        soundEffectsSoundVolume: soundEffectsSoundVolume,
+        dialogsSoundVolume: dialogsSoundVolume,
+        isHapticsOn: isHapticsOn,
+        language: language,
+        isTermsAndConditionsAccepted: isTermsAndConditionsAccepted,
+      );
+    } catch (exception) {
+      throw const CacheException(
+        message: 'Error occured while reading Device Prefs',
+      );
+    }
   }
 
   @override
-  FutureEither<DevicePrefs> updateDevicePrefs({
+  Future<DevicePrefsModel> updateDevicePrefs({
     required DevicePrefs updatedDevicePrefs,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble(
-      DevicePrefsFields.generalSoundVolume,
-      updatedDevicePrefs.generalSoundVolume,
-    );
-    await prefs.setDouble(
-      DevicePrefsFields.backGroundSoundVolume,
-      updatedDevicePrefs.backGroundSoundVolume,
-    );
-    await prefs.setDouble(
-      DevicePrefsFields.soundEffectsSoundVolume,
-      updatedDevicePrefs.soundEffectsSoundVolume,
-    );
-    await prefs.setDouble(
-      DevicePrefsFields.dialogsSoundVolume,
-      updatedDevicePrefs.dialogsSoundVolume,
-    );
-    await prefs.setBool(
-      DevicePrefsFields.isHapticsOn,
-      updatedDevicePrefs.isHapticsOn,
-    );
-    await prefs.setString(
-      DevicePrefsFields.language,
-      updatedDevicePrefs.language,
-    );
-    await prefs.setBool(
-      DevicePrefsFields.isTermsAndConditionsAccepted,
-      updatedDevicePrefs.isTermsAndConditionsAccepted,
-    );
-    return Right(updatedDevicePrefs);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setDouble(
+        DevicePrefsFields.generalSoundVolume,
+        updatedDevicePrefs.generalSoundVolume,
+      );
+      await prefs.setDouble(
+        DevicePrefsFields.backGroundSoundVolume,
+        updatedDevicePrefs.backGroundSoundVolume,
+      );
+      await prefs.setDouble(
+        DevicePrefsFields.soundEffectsSoundVolume,
+        updatedDevicePrefs.soundEffectsSoundVolume,
+      );
+      await prefs.setDouble(
+        DevicePrefsFields.dialogsSoundVolume,
+        updatedDevicePrefs.dialogsSoundVolume,
+      );
+      await prefs.setBool(
+        DevicePrefsFields.isHapticsOn,
+        updatedDevicePrefs.isHapticsOn,
+      );
+      await prefs.setString(
+        DevicePrefsFields.language,
+        updatedDevicePrefs.language,
+      );
+      await prefs.setBool(
+        DevicePrefsFields.isTermsAndConditionsAccepted,
+        updatedDevicePrefs.isTermsAndConditionsAccepted,
+      );
+      return DevicePrefsModel.fromEntity(updatedDevicePrefs);
+    } catch (exception) {
+      throw const CacheException(
+        message: 'Device Prefs update could not complete.',
+      );
+    }
   }
 }

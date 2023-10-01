@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart' hide Element;
-import 'package:fpdart/fpdart.dart';
+import 'package:fusion/core/errors/exceptions/exceptions.dart';
 
 import '../../../../app/gen/assets.gen.dart';
 import '../../../../app/l10n/l10n.dart';
-import '../../../../core/failure/failure.dart';
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/card_entity.dart';
+import '../../domain/entities/game_card_entity.dart';
+import '../models/game_card_model.dart';
 import 'card_datasource.dart';
 
 class CardDataSourceLocalImpl implements CardDatasource {
   @override
-  FutureEither<GameCard> getCard({required String cardId}) async {
+  GameCardModel getCard({required String cardId}) {
     try {
       final cardEntity = CardDatas.cards[cardId];
       if (cardEntity != null) {
-        return Right(cardEntity);
+        return cardEntity;
       } else {
-        return Left(Failure('No cards found with this ID'));
+        throw ServerException(message: 'No cards found with this ID $cardId');
       }
     } catch (e) {
-      return Left(Failure('An unexpected error occurred: $e'));
+      throw ServerException(message: 'An unexpected error occurred: $e');
     }
   }
 }
 
 class CardDatas {
-  static Map<String, GameCard> cards = {
+  static Map<String, GameCardModel> cards = {
     // FIRE CARDS
-    'emberus': GameCard(
+    'emberus': GameCardModel(
       name: 'Emberus',
       abilityId: 'emberus',
       cardId: 'emberus',
@@ -35,7 +34,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.emberus.path,
       power: 0,
     ),
-    'ignis': GameCard(
+    'ignis': GameCardModel(
       name: 'Ignis',
       abilityId: 'ignis',
       cardId: 'ignis',
@@ -43,7 +42,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.ignis.path,
       power: 1,
     ),
-    'blazeon': GameCard(
+    'blazeon': GameCardModel(
       name: 'Blazeon',
       abilityId: 'blazeon',
       cardId: 'blazeon',
@@ -51,7 +50,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.blazeon.path,
       power: 2,
     ),
-    'flamara': GameCard(
+    'flamara': GameCardModel(
       name: 'Flamara',
       abilityId: 'flamara',
       cardId: 'flamara',
@@ -59,7 +58,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.flamara.path,
       power: 3,
     ),
-    'pyyrhus': GameCard(
+    'pyyrhus': GameCardModel(
       name: 'Pyyrhus',
       abilityId: 'pyyrhus',
       cardId: 'pyyrhus',
@@ -67,7 +66,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.pyyrhus.path,
       power: 4,
     ),
-    'embrella': GameCard(
+    'embrella': GameCardModel(
       name: 'Embrella',
       abilityId: 'embrella',
       cardId: 'embrella',
@@ -75,7 +74,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.embrella.path,
       power: 5,
     ),
-    'solara': GameCard(
+    'solara': GameCardModel(
       name: 'Solara',
       abilityId: 'solara',
       cardId: 'solara',
@@ -83,7 +82,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.solara.path,
       power: 6,
     ),
-    'flamorion': GameCard(
+    'flamorion': GameCardModel(
       name: 'Flamorion',
       abilityId: 'flamorion',
       cardId: 'flamorion',
@@ -91,7 +90,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.flamorion.path,
       power: 7,
     ),
-    'solarius': GameCard(
+    'solarius': GameCardModel(
       name: 'Solarius',
       abilityId: 'solarius',
       cardId: 'solarius',
@@ -99,7 +98,7 @@ class CardDatas {
       imagePath: Assets.images.fireCards.solarius.path,
       power: 8,
     ),
-    'dramber': GameCard(
+    'dramber': GameCardModel(
       name: 'Dramber',
       abilityId: 'dramber',
       cardId: 'dramber',
@@ -108,7 +107,7 @@ class CardDatas {
       power: 9,
     ),
     // WATER CARDS
-    'triton': GameCard(
+    'triton': GameCardModel(
       name: 'Triton',
       abilityId: 'triton',
       cardId: 'triton',
@@ -116,7 +115,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.triton.path,
       power: 0,
     ),
-    'oceanus': GameCard(
+    'oceanus': GameCardModel(
       name: 'Oceanus',
       abilityId: 'oceanus',
       cardId: 'oceanus',
@@ -124,7 +123,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.oceanus.path,
       power: 1,
     ),
-    'river': GameCard(
+    'river': GameCardModel(
       name: 'River',
       abilityId: 'river',
       cardId: 'river',
@@ -132,7 +131,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.river.path,
       power: 2,
     ),
-    'nereus': GameCard(
+    'nereus': GameCardModel(
       name: 'Nereus',
       abilityId: 'nereus',
       cardId: 'nereus',
@@ -140,7 +139,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.nereus.path,
       power: 3,
     ),
-    'dylan': GameCard(
+    'dylan': GameCardModel(
       name: 'Dylan',
       abilityId: 'dylan',
       cardId: 'dylan',
@@ -148,7 +147,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.dylan.path,
       power: 4,
     ),
-    'kai': GameCard(
+    'kai': GameCardModel(
       name: 'Kai',
       abilityId: 'kai',
       cardId: 'kai',
@@ -156,7 +155,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.kai.path,
       power: 5,
     ),
-    'marina': GameCard(
+    'marina': GameCardModel(
       name: 'Marina',
       abilityId: 'marina',
       cardId: 'marina',
@@ -164,7 +163,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.marina.path,
       power: 6,
     ),
-    'neptune': GameCard(
+    'neptune': GameCardModel(
       name: 'Neptune',
       abilityId: 'neptune',
       cardId: 'neptune',
@@ -172,7 +171,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.neptune.path,
       power: 7,
     ),
-    'caroline': GameCard(
+    'caroline': GameCardModel(
       name: 'Caroline',
       abilityId: 'caroline',
       cardId: 'caroline',
@@ -180,7 +179,7 @@ class CardDatas {
       imagePath: Assets.images.waterCards.caroline.path,
       power: 8,
     ),
-    'aquarius': GameCard(
+    'aquarius': GameCardModel(
       name: 'Aquarius',
       abilityId: 'aquarius',
       cardId: 'aquarius',
@@ -189,7 +188,7 @@ class CardDatas {
       power: 9,
     ),
     // EARTH CARDS
-    'terra': GameCard(
+    'terra': GameCardModel(
       name: 'Terra',
       abilityId: 'terra',
       cardId: 'terra',
@@ -197,7 +196,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.terra.path,
       power: 0,
     ),
-    'gaia': GameCard(
+    'gaia': GameCardModel(
       name: 'Gaia',
       abilityId: 'gaia',
       cardId: 'gaia',
@@ -205,7 +204,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.gaia.path,
       power: 1,
     ),
-    'lyra': GameCard(
+    'lyra': GameCardModel(
       name: 'Lyra',
       abilityId: 'lyra',
       cardId: 'lyra',
@@ -213,7 +212,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.lyra.path,
       power: 2,
     ),
-    'flint': GameCard(
+    'flint': GameCardModel(
       name: 'Flint',
       abilityId: 'flint',
       cardId: 'flint',
@@ -221,7 +220,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.flint.path,
       power: 3,
     ),
-    'boulder': GameCard(
+    'boulder': GameCardModel(
       name: 'Boulder',
       abilityId: 'boulder',
       cardId: 'boulder',
@@ -229,7 +228,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.boulder.path,
       power: 4,
     ),
-    'arvid': GameCard(
+    'arvid': GameCardModel(
       name: 'Arvid',
       abilityId: 'arvid',
       cardId: 'arvid',
@@ -237,7 +236,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.arvid.path,
       power: 5,
     ),
-    'gideon': GameCard(
+    'gideon': GameCardModel(
       name: 'Gideon',
       abilityId: 'gideon',
       cardId: 'gideon',
@@ -245,7 +244,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.gideon.path,
       power: 6,
     ),
-    'onyx': GameCard(
+    'onyx': GameCardModel(
       name: 'Onyx',
       abilityId: 'onyx',
       cardId: 'onyx',
@@ -253,7 +252,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.onyx.path,
       power: 7,
     ),
-    'ragnar': GameCard(
+    'ragnar': GameCardModel(
       name: 'Ragnar',
       abilityId: 'ragnar',
       cardId: 'ragnar',
@@ -261,7 +260,7 @@ class CardDatas {
       imagePath: Assets.images.earthCards.ragnar.path,
       power: 8,
     ),
-    'thorin': GameCard(
+    'thorin': GameCardModel(
       name: 'Thorin',
       abilityId: 'thorin',
       cardId: 'thorin',
@@ -270,7 +269,7 @@ class CardDatas {
       power: 9,
     ),
     // AIR CARDS
-    'aero': GameCard(
+    'aero': GameCardModel(
       name: 'aero',
       abilityId: 'aero',
       cardId: 'aero',
@@ -278,7 +277,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.aero.path,
       power: 0,
     ),
-    'nova': GameCard(
+    'nova': GameCardModel(
       name: 'nova',
       abilityId: 'nova',
       cardId: 'nova',
@@ -286,7 +285,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.nova.path,
       power: 1,
     ),
-    'aurora': GameCard(
+    'aurora': GameCardModel(
       name: 'aurora',
       abilityId: 'aurora',
       cardId: 'aurora',
@@ -294,7 +293,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.aurora.path,
       power: 2,
     ),
-    'seraphina': GameCard(
+    'seraphina': GameCardModel(
       name: 'seraphina',
       abilityId: 'seraphina',
       cardId: 'seraphina',
@@ -302,7 +301,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.seraphina.path,
       power: 3,
     ),
-    'celeste': GameCard(
+    'celeste': GameCardModel(
       name: 'celeste',
       abilityId: 'celeste',
       cardId: 'celeste',
@@ -310,7 +309,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.celeste.path,
       power: 4,
     ),
-    'luna': GameCard(
+    'luna': GameCardModel(
       name: 'luna',
       abilityId: 'luna',
       cardId: 'luna',
@@ -318,7 +317,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.luna.path,
       power: 5,
     ),
-    'ember': GameCard(
+    'ember': GameCardModel(
       name: 'ember',
       abilityId: 'ember',
       cardId: 'ember',
@@ -326,7 +325,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.ember.path,
       power: 6,
     ),
-    'aria': GameCard(
+    'aria': GameCardModel(
       name: 'aria',
       abilityId: 'aria',
       cardId: 'aria',
@@ -334,7 +333,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.aria.path,
       power: 7,
     ),
-    'zephyr': GameCard(
+    'zephyr': GameCardModel(
       name: 'zephyr',
       abilityId: 'zephyr',
       cardId: 'zephyr',
@@ -342,7 +341,7 @@ class CardDatas {
       imagePath: Assets.images.airCards.zephyr.path,
       power: 8,
     ),
-    'orion': GameCard(
+    'orion': GameCardModel(
       name: 'orion',
       abilityId: 'orion',
       cardId: 'orion',

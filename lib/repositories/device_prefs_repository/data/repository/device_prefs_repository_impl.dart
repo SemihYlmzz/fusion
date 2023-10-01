@@ -1,3 +1,7 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:fusion/core/errors/exceptions/exceptions.dart';
+import 'package:fusion/core/errors/failure/failure.dart';
+
 import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/device_prefs.dart';
 import '../../domain/repository/device_prefs_repository.dart';
@@ -10,21 +14,36 @@ class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
   final DevicePrefsDatasource _devicePrefsDatasource;
 
   @override
-  FutureEither<DevicePrefs> createDevicePrefs() {
-    return _devicePrefsDatasource.createDevicePrefs();
+  FutureEither<DevicePrefs> createDevicePrefs() async {
+    try {
+      final devicePrefsModel = await _devicePrefsDatasource.createDevicePrefs();
+      return Right(devicePrefsModel);
+    } on CacheException catch (exception) {
+      return Left(CacheFailure(message: exception.message));
+    }
   }
 
   @override
-  FutureEither<DevicePrefs> readDevicePrefs() {
-    return _devicePrefsDatasource.readDevicePrefs();
+  FutureEither<DevicePrefs> readDevicePrefs() async {
+    try {
+      final devicePrefsModel = await _devicePrefsDatasource.readDevicePrefs();
+      return Right(devicePrefsModel);
+    } on CacheException catch (exception) {
+      return Left(CacheFailure(message: exception.message));
+    }
   }
 
   @override
   FutureEither<DevicePrefs> updateDevicePrefs({
     required DevicePrefs updatedDevicePrefs,
-  }) {
-    return _devicePrefsDatasource.updateDevicePrefs(
-      updatedDevicePrefs: updatedDevicePrefs,
-    );
+  }) async {
+    try {
+      final devicePrefsModel = await _devicePrefsDatasource.updateDevicePrefs(
+        updatedDevicePrefs: updatedDevicePrefs,
+      );
+      return Right(devicePrefsModel);
+    } on CacheException catch (exception) {
+      return Left(CacheFailure(message: exception.message));
+    }
   }
 }

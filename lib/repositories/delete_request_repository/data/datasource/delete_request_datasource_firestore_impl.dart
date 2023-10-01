@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:fpdart/fpdart.dart';
+import 'package:fusion/core/errors/exceptions/exceptions.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../core/failure/failure.dart';
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/delete_request.dart';
 import '../models/delete_model.dart';
 import 'delete_request_datasource.dart';
 
@@ -19,17 +16,24 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
   final deleteRequestsCollectionNameString = 'delete_requests';
 
   @override
-  FutureEither<DeleteRequest> createDeleteRequest() async {
+  Future<DeleteRequestModel> createDeleteRequest() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/createDeleteRequest';
     final user = auth.FirebaseAuth.instance.currentUser;
-    final manualScheduledDeleteDate =
-        DateTime.now().add(const Duration(days: 30));
+    final manualScheduledDeleteDate = DateTime.now().add(
+      const Duration(days: 30),
+    );
+
     try {
       if (user == null) {
-        return Left(Failure('Please sign in again.'));
+        throw const ServerException(message: 'You must be signed in.');
       }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while deleting. Please try again.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -39,33 +43,42 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
       );
 
       if (response.statusCode == 200) {
-        return Right(
-          DeleteRequest(
-            scheduledDeleteDate: manualScheduledDeleteDate,
-            uid: auth.FirebaseAuth.instance.currentUser!.uid,
-          ),
+        return DeleteRequestModel(
+          scheduledDeleteDate: manualScheduledDeleteDate,
+          uid: auth.FirebaseAuth.instance.currentUser!.uid,
         );
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while changing username.'));
+        throw ServerException(
+          message:
+              'Error occured while Deleting account. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while changing username. $e'));
+      throw const ServerException(
+        message: 'Error occured while Deleting account.',
+      );
     }
   }
 
   @override
-  FutureUnit cancelDeleteRequest() async {
+  Future<void> cancelDeleteRequest() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/cancelDeleteRequest';
     final user = auth.FirebaseAuth.instance.currentUser;
 
     try {
       if (user == null) {
-        return Left(Failure('Please sign in again.'));
+        throw const ServerException(message: 'You must be signed in.');
       }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while canceling the Delete Request.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -75,35 +88,40 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
       );
 
       if (response.statusCode == 200) {
-        return const Right(unit);
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+        return;
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while changing username.'));
+        throw ServerException(
+          message:
+              'Error occured while Canceling delete request. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while changing username. $e'));
+      throw const ServerException(
+        message: 'Error occured while Canceling Delete request.',
+      );
     }
   }
 
   @override
-  FutureEither<DeleteRequest> checkDeleteRequest({required String uid}) async {
+  Future<DeleteRequestModel?> checkDeleteRequest({required String uid}) async {
     try {
       final deleteRequest = await firebaseFirestore
           .collection(deleteRequestsCollectionNameString)
           .doc(uid)
           .get();
+
       final deleteRequestData = deleteRequest.data();
       if (deleteRequestData == null) {
-        return Left(Failure('No Delete Request Data'));
+        return null;
       }
-      return Right(
-        DeleteRequestModel.toEntity(
-          DeleteRequestModel.fromMap(deleteRequestData),
-        ),
-      );
+      return DeleteRequestModel.fromMap(deleteRequestData);
     } catch (e) {
-      return Left(Failure(e.toString()));
+      throw const ServerException(
+        message: 'Error occured while checking delete request',
+      );
     }
   }
 }

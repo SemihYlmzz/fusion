@@ -6,7 +6,7 @@ abstract class DeleteRequestRepository {
 
   FutureUnit cancelDeleteRequest();
 
-  FutureEither<DeleteRequest> checkDeleteRequest({
+  FutureEither<DeleteRequest?> checkDeleteRequest({
     required String uid,
   });
 }

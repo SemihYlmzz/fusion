@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../domain/entities/auth_entity.dart';
 
 class AuthModel extends AuthEntity {
@@ -7,6 +9,15 @@ class AuthModel extends AuthEntity {
     super.name,
     super.photo,
   });
+
+  factory AuthModel.fromFirebaseUser(User firebaseUser) {
+    return AuthModel(
+      id: firebaseUser.uid,
+      email: firebaseUser.email,
+      name: firebaseUser.displayName,
+      photo: firebaseUser.photoURL,
+    );
+  }
   factory AuthModel.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('id') ||
         !map.containsKey('isGuest') ||
@@ -50,3 +61,19 @@ class AuthModel extends AuthEntity {
     );
   }
 }
+// class Point {
+  // num x, y;
+  // Point(this.x, this.y);
+  // static Point polar(num theta, num radius) {
+    // return Point(radius * math.cos(theta),
+        // radius * math.sin(theta));
+  // }
+// }
+
+// class Point {
+  // num x, y;
+  // Point(this.x, this.y);
+  // Point.polar(num theta, num radius)
+      // : x = radius * math.cos(theta),
+        // y = radius * math.sin(theta);
+// }

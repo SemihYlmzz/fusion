@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/failure/failure.dart';
+import '../../../../../core/errors/failure/failure.dart';
 import '../../../../../core/typedefs/typedefs.dart';
 import '../../../../../core/usecases/usecase.dart';
 import '../../../../auth_repository/domain/usecase/params/no_params.dart';

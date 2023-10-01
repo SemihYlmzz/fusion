@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/cubits/preload/preload.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../login/view/view.dart';
-import '../cubit/preload.dart';
 import 'view.dart';
 
 class PreloadScreen extends StatelessWidget {

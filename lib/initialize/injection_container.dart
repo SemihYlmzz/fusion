@@ -1,4 +1,7 @@
+import 'package:fusion/app/l10n/l10n.dart';
+import 'package:fusion/core/network/network_info.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../repositories/auth_repository/auth_injection.dart';
 import '../repositories/auth_repository/bloc/auth_bloc_injection.dart';
@@ -15,7 +18,23 @@ final getIt = GetIt.instance;
 
 class InjectionContainer {
   static Future<void> initializeDependencies() async {
-    // BLOCS OF REPOSITORIES
+    getIt
+
+      //! External
+      //
+      // Internet Connection Checker
+      ..registerLazySingleton<InternetConnectionChecker>(
+        InternetConnectionChecker.new,
+      )
+      ..registerLazySingleton<L10n>(L10n.new)
+      //! CORE
+      //
+      // -- Network Info
+      ..registerLazySingleton<NetworkInfo>(
+        () => NetworkInfoImpl(getIt<InternetConnectionChecker>()),
+      );
+
+    //! BLOCS OF REPOSITORIES
     //
     // -- Auth
     await AuthRepositoryInjection.inject();

@@ -1,9 +1,9 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../core/failure/failure.dart';
+import '../../../../core/errors/failure/failure.dart';
 import '../../../../core/typedefs/typedefs.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../entities/card_entity.dart';
+import '../entities/game_card_entity.dart';
 import '../repository/card_repository.dart';
 
 class GetCardUseCase extends UseCase<Either<Failure, GameCard>, CardIdParams> {

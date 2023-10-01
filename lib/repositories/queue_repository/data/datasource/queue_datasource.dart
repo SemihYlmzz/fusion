@@ -1,10 +1,10 @@
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/queue.dart';
+import 'package:fusion/repositories/queue_repository/data/models/queue_model.dart';
+
 
 abstract class QueueDatasource {
-  FutureEither<Queue> enterQueue();
+  Future<QueueModel> enterQueue();
 
-  FutureUnit leaveQueue();
+  Future<void> leaveQueue();
 
-  FutureEither<Queue> checkQueue();
+  Future<QueueModel?> checkQueue();
 }

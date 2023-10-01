@@ -7,7 +7,7 @@ import 'package:shared_widgets/shared_widgets.dart';
 import '../../../../app/gen/assets.gen.dart';
 import '../../../features/settings/widgets/widgets.dart';
 import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
-import '../../../repositories/card_repository/domain/entities/card_entity.dart';
+import '../../../repositories/card_repository/domain/entities/game_card_entity.dart';
 
 class DetailedGameCardPopUp extends StatelessWidget {
   const DetailedGameCardPopUp({required this.gameCard, super.key});

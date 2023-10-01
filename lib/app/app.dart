@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fusion/app/cubits/preload/preload_cubit.dart';
 import 'package:shared_constants/shared_constants.dart';
-import 'package:shared_widgets/shared_widgets.dart';
 
-import '../core/network/network.dart';
-import '../features/preload/cubit/preload.dart';
 import '../initialize/injection_container.dart';
 import '../repositories/auth_repository/bloc/auth_bloc.dart';
 import '../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
@@ -40,16 +38,15 @@ class _AppState extends State<App> with RouterMixin {
     final queueBloc = getIt<QueueBloc>();
 
     // CUBITS
-     final preloadCubit = PreloadCubit(
-       bgmAudioCache: AudioCache(prefix: ''),
-       sfxAudioCache: AudioCache(prefix: ''),
-     );
+    final preloadCubit = PreloadCubit(
+      bgmAudioCache: AudioCache(prefix: ''),
+      sfxAudioCache: AudioCache(prefix: ''),
+    );
     final adCubit = AdCubit()..onLoadRewardedAdRequested();
     final audioCubit = AudioCubit(
       bgmAudioCache: preloadCubit.bgmAudioCache,
       sfxAudioCache: preloadCubit.sfxAudioCache,
     );
-    final networkCubit = NetworkCubit()..listenConnectionStatus();
 
     return MultiBlocProvider(
       providers: [
@@ -58,47 +55,37 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
         BlocProvider<QueueBloc>(create: (_) => queueBloc),
-        // BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
+        BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
         BlocProvider<AudioCubit>(create: (_) => audioCubit),
         BlocProvider<AdCubit>(create: (_) => adCubit),
-        BlocProvider<NetworkCubit>(create: (_) => networkCubit),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
-          return BlocBuilder<NetworkCubit, NetworkState>(
-            builder: (context, networkState) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                darkTheme: AppTheme.darkTheme,
-                themeMode: ThemeMode.dark,
-                routerConfig: router,
-                builder: (_, router) {
-                  return MultiBlocListener(
-                    listeners: [
-                      _buildAuthBlocListener(userBloc),
-                      _buildUserBlocListener(),
-                      _buildDeleteRequestBlocListener(),
-                      _adBlocListener(networkState),
-                      _networkBlocListener(),
-                    ],
-                    child: NoNetworkScreen(
-                      isLoading: !networkState.hasConnection,
-                      size: MediaQuery.sizeOf(context),
-                      child: router!,
-                    ),
-                  );
-                },
-                supportedLocales: L10n.all,
-                locale: Localization.languageCodeToLocale[
-                    devicePrefsState.devicePrefs.language],
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.dark,
+            routerConfig: router,
+            builder: (_, router) {
+              return MultiBlocListener(
+                listeners: [
+                  _buildAuthBlocListener(userBloc),
+                  _buildUserBlocListener(),
+                  _buildDeleteRequestBlocListener(),
+                  _adBlocListener(),
                 ],
+                child: router!,
               );
             },
+            supportedLocales: L10n.all,
+            locale: Localization
+                .languageCodeToLocale[devicePrefsState.devicePrefs.language],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
           );
         },
       ),
@@ -138,14 +125,9 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
-  BlocListener<AdCubit, AdState> _adBlocListener(
-    NetworkState currentNetworkState,
-  ) {
+  BlocListener<AdCubit, AdState> _adBlocListener() {
     return BlocListener<AdCubit, AdState>(
       listener: (context, state) async {
-        if (!currentNetworkState.hasConnection) {
-          return;
-        }
         final canLoadAd =
             state.retryLoadAdDate?.isBefore(DateTime.now()) ?? true;
 
@@ -159,12 +141,6 @@ class _AppState extends State<App> with RouterMixin {
           }
         }
       },
-    );
-  }
-
-  BlocListener<NetworkCubit, NetworkState> _networkBlocListener() {
-    return BlocListener<NetworkCubit, NetworkState>(
-      listener: (context, state) async {},
     );
   }
 

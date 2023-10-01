@@ -1,12 +1,11 @@
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/delete_request.dart';
+import '../models/delete_model.dart';
 
 abstract class DeleteRequestDatasource {
-  FutureEither<DeleteRequest> createDeleteRequest();
+  Future<DeleteRequestModel> createDeleteRequest();
 
-  FutureUnit cancelDeleteRequest();
+  Future<void> cancelDeleteRequest();
   
-  FutureEither<DeleteRequest> checkDeleteRequest({
+  Future<DeleteRequestModel?> checkDeleteRequest({
     required String uid,
   });
 }

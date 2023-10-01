@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/failure/failure.dart';
+import '../../../../../core/errors/failure/failure.dart';
 import '../../../../../core/typedefs/typedefs.dart';
 import '../../../../../core/usecases/usecase.dart';
 import '../../repository/delete_request_repository.dart';

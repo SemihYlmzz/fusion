@@ -15,7 +15,7 @@ class AuthRepositoryInjection {
     // UserDataSource <-connection-> Firebase
     getIt
       ..registerSingleton<AuthDatasource>(AuthDatasourceFirebaseImpl())
-      ..registerSingleton<AuthRepository>(AuthRepositoryImpl(getIt()))
+      ..registerSingleton<AuthRepository>(AuthRepositoryImpl(getIt(), getIt()))
       ..registerSingleton<AuthEntityUseCase>(
         AuthEntityUseCase(
           authRepository: getIt<AuthRepository>(),

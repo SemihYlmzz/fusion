@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../core/failure/failure.dart';
-import '../../../../core/typedefs/typedefs.dart';
-import '../../domain/entities/queue.dart';
+import '../../../../core/errors/exceptions/exceptions.dart';
 import '../models/queue_model.dart';
 import 'queue_datasource.dart';
 
@@ -19,16 +16,21 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
   final queueCollectionNameString = 'queue';
 
   @override
-  FutureEither<Queue> enterQueue() async {
+  Future<QueueModel> enterQueue() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/enterQueue';
     final user = auth.FirebaseAuth.instance.currentUser;
 
     try {
       if (user == null) {
-        return Left(Failure('Please sign in again.'));
+        throw const ServerException(message: 'You must be signed in.');
       }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while deleting. Please try again.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -38,33 +40,42 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       );
 
       if (response.statusCode == 200) {
-        return Right(
-          Queue(
-            dateOfCreate: DateTime.now(),
-            uid: user.uid,
-          ),
+        return QueueModel(
+          dateOfCreate: DateTime.now(),
+          uid: user.uid,
         );
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while refreshing Deck.'));
+        throw ServerException(
+          message:
+              'Error occured while entering Queue. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while refreshing Deck. $e'));
+      throw const ServerException(
+        message: 'Error occured while Deleting account.',
+      );
     }
   }
 
   @override
-  FutureUnit leaveQueue() async {
+  Future<void> leaveQueue() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/leaveQueue';
     final user = auth.FirebaseAuth.instance.currentUser;
 
     try {
       if (user == null) {
-        return Left(Failure('Please sign in again.'));
+        throw const ServerException(message: 'You must be signed in.');
       }
       final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw const ServerException(
+          message: 'Error occured while deleting. Please try again.',
+        );
+      }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
         headers: {
@@ -74,38 +85,42 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       );
 
       if (response.statusCode == 200) {
-        return const Right(unit);
-      } else if (response.statusCode == 400) {
-        return Left(Failure(response.body));
+        return;
+      }
+      if (response.statusCode == 400) {
+        throw ServerException(message: response.body);
       } else {
-        return Left(Failure('Error occured while refreshing Deck.'));
+        throw ServerException(
+          message:
+              'Error occured while leaving Queue. Error code:${response.statusCode}',
+        );
       }
     } catch (e) {
-      return Left(Failure('Error occured while refreshing Deck. $e'));
+      throw const ServerException(
+        message: 'Error occured while Deleting account.',
+      );
     }
   }
 
   @override
-  FutureEither<Queue> checkQueue() async {
+  Future<QueueModel?> checkQueue() async {
     try {
       final user = auth.FirebaseAuth.instance.currentUser;
       if (user == null) {
-        return Left(Failure('Please sign in again.'));
+        throw const ServerException(message: 'You must be signed in.');
       }
       final userQueueDoc = await firebaseFirestore
           .collection(queueCollectionNameString)
           .doc(user.uid)
           .get();
       if (!userQueueDoc.exists) {
-        return Left(Failure('No queue document.'));
+        return null;
       }
-      return Right(
-        QueueModel.toEntity(
-          QueueModel.fromMap(userQueueDoc.data()!),
-        ),
-      );
+      return QueueModel.fromMap(userQueueDoc.data()!);
     } catch (exception) {
-      return Left(Failure(exception.toString()));
+      throw const ServerException(
+        message: 'Error occured while checking Queue.',
+      );
     }
   }
 }

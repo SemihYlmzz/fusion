@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../domain/entities/card_entity.dart';
+import '../domain/entities/game_card_entity.dart';
 import '../domain/usecase/get_card.dart';
 
 part 'card_event.dart';
