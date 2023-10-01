@@ -87,16 +87,15 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
 
     tryCheckQueue.fold(
       (failure) {
-        if (failure.message == 'No queue document.') {
-          return emit(const QueueReadyToEnter());
-        }
         emit(
           QueueEmpty(
             errorMessage: failure.message,
           ),
         );
       },
-      (queue) => emit(QueueHasData(queue: queue)),
+      (queue) => queue == null
+          ? emit(const QueueReadyToEnter())
+          : emit(QueueHasData(queue: queue)),
     );
   }
 }

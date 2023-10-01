@@ -87,21 +87,13 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
         await checkDeleteRequestUseCase.execute(UidParams(uid: event.uid));
     tryCheckDeleteRequest.fold(
       (failure) {
-        if (failure.message == 'No Delete Request Data') {
-          emit(
-            const DeleteRequestEmpty(),
-          );
-        } else {
-          emit(
-            const DeleteRequestNotChecked(),
-          );
-        }
+        emit(
+          const DeleteRequestNotChecked(),
+        );
       },
-      (deleteRequest) => emit(
-        DeleteRequestHasData(
-          deleteRequest: deleteRequest,
-        ),
-      ),
+      (deleteRequest) => deleteRequest == null
+          ? emit(const DeleteRequestEmpty())
+          : emit(DeleteRequestHasData(deleteRequest: deleteRequest)),
     );
   }
 

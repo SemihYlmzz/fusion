@@ -2,12 +2,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/errors/exceptions/exceptions.dart';
-import '../../../../core/errors/failure/failure.dart';
-import '../../domain/entities/user.dart';
 import '../models/user_model.dart';
 import 'user_datasource.dart';
 
