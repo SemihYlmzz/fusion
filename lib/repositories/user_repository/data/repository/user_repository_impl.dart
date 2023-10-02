@@ -20,9 +20,6 @@ class UserRepositoryImpl implements UserRepository {
   FutureEither<User?> readUserWithUid({
     required String uid,
   }) async {
-    if (!(await _networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
-    }
     try {
       final readedUserModel = await _userDatasource.readUserWithUid(
         uid: uid,

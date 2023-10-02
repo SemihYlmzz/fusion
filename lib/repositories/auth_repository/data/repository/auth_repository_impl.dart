@@ -75,11 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Stream<AuthEntity> get authEntity async* {
-    try {
-      yield* authDatasource.authEntity;
-    } catch (exception) {
-      yield AuthEntity.empty;
-    }
+  Stream<AuthEntity> get authEntity {
+    return authDatasource.authEntity;
   }
 }

@@ -15,7 +15,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-			    <string>$(CFBundleURLSchemes)</string>
+				<string>$(CFBundleURLSchemes)</string>
 			</array>
 		</dict>
 	</array>
@@ -265,6 +265,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

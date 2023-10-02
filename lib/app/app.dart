@@ -47,7 +47,6 @@ class _AppState extends State<App> with RouterMixin {
       bgmAudioCache: preloadCubit.bgmAudioCache,
       sfxAudioCache: preloadCubit.sfxAudioCache,
     );
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (_) => authBloc),

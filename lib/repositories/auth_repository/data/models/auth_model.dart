@@ -34,6 +34,15 @@ class AuthModel extends AuthEntity {
     );
   }
 
+  @override
+  bool get isEmpty => this == AuthModel.empty;
+
+  @override
+  bool get isNotEmpty => this != AuthModel.empty;
+
+  static const empty = AuthModel(
+    id: '',
+  );
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,

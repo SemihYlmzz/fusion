@@ -21,9 +21,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   Stream<AuthModel> get authEntity {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       return firebaseUser == null
-          ? throw const ServerException(
-              message: 'User is not logged in currently.',
-            )
+          ? AuthModel.empty
           : AuthModel.fromFirebaseUser(firebaseUser);
     });
   }
