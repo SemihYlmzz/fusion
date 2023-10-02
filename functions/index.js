@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const { user } = require("firebase-functions/v1/auth");
 admin.initializeApp();
 
 const deckOptions = [
@@ -158,7 +159,10 @@ exports.createDeleteRequest = functions.https.onRequest(async (req, res) => {
     const currentDate = new Date();
     const oneMonthFromNow = new Date(
         currentDate.getFullYear(),
-        currentDate.getMonth() + 1, currentDate.getDate(),
+        currentDate.getMonth() + 1,
+        currentDate.getDate(),
+        currentDate.getHours(),
+        currentDate.getMinutes(),
     );
     const millisecondsSinceEpoch = oneMonthFromNow.getTime();
 
@@ -167,6 +171,7 @@ exports.createDeleteRequest = functions.https.onRequest(async (req, res) => {
     if (userId == null) {
       return res.status(400).send("No user detected.");
     }
+
     const deleteRequestExists = await admin.firestore()
         .collection("delete_requests")
         .where("uid", "==", userId)
@@ -183,7 +188,9 @@ exports.createDeleteRequest = functions.https.onRequest(async (req, res) => {
       uid: userId,
       scheduledDeleteDate: millisecondsSinceEpoch,
     });
-
+    await admin.auth().updateUser(userId, {
+      disabled: true,
+    });
     return res.status(200).send("Deletion Request Succesfully created.");
   } catch (error) {
     console.error("Error:", error);
@@ -233,14 +240,19 @@ exports.deleteOldDeleteRequestedUserDatas = functions.pubsub
       const batch = admin.firestore().batch();
       const deletedUserUIDs = [];
 
-      querySnapshot.forEach((doc) => {
+      for (const doc of querySnapshot.docs) {
         const uid = doc.data().uid;
-
-        deletedUserUIDs.push(uid);
-        const userDocRef = admin.firestore().collection("users").doc(uid);
-        batch.delete(userDocRef);
-        batch.delete(doc.ref);
-      });
+        const userRecord = await admin.auth().getUser(uid);
+  
+        if (userRecord.disabled) {
+          const userDocRef = admin.firestore().collection("users").doc(uid);
+          batch.delete(userDocRef);
+          batch.delete(doc.ref);
+          deletedUserUIDs.push(uid);
+        } else {
+          batch.delete(doc.ref);
+        }
+      }
 
       for (const uidToDelete of deletedUserUIDs) {
         try {

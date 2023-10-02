@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/settings/widgets/delete_acceptance.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
@@ -7,6 +8,7 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
+import '../../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 
 class DeleteAccountPopUp extends StatefulWidget {
   const DeleteAccountPopUp({required this.devicePrefs, super.key});
@@ -18,10 +20,10 @@ class DeleteAccountPopUp extends StatefulWidget {
       'In your accountyour edited decks of cards are deleted.';
   static const String _text3 =
       'Your match history and saved game settings will be reset';
-static const String _text4 =
-    'You can continue to use the application by logging in '
-    'to your account again within 30 days.';
-    
+  static const String _text4 =
+      'You can continue to use the application by logging in '
+      'to your account again within 30 days.';
+
   @override
   State<DeleteAccountPopUp> createState() => _DeleteAccountPopUpState();
 }
@@ -102,9 +104,9 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                                         context,
                                         (route) => route.isFirst,
                                       );
-                                      // context.read<DeleteRequestBloc>().add(
-                                      // const CreateDeleteRequestRequested(),
-                                      // );
+                                      context.read<DeleteRequestBloc>().add(
+                                            const CreateDeleteRequestRequested(),
+                                          );
                                       context.goNamed(
                                         DeleteAccountScreen.name,
                                       );
@@ -155,24 +157,30 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
 }
 
 class DeleteCheckBox extends StatefulWidget {
-  DeleteCheckBox({required this.isCheck, super.key});
-  bool isCheck;
-
+  const DeleteCheckBox({required this.isCheck, super.key});
+  final bool isCheck;
   @override
   State<DeleteCheckBox> createState() => _DeleteCheckBoxState();
 }
 
 class _DeleteCheckBoxState extends State<DeleteCheckBox> {
+  bool changeableIsCheck = false;
+  @override
+  void initState() {
+    changeableIsCheck = widget.isCheck;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-          value: widget.isCheck,
+          value: changeableIsCheck,
           onChanged: (value) {
             if (value == null) return;
             setState(() {
-              widget.isCheck = value;
+              changeableIsCheck = value;
             });
           },
         ),
