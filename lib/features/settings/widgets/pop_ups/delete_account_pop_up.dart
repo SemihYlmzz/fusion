@@ -18,9 +18,10 @@ class DeleteAccountPopUp extends StatefulWidget {
       'In your accountyour edited decks of cards are deleted.';
   static const String _text3 =
       'Your match history and saved game settings will be reset';
-  static const String _text4 =
-      'You can continue to use the application by logging in to your account again within 30 days.';
-
+static const String _text4 =
+    'You can continue to use the application by logging in '
+    'to your account again within 30 days.';
+    
   @override
   State<DeleteAccountPopUp> createState() => _DeleteAccountPopUpState();
 }

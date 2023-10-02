@@ -6,9 +6,9 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
 import '../../../app/widgets/widgets.dart';
+import '../../../core/typedefs/typedefs.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import '../../../core/typedefs/typedefs.dart';
 
 class PrivacyAcceptButton extends StatelessWidget {
   const PrivacyAcceptButton({

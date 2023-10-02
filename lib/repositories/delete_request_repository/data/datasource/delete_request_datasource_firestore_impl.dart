@@ -53,7 +53,8 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while Deleting account. Error code:${response.statusCode}',
+              'Error occured while Deleting account. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {
@@ -95,7 +96,8 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while Canceling delete request. Error code:${response.statusCode}',
+              'Error occured while Canceling delete request. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {

@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../../../app/gen/assets.gen.dart';
+import '../../../app/widgets/pop_ups/detailed_game_card_pop_up.dart';
 import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
 import '../../../repositories/card_repository/domain/entities/game_card_entity.dart';
 import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import '../../../app/widgets/pop_ups/detailed_game_card_pop_up.dart';
 
 class GameCardPreview extends StatelessWidget {
   const GameCardPreview({

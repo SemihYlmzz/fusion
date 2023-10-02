@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/app/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
+import 'package:fusion/core/typedefs/typedefs.dart';
 import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
 import 'package:fusion/repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/app/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
-import 'package:fusion/core/typedefs/typedefs.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 

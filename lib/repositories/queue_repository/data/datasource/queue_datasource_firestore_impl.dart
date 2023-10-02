@@ -50,7 +50,8 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while entering Queue. Error code:${response.statusCode}',
+              'Error occured while entering Queue. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {
@@ -92,7 +93,8 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while leaving Queue. Error code:${response.statusCode}',
+              'Error occured while leaving Queue. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {

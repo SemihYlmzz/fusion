@@ -7,14 +7,14 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../app/l10n/l10n.dart';
 import '../../../app/theme/colors.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
 import '../../../app/widgets/bottom_sheets/credits_bottom_sheet.dart';
 import '../../../app/widgets/bottom_sheets/privacy_bottom_sheet.dart';
 import '../../../app/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import '../../../app/widgets/pop_ups/cant_rename_pop_up.dart';
 import '../../../app/widgets/pop_ups/change_username_pop_up.dart';
+import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../repositories/user_repository/bloc/user_bloc.dart';
 import '../widgets/pop_ups/delete_account_pop_up.dart';
 import '../widgets/widgets.dart';
 

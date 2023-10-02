@@ -75,8 +75,12 @@ class CreditsBottomSheet extends StatelessWidget {
             _createdBy(title: _title7, text: _text7),
             _createdBy(
               title: _title8,
-              text:
-                  '$_text8\n$_text8_1\n$_text8_2\n$_text8_3\n$_text8_4\n$_text8_5',
+              text: '$_text8\n'
+                  '$_text8_1\n'
+                  '$_text8_2\n'
+                  '$_text8_3\n'
+                  '$_text8_4\n'
+                  '$_text8_5',
             ),
             _happinessText(),
           ],
@@ -89,7 +93,8 @@ class CreditsBottomSheet extends StatelessWidget {
     return Padding(
       padding: SharedPaddings.all20,
       child: Text(
-        'We would like to express our special thanks to everyone who contributed to the development of the Fusion game.',
+        'We would like to express our special thanks to everyone who '
+        'contributed to the development of the Fusion game.',
         style: GoogleFonts.bangers(fontSize: 20),
         textAlign: TextAlign.center,
       ),

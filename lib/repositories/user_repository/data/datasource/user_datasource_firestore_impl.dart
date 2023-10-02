@@ -106,7 +106,8 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while Changing Username. Error code:${response.statusCode}',
+              'Error occured while Changing Username. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {
@@ -147,7 +148,8 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       } else {
         throw ServerException(
           message:
-              'Error occured while Refreshing Deck. Error code:${response.statusCode}',
+              'Error occured while Refreshing Deck. '
+              'Error code:${response.statusCode}',
         );
       }
     } catch (e) {
