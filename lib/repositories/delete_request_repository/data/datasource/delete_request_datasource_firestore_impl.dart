@@ -57,6 +57,9 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
         );
       }
     } catch (e) {
+      if (e is ServerException) {
+        rethrow;
+      }
       throw const ServerException(
         message: 'Error occured while Deleting account.',
       );

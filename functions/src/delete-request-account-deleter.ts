@@ -21,7 +21,7 @@ export async function deleteRequestAccountDeleterFunction() {
 
   for (const request of scheduledDeleteDateEndedRequests.docs) {
     const uid = request.data().uid;
-    const requestCreationDate = request.data().requestCreationDate;
+    const requestCreationDate = request.data().createdDate;
     const userRecord = await admin.auth().getUser(uid);
     const userLastSignInTime =
         Date.parse(userRecord.metadata.lastSignInTime);

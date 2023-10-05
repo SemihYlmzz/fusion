@@ -22,10 +22,18 @@ export const createDeleteRequestFunction: (
       res.status(400).send("No user detected.");
       return;
     }
-
+    const userRecord = await admin.auth().getUser(userId);
+    const userLastSignInTime = Date.parse(userRecord.metadata.lastSignInTime);
+    const lastSignedInDatePlus3Min = userLastSignInTime + 180000;
     const currentDate = new Date();
+
     const requestCreationDate = currentDate.getTime();
 
+    if (lastSignedInDatePlus3Min > requestCreationDate) {
+      res.status(400).send(
+        "You need to wait 5 min after signed in to delete account.");
+      return;
+    }
     const twoWeekFromNowDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -58,6 +66,7 @@ export const createDeleteRequestFunction: (
     res.status(200).send("Deletion Request Succesfully created.");
     return;
   } catch (error) {
+    console.log(error);
     console.error("Error:", error);
     res.status(500).send("Error while creating Delete Request.");
     return;
