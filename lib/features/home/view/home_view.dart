@@ -84,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                   onPressed: () async {
                     await context
                         .read<AdCubit>()
-                        .onShowRewardedAdRequested(() async {
+                        .loadAndShowRewardedAd(() async {
                       await context.read<AudioCubit>().playSoundEffect(
                             Assets.music.sfx.refreshDeckButtonSfx,
                           );
@@ -100,10 +100,8 @@ class _HomeViewState extends State<HomeView> {
                   },
                   child: Text(
                     context.l10n.refreshDeck,
-                    style: TextStyle(
-                      color: widget.adState.rewardedAd != null
-                          ? Colors.greenAccent
-                          : Colors.redAccent,
+                    style: const TextStyle(
+                      color: Colors.greenAccent,
                     ),
                   ),
                 ),

@@ -54,7 +54,8 @@ class HomeScreen extends StatelessWidget {
                             builder: (context, adState) {
                               return LoadingScreen(
                                 isLoading: authState is AuthLoading ||
-                                    userState is UserLoading,
+                                    userState is UserLoading ||
+                                    adState.isLoadingAd,
                                 size: MediaQuery.of(context).size,
                                 child: BaseScaffold(
                                   safeArea: true,

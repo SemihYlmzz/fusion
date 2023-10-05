@@ -42,7 +42,7 @@ class _AppState extends State<App> with RouterMixin {
       bgmAudioCache: AudioCache(prefix: ''),
       sfxAudioCache: AudioCache(prefix: ''),
     );
-    final adCubit = AdCubit()..onLoadRewardedAdRequested();
+    final adCubit = AdCubit();
     final audioCubit = AudioCubit(
       bgmAudioCache: preloadCubit.bgmAudioCache,
       sfxAudioCache: preloadCubit.sfxAudioCache,
@@ -71,7 +71,6 @@ class _AppState extends State<App> with RouterMixin {
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
-                  _adBlocListener(),
                 ],
                 child: router!,
               );
@@ -119,25 +118,6 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state.errorMessage != null) {
           _showSnackBar(context, state.errorMessage!);
-        }
-      },
-    );
-  }
-
-  BlocListener<AdCubit, AdState> _adBlocListener() {
-    return BlocListener<AdCubit, AdState>(
-      listener: (context, state) async {
-        final canLoadAd =
-            state.retryLoadAdDate?.isBefore(DateTime.now()) ?? true;
-
-        if (state.errorMessage != null) {
-          await _showSnackBar(context, state.errorMessage!);
-        }
-        if (!state.isLoadingAd && state.rewardedAd == null && canLoadAd) {
-          await Future<void>.delayed(SharedDurations.ms200);
-          if (mounted) {
-            await context.read<AdCubit>().onLoadRewardedAdRequested();
-          }
         }
       },
     );

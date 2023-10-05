@@ -11,13 +11,9 @@ class AdCubit extends Cubit<AdState> {
 
   static const _rewardedAdUnitId = 'ca-app-pub-3940256099942544/5224354917';
 
-  Future<void> onLoadRewardedAdRequested() async {
-    if (state.retryLoadAdDate != null) {
-      if (state.retryLoadAdDate!.isBefore(DateTime.now())) {
-        emit(state.copyWith());
-      }
-    }
-
+  Future<void> loadAndShowRewardedAd(
+    VoidCallback onUserEarnedReward,
+  ) async {
     emit(const AdState(isLoadingAd: true));
 
     await RewardedAd.load(
@@ -26,7 +22,7 @@ class AdCubit extends Cubit<AdState> {
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdFailedToLoad: (LoadAdError error) {
           emit(
-            AdState(
+            state.copyWith(
               isLoadingAd: false,
               errorMessage: error.message,
               retryLoadAdDate: DateTime.now().add(const Duration(seconds: 30)),
@@ -34,22 +30,18 @@ class AdCubit extends Cubit<AdState> {
           );
         },
         onAdLoaded: (RewardedAd ad) async {
-          emit(AdState(isLoadingAd: false, rewardedAd: ad));
+          await ad.show(
+            onUserEarnedReward: (
+              AdWithoutView ad,
+              RewardItem rewardItem,
+            ) async {
+              onUserEarnedReward.call();
+              emit(state.copyWith(isLoadingAd: false));
+              return;
+            },
+          );
         },
       ),
     );
-  }
-
-  Future<void> onShowRewardedAdRequested(
-    VoidCallback onUserEarnedReward,
-  ) async {
-    await state.rewardedAd?.show(
-      onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) async {
-        onUserEarnedReward.call();
-        emit(const AdState(isLoadingAd: false));
-        return;
-      },
-    );
-    await onLoadRewardedAdRequested();
   }
 }
