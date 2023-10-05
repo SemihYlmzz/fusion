@@ -105,8 +105,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         throw ServerException(message: response.body);
       } else {
         throw ServerException(
-          message:
-              'Error occured while Changing Username. '
+          message: 'Error occured while Changing Username. '
               'Error code:${response.statusCode}',
         );
       }
@@ -120,7 +119,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   @override
   Future<void> refreshDeck() async {
     const cloudFunctionUrl =
-        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/refreshMyDeck';
+        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/refreshDeck';
     final user = auth.FirebaseAuth.instance.currentUser;
     if (user == null) {
       throw const ServerException(message: 'You must be signed in.');
@@ -147,8 +146,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         throw ServerException(message: response.body);
       } else {
         throw ServerException(
-          message:
-              'Error occured while Refreshing Deck. '
+          message: 'Error occured while Refreshing Deck. '
               'Error code:${response.statusCode}',
         );
       }

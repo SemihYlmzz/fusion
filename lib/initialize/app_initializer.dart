@@ -21,7 +21,7 @@ abstract final class AppInitializer {
           '${record.loggerName}: '
           '${record.message}');
     });
-
+    
     // Initialize Bloc Observer
     Bloc.observer = AppBlocObserver();
 

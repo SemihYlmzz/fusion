@@ -15,9 +15,6 @@ abstract class DeleteRequestState extends Equatable {
       ];
 }
 
-class DeleteRequestNotChecked extends DeleteRequestState {
-  const DeleteRequestNotChecked({super.deleteRequest, super.errorMessage});
-}
 
 class DeleteRequestEmpty extends DeleteRequestState {
   const DeleteRequestEmpty({super.deleteRequest, super.errorMessage});

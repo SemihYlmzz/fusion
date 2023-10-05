@@ -1,11 +1,6 @@
 import '../models/delete_model.dart';
 
+// ignore: one_member_abstracts
 abstract class DeleteRequestDatasource {
   Future<DeleteRequestModel> createDeleteRequest();
-
-  Future<void> cancelDeleteRequest();
-  
-  Future<DeleteRequestModel?> checkDeleteRequest({
-    required String uid,
-  });
 }

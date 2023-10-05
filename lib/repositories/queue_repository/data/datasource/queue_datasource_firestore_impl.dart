@@ -12,7 +12,7 @@ class QueueFields {
 }
 
 class QueueDataSourceFirebaseImpl implements QueueDatasource {
-  final firebaseFirestore = FirebaseFirestore.instance;
+  final _firebaseFirestore = FirebaseFirestore.instance;
   final queueCollectionNameString = 'queue';
 
   @override
@@ -49,8 +49,7 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
         throw ServerException(message: response.body);
       } else {
         throw ServerException(
-          message:
-              'Error occured while entering Queue. '
+          message: 'Error occured while entering Queue. '
               'Error code:${response.statusCode}',
         );
       }
@@ -63,40 +62,18 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
 
   @override
   Future<void> leaveQueue() async {
-    const cloudFunctionUrl =
-        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/leaveQueue';
     final user = auth.FirebaseAuth.instance.currentUser;
 
     try {
       if (user == null) {
         throw const ServerException(message: 'You must be signed in.');
       }
-      final idToken = await user.getIdToken();
-      if (idToken == null) {
-        throw const ServerException(
-          message: 'Error occured while deleting. Please try again.',
-        );
-      }
-      final response = await http.post(
-        Uri.parse(cloudFunctionUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken',
-        },
-      );
 
-      if (response.statusCode == 200) {
-        return;
-      }
-      if (response.statusCode == 400) {
-        throw ServerException(message: response.body);
-      } else {
-        throw ServerException(
-          message:
-              'Error occured while leaving Queue. '
-              'Error code:${response.statusCode}',
-        );
-      }
+      await _firebaseFirestore
+          .collection(queueCollectionNameString)
+          .doc(user.uid)
+          .delete();
+
     } catch (e) {
       throw const ServerException(
         message: 'Error occured while Deleting account.',
@@ -111,7 +88,7 @@ class QueueDataSourceFirebaseImpl implements QueueDatasource {
       if (user == null) {
         throw const ServerException(message: 'You must be signed in.');
       }
-      final userQueueDoc = await firebaseFirestore
+      final userQueueDoc = await _firebaseFirestore
           .collection(queueCollectionNameString)
           .doc(user.uid)
           .get();

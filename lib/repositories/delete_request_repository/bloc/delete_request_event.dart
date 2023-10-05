@@ -13,10 +13,6 @@ final class CreateDeleteRequestRequested extends DeleteRequestEvent {
   const CreateDeleteRequestRequested();
 }
 
-final class CancelDeleteRequestRequested extends DeleteRequestEvent {
-  const CancelDeleteRequestRequested();
-}
-
 final class ClearDeleteRequestStateRequested extends DeleteRequestEvent {
   const ClearDeleteRequestStateRequested();
 }

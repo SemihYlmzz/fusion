@@ -25,31 +25,4 @@ class DeleteRequestRepositoryImpl implements DeleteRequestRepository {
       return Left(ServerFailure(message: exception.message));
     }
   }
-
-  @override
-  FutureUnit cancelDeleteRequest() async {
-    if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
-    }
-    try {
-      await _deleteRequestDatasource.cancelDeleteRequest();
-      return const Right(unit);
-    } on ServerException catch (exception) {
-      return Left(ServerFailure(message: exception.message));
-    }
-  }
-
-  @override
-  FutureEither<DeleteRequest?> checkDeleteRequest({required String uid}) async {
-    if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
-    }
-    try {
-      final deleteRequest =
-          await _deleteRequestDatasource.checkDeleteRequest(uid: uid);
-      return Right(deleteRequest);
-    } on ServerException catch (exception) {
-      return Left(ServerFailure(message: exception.message));
-    }
-  }
 }

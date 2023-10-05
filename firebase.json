@@ -1,22 +1,36 @@
 {
-  "functions": {
-    "development": {
+  "functions": [
+    {
+      "development": {
+        "source": "functions/src",
+        "predeploy": [
+          "npm --prefix \"$RESOURCE_DIR\" run lint"
+        ]
+      },
+      "staging": {
+        "source": "functions/src",
+        "predeploy": [
+          "npm --prefix \"$RESOURCE_DIR\" run lint"
+        ]
+      },
+      "production": {
+        "source": "functions/src",
+        "predeploy": [
+          "npm --prefix \"$RESOURCE_DIR\" run lint"
+        ]
+      },
       "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
       "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    },
-    "staging": {
-      "source": "functions",
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    },
-    "production": {
-      "source": "functions",
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
       ]
     }
-  }
+  ]
 }

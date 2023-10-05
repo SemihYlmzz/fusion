@@ -52,77 +52,13 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
         throw ServerException(message: response.body);
       } else {
         throw ServerException(
-          message:
-              'Error occured while Deleting account. '
+          message: 'Error occured while Deleting account. '
               'Error code:${response.statusCode}',
         );
       }
     } catch (e) {
       throw const ServerException(
         message: 'Error occured while Deleting account.',
-      );
-    }
-  }
-
-  @override
-  Future<void> cancelDeleteRequest() async {
-    const cloudFunctionUrl =
-        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/cancelDeleteRequest';
-    final user = auth.FirebaseAuth.instance.currentUser;
-
-    try {
-      if (user == null) {
-        throw const ServerException(message: 'You must be signed in.');
-      }
-      final idToken = await user.getIdToken();
-      if (idToken == null) {
-        throw const ServerException(
-          message: 'Error occured while canceling the Delete Request.',
-        );
-      }
-      final response = await http.post(
-        Uri.parse(cloudFunctionUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        return;
-      }
-      if (response.statusCode == 400) {
-        throw ServerException(message: response.body);
-      } else {
-        throw ServerException(
-          message:
-              'Error occured while Canceling delete request. '
-              'Error code:${response.statusCode}',
-        );
-      }
-    } catch (e) {
-      throw const ServerException(
-        message: 'Error occured while Canceling Delete request.',
-      );
-    }
-  }
-
-  @override
-  Future<DeleteRequestModel?> checkDeleteRequest({required String uid}) async {
-    try {
-      final deleteRequest = await firebaseFirestore
-          .collection(deleteRequestsCollectionNameString)
-          .doc(uid)
-          .get();
-
-      final deleteRequestData = deleteRequest.data();
-      if (deleteRequestData == null) {
-        return null;
-      }
-      return DeleteRequestModel.fromMap(deleteRequestData);
-    } catch (e) {
-      throw const ServerException(
-        message: 'Error occured while checking delete request',
       );
     }
   }

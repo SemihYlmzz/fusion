@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import '../login.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -23,9 +22,6 @@ class LoginScreen extends StatelessWidget {
 
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        context.read<DeleteRequestBloc>().add(
-              const ClearDeleteRequestStateRequested(),
-            );
         return BaseScaffold(
           body: (authState is AuthUnAuthenticated || authState is AuthLoading)
               ? LoadingScreen(
