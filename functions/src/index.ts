@@ -28,10 +28,10 @@ exports.createUserOnAuthCreate = functions.auth.user().onCreate(
   createUserOnAuthCreateFunction
 );
 
-exports.deleteRequestAccountDeleter = functions.pubsub.schedule("0 5 * * *")
+exports.deleteRequestAccountDeleter = functions.pubsub.schedule("* * * * *")
   .timeZone("UTC")
   .onRun(deleteRequestAccountDeleterFunction);
-exports.deleteRequestAuthDisabler = functions.pubsub.schedule("0 5 * * *")
+exports.deleteRequestAuthDisabler = functions.pubsub.schedule("* * * * *")
   .timeZone("UTC")
   .onRun(deleteRequestAuthDisablerFunction);
 exports.enterNormalQueue = functions.https.onRequest(

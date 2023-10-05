@@ -12,15 +12,13 @@ export async function deleteRequestAuthDisablerFunction() {
   const deleteRequestsRef = admin.firestore()
     .collection("delete_requests");
 
-  const scheduledDeleteDateEndedRequests = await deleteRequestsRef
+  const scheduledDisableDateEndedRequests = await deleteRequestsRef
     .where("scheduledDisableDate", "<=", nowMillis)
     .get();
 
-  const batch = admin.firestore().batch();
-
-  for (const request of scheduledDeleteDateEndedRequests.docs) {
+  for (const request of scheduledDisableDateEndedRequests.docs) {
     const uid = request.data().uid;
-    const requestCreationDate = request.data().requestCreationDate;
+    const requestCreationDate = request.data().createdDate;
     const userRecord = await admin.auth().getUser(uid);
     const userLastSignInTime = Date.parse(userRecord.metadata.lastSignInTime);
 
@@ -28,8 +26,6 @@ export async function deleteRequestAuthDisablerFunction() {
       await admin.auth().updateUser(uid, {disabled: true});
     }
   }
-
-  await batch.commit();
 
   console.log("Old Delete Requested Users Deleted!");
   return null;

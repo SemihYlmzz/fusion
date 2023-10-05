@@ -40,7 +40,7 @@ export const createDeleteRequestFunction: (
       currentDate.getMonth(),
       currentDate.getDate(),
       currentDate.getHours(),
-      currentDate.getMinutes() + 2,
+      currentDate.getMinutes() + 5,
     );
     const threeWeekFromNow = threeWeekFromNowDate.getTime();
 
