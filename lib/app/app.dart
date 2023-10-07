@@ -94,10 +94,14 @@ class _AppState extends State<App> with RouterMixin {
   BlocListener<AuthBloc, AuthState> _buildAuthBlocListener(UserBloc userBloc) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.errorMessage != null) {
+        if (state is AuthHasError) {
           _showSnackBar(context, state.errorMessage!);
+
+          context.read<AuthBloc>().add(const ClearAuthErrorMessageRequested());
         } else if (state is AuthAuthenticated) {
-          userBloc.add(ReadWithUidRequested(state.authEntity.id));
+          if (userBloc.state is! UserHasData) {
+            userBloc.add(ReadWithUidRequested(state.authEntity.id));
+          }
         }
       },
     );
@@ -131,7 +135,7 @@ class _AppState extends State<App> with RouterMixin {
           _showSnackBar(context, state.errorMessage!).whenComplete(
             () => context
                 .read<QueueBloc>()
-                .add(const CalibrateQueueStateRequested()),
+                .add(const ClearQueueErrorMessageRequested()),
           );
         }
       },

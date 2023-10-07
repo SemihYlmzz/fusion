@@ -16,6 +16,6 @@ final class CheckQueueRequested extends QueueEvent {
   const CheckQueueRequested();
 }
 
-final class CalibrateQueueStateRequested extends QueueEvent {
-  const CalibrateQueueStateRequested();
+final class ClearQueueErrorMessageRequested extends QueueEvent {
+  const ClearQueueErrorMessageRequested();
 }

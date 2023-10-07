@@ -23,3 +23,6 @@ class LogInWithAppleRequested extends AuthEvent {
 class LogInWithFacebookRequested extends AuthEvent {
   const LogInWithFacebookRequested();
 }
+class ClearAuthErrorMessageRequested extends AuthEvent {
+  const ClearAuthErrorMessageRequested();
+}

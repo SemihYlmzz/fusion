@@ -42,6 +42,9 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     ReadWithUidRequested event,
     Emitter<UserState> emit,
   ) async {
+    if (state is UserHasData) {
+      return;
+    }
     emit(const UserInitializing());
     final tryReadUser = await readUserWithUidUseCase.execute(
       UidParams(uid: event.uid),

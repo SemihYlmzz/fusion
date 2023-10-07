@@ -11,14 +11,18 @@ abstract class AuthState extends Equatable {
   List<Object?> get props => [errorMessage];
 }
 
+class AuthUnAuthenticated extends AuthState {
+  const AuthUnAuthenticated({super.authEntity, super.errorMessage});
+}
+
 class AuthLoading extends AuthState {
   const AuthLoading({super.authEntity, super.errorMessage});
 }
 
-class AuthAuthenticated extends AuthState {
-  const AuthAuthenticated({required super.authEntity, super.errorMessage});
+class AuthHasError extends AuthState {
+  const AuthHasError({required super.errorMessage, super.authEntity});
 }
 
-class AuthUnAuthenticated extends AuthState {
-  const AuthUnAuthenticated({super.authEntity, super.errorMessage});
+class AuthAuthenticated extends AuthState {
+  const AuthAuthenticated({required super.authEntity, super.errorMessage});
 }

@@ -32,9 +32,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ) {
     on<_AuthUserChanged>(_onUserChanged);
     on<AuthLogoutRequested>(_onLogoutRequested);
-    on<LogInWithGoogleRequested>(onLogInWithGoogleRequested);
-    on<LogInWithAppleRequested>(onLogInWithAppleRequested);
-    on<LogInWithFacebookRequested>(onLogInWithFacebookRequested);
+    on<LogInWithGoogleRequested>(_onLogInWithGoogleRequested);
+    on<LogInWithAppleRequested>(_onLogInWithAppleRequested);
+    on<LogInWithFacebookRequested>(_onLogInWithFacebookRequested);
+    on<ClearAuthErrorMessageRequested>(_onClearErrorMessageRequested);
 
     _authSubscription = authEntityUseCase.execute(const NoParams()).listen(
       (authEntity) {
@@ -59,11 +60,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {
-    unawaited(logOutUseCase.execute(const NoParams()));
+  Future<void> _onLogoutRequested(
+    AuthLogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading(authEntity: state.authEntity));
+    final tryLogOut = await logOutUseCase.execute(const NoParams());
+    tryLogOut.fold(
+      (failure) => emit(
+        AuthHasError(
+          errorMessage: failure.message,
+          authEntity: state.authEntity,
+        ),
+      ),
+      (success) => null,
+    );
   }
 
-  Future<void> onLogInWithGoogleRequested(
+  Future<void> _onLogInWithGoogleRequested(
     LogInWithGoogleRequested event,
     Emitter<AuthState> emit,
   ) async {
@@ -75,7 +89,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithGoogle.fold(
       (failure) {
-        emit(AuthUnAuthenticated(errorMessage: failure.message));
+        emit(AuthHasError(errorMessage: failure.message));
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));
@@ -83,7 +97,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> onLogInWithAppleRequested(
+  Future<void> _onLogInWithAppleRequested(
     LogInWithAppleRequested event,
     Emitter<AuthState> emit,
   ) async {
@@ -95,7 +109,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithApple.fold(
       (failure) {
-        emit(AuthUnAuthenticated(errorMessage: failure.message));
+        emit(AuthHasError(errorMessage: failure.message));
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));
@@ -103,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> onLogInWithFacebookRequested(
+  Future<void> _onLogInWithFacebookRequested(
     LogInWithFacebookRequested event,
     Emitter<AuthState> emit,
   ) async {
@@ -115,12 +129,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithFacebook.fold(
       (failure) {
-        emit(AuthUnAuthenticated(errorMessage: failure.message));
+        emit(AuthHasError(errorMessage: failure.message));
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));
       },
     );
+  }
+
+  Future<void> _onClearErrorMessageRequested(
+    ClearAuthErrorMessageRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    if (state.authEntity.isEmpty) {
+      emit(const AuthUnAuthenticated());
+    } else {
+      emit(AuthAuthenticated(authEntity: state.authEntity));
+    }
   }
 
   @override

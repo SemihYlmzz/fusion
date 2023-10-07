@@ -22,7 +22,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     on<EnterQueueRequested>(onEnterQueueRequested);
     on<LeaveQueueRequested>(onLeaveQueueRequested);
     on<CheckQueueRequested>(onCheckQueueRequested);
-    on<CalibrateQueueStateRequested>(onCalibrateQueueStateRequested);
+    on<ClearQueueErrorMessageRequested>(onCalibrateQueueStateRequested);
   }
   final EnterQueueUseCase enterQueueUseCase;
   final LeaveQueueUseCase leaveQueueUseCase;
@@ -95,7 +95,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
   }
 
   Future<void> onCalibrateQueueStateRequested(
-    CalibrateQueueStateRequested event,
+    ClearQueueErrorMessageRequested event,
     Emitter<QueueState> emit,
   ) async {
     if (state.queue != null) {
