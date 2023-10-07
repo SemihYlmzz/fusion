@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
 import 'package:http/http.dart' as http;
 
+import '../errors/errors.dart';
 import '../models/delete_model.dart';
 import 'delete_request_datasource.dart';
 
@@ -26,13 +26,11 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
 
     try {
       if (user == null) {
-        throw const ServerException(message: 'You must be signed in.');
+        throw CreateDeleteRequestExceptions.createFailed;
       }
       final idToken = await user.getIdToken();
       if (idToken == null) {
-        throw const ServerException(
-          message: 'Error occured while deleting. Please try again.',
-        );
+        throw CreateDeleteRequestExceptions.createFailed;
       }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
@@ -42,27 +40,18 @@ class DeleteRequestDataSourceFirebaseImpl implements DeleteRequestDatasource {
         },
       );
 
-      if (response.statusCode == 200) {
-        return DeleteRequestModel(
-          scheduledDeleteDate: manualScheduledDeleteDate,
-          uid: auth.FirebaseAuth.instance.currentUser!.uid,
-        );
+      if (response.statusCode != 200) {
+        throw CreateDeleteRequestExceptions.createFailed;
       }
-      if (response.statusCode == 400) {
-        throw ServerException(message: response.body);
-      } else {
-        throw ServerException(
-          message: 'Error occured while Deleting account. '
-              'Error code:${response.statusCode}',
-        );
-      }
+      return DeleteRequestModel(
+        scheduledDeleteDate: manualScheduledDeleteDate,
+        uid: auth.FirebaseAuth.instance.currentUser!.uid,
+      );
     } catch (e) {
-      if (e is ServerException) {
+      if (e is CreateDeleteRequestExceptions) {
         rethrow;
       }
-      throw const ServerException(
-        message: 'Error occured while Deleting account.',
-      );
+      throw CreateDeleteRequestExceptions.unknown;
     }
   }
 }

@@ -1,7 +1,9 @@
+import 'package:fusion/repositories/delete_request_repository/data/errors/errors.dart';
+import 'package:fusion/repositories/device_prefs_repository/data/errors/read_device_prefs_exceptions.dart';
+import 'package:fusion/repositories/device_prefs_repository/data/errors/update_device_prefs_exceptions.dart';
 import 'package:fusion/repositories/device_prefs_repository/data/models/device_prefs_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/errors/exceptions/exceptions.dart';
 import '../../domain/entities/device_prefs.dart';
 import 'device_prefs_datasource.dart';
 
@@ -41,9 +43,7 @@ class DevicePrefsDataSourceSharedPreferencesImpl
         isTermsAndConditionsAccepted: false,
       );
     } catch (exception) {
-      throw const CacheException(
-        message: 'Error occured while creating Device Prefs.',
-      );
+      throw CreateDeleteRequestExceptions.unknown;
     }
   }
 
@@ -72,9 +72,7 @@ class DevicePrefsDataSourceSharedPreferencesImpl
           isHapticsOn == null ||
           language == null ||
           isTermsAndConditionsAccepted == null) {
-        throw const CacheException(
-          message: "Some of Device datas empty. Device datas isn't readed.",
-        );
+        throw ReadDevicePrefsExceptions.readFailed;
       }
 
       return DevicePrefsModel(
@@ -86,10 +84,11 @@ class DevicePrefsDataSourceSharedPreferencesImpl
         language: language,
         isTermsAndConditionsAccepted: isTermsAndConditionsAccepted,
       );
-    } catch (exception) {
-      throw const CacheException(
-        message: 'Error occured while reading Device Prefs',
-      );
+    } catch (e) {
+      if (e is ReadDevicePrefsExceptions) {
+        rethrow;
+      }
+      throw ReadDevicePrefsExceptions.unknown;
     }
   }
 
@@ -129,9 +128,7 @@ class DevicePrefsDataSourceSharedPreferencesImpl
       );
       return DevicePrefsModel.fromEntity(updatedDevicePrefs);
     } catch (exception) {
-      throw const CacheException(
-        message: 'Device Prefs update could not complete.',
-      );
+      throw UpdateDevicePrefsExceptions.unknown;
     }
   }
 }

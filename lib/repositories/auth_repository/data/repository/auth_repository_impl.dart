@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
 import 'package:fusion/core/errors/failure/failure.dart';
 import 'package:fusion/core/network/network_info.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/errors.dart';
 
 import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/auth_entity.dart';
@@ -16,52 +16,52 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   FutureEither<AuthEntity> logInWithGoogle() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
+      return const Left(Failure.network);
     }
     try {
       final authModel = await authDatasource.logInWithGoogle();
       return Right(authModel);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on LogInWithGoogleExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 
   @override
   FutureEither<AuthEntity> logInWithApple() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
+      return const Left(Failure.network);
     }
     try {
       final authModel = await authDatasource.logInWithApple();
       return Right(authModel);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on LogInWithAppleExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 
   @override
   FutureEither<AuthEntity> logInWithFacebook() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
+      return const Left(Failure.network);
     }
     try {
       final authModel = await authDatasource.logInWithFacebook();
       return Right(authModel);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on LogInWithFacebookExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 
   @override
   FutureUnit logOut() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
+      return const Left(Failure.network);
     }
     try {
       await authDatasource.logOut();
       return const Right(unit);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on LogOutExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 
@@ -69,7 +69,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthEntity checkUserAuth() {
     try {
       return authDatasource.checkUserAuth();
-    } on ServerException {
+    } on CheckUserException {
       return AuthEntity.empty;
     }
   }

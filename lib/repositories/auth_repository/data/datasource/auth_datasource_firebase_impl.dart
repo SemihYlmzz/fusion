@@ -5,10 +5,14 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/check_user_auth_exceptions.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/log_in_with_apple_exceptions.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/log_in_with_facebook_exceptions.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/log_in_with_google_exceptions.dart';
+import 'package:fusion/repositories/auth_repository/data/errors/log_out_exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../../../core/errors/exceptions/exceptions.dart';
 import '../models/auth_model.dart';
 import 'auth_datasource.dart';
 
@@ -29,84 +33,85 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   @override
   Future<AuthModel> logInWithGoogle() async {
     try {
+      // Logged in users can't login again,
+      // so we force User to logOut.
       await logOut();
 
+      // We need a credential variable to sign in with [FirebaseAuth],
+      // so we define one to use later on.
       final AuthCredential credential;
 
+      // [AuthCredential] needs [idToken] and [accessToken]
+      // First step of getting them [GoogleSignInAccount]
+      // so we trying to made User sign in with Google account.
+      // and holding [GoogleSignInAccount] in [googleUser] variable.
+      //
+      // [google_sign_in] package used for this.
       final googleUser = await _googleSignIn.signIn();
 
+      // If [googleUser] is null. We can't take [accessToken] and [idToken]
+      // so we ensure that the [googleUser] is not null.
       if (googleUser == null) {
-        throw const ServerException(
-          message: 'Error occured while loggining with Google.',
-        );
+        throw LogInWithGoogleExceptions.logInFailed;
       }
 
+      // We authenticate [googleUser] and get [GoogleSignInAuthentication]
+      // which contains both [accessToken] and [idToken]
+      //
+      // [google_sign_in] package used for this.
       final googleAuth = await googleUser.authentication;
 
+      // If [accessToken] and [idToken] is null, [FirebaseAuth] cant sign in.
+      // so we ensure that the [accessToken] and [idToken] is not null.
+      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
+        throw LogInWithGoogleExceptions.logInFailed;
+      }
+      // We are setting up [AuthCredential] to use it.
       credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
+      // Executing the [FirebaseAuth]'s sign in with credential function.
+      // with the [credential] which we add [accessToken] and [idToken] in it.
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
-
-      if (userCredential.user != null) {
-        return AuthModel.fromFirebaseUser(userCredential.user!);
-      } else {
-        throw const ServerException(
-          message: "User couldn't sign in with credential.",
-        );
+      // [this] function needs to return [UserModel],
+      // so we checking the [UserCredential]'s user parameter if it's null
+      // before returning it directly.
+      if (userCredential.user == null) {
+        throw LogInWithGoogleExceptions.logInFailed;
       }
+
+      // After ensure [UserCredential]'s user parameter is not null,
+      // we can transform [User] class to our [UserModel] class and return it.
+      return AuthModel.fromFirebaseUser(userCredential.user!);
     } catch (e) {
-      //! EXEPTIONS
-      // [Logout] Function Exceptions
-      //
-      if (e is ServerException) {
+      if (e is LogInWithGoogleExceptions) {
         rethrow;
       }
-      // [_googleSignIn.signIn] Function Exceptions
-      //
+      if (e is LogOutExceptions) {
+        throw LogInWithGoogleExceptions.logInFailed;
+      }
+      // [_googleSignIn.signIn] Function can throw PlatformException
+      // we are catching the error code and throwing our own Exception
       if (e is PlatformException) {
-        if (e.code == GoogleSignIn.kNetworkError) {
-          throw const NetworkException();
-        }
         if (e.code == GoogleSignIn.kSignInCanceledError) {
-          throw const ServerException(
-            message: 'Google sign in canceled by the user.',
-          );
-        }
-        if (e.code == GoogleSignIn.kSignInFailedError) {
-          throw const ServerException(
-            message: 'Google sign in failed. Please try again.',
-          );
-        }
-        if (e.code == GoogleSignIn.kSignInRequiredError) {
-          throw const ServerException(
-            message: 'Please sign in to your Google account to continue.',
-          );
-        } else {
-          throw ServerException(
-            message: 'Unknown Google sign in error occured. Code:${e.code}',
-          );
+          throw LogInWithGoogleExceptions.empty;
         }
       }
-      if (e is StateError) {
-        throw ServerException(message: e.message);
-      }
-      // [FirebaseAuth.signInWithCredential] Function Exeptions
-      //
+      // [FirebaseAuth]'s signInWithCredential Function
+      // throws a [FirebaseAuthException]
+      // we are catching the error code and throwing our own Exception
       if (e is FirebaseAuthException) {
-        throw ServerException(
+        throw LogInWithGoogleExceptions(
           message: _firebaseAuthExceptionToFailureMessage(e),
         );
       }
-      // Caught Unexpected Exeptions
-      //
-      throw const ServerException(
-        message: 'Unknown Google sign in error occured.',
-      );
+      // If none of expected exceptions throwed.
+      // We are throwing an [UnknownException]
+      throw LogInWithGoogleExceptions.unknown;
     }
   }
 
@@ -114,6 +119,8 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
   Future<AuthModel> logInWithApple() async {
     final rawNonce = _generateNonce();
     final nonce = _sha256ofString(rawNonce);
+    const appleProviderId = 'apple.com';
+
     try {
       await logOut();
 
@@ -126,7 +133,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
         nonce: nonce,
       );
 
-      final oauthCredential = OAuthProvider('apple.com').credential(
+      final oauthCredential = OAuthProvider(appleProviderId).credential(
         idToken: appleCredential.identityToken,
         rawNonce: rawNonce,
       );
@@ -136,51 +143,37 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
 
       final firebaseUser = authResult.user;
       if (firebaseUser == null) {
-        throw const ServerException(
-          message: 'Error occured while loggining with Apple.',
-        );
+        throw LogInWithAppleExceptions.logInFailed;
       }
       final displayName =
           '${appleCredential.givenName} ${appleCredential.familyName}';
       final userEmail = appleCredential.email;
 
       if (userEmail == null) {
-        throw const ServerException(
-          message:
-              "User's email not received. Apple sign in could not completed.",
-        );
+        throw LogInWithAppleExceptions.logInFailed;
       }
       await firebaseUser.updateDisplayName(displayName);
       await firebaseUser.updateEmail(userEmail);
 
       return AuthModel.fromFirebaseUser(firebaseUser);
     } catch (e) {
-      //! EXEPTIONS
-      // [Logout] Function Exceptions
-      //
-      if (e is ServerException) {
+      if (e is LogInWithAppleExceptions) {
         rethrow;
       }
-      // [SignInWithApple.getAppleIDCredential] Function Exceptions
-      //
-      if (e is SignInWithAppleException) {
-        throw const ServerException(
-          message: "Apple sign in couldn't complete succesfully.",
-        );
+      if (e is LogOutExceptions) {
+        throw LogInWithAppleExceptions.logInFailed;
       }
-
-      // [FirebaseAuth.signInWithCredential] Function Exeptions
-      //
+      if (e is SignInWithAppleAuthorizationException) {
+        if (e.code == AuthorizationErrorCode.canceled) {
+          throw LogInWithAppleExceptions.empty;
+        }
+      }
       if (e is FirebaseAuthException) {
-        throw ServerException(
+        throw LogInWithAppleExceptions(
           message: _firebaseAuthExceptionToFailureMessage(e),
         );
       }
-      // Caught Unexpected Exeptions
-      //
-      throw const ServerException(
-        message: 'Unknown Apple sign in error occured.',
-      );
+      throw LogInWithAppleExceptions.unknown;
     }
   }
 
@@ -193,9 +186,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       final loginResult = await _facebookAuth.login();
 
       if (loginResult.accessToken == null) {
-        throw const ServerException(
-          message: 'Facebook login request failed.',
-        );
+        throw LogInWithFacebookExceptions.logInFailed;
       }
 
       credential = FacebookAuthProvider.credential(
@@ -206,31 +197,26 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
           await _firebaseAuth.signInWithCredential(credential);
 
       if (userCredential.user == null) {
-        throw const ServerException(
-          message: 'Error occured while loggining with Facebook.',
-        );
+        throw LogInWithFacebookExceptions.logInFailed;
       }
       return AuthModel.fromFirebaseUser(userCredential.user!);
     } catch (e) {
-      //! EXEPTIONS
-      // [Logout] Function Exceptions
-      //
-      if (e is ServerException) {
+      if (e is LogInWithFacebookExceptions) {
         rethrow;
       }
-
+      if (e is LogOutExceptions) {
+        throw LogInWithFacebookExceptions.logInFailed;
+      }
       // [FirebaseAuth.signInWithCredential] Function Exeptions
       //
       if (e is FirebaseAuthException) {
-        throw ServerException(
+        throw LogInWithFacebookExceptions(
           message: _firebaseAuthExceptionToFailureMessage(e),
         );
       }
       // Caught Unexpected Exeptions
       //
-      throw const ServerException(
-        message: 'Unknown Facebook sign in error occured.',
-      );
+      throw LogInWithFacebookExceptions.unknown;
     }
   }
 
@@ -244,9 +230,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       ]);
       return;
     } catch (e) {
-      throw const ServerException(
-        message: 'Unknown error occured while logging out.',
-      );
+      throw LogOutExceptions.unknown;
     }
   }
 
@@ -257,9 +241,32 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
     if (currentUser != null) {
       return AuthModel.fromFirebaseUser(currentUser);
     } else {
-      throw const ServerException(
-        message: 'User is not logged in currently.',
-      );
+      throw CheckUserException.empty;
+    }
+  }
+
+  String _firebaseAuthExceptionToFailureMessage(
+    FirebaseAuthException firebaseAuthException,
+  ) {
+    switch (firebaseAuthException.code) {
+      case 'account-exists-with-different-credential':
+        return 'Account exists with different credentials.';
+      case 'invalid-credential':
+        return 'The credential received is malformed or has expired.';
+      case 'operation-not-allowed':
+        return 'Operation is not allowed.  Please contact support.';
+      case 'user-disabled':
+        return 'This user has been disabled. Please contact support for help.';
+      case 'user-not-found':
+        return 'Email is not found, please create an account.';
+      case 'wrong-password':
+        return 'Incorrect password, please try again.';
+      case 'invalid-verification-code':
+        return 'The credential verification code received is invalid.';
+      case 'invalid-verification-id':
+        return 'The credential verification ID received is invalid.';
+      default:
+        return 'An unknown exception occurred.';
     }
   }
 
@@ -278,27 +285,5 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
     final bytes = utf8.encode(input);
     final digest = sha256.convert(bytes);
     return digest.toString();
-  }
-
-  String _firebaseAuthExceptionToFailureMessage(
-    FirebaseAuthException firebaseAuthException,
-  ) {
-    return switch (firebaseAuthException.code) {
-      'account-exists-with-different-credential' =>
-        'Account exists with different credentials.',
-      'invalid-credential' =>
-        'The credential received is malformed or has expired.',
-      'operation-not-allowed' =>
-        'Operation is not allowed.  Please contact support.',
-      'user-disabled' =>
-        'This user has been disabled. Please contact support for help.',
-      'user-not-found' => 'Email is not found, please create an account.',
-      'wrong-password' => 'Incorrect password, please try again.',
-      'invalid-verification-code' =>
-        'The credential verification code received is invalid.',
-      'invalid-verification-id' =>
-        'The credential verification ID received is invalid.',
-      _ => 'An unknown exception occurred.'
-    };
   }
 }

@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
 import 'package:fusion/core/errors/failure/failure.dart';
 import 'package:fusion/core/network/network_info.dart';
+import 'package:fusion/repositories/delete_request_repository/data/errors/create_delete_request_exceptions.dart';
 
 import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/delete_request.dart';
@@ -15,14 +15,14 @@ class DeleteRequestRepositoryImpl implements DeleteRequestRepository {
   @override
   FutureEither<DeleteRequest> createDeleteRequest() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(NetworkFailure());
+      return const Left(Failure.network);
     }
     try {
       final deleteRequestModel =
           await _deleteRequestDatasource.createDeleteRequest();
       return Right(deleteRequestModel);
-    } on ServerException catch (exception) {
-      return Left(ServerFailure(message: exception.message));
+    } on CreateDeleteRequestExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 }

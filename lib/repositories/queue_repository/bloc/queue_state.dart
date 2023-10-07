@@ -8,6 +8,16 @@ abstract class QueueState extends Equatable {
   final String? errorMessage;
   final Queue? queue;
 
+  QueueState copyWith({
+    Queue? queue,
+    String? errorMessage,
+  }) {
+    return QueueLeaved(
+      queue: queue ?? this.queue,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
   @override
   List<Object?> get props => [
         errorMessage,
@@ -29,6 +39,10 @@ class QueueReadyToEnter extends QueueState {
 
 class QueueHasData extends QueueState {
   const QueueHasData({required super.queue, super.errorMessage});
+}
+
+class QueueHasError extends QueueState {
+  const QueueHasError({required super.errorMessage, super.queue});
 }
 
 class QueueLeaved extends QueueState {

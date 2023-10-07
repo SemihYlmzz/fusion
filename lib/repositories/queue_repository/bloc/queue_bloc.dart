@@ -22,6 +22,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     on<EnterQueueRequested>(onEnterQueueRequested);
     on<LeaveQueueRequested>(onLeaveQueueRequested);
     on<CheckQueueRequested>(onCheckQueueRequested);
+    on<CalibrateQueueStateRequested>(onCalibrateQueueStateRequested);
   }
   final EnterQueueUseCase enterQueueUseCase;
   final LeaveQueueUseCase leaveQueueUseCase;
@@ -38,11 +39,10 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     );
 
     tryEnterQueue.fold(
-      (failure) {
-        if (failure.message == 'Already in Queue.') {
-          return add(const CheckQueueRequested());
-        }
-        emit(QueueEmpty(errorMessage: failure.message));
+      (failure) async {
+        emit(
+          QueueHasError(errorMessage: failure.message, queue: state.queue),
+        );
       },
       (queueEntity) => emit(QueueHasData(queue: queueEntity)),
     );
@@ -64,10 +64,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
           const QueueLeaved();
         } else {
           emit(
-            QueueHasData(
-              queue: state.queue,
-              errorMessage: failure.message,
-            ),
+            QueueHasError(errorMessage: failure.message, queue: state.queue),
           );
         }
       },
@@ -88,14 +85,23 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     tryCheckQueue.fold(
       (failure) {
         emit(
-          QueueEmpty(
-            errorMessage: failure.message,
-          ),
+          QueueHasError(errorMessage: failure.message, queue: state.queue),
         );
       },
       (queue) => queue == null
           ? emit(const QueueReadyToEnter())
           : emit(QueueHasData(queue: queue)),
     );
+  }
+
+  Future<void> onCalibrateQueueStateRequested(
+    CalibrateQueueStateRequested event,
+    Emitter<QueueState> emit,
+  ) async {
+    if (state.queue != null) {
+      emit(QueueHasData(queue: state.queue));
+    } else {
+      emit(const QueueEmpty());
+    }
   }
 }

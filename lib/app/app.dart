@@ -71,6 +71,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
+                  _buildQueueBlocListener(),
                 ],
                 child: router!,
               );
@@ -123,10 +124,25 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
+  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener() {
+    return BlocListener<QueueBloc, QueueState>(
+      listener: (context, state) {
+        if (state is QueueHasError) {
+          _showSnackBar(context, state.errorMessage!).whenComplete(
+            () => context
+                .read<QueueBloc>()
+                .add(const CalibrateQueueStateRequested()),
+          );
+        }
+      },
+    );
+  }
+
   Future<void> _showSnackBar(BuildContext context, String errorMessage) async {
+    final isErrorMessageEmpty = errorMessage == '';
     await Future<void>.delayed(SharedDurations.ms200);
 
-    if (mounted) {
+    if (mounted && !isErrorMessageEmpty) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(

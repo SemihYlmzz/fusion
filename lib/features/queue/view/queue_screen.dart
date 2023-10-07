@@ -55,6 +55,9 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
         }
         return BlocBuilder<QueueBloc, QueueState>(
           builder: (context, queueState) {
+            if (queueState is QueueEmpty && queueState.errorMessage == null) {
+              context.goNamed(HomeScreen.name);
+            }
             if (queueState is QueueReadyToEnter) {
               if (userState.user!.gameId != null && mounted) {
                 context.goNamed(GameScreen.name);
@@ -62,7 +65,7 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
                 context.read<QueueBloc>().add(const EnterQueueRequested());
               }
             }
-            if (queueState is QueueLeaved && mounted) {
+            if ((queueState is QueueLeaved) && mounted) {
               context.goNamed(HomeScreen.name);
             }
             return QueueView(
@@ -74,7 +77,3 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
     );
   }
 }
-
-
-
-//

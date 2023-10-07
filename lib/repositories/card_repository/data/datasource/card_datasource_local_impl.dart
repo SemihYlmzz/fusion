@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Element;
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
+import 'package:fusion/repositories/card_repository/data/errors/get_card_exceptions.dart';
 
 import '../../../../app/gen/assets.gen.dart';
 import '../../../../app/l10n/l10n.dart';
@@ -12,13 +12,15 @@ class CardDataSourceLocalImpl implements CardDatasource {
   GameCardModel getCard({required String cardId}) {
     try {
       final cardEntity = CardDatas.cards[cardId];
-      if (cardEntity != null) {
-        return cardEntity;
-      } else {
-        throw ServerException(message: 'No cards found with this ID $cardId');
+      if (cardEntity == null) {
+        throw GetCardExceptions.getFailed;
       }
+      return cardEntity;
     } catch (e) {
-      throw ServerException(message: 'An unexpected error occurred: $e');
+      if (e is GetCardExceptions) {
+        rethrow;
+      }
+      throw GetCardExceptions.unknown;
     }
   }
 }

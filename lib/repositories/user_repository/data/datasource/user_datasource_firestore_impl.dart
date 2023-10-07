@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:fusion/repositories/user_repository/data/errors/errors.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../core/errors/exceptions/exceptions.dart';
 import '../models/user_model.dart';
 import 'user_datasource.dart';
 
@@ -24,6 +24,7 @@ class UserFields {
 
 class UserDataSourceFirebaseImpl implements UserDatasource {
   final firebaseFirestore = FirebaseFirestore.instance;
+  final _firebaseAuth = auth.FirebaseAuth.instance;
   final usersCollectionNameString = 'users';
 
   @override
@@ -40,16 +41,19 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
       }
       return UserModel.fromMap(userDocumentData);
     } catch (e) {
-      throw const ServerException(message: 'Error occured while reading user.');
+      if (e is ReadUserWithUidExceptions) {
+        rethrow;
+      }
+      throw ReadUserWithUidExceptions.unknown;
     }
   }
 
   @override
   Stream<UserModel> watchUserWithUid() async* {
     try {
-      final user = auth.FirebaseAuth.instance.currentUser;
+      final user = _firebaseAuth.currentUser;
       if (user == null) {
-        yield throw const ServerException(message: 'You must be signed in.');
+        yield throw WatchUserWithUidExceptions.watchFailed;
       }
       final DocumentReference userDocRef =
           firebaseFirestore.collection(usersCollectionNameString).doc(
@@ -62,13 +66,14 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
           final userEntity = UserModel.toEntity(currentUserModel);
           return UserModel.fromEntity(userEntity);
         } else {
-          throw const ServerException(message: 'User data not found.');
+          throw WatchUserWithUidExceptions.watchFailed;
         }
       });
-    } catch (exception) {
-      yield throw const ServerException(
-        message: 'Error occured while Listening User data.',
-      );
+    } catch (e) {
+      if (e is WatchUserWithUidExceptions) {
+        rethrow;
+      }
+      yield throw WatchUserWithUidExceptions.unknown;
     }
   }
 
@@ -76,16 +81,14 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   Future<void> changeUsername({required String newUsername}) async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/changeUsername';
-    final user = auth.FirebaseAuth.instance.currentUser;
+    final user = _firebaseAuth.currentUser;
     if (user == null) {
-      throw const ServerException(message: 'You must be signed in.');
+      throw ChangeUsernameExceptions.changeFailed;
     }
     try {
       final idToken = await user.getIdToken();
       if (idToken == null) {
-        throw const ServerException(
-          message: 'Error occured while Changing Username. Please try again.',
-        );
+        throw ChangeUsernameExceptions.changeFailed;
       }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
@@ -98,21 +101,15 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         }),
       );
 
-      if (response.statusCode == 200) {
-        return;
+      if (response.statusCode != 200) {
+        throw ChangeUsernameExceptions.changeFailed;
       }
-      if (response.statusCode == 400) {
-        throw ServerException(message: response.body);
-      } else {
-        throw ServerException(
-          message: 'Error occured while Changing Username. '
-              'Error code:${response.statusCode}',
-        );
-      }
+      return;
     } catch (e) {
-      throw const ServerException(
-        message: 'Error occured while Changing Username.',
-      );
+      if (e is ChangeUsernameExceptions) {
+        rethrow;
+      }
+      throw ChangeUsernameExceptions.unknown;
     }
   }
 
@@ -120,16 +117,14 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
   Future<void> refreshDeck() async {
     const cloudFunctionUrl =
         'https://us-central1-fusion-development-8faa3.cloudfunctions.net/refreshDeck';
-    final user = auth.FirebaseAuth.instance.currentUser;
+    final user = _firebaseAuth.currentUser;
     if (user == null) {
-      throw const ServerException(message: 'You must be signed in.');
+      throw RefreshDeckExceptions.refreshFailed;
     }
     try {
       final idToken = await user.getIdToken();
       if (idToken == null) {
-        throw const ServerException(
-          message: 'Error occured while Refreshing Deck. Please try again.',
-        );
+        throw RefreshDeckExceptions.refreshFailed;
       }
       final response = await http.post(
         Uri.parse(cloudFunctionUrl),
@@ -139,21 +134,15 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
         },
       );
 
-      if (response.statusCode == 200) {
-        return;
+      if (response.statusCode != 200) {
+        throw RefreshDeckExceptions.refreshFailed;
       }
-      if (response.statusCode == 400) {
-        throw ServerException(message: response.body);
-      } else {
-        throw ServerException(
-          message: 'Error occured while Refreshing Deck. '
-              'Error code:${response.statusCode}',
-        );
-      }
+      return;
     } catch (e) {
-      throw const ServerException(
-        message: 'Error occured while Refreshing Deck.',
-      );
+      if (e is RefreshDeckExceptions) {
+        rethrow;
+      }
+      throw RefreshDeckExceptions.unknown;
     }
   }
 }

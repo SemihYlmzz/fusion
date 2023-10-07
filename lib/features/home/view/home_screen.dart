@@ -36,9 +36,8 @@ class HomeScreen extends StatelessWidget {
                 if (userState is UserHasData || userState is UserLoading) {
                   return BlocBuilder<QueueBloc, QueueState>(
                     builder: (context, queueState) {
-                      if ((queueState is QueueEmpty ||
-                              queueState is QueueLeaved) &&
-                          queueState.errorMessage == null) {
+                      if (queueState is QueueEmpty ||
+                          queueState is QueueLeaved) {
                         context
                             .read<QueueBloc>()
                             .add(const CheckQueueRequested());

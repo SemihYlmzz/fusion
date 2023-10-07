@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
 import 'package:fusion/core/errors/failure/failure.dart';
+import 'package:fusion/repositories/card_repository/data/errors/get_card_exceptions.dart';
 
 import '../../../../core/typedefs/typedefs.dart';
 import '../../domain/entities/game_card_entity.dart';
@@ -22,8 +22,8 @@ class CardRepositoryImpl implements CardRepository {
         cardId: cardId,
       );
       return Right(gameCardModel);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on GetCardExceptions catch (e) {
+      return Left(Failure(message: e.message));
     }
   }
 }

@@ -1,11 +1,12 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:fusion/core/errors/exceptions/exceptions.dart';
-import 'package:fusion/core/errors/failure/failure.dart';
 
+import '../../../../core/errors/failure/failure.dart';
 import '../../../../core/typedefs/typedefs.dart';
+import '../../../delete_request_repository/data/errors/errors.dart';
 import '../../domain/entities/device_prefs.dart';
 import '../../domain/repository/device_prefs_repository.dart';
 import '../datasource/device_prefs_datasource.dart';
+import '../errors/errors.dart';
 
 class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
   DevicePrefsRepositoryImpl(
@@ -18,8 +19,8 @@ class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
     try {
       final devicePrefsModel = await _devicePrefsDatasource.createDevicePrefs();
       return Right(devicePrefsModel);
-    } on CacheException catch (exception) {
-      return Left(CacheFailure(message: exception.message));
+    } on CreateDeleteRequestExceptions catch (exception) {
+      return Left(Failure(message: exception.message));
     }
   }
 
@@ -28,8 +29,8 @@ class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
     try {
       final devicePrefsModel = await _devicePrefsDatasource.readDevicePrefs();
       return Right(devicePrefsModel);
-    } on CacheException catch (exception) {
-      return Left(CacheFailure(message: exception.message));
+    } on ReadDevicePrefsExceptions catch (exception) {
+      return Left(Failure(message: exception.message));
     }
   }
 
@@ -42,8 +43,8 @@ class DevicePrefsRepositoryImpl implements DevicePrefsRepository {
         updatedDevicePrefs: updatedDevicePrefs,
       );
       return Right(devicePrefsModel);
-    } on CacheException catch (exception) {
-      return Left(CacheFailure(message: exception.message));
+    } on UpdateDevicePrefsExceptions catch (exception) {
+      return Left(Failure(message: exception.message));
     }
   }
 }
