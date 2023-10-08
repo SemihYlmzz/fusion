@@ -4,15 +4,10 @@ sealed class DeleteRequestEvent {
   const DeleteRequestEvent();
 }
 
-final class CheckDeleteRequestRequested extends DeleteRequestEvent {
-  const CheckDeleteRequestRequested(this.uid);
-  final String uid;
-}
-
 final class CreateDeleteRequestRequested extends DeleteRequestEvent {
   const CreateDeleteRequestRequested();
 }
 
-final class ClearDeleteRequestStateRequested extends DeleteRequestEvent {
-  const ClearDeleteRequestStateRequested();
+final class ClearDeleteRequestErrorMessageRequested extends DeleteRequestEvent {
+  const ClearDeleteRequestErrorMessageRequested();
 }

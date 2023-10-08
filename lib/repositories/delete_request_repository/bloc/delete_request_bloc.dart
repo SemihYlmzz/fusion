@@ -16,12 +16,15 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
   DeleteRequestBloc({
     required this.createDeleteRequestUseCase,
   }) : super(const DeleteRequestEmpty()) {
-    on<CreateDeleteRequestRequested>(onCreateDeleteRequestRequested);
+    on<CreateDeleteRequestRequested>(_onCreateDeleteRequestRequested);
+    on<ClearDeleteRequestErrorMessageRequested>(
+      _onClearDeleteRequestErrorMessageRequested,
+    );
   }
 
   final CreateDeleteRequestUseCase createDeleteRequestUseCase;
 
-  Future<void> onCreateDeleteRequestRequested(
+  Future<void> _onCreateDeleteRequestRequested(
     CreateDeleteRequestRequested event,
     Emitter<DeleteRequestState> emit,
   ) async {
@@ -39,5 +42,16 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
         emit(DeleteRequestHasData(deleteRequest: deleteRequest));
       },
     );
+  }
+
+  Future<void> _onClearDeleteRequestErrorMessageRequested(
+    ClearDeleteRequestErrorMessageRequested event,
+    Emitter<DeleteRequestState> emit,
+  ) async {
+    if (state.deleteRequest != null) {
+      emit(DeleteRequestHasData(deleteRequest: state.deleteRequest));
+    } else {
+      emit(const DeleteRequestEmpty());
+    }
   }
 }

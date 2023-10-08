@@ -15,7 +15,6 @@ abstract class DeleteRequestState extends Equatable {
       ];
 }
 
-
 class DeleteRequestEmpty extends DeleteRequestState {
   const DeleteRequestEmpty({super.deleteRequest, super.errorMessage});
 }
@@ -24,6 +23,13 @@ class DeleteRequestHasData extends DeleteRequestState {
   const DeleteRequestHasData({
     required super.deleteRequest,
     super.errorMessage,
+  });
+}
+
+class DeleteRequestHasError extends DeleteRequestState {
+  const DeleteRequestHasError({
+    required super.errorMessage,
+    super.deleteRequest,
   });
 }
 
