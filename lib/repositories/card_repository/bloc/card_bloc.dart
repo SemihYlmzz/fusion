@@ -9,19 +9,20 @@ part 'card_state.dart';
 
 class CardBloc extends Bloc<CardEvent, CardState> {
   CardBloc({
-    required this.getCardUseCase,
-  }) : super(const CardEmpty()) {
+    required GetCardUseCase getCardUseCase,
+  })  : _getCardUseCase = getCardUseCase,
+        super(const CardEmpty()) {
     on<GetCardRequested>(_onGetCardRequested);
     on<ClearCardErrorMessageRequested>(_onClearCardErrorMessageRequested);
   }
-  final GetCardUseCase getCardUseCase;
+  final GetCardUseCase _getCardUseCase;
 
   Future<void> _onGetCardRequested(
     GetCardRequested event,
     Emitter<CardState> emit,
   ) async {
     emit(const CardLoading());
-    final tryGetCard = await getCardUseCase.execute(
+    final tryGetCard = await _getCardUseCase.execute(
       CardIdParams(cardId: event.cardId),
     );
 

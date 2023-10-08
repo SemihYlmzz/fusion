@@ -17,13 +17,18 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
-    required this.authEntityUseCase,
-    required this.logOutUseCase,
-    required this.checkUserAuthUseCase,
-    required this.loginWithGoogleUseCase,
-    required this.loginWithAppleUseCase,
-    required this.loginWithFacebookUseCase,
-  }) : super(
+    required AuthEntityUseCase authEntityUseCase,
+    required LogOutUseCase logOutUseCase,
+    required CheckUserAuthUseCase checkUserAuthUseCase,
+    required LoginWithGoogleUseCase loginWithGoogleUseCase,
+    required LoginWithAppleUseCase loginWithAppleUseCase,
+    required LoginWithFacebookUseCase loginWithFacebookUseCase,
+  })  : _loginWithFacebookUseCase = loginWithFacebookUseCase,
+        _loginWithAppleUseCase = loginWithAppleUseCase,
+        _loginWithGoogleUseCase = loginWithGoogleUseCase,
+        _logOutUseCase = logOutUseCase,
+        _authEntityUseCase = authEntityUseCase,
+        super(
           checkUserAuthUseCase.execute(const NoParams()).isEmpty
               ? const AuthUnAuthenticated()
               : AuthAuthenticated(
@@ -37,18 +42,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogInWithFacebookRequested>(_onLogInWithFacebookRequested);
     on<ClearAuthErrorMessageRequested>(_onClearErrorMessageRequested);
 
-    _authSubscription = authEntityUseCase.execute(const NoParams()).listen(
+    _authSubscription = _authEntityUseCase.execute(const NoParams()).listen(
       (authEntity) {
         add(_AuthUserChanged(authEntity));
       },
     );
   }
-  final AuthEntityUseCase authEntityUseCase;
-  final LogOutUseCase logOutUseCase;
-  final CheckUserAuthUseCase checkUserAuthUseCase;
-  final LoginWithGoogleUseCase loginWithGoogleUseCase;
-  final LoginWithAppleUseCase loginWithAppleUseCase;
-  final LoginWithFacebookUseCase loginWithFacebookUseCase;
+  final AuthEntityUseCase _authEntityUseCase;
+  final LogOutUseCase _logOutUseCase;
+  final LoginWithGoogleUseCase _loginWithGoogleUseCase;
+  final LoginWithAppleUseCase _loginWithAppleUseCase;
+  final LoginWithFacebookUseCase _loginWithFacebookUseCase;
 
   late final StreamSubscription<AuthEntity> _authSubscription;
 
@@ -65,7 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading(authEntity: state.authEntity));
-    final tryLogOut = await logOutUseCase.execute(const NoParams());
+    final tryLogOut = await _logOutUseCase.execute(const NoParams());
     tryLogOut.fold(
       (failure) => emit(
         AuthHasError(
@@ -83,7 +87,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
 
-    final tryLogInWithGoogle = await loginWithGoogleUseCase.execute(
+    final tryLogInWithGoogle = await _loginWithGoogleUseCase.execute(
       const NoParams(),
     );
 
@@ -103,7 +107,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
 
-    final tryLogInWithApple = await loginWithAppleUseCase.execute(
+    final tryLogInWithApple = await _loginWithAppleUseCase.execute(
       const NoParams(),
     );
 
@@ -123,7 +127,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
 
-    final tryLogInWithFacebook = await loginWithFacebookUseCase.execute(
+    final tryLogInWithFacebook = await _loginWithFacebookUseCase.execute(
       const NoParams(),
     );
 

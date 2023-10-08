@@ -14,15 +14,16 @@ part 'delete_request_state.dart';
 class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
     with ChangeNotifier {
   DeleteRequestBloc({
-    required this.createDeleteRequestUseCase,
-  }) : super(const DeleteRequestEmpty()) {
+    required CreateDeleteRequestUseCase createDeleteRequestUseCase,
+  })  : _createDeleteRequestUseCase = createDeleteRequestUseCase,
+        super(const DeleteRequestEmpty()) {
     on<CreateDeleteRequestRequested>(_onCreateDeleteRequestRequested);
     on<ClearDeleteRequestErrorMessageRequested>(
       _onClearDeleteRequestErrorMessageRequested,
     );
   }
 
-  final CreateDeleteRequestUseCase createDeleteRequestUseCase;
+  final CreateDeleteRequestUseCase _createDeleteRequestUseCase;
 
   Future<void> _onCreateDeleteRequestRequested(
     CreateDeleteRequestRequested event,
@@ -30,7 +31,7 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
   ) async {
     emit(const DeleteRequestLoading());
 
-    final tryCreateDeleteRequest = await createDeleteRequestUseCase.execute(
+    final tryCreateDeleteRequest = await _createDeleteRequestUseCase.execute(
       const NoParams(),
     );
 
