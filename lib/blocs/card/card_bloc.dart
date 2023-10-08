@@ -1,30 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../repositories/card/domain/entities/game_card_entity.dart';
-import '../../repositories/card/domain/usecase/get_card.dart';
-
+import 'package:fusion/repositories/repositories.dart';
 
 part 'card_event.dart';
 part 'card_state.dart';
 
 class CardBloc extends Bloc<CardEvent, CardState> {
   CardBloc({
-    required GetCardUseCase getCardUseCase,
-  })  : _getCardUseCase = getCardUseCase,
+    required CardRepository cardRepository,
+  })  : _cardRepository = cardRepository,
         super(const CardEmpty()) {
     on<GetCardRequested>(_onGetCardRequested);
     on<ClearCardErrorMessageRequested>(_onClearCardErrorMessageRequested);
   }
-  final GetCardUseCase _getCardUseCase;
+  final CardRepository _cardRepository;
 
   Future<void> _onGetCardRequested(
     GetCardRequested event,
     Emitter<CardState> emit,
   ) async {
     emit(const CardLoading());
-    final tryGetCard = await _getCardUseCase.execute(
-      CardIdParams(cardId: event.cardId),
+    final tryGetCard = await _cardRepository.getCard(
+      cardId: event.cardId,
     );
 
     tryGetCard.fold(

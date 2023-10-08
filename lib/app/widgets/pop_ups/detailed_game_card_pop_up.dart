@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Element;
+import 'package:flutter/material.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -6,12 +6,11 @@ import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/gen/assets.gen.dart';
 import '../../../features/settings/widgets/widgets.dart';
-import '../../../repositories/card/data/datasource/card_datasource_local_impl.dart';
-import '../../../repositories/card/domain/entities/game_card_entity.dart';
+import '../../../repositories/repositories.dart';
 
 class DetailedGameCardPopUp extends StatelessWidget {
   const DetailedGameCardPopUp({required this.gameCard, super.key});
-  final GameCard gameCard;
+  final GameCardModel gameCard;
 
   Future<void> popBack(BuildContext context) async {
     await Future<void>.delayed(Duration.zero);

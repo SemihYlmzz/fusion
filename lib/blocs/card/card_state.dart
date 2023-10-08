@@ -6,7 +6,7 @@ abstract class CardState extends Equatable {
     this.card,
   });
   final String? errorMessage;
-  final GameCard? card;
+  final GameCardModel? card;
 
   @override
   List<Object?> get props => [

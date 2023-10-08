@@ -7,9 +7,8 @@ import 'package:shared_constants/shared_constants.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/widgets/pop_ups/detailed_game_card_pop_up.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/card/data/datasource/card_datasource_local_impl.dart';
-import '../../../repositories/card/domain/entities/game_card_entity.dart';
 import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../repositories/repositories.dart';
 
 class GameCardPreview extends StatelessWidget {
   const GameCardPreview({
@@ -17,7 +16,7 @@ class GameCardPreview extends StatelessWidget {
     required this.index,
     super.key,
   });
-  final GameCard gameCard;
+  final GameCardModel gameCard;
   final int index;
 
   @override
@@ -120,7 +119,7 @@ class GameCardPreview extends StatelessWidget {
 
 class ElementShadows extends StatelessWidget {
   const ElementShadows({required this.gameCardElement, super.key});
-  final Element gameCardElement;
+  final GameElements gameCardElement;
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,5 +1,6 @@
+import 'package:fusion/repositories/repositories.dart';
+
 import '../../../initialize/injection_container.dart';
-import '../../repositories/card/domain/usecase/get_card.dart';
 import 'card_bloc.dart';
 
 class CardBlocInjection {
@@ -7,7 +8,7 @@ class CardBlocInjection {
     // CardBloc <-connection-> UseCases
     getIt.registerFactory<CardBloc>(
       () => CardBloc(
-        getCardUseCase: getIt<GetCardUseCase>(),
+        cardRepository: getIt<CardRepository>(),
       ),
     );
   }
