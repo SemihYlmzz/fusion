@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/cubits/audio/audio.dart';
 import '../../../../app/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
-import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
+import '../../../../repositories/device_prefs/domain/entities/device_prefs.dart';
 import 'base_slider.dart';
 
 class BackgroundMusicSlider extends StatefulWidget {

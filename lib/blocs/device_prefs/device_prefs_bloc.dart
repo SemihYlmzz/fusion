@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fusion/repositories/auth_repository/domain/usecase/params/no_params.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/usecase/usecases/create_device_prefs.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/usecase/usecases/read_device_prefs.dart';
-import 'package:fusion/repositories/device_prefs_repository/domain/usecase/usecases/update_device_prefs.dart';
+import 'package:fusion/repositories/auth/domain/usecase/params/no_params.dart';
+import 'package:fusion/repositories/device_prefs/domain/entities/device_prefs.dart';
+import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/create_device_prefs.dart';
+import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/read_device_prefs.dart';
+import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/update_device_prefs.dart';
 
 part 'device_prefs_event.dart';
 part 'device_prefs_state.dart';

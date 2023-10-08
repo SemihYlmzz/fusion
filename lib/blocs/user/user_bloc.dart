@@ -6,15 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../core/errors/failure/failure.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/change_username.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/read_user_with_uid.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/refresh_deck.dart';
-import 'package:fusion/repositories/user_repository/domain/usecase/usecases/watch_user_with_uid.dart';
+import 'package:fusion/repositories/user/domain/usecase/usecases/change_username.dart';
+import 'package:fusion/repositories/user/domain/usecase/usecases/read_user_with_uid.dart';
+import 'package:fusion/repositories/user/domain/usecase/usecases/refresh_deck.dart';
+import 'package:fusion/repositories/user/domain/usecase/usecases/watch_user_with_uid.dart';
 
-import '../../repositories/user_repository/domain/entities/user.dart';
-import '../../repositories/user_repository/domain/usecase/params/no_params.dart';
-import '../../repositories/user_repository/domain/usecase/params/uid_params.dart';
-import '../../repositories/user_repository/domain/usecase/params/user_name_params.dart';
+import '../../repositories/user/domain/entities/user.dart';
+import '../../repositories/user/domain/usecase/params/no_params.dart';
+import '../../repositories/user/domain/usecase/params/uid_params.dart';
+import '../../repositories/user/domain/usecase/params/user_name_params.dart';
 
 
 part 'user_event.dart';

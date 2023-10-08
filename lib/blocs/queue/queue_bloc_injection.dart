@@ -1,6 +1,6 @@
-import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/check_queue.dart';
-import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/enter_queue.dart';
-import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/leave_queue.dart';
+import 'package:fusion/repositories/queue/domain/usecase/usecases/check_queue.dart';
+import 'package:fusion/repositories/queue/domain/usecase/usecases/enter_queue.dart';
+import 'package:fusion/repositories/queue/domain/usecase/usecases/leave_queue.dart';
 
 import '../../../initialize/injection_container.dart';
 import 'queue_bloc.dart';

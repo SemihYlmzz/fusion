@@ -8,8 +8,8 @@ import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
-import '../../../repositories/user_repository/domain/entities/user.dart';
+import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../repositories/user/domain/entities/user.dart';
 import '../../settings/settings.dart';
 import '../widgets/widgets.dart';
 

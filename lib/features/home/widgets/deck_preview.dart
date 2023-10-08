@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../repositories/card_repository/data/datasource/card_datasource_local_impl.dart';
+import '../../../repositories/card/data/datasource/card_datasource_local_impl.dart';
 import 'game_card_preview.dart';
 
 class DeckPreview extends StatelessWidget {
