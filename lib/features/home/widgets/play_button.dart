@@ -9,7 +9,7 @@ import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../repositories/repositories.dart';
 import '../../queue/view/queue_screen.dart';
 
 class PlayButton extends StatelessWidget {
@@ -17,7 +17,7 @@ class PlayButton extends StatelessWidget {
     required this.devicePrefs,
     super.key,
   });
-  final DevicePrefs devicePrefs;
+  final DevicePrefsModel devicePrefs;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class PlayButton extends StatelessWidget {
             if (devicePrefs.isHapticsOn) {
               HapticFeedback.heavyImpact();
             }
-            if (userState.user!.username == '') {
+            if (userState.userModel!.username == '') {
               openEnterNamePopUp(context);
               return;
             }

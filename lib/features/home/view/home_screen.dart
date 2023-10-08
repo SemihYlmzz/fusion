@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                                     devicePrefs: devicePrefsState.devicePrefs,
                                     // Null check operator used on a nul
                                     // WHEN REGISTERED
-                                    user: userState.user!,
+                                    user: userState.userModel!,
                                     adState: adState,
                                   ),
                                 ),

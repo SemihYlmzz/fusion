@@ -6,7 +6,7 @@ abstract class DeleteRequestState extends Equatable {
     this.deleteRequest,
   });
   final String? errorMessage;
-  final DeleteRequest? deleteRequest;
+  final DeleteRequestModel? deleteRequest;
 
   @override
   List<Object?> get props => [

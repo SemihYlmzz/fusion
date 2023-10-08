@@ -3,12 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fusion/repositories/queue/domain/usecase/params/no_params.dart';
-import 'package:fusion/repositories/queue/domain/usecase/usecases/check_queue.dart';
-import 'package:fusion/repositories/queue/domain/usecase/usecases/enter_queue.dart';
-import 'package:fusion/repositories/queue/domain/usecase/usecases/leave_queue.dart';
+import 'package:fusion/repositories/repositories.dart';
 
-import '../../repositories/queue/domain/entities/queue.dart';
 
 
 part 'queue_event.dart';
@@ -16,21 +12,15 @@ part 'queue_state.dart';
 
 class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
   QueueBloc({
-    required EnterQueueUseCase enterQueueUseCase,
-    required LeaveQueueUseCase leaveQueueUseCase,
-    required CheckQueueUseCase checkQueueUseCase,
-  })  : _checkQueueUseCase = checkQueueUseCase,
-        _leaveQueueUseCase = leaveQueueUseCase,
-        _enterQueueUseCase = enterQueueUseCase,
+    required QueueRepository queueRepository,
+  })  : _queueRepository = queueRepository,
         super(const QueueEmpty()) {
     on<EnterQueueRequested>(_onEnterQueueRequested);
     on<LeaveQueueRequested>(_onLeaveQueueRequested);
     on<CheckQueueRequested>(_onCheckQueueRequested);
     on<ClearQueueErrorMessageRequested>(_onClearQueueErrorMessageRequested);
   }
-  final EnterQueueUseCase _enterQueueUseCase;
-  final LeaveQueueUseCase _leaveQueueUseCase;
-  final CheckQueueUseCase _checkQueueUseCase;
+  final QueueRepository _queueRepository;
 
   Future<void> _onEnterQueueRequested(
     EnterQueueRequested event,
@@ -38,9 +28,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
   ) async {
     emit(const QueueLoading());
 
-    final tryEnterQueue = await _enterQueueUseCase.execute(
-      const NoParams(),
-    );
+    final tryEnterQueue = await _queueRepository.enterQueue();
 
     tryEnterQueue.fold(
       (failure) async {
@@ -58,9 +46,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
   ) async {
     emit(QueueLoading(queue: state.queue));
 
-    final tryLeaveQueue = await _leaveQueueUseCase.execute(
-      const NoParams(),
-    );
+    final tryLeaveQueue = await _queueRepository.leaveQueue();
 
     tryLeaveQueue.fold(
       (failure) {
@@ -82,9 +68,7 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
   ) async {
     emit(const QueueLoading());
 
-    final tryCheckQueue = await _checkQueueUseCase.execute(
-      const NoParams(),
-    );
+    final tryCheckQueue = await _queueRepository.checkQueue();
 
     tryCheckQueue.fold(
       (failure) {

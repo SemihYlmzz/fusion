@@ -36,10 +36,11 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
-        if (oldUsername != null && oldUsername != userState.user!.username) {
+        if (oldUsername != null &&
+            oldUsername != userState.userModel!.username) {
           popBack(context);
         }
-        oldUsername = userState.user!.username;
+        oldUsername = userState.userModel!.username;
 
         if (!nonUniqueUsernamesList.contains(oldUsername)) {
           nonUniqueUsernamesList.add(oldUsername ?? '');
@@ -118,8 +119,8 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                             errorText: errorText,
                           ),
                         ),
-                        if (userState.user?.username != '' &&
-                            userState.user?.username == oldUsername)
+                        if (userState.userModel?.username != '' &&
+                            userState.userModel?.username == oldUsername)
                           Text(
                             context.l10n.usernameChangeLimitWarning,
                           ),
@@ -130,7 +131,7 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                     text: context.l10n.done,
                     onPressed: () async {
                       final canChangeUsername = userState
-                          .user!.accountnameChangeEligibilityDate
+                          .userModel!.accountnameChangeEligibilityDate
                           .isBefore(DateTime.now());
                       if ((newUsername == '' || !canChangeUsername) &&
                           mounted) {

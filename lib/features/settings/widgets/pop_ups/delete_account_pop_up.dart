@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/features/delete_account/view/delete_account_screen.dart';
 import 'package:fusion/features/settings/widgets/delete_acceptance.dart';
-import 'package:fusion/repositories/device_prefs/domain/entities/device_prefs.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
+import '../../../../repositories/repositories.dart';
 
 class DeleteAccountPopUp extends StatefulWidget {
   const DeleteAccountPopUp({required this.devicePrefs, super.key});
-  final DevicePrefs devicePrefs;
+  final DevicePrefsModel devicePrefs;
   static const _warningText = 'If you delete this account';
   static const _deleteGradientButtonTitle = 'Delete';
   static const String _text1 = 'The account is removed from your phone.';
@@ -93,13 +93,13 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                       ),
                       Row(
                         children: [
-                      Expanded(
-                            child: _isAccepted? GradientButton(
-                              text:
-                                  DeleteAccountPopUp._deleteGradientButtonTitle,
-                              width: 100,
-                              onPressed:
-                                   () {
+                          Expanded(
+                            child: _isAccepted
+                                ? GradientButton(
+                                    text: DeleteAccountPopUp
+                                        ._deleteGradientButtonTitle,
+                                    width: 100,
+                                    onPressed: () {
                                       Navigator.popUntil(
                                         context,
                                         (route) => route.isFirst,
@@ -110,14 +110,14 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                                       context.goNamed(
                                         DeleteAccountScreen.name,
                                       );
-                                    }
-                                
-                            ): const GradientButton(
-                              text: DeleteAccountPopUp._deleteGradientButtonTitle,
-                              width: 100,
-                              isOutlined: true,
-                              onPressed: null,
-                            ),
+                                    },
+                                  )
+                                : const GradientButton(
+                                    text: DeleteAccountPopUp
+                                        ._deleteGradientButtonTitle,
+                                    width: 100,
+                                    isOutlined: true,
+                                  ),
                           ),
                           Expanded(
                             child: GradientButton(

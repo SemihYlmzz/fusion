@@ -3,10 +3,10 @@ part of 'device_prefs_bloc.dart';
 abstract class DevicePrefsState extends Equatable {
   const DevicePrefsState({
     this.errorMessage,
-    this.devicePrefs = DevicePrefs.empty,
+    this.devicePrefs = DevicePrefsModel.empty,
   });
   final String? errorMessage;
-  final DevicePrefs devicePrefs;
+  final DevicePrefsModel devicePrefs;
   @override
   List<Object?> get props => [errorMessage];
 }
@@ -20,7 +20,7 @@ class DevicePrefsReaded extends DevicePrefsState {
 }
 
 class DevicePrefsHasError extends DevicePrefsState {
-  const DevicePrefsHasError({required super.errorMessage,super.devicePrefs});
+  const DevicePrefsHasError({required super.errorMessage, super.devicePrefs});
 }
 
 class DevicePrefsUnreaded extends DevicePrefsState {

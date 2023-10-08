@@ -27,7 +27,7 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
-        final month = userState.user!.accountnameChangeEligibilityDate
+        final month = userState.userModel!.accountnameChangeEligibilityDate
             .difference(DateTime.now());
 
         return ClosableAnimatedScaffold(

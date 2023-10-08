@@ -6,30 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../core/errors/failure/failure.dart';
-import 'package:fusion/repositories/user/domain/usecase/usecases/change_username.dart';
-import 'package:fusion/repositories/user/domain/usecase/usecases/read_user_with_uid.dart';
-import 'package:fusion/repositories/user/domain/usecase/usecases/refresh_deck.dart';
-import 'package:fusion/repositories/user/domain/usecase/usecases/watch_user_with_uid.dart';
-
-import '../../repositories/user/domain/entities/user.dart';
-import '../../repositories/user/domain/usecase/params/no_params.dart';
-import '../../repositories/user/domain/usecase/params/uid_params.dart';
-import '../../repositories/user/domain/usecase/params/user_name_params.dart';
-
+import '../../repositories/repositories.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
   UserBloc({
-    required ReadUserWithUidUseCase readUserWithUidUseCase,
-    required WatchUserWithUidUseCase watchUserWithUidUseCase,
-    required ChangeUsernameUseCase changeUsernameUseCase,
-    required RefreshDeckUseCase refreshDeckUseCase,
-  })  : _refreshDeckUseCase = refreshDeckUseCase,
-        _changeUsernameUseCase = changeUsernameUseCase,
-        _watchUserWithUidUseCase = watchUserWithUidUseCase,
-        _readUserWithUidUseCase = readUserWithUidUseCase,
+    required UserRepository userRepository,
+  })  : _userRepository = userRepository,
         super(const UserEmpty()) {
     on<ReadWithUidRequested>(_onReadWithUidRequested);
     on<WatchWithUidRequested>(_onUserWatchRequested);
@@ -38,12 +23,9 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     on<StopWatchingUserRequested>(_onStopWatchingUserRequested);
     on<ClearUserErrorMessageRequested>(_onClearUserErrorMessageRequested);
   }
-  final ReadUserWithUidUseCase _readUserWithUidUseCase;
-  final WatchUserWithUidUseCase _watchUserWithUidUseCase;
-  final ChangeUsernameUseCase _changeUsernameUseCase;
-  final RefreshDeckUseCase _refreshDeckUseCase;
+  final UserRepository _userRepository;
 
-  StreamSubscription<Either<Failure, User>>? _userSubscription;
+  StreamSubscription<Either<Failure, UserModel>>? _userSubscription;
 
   Future<void> _onReadWithUidRequested(
     ReadWithUidRequested event,
@@ -53,9 +35,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
       return;
     }
     emit(const UserInitializing());
-    final tryReadUser = await _readUserWithUidUseCase.execute(
-      UidParams(uid: event.uid),
-    );
+    final tryReadUser = await _userRepository.readUserWithUid(uid: event.uid);
 
     tryReadUser.fold(
       (failure) {
@@ -63,7 +43,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
       },
       (userEntity) {
         userEntity != null
-            ? emit(UserHasData(user: userEntity))
+            ? emit(UserHasData(userModel: userEntity))
             : emit(const UserEmpty());
       },
     );
@@ -74,16 +54,20 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     Emitter<UserState> emit,
   ) async {
     await _userSubscription?.cancel();
-    emit(UserLoading(user: state.user));
+    emit(UserLoading(userModel: state.userModel));
 
-    _userSubscription =
-        _watchUserWithUidUseCase.execute(NoParams()).listen((event) {
+    _userSubscription = _userRepository.watchUserWithUid().listen((event) {
       event.fold(
         (failure) {
-        emit(UserHasError(errorMessage: failure.message,user: state.user));
+          emit(
+            UserHasError(
+              errorMessage: failure.message,
+              userModel: state.userModel,
+            ),
+          );
         },
         (user) {
-          emit(UserHasData(user: user));
+          emit(UserHasData(userModel: user));
         },
       );
     });
@@ -96,20 +80,20 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     Emitter<UserState> emit,
   ) async {
     final oldState = state;
-    emit(UserLoading(user: state.user));
-    final tryUpdateUser = await _changeUsernameUseCase.execute(
-      UsernameParams(username: event.newUsername),
+    emit(UserLoading(userModel: state.userModel));
+    final tryUpdateUser = await _userRepository.changeUsername(
+      newUsername: event.newUsername,
     );
     tryUpdateUser.fold(
       (failure) => emit(
         UserHasError(
-          user: oldState.user,
+          userModel: oldState.userModel,
           errorMessage: failure.message,
         ),
       ),
       (userEntity) => emit(
         UserHasData(
-          user: oldState.user?.copyWith(
+          userModel: oldState.userModel?.copyWith(
             username: event.newUsername,
             accountnameChangeEligibilityDate: DateTime.now().add(
               const Duration(days: 30),
@@ -125,16 +109,16 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     Emitter<UserState> emit,
   ) async {
     final oldState = state;
-    emit(UserLoading(user: state.user));
-    final tryUpdateUser = await _refreshDeckUseCase.execute(NoParams());
+    emit(UserLoading(userModel: state.userModel));
+    final tryUpdateUser = await _userRepository.refreshDeck();
     tryUpdateUser.fold(
       (failure) => emit(
         UserHasError(
-          user: oldState.user,
+          userModel: oldState.userModel,
           errorMessage: failure.message,
         ),
       ),
-      (userEntity) => add(ReadWithUidRequested(oldState.user!.uid)),
+      (userEntity) => add(ReadWithUidRequested(oldState.userModel!.uid)),
     );
   }
 
@@ -149,10 +133,10 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     ClearUserErrorMessageRequested event,
     Emitter<UserState> emit,
   ) async {
-    if (state.user == null) {
+    if (state.userModel == null) {
       emit(const UserEmpty());
     } else {
-      emit(UserHasData(user: state.user));
+      emit(UserHasData(userModel: state.userModel));
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/app/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import 'package:fusion/core/typedefs/typedefs.dart';
 import 'package:fusion/features/terms_of_use/widgets/green_check_box.dart';
-import 'package:fusion/repositories/device_prefs/domain/entities/device_prefs.dart';
+import 'package:fusion/repositories/repositories.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -58,7 +58,7 @@ class TermsAcceptButton extends StatelessWidget {
 
   Future<void> showBottomSheett(
     Widget bottomSheetWidget,
-    DevicePrefs devicePrefs,
+    DevicePrefsModel devicePrefs,
     BuildContext context,
   ) =>
       showModalBottomSheet<void>(

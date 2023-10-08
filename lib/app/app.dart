@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fusion/app/cubits/preload/preload_cubit.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../blocs/blocs.dart';
 import '../initialize/injection_container.dart';
-import 'cubits/ad/ad.dart';
-import 'cubits/audio/audio_cubit.dart';
+import 'cubits/cubits.dart';
+
 import 'l10n/l10n.dart';
 import 'router/app_router.dart';
 import 'theme/theme.dart';

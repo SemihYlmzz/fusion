@@ -3,15 +3,15 @@ part of 'user_bloc.dart';
 abstract class UserState extends Equatable {
   const UserState({
     this.errorMessage,
-    this.user,
+    this.userModel,
   });
   final String? errorMessage;
-  final User? user;
+  final UserModel? userModel;
 
   @override
   List<Object?> get props => [
         errorMessage,
-        user,
+        userModel,
       ];
 }
 
@@ -20,15 +20,15 @@ class UserInitializing extends UserState {
 }
 
 class UserLoading extends UserState {
-  const UserLoading({required super.user});
+  const UserLoading({required super.userModel});
 }
 
 class UserHasError extends UserState {
-  const UserHasError({required super.errorMessage, super.user});
+  const UserHasError({required super.errorMessage, super.userModel});
 }
 
 class UserHasData extends UserState {
-  const UserHasData({required super.user});
+  const UserHasData({required super.userModel});
 }
 
 class UserEmpty extends UserState {

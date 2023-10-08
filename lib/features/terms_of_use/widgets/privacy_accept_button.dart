@@ -8,7 +8,7 @@ import '../../../../app/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../app/widgets/widgets.dart';
 import '../../../core/typedefs/typedefs.dart';
-import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../repositories/repositories.dart';
 
 class PrivacyAcceptButton extends StatelessWidget {
   const PrivacyAcceptButton({
@@ -68,7 +68,7 @@ class PrivacyAcceptButton extends StatelessWidget {
 
   Future<void> showBottomSheett(
     Widget bottomSheetWidget,
-    DevicePrefs devicePrefs,
+    DevicePrefsModel devicePrefs,
     BuildContext context,
   ) =>
       showModalBottomSheet<void>(

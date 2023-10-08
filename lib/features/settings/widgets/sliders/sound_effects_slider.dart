@@ -5,7 +5,7 @@ import '../../../../app/cubits/audio/audio.dart';
 import '../../../../app/gen/assets.gen.dart';
 import '../../../../app/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
-import '../../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../../repositories/repositories.dart';
 import 'base_slider.dart';
 
 class SoundEffectsSlider extends StatefulWidget {
@@ -13,7 +13,7 @@ class SoundEffectsSlider extends StatefulWidget {
     required this.devicePrefs,
     super.key,
   });
-  final DevicePrefs devicePrefs;
+  final DevicePrefsModel devicePrefs;
 
   @override
   State<SoundEffectsSlider> createState() => _SoundEffectsSliderState();

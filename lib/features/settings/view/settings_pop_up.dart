@@ -13,7 +13,7 @@ import '../../../app/widgets/bottom_sheets/terms_of_service_bottom_sheet.dart';
 import '../../../app/widgets/pop_ups/cant_rename_pop_up.dart';
 import '../../../app/widgets/pop_ups/change_username_pop_up.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
+import '../../../repositories/repositories.dart';
 import '../widgets/pop_ups/delete_account_pop_up.dart';
 import '../widgets/widgets.dart';
 
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
-        final user = userState.user;
+        final user = userState.userModel;
         return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
           builder: (context, devicePrefsState) {
             final devicePrefs = devicePrefsState.devicePrefs;
@@ -225,7 +225,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> showPopUp(
     Widget popUpWidget,
-    DevicePrefs devicePrefs,
+    DevicePrefsModel devicePrefs,
     BuildContext context,
   ) =>
       showDialog<void>(
@@ -239,7 +239,7 @@ class SettingsScreen extends StatelessWidget {
       );
   Future<void> displayBottomSheet(
     Widget bottomSheetWidget,
-    DevicePrefs devicePrefs,
+    DevicePrefsModel devicePrefs,
     BuildContext context,
   ) =>
       showModalBottomSheet<void>(

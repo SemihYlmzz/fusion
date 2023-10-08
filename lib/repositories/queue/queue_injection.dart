@@ -1,37 +1,19 @@
+import 'package:fusion/core/network/network_info.dart';
+
 import '../../initialize/injection_container.dart';
-import 'data/datasource/queue_datasource.dart';
-import 'data/datasource/queue_datasource_firestore_impl.dart';
-import 'data/repository/user_repository_impl.dart';
-import 'domain/repository/queue_repository.dart';
-import 'domain/usecase/usecases/check_queue.dart';
-import 'domain/usecase/usecases/enter_queue.dart';
-import 'domain/usecase/usecases/leave_queue.dart';
+import 'datasource/queue_datasource_firestore_impl.dart';
+import 'queue_datasource.dart';
+import 'queue_repository.dart';
 
 class QueueRepositoryInjection {
   static Future<void> inject() async {
     getIt
-
-      // UserDataSource <-connection-> Firebase
       ..registerSingleton<QueueDatasource>(QueueDataSourceFirebaseImpl())
-
-      // UserRepository <-connection-> UserDataSource
       ..registerSingleton<QueueRepository>(
-        QueueRepositoryImpl(getIt(), getIt()),
-      )
-
-      // UserUseCases <-connection-> UserRepository
-      ..registerSingleton<EnterQueueUseCase>(
-        EnterQueueUseCase(
-          queueRepository: getIt<QueueRepository>(),
+        QueueRepository(
+          getIt<QueueDatasource>(),
+          getIt<NetworkInfo>(),
         ),
-      )
-      ..registerSingleton<LeaveQueueUseCase>(
-        LeaveQueueUseCase(
-          queueRepository: getIt<QueueRepository>(),
-        ),
-      )
-      ..registerSingleton<CheckQueueUseCase>(
-        CheckQueueUseCase(queueRepository: getIt<QueueRepository>()),
       );
   }
 }

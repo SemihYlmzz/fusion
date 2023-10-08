@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/repositories/repositories.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../../../../blocs/blocs.dart';
-import '../../../../repositories/device_prefs/domain/entities/device_prefs.dart';
 
 class SelectableLanguagesPopUp extends StatelessWidget {
   const SelectableLanguagesPopUp({required this.devicePrefs, super.key});
-  final DevicePrefs devicePrefs;
+  final DevicePrefsModel devicePrefs;
   static const String languageCodeDefault = 'df';
   static const String languageCodeEnglish = 'en';
   static const String languageCodeTurkish = 'tr';

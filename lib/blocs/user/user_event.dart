@@ -14,9 +14,9 @@ final class WatchWithUidRequested extends UserEvent {
 }
 
 final class UpdateRequested extends UserEvent {
-  const UpdateRequested(this.user);
+  const UpdateRequested(this.userModel);
 
-  final User user;
+  final UserModel userModel;
 }
 
 final class ChangeUsernameRequested extends UserEvent {

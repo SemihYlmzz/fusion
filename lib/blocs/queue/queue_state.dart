@@ -6,10 +6,10 @@ abstract class QueueState extends Equatable {
     this.queue,
   });
   final String? errorMessage;
-  final Queue? queue;
+  final QueueModel? queue;
 
   QueueState copyWith({
-    Queue? queue,
+    QueueModel? queue,
     String? errorMessage,
   }) {
     return QueueLeaved(

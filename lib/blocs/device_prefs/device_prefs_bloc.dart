@@ -2,39 +2,28 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fusion/repositories/device_prefs/domain/entities/device_prefs.dart';
-import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/create_device_prefs.dart';
-import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/read_device_prefs.dart' as onRead;
-import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/update_device_prefs.dart';
+import 'package:fusion/repositories/repositories.dart';
 
 part 'device_prefs_event.dart';
 part 'device_prefs_state.dart';
 
 class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
   DevicePrefsBloc({
-    required CreateDevicePrefsUseCase createDevicePrefsUseCase,
-    required onRead.ReadDevicePrefsUseCase readDevicePrefsUseCase,
-    required UpdateDevicePrefsUseCase updateDevicePrefsUseCase,
-  })  : _updateDevicePrefsUseCase = updateDevicePrefsUseCase,
-        _readDevicePrefsUseCase = readDevicePrefsUseCase,
-        _createDevicePrefsUseCase = createDevicePrefsUseCase,
+    required DevicePrefsRepository devicePrefsRepository,
+  })  : _devicePrefsRepository = devicePrefsRepository,
         super(const DevicePrefsInitialized()) {
     on<CreateDevicePrefs>(_onCreateDevicePrefs);
     on<ReadDevicePrefs>(_onReadDevicePrefs);
     on<UpdateDevicePrefs>(_onUpdateDevicePrefs);
     on<ClearDevicePrefsErrorMessage>(_onClearDevicePrefsErrorMessage);
   }
-  final CreateDevicePrefsUseCase _createDevicePrefsUseCase;
-  final onRead.ReadDevicePrefsUseCase _readDevicePrefsUseCase;
-  final UpdateDevicePrefsUseCase _updateDevicePrefsUseCase;
+  final DevicePrefsRepository _devicePrefsRepository;
 
   Future<void> _onCreateDevicePrefs(
     CreateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
-    final createDeviceResult = await _createDevicePrefsUseCase.execute(
-      const NoParams(),
-    );
+    final createDeviceResult = await _devicePrefsRepository.createDevicePrefs();
     createDeviceResult.fold(
       (failure) => DevicePrefsHasError(
         errorMessage: failure.message,
@@ -48,8 +37,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     ReadDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
-    final readDeviceResult =
-        await _readDevicePrefsUseCase.execute(const onRead.NoParams());
+    final readDeviceResult = await _devicePrefsRepository.readDevicePrefs();
     readDeviceResult.fold(
       (failure) => DevicePrefsHasError(
         errorMessage: failure.message,
@@ -63,8 +51,9 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     UpdateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
-    final updateResult =
-        await _updateDevicePrefsUseCase.execute(event.devicePrefs);
+    final updateResult = await _devicePrefsRepository.updateDevicePrefs(
+      updatedDevicePrefs: event.devicePrefs,
+    );
     updateResult.fold(
       (failure) => DevicePrefsHasError(
         errorMessage: failure.message,
@@ -80,7 +69,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     ClearDevicePrefsErrorMessage event,
     Emitter<DevicePrefsState> emit,
   ) async {
-    if (state.devicePrefs == DevicePrefs.empty) {
+    if (state.devicePrefs == DevicePrefsModel.empty) {
       emit(const DevicePrefsUnreaded());
     } else {
       emit(DevicePrefsReaded(devicePrefs: state.devicePrefs));

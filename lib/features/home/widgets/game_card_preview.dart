@@ -7,7 +7,6 @@ import 'package:shared_constants/shared_constants.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/widgets/pop_ups/detailed_game_card_pop_up.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/device_prefs/domain/entities/device_prefs.dart';
 import '../../../repositories/repositories.dart';
 
 class GameCardPreview extends StatelessWidget {
@@ -103,7 +102,7 @@ class GameCardPreview extends StatelessWidget {
 
   Future<void> showPopUp(
     Widget popUpWidget,
-    DevicePrefs devicePrefs,
+    DevicePrefsModel devicePrefs,
     BuildContext context,
   ) =>
       showDialog<void>(

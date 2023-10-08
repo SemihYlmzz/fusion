@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   })  : _authRepository = authRepository,
         super(
           authRepository.checkUserAuth().isEmpty
-              ? AuthUnAuthenticated()
+              ? const AuthUnAuthenticated()
               : AuthAuthenticated(
                   authEntity: authRepository.checkUserAuth(),
                 ),
@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(
       event.user.isNotEmpty
           ? AuthAuthenticated(authEntity: event.user)
-          : AuthUnAuthenticated(),
+          : const AuthUnAuthenticated(),
     );
   }
 
@@ -64,7 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogInWithGoogleRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(const AuthLoading());
 
     final tryLogInWithGoogle = await _authRepository.logInWithGoogle();
 
@@ -82,7 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogInWithAppleRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(const AuthLoading());
 
     final tryLogInWithApple = await _authRepository.logInWithApple();
 
@@ -100,7 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogInWithFacebookRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(const AuthLoading());
 
     final tryLogInWithFacebook = await _authRepository.logInWithFacebook();
 
@@ -119,7 +119,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     if (state.authEntity.isEmpty) {
-      emit(AuthUnAuthenticated());
+      emit(const AuthUnAuthenticated());
     } else {
       emit(AuthAuthenticated(authEntity: state.authEntity));
     }
