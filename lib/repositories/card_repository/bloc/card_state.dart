@@ -16,13 +16,17 @@ abstract class CardState extends Equatable {
 }
 
 class CardEmpty extends CardState {
-  const CardEmpty({super.card, super.errorMessage});
+  const CardEmpty({super.card});
 }
 
 class CardLoading extends CardState {
-  const CardLoading({super.card, super.errorMessage});
+  const CardLoading({super.card});
+}
+
+class CardHasError extends CardState {
+  const CardHasError({required super.errorMessage, super.card});
 }
 
 class CardHasData extends CardState {
-  const CardHasData({required super.card, super.errorMessage});
+  const CardHasData({required super.card});
 }

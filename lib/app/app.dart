@@ -8,6 +8,7 @@ import 'package:shared_constants/shared_constants.dart';
 
 import '../initialize/injection_container.dart';
 import '../repositories/auth_repository/bloc/auth_bloc.dart';
+import '../repositories/card_repository/bloc/card_bloc.dart';
 import '../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
 import '../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
 import '../repositories/queue_repository/bloc/queue_bloc.dart';
@@ -72,6 +73,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
                   _buildQueueBlocListener(),
+                  _buildCardBlocListener(),
                 ],
                 child: router!,
               );
@@ -137,6 +139,16 @@ class _AppState extends State<App> with RouterMixin {
                 .read<QueueBloc>()
                 .add(const ClearQueueErrorMessageRequested()),
           );
+        }
+      },
+    );
+  }
+
+  BlocListener<CardBloc, CardState> _buildCardBlocListener() {
+    return BlocListener<CardBloc, CardState>(
+      listener: (context, state) {
+        if (state is CardHasError) {
+          _showSnackBar(context, state.errorMessage!);
         }
       },
     );

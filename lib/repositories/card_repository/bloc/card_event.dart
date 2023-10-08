@@ -9,3 +9,6 @@ final class GetCardRequested extends CardEvent {
 
   final String cardId;
 }
+final class ClearCardErrorMessageRequested extends CardEvent {
+  const ClearCardErrorMessageRequested();
+}

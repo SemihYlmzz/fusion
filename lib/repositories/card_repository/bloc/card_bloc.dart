@@ -11,11 +11,12 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   CardBloc({
     required this.getCardUseCase,
   }) : super(const CardEmpty()) {
-    on<GetCardRequested>(onGetCardRequested);
+    on<GetCardRequested>(_onGetCardRequested);
+    on<ClearCardErrorMessageRequested>(_onClearCardErrorMessageRequested);
   }
   final GetCardUseCase getCardUseCase;
 
-  Future<void> onGetCardRequested(
+  Future<void> _onGetCardRequested(
     GetCardRequested event,
     Emitter<CardState> emit,
   ) async {
@@ -24,13 +25,20 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       CardIdParams(cardId: event.cardId),
     );
 
-    tryGetCard.fold((failure) => emit(CardEmpty(errorMessage: failure.message)),
-        (cardEntity) {
-      emit(
-        CardHasData(
-          card: cardEntity,
-        ),
-      );
-    });
+    tryGetCard.fold(
+      (failure) => emit(CardHasError(errorMessage: failure.message)),
+      (cardEntity) => emit(CardHasData(card: cardEntity)),
+    );
+  }
+
+  Future<void> _onClearCardErrorMessageRequested(
+    ClearCardErrorMessageRequested event,
+    Emitter<CardState> emit,
+  ) async {
+    if (state.card == null) {
+      emit(const CardEmpty());
+    } else {
+      emit(CardHasData(card: state.card));
+    }
   }
 }
