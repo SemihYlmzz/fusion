@@ -93,13 +93,13 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                       ),
                       Row(
                         children: [
-                          Expanded(
-                            child: GradientButton(
+                      Expanded(
+                            child: _isAccepted? GradientButton(
                               text:
                                   DeleteAccountPopUp._deleteGradientButtonTitle,
                               width: 100,
-                              onPressed: _isAccepted
-                                  ? () {
+                              onPressed:
+                                   () {
                                       Navigator.popUntil(
                                         context,
                                         (route) => route.isFirst,
@@ -111,7 +111,12 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                                         DeleteAccountScreen.name,
                                       );
                                     }
-                                  : null,
+                                
+                            ): const GradientButton(
+                              text: DeleteAccountPopUp._deleteGradientButtonTitle,
+                              width: 100,
+                              isOutlined: true,
+                              onPressed: null,
                             ),
                           ),
                           Expanded(
