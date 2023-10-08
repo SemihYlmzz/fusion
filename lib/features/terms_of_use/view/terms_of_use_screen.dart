@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../blocs/blocs.dart';
 import '../../preload/view/preload_screen.dart';
 import 'view.dart';
 

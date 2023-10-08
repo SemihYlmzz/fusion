@@ -6,13 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fusion/app/cubits/preload/preload_cubit.dart';
 import 'package:shared_constants/shared_constants.dart';
 
+import '../blocs/blocs.dart';
 import '../initialize/injection_container.dart';
-import '../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../repositories/card_repository/bloc/card_bloc.dart';
-import '../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
-import '../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../repositories/queue_repository/bloc/queue_bloc.dart';
-import '../repositories/user_repository/bloc/user_bloc.dart';
 import 'cubits/ad/ad.dart';
 import 'cubits/audio/audio_cubit.dart';
 import 'l10n/l10n.dart';
@@ -35,6 +30,7 @@ class _AppState extends State<App> with RouterMixin {
     final userBloc = getIt<UserBloc>();
     final devicePrefsBloc = getIt<DevicePrefsBloc>()
       ..add(const ReadDevicePrefs());
+    final cardBloc = getIt<CardBloc>();
     final deleteRequestBloc = getIt<DeleteRequestBloc>();
     final queueBloc = getIt<QueueBloc>();
 
@@ -53,6 +49,7 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<AuthBloc>(create: (_) => authBloc),
         BlocProvider<UserBloc>(create: (_) => userBloc),
         BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
+        BlocProvider<CardBloc>(create: (_) => cardBloc),
         BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
         BlocProvider<QueueBloc>(create: (_) => queueBloc),
         BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
@@ -113,8 +110,9 @@ class _AppState extends State<App> with RouterMixin {
   BlocListener<UserBloc, UserState> _buildUserBlocListener() {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
-        if (state.errorMessage != null) {
+        if (state is UserHasError) {
           _showSnackBar(context, state.errorMessage!);
+          context.read<UserBloc>().add(const ClearUserErrorMessageRequested());
         }
       },
     );

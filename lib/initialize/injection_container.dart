@@ -1,17 +1,14 @@
 import 'package:fusion/app/l10n/l10n.dart';
 import 'package:fusion/core/network/network_info.dart';
+import 'package:fusion/repositories/card_repository/card_repository_injection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../blocs/blocs.dart';
 import '../repositories/auth_repository/auth_injection.dart';
-import '../repositories/auth_repository/bloc/auth_bloc_injection.dart';
-import '../repositories/delete_request_repository/bloc/delete_request_bloc_injection.dart';
 import '../repositories/delete_request_repository/delete_request_injection.dart';
-import '../repositories/device_prefs_repository/bloc/device_prefs_bloc_injection.dart';
 import '../repositories/device_prefs_repository/device_prefs_repository_injection.dart';
-import '../repositories/queue_repository/bloc/queue_bloc_injection.dart';
 import '../repositories/queue_repository/queue_injection.dart';
-import '../repositories/user_repository/bloc/user_bloc_injection.dart';
 import '../repositories/user_repository/user_injection.dart';
 
 final getIt = GetIt.instance;
@@ -19,7 +16,6 @@ final getIt = GetIt.instance;
 class InjectionContainer {
   static Future<void> initializeDependencies() async {
     getIt
-
       //! External
       //
       // Internet Connection Checker
@@ -45,6 +41,9 @@ class InjectionContainer {
     // -- Device Preferences
     await DevicePrefsRepositoryInjection.inject();
     DevicePrefsBlocInjection.inject();
+    // -- Card
+    await CardRepositoryInjection.inject();
+    CardBlocInjection.inject();
     // -- Delete Request
     await DeleteRequestRepositoryInjection.inject();
     DeleteRequestBlocInjection.inject();

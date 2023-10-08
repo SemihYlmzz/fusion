@@ -36,5 +36,8 @@ final class DeleteRequested extends UserEvent {
 
 final class StopWatchingUserRequested extends UserEvent {
   const StopWatchingUserRequested();
+}
 
+final class ClearUserErrorMessageRequested extends UserEvent {
+  const ClearUserErrorMessageRequested();
 }

@@ -7,8 +7,8 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
+import '../../../blocs/blocs.dart';
 import '../../../features/settings/widgets/widgets.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
 
 class EnterNamePopUp extends StatefulWidget {
   const EnterNamePopUp({super.key});

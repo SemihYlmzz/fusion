@@ -8,7 +8,7 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
-import '../../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../../../../blocs/blocs.dart';
 
 class DeleteAccountPopUp extends StatefulWidget {
   const DeleteAccountPopUp({required this.devicePrefs, super.key});

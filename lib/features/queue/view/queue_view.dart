@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
+import '../../../blocs/blocs.dart';
 import '../../home/view/home_screen.dart';
 import '../widgets/queue_rain_effect.dart';
 import '../widgets/queue_timer.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
-import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../blocs/blocs.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 
 class SelectableLanguagesPopUp extends StatelessWidget {

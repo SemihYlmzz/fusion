@@ -4,12 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
+import '/../blocs/blocs.dart';
 import '../../../app/cubits/ad/ad.dart';
 import '../../../app/cubits/audio/audio.dart';
-import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
-import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
 import '../../queue/view/queue_screen.dart';
 import '../home.dart';
 import 'user_loading_view.dart';

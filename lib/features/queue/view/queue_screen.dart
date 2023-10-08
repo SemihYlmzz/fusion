@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../repositories/queue_repository/bloc/queue_bloc.dart';
-import '../../../repositories/user_repository/bloc/user_bloc.dart';
+import '../../../blocs/blocs.dart';
 import '../../game/view/game_screen.dart';
 import '../../home/view/view.dart';
 import 'queue_view.dart';

@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fusion/repositories/delete_request_repository/domain/usecase/params/no_params.dart';
 
-import '../domain/entities/delete_request.dart';
-import '../domain/usecase/params/no_params.dart';
-import '../domain/usecase/usecases/create_delete_request.dart';
+import '../../repositories/delete_request_repository/domain/entities/delete_request.dart';
+import '../../repositories/delete_request_repository/domain/usecase/usecases/create_delete_request.dart';
+
 
 part 'delete_request_event.dart';
 part 'delete_request_state.dart';

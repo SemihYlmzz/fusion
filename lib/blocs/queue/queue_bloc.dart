@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fusion/repositories/queue_repository/domain/usecase/params/no_params.dart';
+import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/check_queue.dart';
+import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/enter_queue.dart';
+import 'package:fusion/repositories/queue_repository/domain/usecase/usecases/leave_queue.dart';
 
-import '../domain/entities/queue.dart';
-import '../domain/usecase/params/no_params.dart';
-import '../domain/usecase/usecases/check_queue.dart';
-import '../domain/usecase/usecases/enter_queue.dart';
-import '../domain/usecase/usecases/leave_queue.dart';
+import '../../repositories/queue_repository/domain/entities/queue.dart';
+
 
 part 'queue_event.dart';
 part 'queue_state.dart';

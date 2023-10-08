@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
+import '/../blocs/blocs.dart';
 import '../login.dart';
 
 class LoginScreen extends StatelessWidget {

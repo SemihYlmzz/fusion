@@ -7,7 +7,7 @@ abstract class UserState extends Equatable {
   });
   final String? errorMessage;
   final User? user;
-  
+
   @override
   List<Object?> get props => [
         errorMessage,
@@ -15,17 +15,22 @@ abstract class UserState extends Equatable {
       ];
 }
 
-class UserEmpty extends UserState {
-  const UserEmpty({super.user, super.errorMessage});
-}
 class UserInitializing extends UserState {
-  const UserInitializing({super.user,super.errorMessage});
+  const UserInitializing();
 }
 
 class UserLoading extends UserState {
-  const UserLoading({required super.user, super.errorMessage});
+  const UserLoading({required super.user});
+}
+
+class UserHasError extends UserState {
+  const UserHasError({required super.errorMessage, super.user});
 }
 
 class UserHasData extends UserState {
-  const UserHasData({required super.user, super.errorMessage});
+  const UserHasData({required super.user});
+}
+
+class UserEmpty extends UserState {
+  const UserEmpty();
 }

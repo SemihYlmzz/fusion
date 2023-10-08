@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/cubits/audio/audio.dart';
 import '../../../../app/l10n/l10n.dart';
-import '../../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../blocs/blocs.dart';
 import '../../../../repositories/device_prefs_repository/domain/entities/device_prefs.dart';
 import 'base_slider.dart';
 

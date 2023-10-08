@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/l10n/l10n.dart';
-import '../../../repositories/device_prefs_repository/bloc/device_prefs_bloc.dart';
+import '../../../../blocs/blocs.dart';
 
 class SaveAcceptenceButton extends StatelessWidget {
   const SaveAcceptenceButton({

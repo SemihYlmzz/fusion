@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../repositories/auth_repository/bloc/auth_bloc.dart';
-import '../../../repositories/delete_request_repository/bloc/delete_request_bloc.dart';
+import '../../../blocs/blocs.dart';
 import '../../home/view/view.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
