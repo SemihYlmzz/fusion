@@ -14,28 +14,34 @@ part 'device_prefs_state.dart';
 
 class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
   DevicePrefsBloc({
-    required this.createDevicePrefsUseCase,
-    required this.readDevicePrefsUseCase,
-    required this.updateDevicePrefsUseCase,
-  }) : super(const DevicePrefsInitialized()) {
+    required CreateDevicePrefsUseCase createDevicePrefsUseCase,
+    required ReadDevicePrefsUseCase readDevicePrefsUseCase,
+    required UpdateDevicePrefsUseCase updateDevicePrefsUseCase,
+  })  : _updateDevicePrefsUseCase = updateDevicePrefsUseCase,
+        _readDevicePrefsUseCase = readDevicePrefsUseCase,
+        _createDevicePrefsUseCase = createDevicePrefsUseCase,
+        super(const DevicePrefsInitialized()) {
     on<CreateDevicePrefs>(_onCreateDevicePrefs);
     on<ReadDevicePrefs>(_onReadDevicePrefs);
     on<UpdateDevicePrefs>(_onUpdateDevicePrefs);
     on<ClearDevicePrefsErrorMessage>(_onClearDevicePrefsErrorMessage);
   }
-  final CreateDevicePrefsUseCase createDevicePrefsUseCase;
-  final ReadDevicePrefsUseCase readDevicePrefsUseCase;
-  final UpdateDevicePrefsUseCase updateDevicePrefsUseCase;
+  final CreateDevicePrefsUseCase _createDevicePrefsUseCase;
+  final ReadDevicePrefsUseCase _readDevicePrefsUseCase;
+  final UpdateDevicePrefsUseCase _updateDevicePrefsUseCase;
 
   Future<void> _onCreateDevicePrefs(
     CreateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
-    final createDeviceResult = await createDevicePrefsUseCase.execute(
+    final createDeviceResult = await _createDevicePrefsUseCase.execute(
       const NoParams(),
     );
     createDeviceResult.fold(
-      (failure) => null,
+      (failure) => DevicePrefsHasError(
+        errorMessage: failure.message,
+        devicePrefs: state.devicePrefs,
+      ),
       (devicePrefs) => emit(DevicePrefsReaded(devicePrefs: devicePrefs)),
     );
   }
@@ -45,9 +51,12 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     Emitter<DevicePrefsState> emit,
   ) async {
     final readDeviceResult =
-        await readDevicePrefsUseCase.execute(const NoParams());
+        await _readDevicePrefsUseCase.execute(const NoParams());
     readDeviceResult.fold(
-      (failure) => null,
+      (failure) => DevicePrefsHasError(
+        errorMessage: failure.message,
+        devicePrefs: state.devicePrefs,
+      ),
       (devicePrefs) => emit(DevicePrefsReaded(devicePrefs: devicePrefs)),
     );
   }
@@ -57,11 +66,13 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     Emitter<DevicePrefsState> emit,
   ) async {
     final updateResult =
-        await updateDevicePrefsUseCase.execute(event.devicePrefs);
+        await _updateDevicePrefsUseCase.execute(event.devicePrefs);
     updateResult.fold(
-      (failure) => null,
+      (failure) => DevicePrefsHasError(
+        errorMessage: failure.message,
+        devicePrefs: state.devicePrefs,
+      ),
       (devicePrefs) {
-        emit(const DevicePrefsInitialized());
         emit(DevicePrefsReaded(devicePrefs: devicePrefs));
       },
     );
