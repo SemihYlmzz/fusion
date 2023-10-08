@@ -5,16 +5,16 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:fusion/repositories/auth/data/errors/check_user_auth_exceptions.dart';
-import 'package:fusion/repositories/auth/data/errors/log_in_with_apple_exceptions.dart';
-import 'package:fusion/repositories/auth/data/errors/log_in_with_facebook_exceptions.dart';
-import 'package:fusion/repositories/auth/data/errors/log_in_with_google_exceptions.dart';
-import 'package:fusion/repositories/auth/data/errors/log_out_exceptions.dart';
+import 'package:fusion/repositories/auth/errors/check_user_auth_exceptions.dart';
+import 'package:fusion/repositories/auth/errors/log_in_with_apple_exceptions.dart';
+import 'package:fusion/repositories/auth/errors/log_in_with_facebook_exceptions.dart';
+import 'package:fusion/repositories/auth/errors/log_in_with_google_exceptions.dart';
+import 'package:fusion/repositories/auth/errors/log_out_exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../auth_datasource.dart';
 import '../models/auth_model.dart';
-import 'auth_datasource.dart';
 
 class AuthDatasourceFirebaseImpl implements AuthDatasource {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

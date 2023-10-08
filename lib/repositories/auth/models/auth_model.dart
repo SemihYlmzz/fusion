@@ -1,15 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../domain/entities/auth_entity.dart';
-
-class AuthModel extends AuthEntity {
+class AuthModel extends Equatable {
   const AuthModel({
-    required super.id,
-    super.email,
-    super.name,
-    super.photo,
+    required this.id,
+    this.email,
+    this.name,
+    this.photo,
   });
-
   factory AuthModel.fromFirebaseUser(User firebaseUser) {
     return AuthModel(
       id: firebaseUser.uid,
@@ -34,15 +32,36 @@ class AuthModel extends AuthEntity {
     );
   }
 
-  @override
+  AuthModel copyWith({
+    String? id,
+    bool? isGuest,
+    String? email,
+    String? name,
+    String? photo,
+  }) {
+    return AuthModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      photo: photo ?? this.photo,
+    );
+  }
+
+  final String id;
+  final String? email;
+  final String? name;
+  final String? photo;
+
   bool get isEmpty => this == AuthModel.empty;
 
-  @override
   bool get isNotEmpty => this != AuthModel.empty;
 
+  @override
+  List<Object?> get props => [email, id, name, photo];
   static const empty = AuthModel(
     id: '',
   );
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -51,38 +70,4 @@ class AuthModel extends AuthEntity {
       'photo': photo,
     };
   }
-
-  AuthModel fromEntity(AuthEntity entity) {
-    return AuthModel(
-      id: entity.id,
-      email: entity.email,
-      name: entity.name,
-      photo: entity.photo,
-    );
-  }
-
-  static AuthEntity toEntity(AuthModel authModel) {
-    return AuthEntity(
-      id: authModel.id,
-      email: authModel.email,
-      name: authModel.name,
-      photo: authModel.photo,
-    );
-  }
 }
-// class Point {
-  // num x, y;
-  // Point(this.x, this.y);
-  // static Point polar(num theta, num radius) {
-    // return Point(radius * math.cos(theta),
-        // radius * math.sin(theta));
-  // }
-// }
-
-// class Point {
-  // num x, y;
-  // Point(this.x, this.y);
-  // Point.polar(num theta, num radius)
-      // : x = radius * math.cos(theta),
-        // y = radius * math.sin(theta);
-// }

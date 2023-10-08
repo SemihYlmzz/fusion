@@ -11,7 +11,7 @@ final class AuthLogoutRequested extends AuthEvent {
 final class _AuthUserChanged extends AuthEvent {
   const _AuthUserChanged(this.user);
 
-  final AuthEntity user;
+  final AuthModel user;
 }
 
 class LogInWithGoogleRequested extends AuthEvent {

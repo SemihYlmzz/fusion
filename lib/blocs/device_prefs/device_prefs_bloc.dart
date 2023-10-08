@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fusion/repositories/auth/domain/usecase/params/no_params.dart';
 import 'package:fusion/repositories/device_prefs/domain/entities/device_prefs.dart';
 import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/create_device_prefs.dart';
-import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/read_device_prefs.dart';
+import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/read_device_prefs.dart' as onRead;
 import 'package:fusion/repositories/device_prefs/domain/usecase/usecases/update_device_prefs.dart';
 
 part 'device_prefs_event.dart';
@@ -14,7 +13,7 @@ part 'device_prefs_state.dart';
 class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
   DevicePrefsBloc({
     required CreateDevicePrefsUseCase createDevicePrefsUseCase,
-    required ReadDevicePrefsUseCase readDevicePrefsUseCase,
+    required onRead.ReadDevicePrefsUseCase readDevicePrefsUseCase,
     required UpdateDevicePrefsUseCase updateDevicePrefsUseCase,
   })  : _updateDevicePrefsUseCase = updateDevicePrefsUseCase,
         _readDevicePrefsUseCase = readDevicePrefsUseCase,
@@ -26,7 +25,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     on<ClearDevicePrefsErrorMessage>(_onClearDevicePrefsErrorMessage);
   }
   final CreateDevicePrefsUseCase _createDevicePrefsUseCase;
-  final ReadDevicePrefsUseCase _readDevicePrefsUseCase;
+  final onRead.ReadDevicePrefsUseCase _readDevicePrefsUseCase;
   final UpdateDevicePrefsUseCase _updateDevicePrefsUseCase;
 
   Future<void> _onCreateDevicePrefs(
@@ -50,7 +49,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     Emitter<DevicePrefsState> emit,
   ) async {
     final readDeviceResult =
-        await _readDevicePrefsUseCase.execute(const NoParams());
+        await _readDevicePrefsUseCase.execute(const onRead.NoParams());
     readDeviceResult.fold(
       (failure) => DevicePrefsHasError(
         errorMessage: failure.message,

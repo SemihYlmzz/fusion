@@ -1,4 +1,4 @@
-import '../models/auth_model.dart';
+import 'models/auth_model.dart';
 
 abstract class AuthDatasource {
   Future<AuthModel> logInWithGoogle();

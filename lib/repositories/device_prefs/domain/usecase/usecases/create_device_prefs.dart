@@ -3,7 +3,6 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../../core/errors/failure/failure.dart';
 import '../../../../../core/typedefs/typedefs.dart';
 import '../../../../../core/usecases/usecase.dart';
-import '../../../../auth/domain/usecase/params/no_params.dart';
 import '../../entities/device_prefs.dart';
 import '../../repository/device_prefs_repository.dart';
 
@@ -16,4 +15,8 @@ class CreateDevicePrefsUseCase
   FutureEither<DevicePrefs> execute(NoParams params) async {
     return devicePrefsRepository.createDevicePrefs();
   }
+}
+
+class NoParams {
+  const NoParams();
 }

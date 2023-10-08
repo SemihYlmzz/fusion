@@ -3,10 +3,10 @@ part of 'auth_bloc.dart';
 abstract class AuthState extends Equatable {
   const AuthState({
     this.errorMessage,
-    this.authEntity = AuthEntity.empty,
+    this.authEntity = AuthModel.empty,
   });
   final String? errorMessage;
-  final AuthEntity authEntity;
+  final AuthModel authEntity;
   @override
   List<Object?> get props => [errorMessage];
 }
