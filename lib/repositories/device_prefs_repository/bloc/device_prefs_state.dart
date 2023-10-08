@@ -11,10 +11,18 @@ abstract class DevicePrefsState extends Equatable {
   List<Object?> get props => [errorMessage];
 }
 
-class DevicePrefsUnreaded extends DevicePrefsState {
-  const DevicePrefsUnreaded({super.devicePrefs, super.errorMessage});
+class DevicePrefsInitialized extends DevicePrefsState {
+  const DevicePrefsInitialized();
 }
 
 class DevicePrefsReaded extends DevicePrefsState {
-  const DevicePrefsReaded({required super.devicePrefs, super.errorMessage});
+  const DevicePrefsReaded({required super.devicePrefs});
+}
+
+class DevicePrefsHasError extends DevicePrefsState {
+  const DevicePrefsHasError({required super.errorMessage,super.devicePrefs});
+}
+
+class DevicePrefsUnreaded extends DevicePrefsState {
+  const DevicePrefsUnreaded();
 }

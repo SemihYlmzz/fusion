@@ -17,16 +17,17 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     required this.createDevicePrefsUseCase,
     required this.readDevicePrefsUseCase,
     required this.updateDevicePrefsUseCase,
-  }) : super(const DevicePrefsUnreaded()) {
-    on<CreateDevicePrefs>(onCreateDevicePrefsRequested);
-    on<ReadDevicePrefs>(onReadDevicePrefsRequested);
-    on<UpdateDevicePrefs>(onUpdateDevicePrefsRequested);
+  }) : super(const DevicePrefsInitialized()) {
+    on<CreateDevicePrefs>(_onCreateDevicePrefs);
+    on<ReadDevicePrefs>(_onReadDevicePrefs);
+    on<UpdateDevicePrefs>(_onUpdateDevicePrefs);
+    on<ClearDevicePrefsErrorMessage>(_onClearDevicePrefsErrorMessage);
   }
   final CreateDevicePrefsUseCase createDevicePrefsUseCase;
   final ReadDevicePrefsUseCase readDevicePrefsUseCase;
   final UpdateDevicePrefsUseCase updateDevicePrefsUseCase;
 
-  Future<void> onCreateDevicePrefsRequested(
+  Future<void> _onCreateDevicePrefs(
     CreateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
@@ -39,7 +40,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     );
   }
 
-  Future<void> onReadDevicePrefsRequested(
+  Future<void> _onReadDevicePrefs(
     ReadDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
@@ -51,7 +52,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     );
   }
 
-  Future<void> onUpdateDevicePrefsRequested(
+  Future<void> _onUpdateDevicePrefs(
     UpdateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
@@ -60,9 +61,20 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     updateResult.fold(
       (failure) => null,
       (devicePrefs) {
-        emit(const DevicePrefsUnreaded());
+        emit(const DevicePrefsInitialized());
         emit(DevicePrefsReaded(devicePrefs: devicePrefs));
       },
     );
+  }
+
+  Future<void> _onClearDevicePrefsErrorMessage(
+    ClearDevicePrefsErrorMessage event,
+    Emitter<DevicePrefsState> emit,
+  ) async {
+    if (state.devicePrefs == DevicePrefs.empty) {
+      emit(const DevicePrefsUnreaded());
+    } else {
+      emit(DevicePrefsReaded(devicePrefs: state.devicePrefs));
+    }
   }
 }

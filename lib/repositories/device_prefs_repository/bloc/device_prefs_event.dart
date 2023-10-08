@@ -16,3 +16,7 @@ class UpdateDevicePrefs extends DevicePrefsEvent {
   const UpdateDevicePrefs(this.devicePrefs);
   final DevicePrefs devicePrefs;
 }
+
+final class ClearDevicePrefsErrorMessage extends DevicePrefsEvent {
+  const ClearDevicePrefsErrorMessage();
+}

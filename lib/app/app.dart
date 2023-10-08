@@ -74,6 +74,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildDeleteRequestBlocListener(),
                   _buildQueueBlocListener(),
                   _buildCardBlocListener(),
+                  _buildDevicePrefsBlocListener(),
                 ],
                 child: router!,
               );
@@ -152,6 +153,20 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state is CardHasError) {
           _showSnackBar(context, state.errorMessage!);
+        }
+      },
+    );
+  }
+
+  BlocListener<DevicePrefsBloc, DevicePrefsState>
+      _buildDevicePrefsBlocListener() {
+    return BlocListener<DevicePrefsBloc, DevicePrefsState>(
+      listener: (context, state) {
+        if (state is DevicePrefsHasError) {
+          _showSnackBar(context, state.errorMessage!);
+          context
+              .read<DevicePrefsBloc>()
+              .add(const ClearDevicePrefsErrorMessage());
         }
       },
     );

@@ -12,11 +12,11 @@ abstract class AuthState extends Equatable {
 }
 
 class AuthUnAuthenticated extends AuthState {
-  const AuthUnAuthenticated({super.authEntity, super.errorMessage});
+  const AuthUnAuthenticated({super.authEntity});
 }
 
 class AuthLoading extends AuthState {
-  const AuthLoading({super.authEntity, super.errorMessage});
+  const AuthLoading({super.authEntity});
 }
 
 class AuthHasError extends AuthState {
@@ -24,5 +24,5 @@ class AuthHasError extends AuthState {
 }
 
 class AuthAuthenticated extends AuthState {
-  const AuthAuthenticated({required super.authEntity, super.errorMessage});
+  const AuthAuthenticated({required super.authEntity});
 }

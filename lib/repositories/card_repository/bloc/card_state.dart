@@ -16,7 +16,7 @@ abstract class CardState extends Equatable {
 }
 
 class CardEmpty extends CardState {
-  const CardEmpty({super.card});
+  const CardEmpty();
 }
 
 class CardLoading extends CardState {
