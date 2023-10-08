@@ -123,8 +123,11 @@ class _AppState extends State<App> with RouterMixin {
       _buildDeleteRequestBlocListener() {
     return BlocListener<DeleteRequestBloc, DeleteRequestState>(
       listener: (context, state) {
-        if (state.errorMessage != null) {
+        if (state is DeleteRequestHasError) {
           _showSnackBar(context, state.errorMessage!);
+          context
+              .read<DeleteRequestBloc>()
+              .add(const ClearDeleteRequestErrorMessageRequested());
         }
       },
     );
