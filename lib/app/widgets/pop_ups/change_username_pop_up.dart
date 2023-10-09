@@ -6,7 +6,7 @@ import 'package:profanity_filter/profanity_filter.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../app/gen/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
 import '../../../features/settings/widgets/widgets.dart';
 
@@ -72,14 +72,14 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                       children: [
                         Text(
                           isAnimationPlaying > 0
-                              ? context.l10n.notUnique
-                              : context.l10n.enterUsername,
+                              ? L10n.current.notUnique
+                              : L10n.current.enterUsername,
                           style: GoogleFonts.bangers(fontSize: 56),
                         ),
                         Padding(
                           padding: SharedPaddings.horizontal16,
                           child: GradientTextField(
-                            hintText: context.l10n.username,
+                            hintText: L10n.current.username,
                             linearGradient: const LinearGradient(
                               colors: [
                                 Colors.orange,
@@ -90,25 +90,25 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                               final filter = ProfanityFilter();
 
                               if (newUsernameValue.length < 3) {
-                                errorText = context.l10n.usernameTooShortError;
+                                errorText = L10n.current.usernameTooShortError;
                                 setState(() {});
                                 return;
                               }
                               if (newUsernameValue.length > 20) {
-                                errorText = context.l10n.usernameTooLongError;
+                                errorText = L10n.current.usernameTooLongError;
                                 setState(() {});
                                 return;
                               }
                               if (!RegExp(r'^[a-zA-Z0-9]+$')
                                   .hasMatch(newUsernameValue)) {
                                 errorText =
-                                    context.l10n.usernameHasSpecialCharsError;
+                                    L10n.current.usernameHasSpecialCharsError;
                                 setState(() {});
                                 return;
                               }
                               if (filter.hasProfanity(newUsernameValue)) {
                                 errorText =
-                                    context.l10n.usernameHasBadWordsError;
+                                    L10n.current.usernameHasBadWordsError;
                                 setState(() {});
                                 return;
                               }
@@ -122,13 +122,13 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                         if (userState.userModel?.username != '' &&
                             userState.userModel?.username == oldUsername)
                           Text(
-                            context.l10n.usernameChangeLimitWarning,
+                            L10n.current.usernameChangeLimitWarning,
                           ),
                       ],
                     ),
                   ),
                   GradientButton(
-                    text: context.l10n.done,
+                    text: L10n.current.done,
                     onPressed: () async {
                       final canChangeUsername = userState
                           .userModel!.accountnameChangeEligibilityDate

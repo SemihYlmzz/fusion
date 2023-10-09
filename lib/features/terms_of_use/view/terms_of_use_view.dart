@@ -6,7 +6,7 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../../app/gen/assets.gen.dart';
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 import '../../../app/theme/colors.dart';
 import '../widgets/widgets.dart';
 
@@ -61,7 +61,7 @@ class _TermsOfUseViewState extends State<TermsOfUseView> {
                   child: Column(
                     children: [
                       Text(
-                        context.l10n.welcome,
+                        L10n.current.welcome,
                         style: GoogleFonts.bangers(fontSize: 40),
                       ),
                       const InformationText(),

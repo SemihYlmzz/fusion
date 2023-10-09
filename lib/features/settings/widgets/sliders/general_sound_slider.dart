@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/cubits/audio/audio.dart';
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../../repositories/repositories.dart';
 import 'base_slider.dart';
@@ -30,7 +30,7 @@ class _GeneralSoundSliderState extends State<GeneralSoundSlider> {
   Widget build(BuildContext context) {
     return BaseSlider(
       volumeLevel: generalVolumeLevelController,
-      volumeText: context.l10n.general,
+      volumeText: L10n.current.general,
       onChanged: (newValue) {
         generalVolumeLevelController = newValue ?? 0.75;
 

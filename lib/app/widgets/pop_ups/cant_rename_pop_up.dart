@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../app/gen/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
 import '../../../features/settings/widgets/widgets.dart';
 
@@ -52,7 +52,7 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                   child: Column(
                     children: [
                       Text(
-                        context.l10n.cantRenameYet,
+                        L10n.current.cantRenameYet,
                         style: GoogleFonts.bangers(fontSize: 40),
                       ),
                       const SizedBox(height: 32),
@@ -68,7 +68,7 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            context.l10n.hoursText,
+                            L10n.current.hoursText,
                             style: const TextStyle(
                               fontSize: 28,
                               color: Colors.redAccent,
@@ -78,14 +78,14 @@ class _CantRenamePopUpState extends State<CantRenamePopUp> {
                       ),
                       const SizedBox(height: 32),
                       Text(
-                        context.l10n.youShouldWait,
+                        L10n.current.youShouldWait,
                         style: const TextStyle(fontSize: 28),
                       ),
                     ],
                   ),
                 ),
                 GradientButton(
-                  text: context.l10n.done,
+                  text: L10n.current.done,
                   onPressed: () {
                     Navigator.pop(context);
                   },

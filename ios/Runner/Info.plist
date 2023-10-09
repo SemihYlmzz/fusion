@@ -275,5 +275,10 @@
 	<false/>
 	<key>CFBundleDisplayName</key>
 	<string>$(APP_DISPLAY_NAME)</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+	    <string>en</string>
+	    <string>tr_TR</string>
+	</array>
 </dict>
 </plist>

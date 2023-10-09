@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/../blocs/blocs.dart';
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({
@@ -20,7 +20,7 @@ class SignOutButton extends StatelessWidget {
             );
       },
       child: Text(
-        context.l10n.signOut,
+        L10n.current.signOut,
       ),
     );
   }

@@ -73,7 +73,7 @@ dependencies:
 # Localization and Dependency Injection
   flutter_localizations:
     sdk: flutter
-  get_it: ^7.6.0
+  get_it: ^7.6.4
 
 # Dart Packages
   intl: ^0.18.0
@@ -119,9 +119,9 @@ flutter:
     - assets/music/background/
     - assets/music/sfx/
     
-flutter_intl:                                   # Add this line
-  enabled: true                                 # Add this line
-  class_name: I10n                              # Add this line
-  main_locale: en                               # Add this line
-  arb_dir: lib/core/localization/l10n           # Add this line
-  output_dir: lib/core/localization/generated   # Add this line
+flutter_intl:
+  enabled: true # Required. Must be set to true to activate the plugin. Default: false
+  class_name: L10n
+  arb_dir: lib/app/l10n # Optional. Sets the directory of your ARB resource files. Provided value should be a valid path on your system. Default: lib/l10n
+  output_dir: lib/app/gen/l10n # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
+  use_deferred_loading: false # Optional. Must be set to true to generate localization code that is loaded with deferred loading. Default: false

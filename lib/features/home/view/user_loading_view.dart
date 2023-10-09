@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '/../blocs/blocs.dart';
-import '../../../app/l10n/l10n.dart';
+import '../../../app/gen/l10n/l10n.dart';
 
 class UserLoadingView extends StatefulWidget {
   const UserLoadingView({
@@ -51,7 +51,7 @@ class _UserLoadingViewState extends State<UserLoadingView> {
                 context.read<AuthBloc>().add(const AuthLogoutRequested());
               },
               child: Text(
-                context.l10n.cancel,
+                L10n.current.cancel,
                 style: const TextStyle(
                   color: Colors.white,
                 ),

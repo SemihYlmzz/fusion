@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_constants/shared_constants.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 
 class WarningText extends StatelessWidget {
   const WarningText({
@@ -13,7 +13,7 @@ class WarningText extends StatelessWidget {
     return Padding(
       padding: SharedPaddings.all8,
       child: Text(
-        context.l10n.termsOfUseWarningText,
+        L10n.current.termsOfUseWarningText,
         style: const TextStyle(
           fontSize: 14,
         ),

@@ -15,6 +15,10 @@ class DevicePrefsInitialized extends DevicePrefsState {
   const DevicePrefsInitialized();
 }
 
+class DevicePrefsLoading extends DevicePrefsState {
+  const DevicePrefsLoading({super.devicePrefs});
+}
+
 class DevicePrefsReaded extends DevicePrefsState {
   const DevicePrefsReaded({required super.devicePrefs});
 }

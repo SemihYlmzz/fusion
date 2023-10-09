@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 
 class SettingsText extends StatelessWidget {
   const SettingsText({
@@ -14,7 +14,7 @@ class SettingsText extends StatelessWidget {
       height: 70,
       child: Center(
         child: Text(
-          context.l10n.settings,
+          L10n.current.settings,
           style: GoogleFonts.bangers(fontSize: 50),
         ),
       ),

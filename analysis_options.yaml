@@ -1,4 +1,11 @@
 include: package:very_good_analysis/analysis_options.5.0.0.yaml
+analyzer:
+
+  exclude:
+    - lib/app/gen/l10n/intl/messages_all.dart
+    - lib/app/gen/l10n/intl/messages_en.dart
+    - lib/app/gen/l10n/intl/messages_tr.dart
+    - lib/app/gen/l10n/l10n.dart
 
 linter:
   rules:

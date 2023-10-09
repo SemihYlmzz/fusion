@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../../repositories/repositories.dart';
 
@@ -121,7 +121,7 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
                           ),
                           Expanded(
                             child: GradientButton(
-                              text: context.l10n.cancel,
+                              text: L10n.current.cancel,
                               width: 100,
                               isOutlined: true,
                               onPressed: () {

@@ -1,15 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_constants/shared_constants.dart';
 
 import '../blocs/blocs.dart';
 import '../initialize/injection_container.dart';
 import 'cubits/cubits.dart';
-
-import 'l10n/l10n.dart';
+import 'gen/l10n/l10n.dart';
 import 'router/app_router.dart';
 import 'theme/theme.dart';
 
@@ -75,11 +73,21 @@ class _AppState extends State<App> with RouterMixin {
                 child: router!,
               );
             },
-            supportedLocales: L10n.all,
+            supportedLocales: L10n.delegate.supportedLocales,
             locale: Localization
                 .languageCodeToLocale[devicePrefsState.devicePrefs.language],
+            //  localeResolutionCallback: (deviceLocale, supportedLocales) {
+            //  return const Locale('en', 'EN');
+            //  // if (supportedLocales
+            //  //     .map((e) => e.languageCode)
+            //  //     .contains(deviceLocale?.languageCode)) {
+            //  //   return deviceLocale;
+            //  // } else {
+            //  //   return const Locale('tr', 'TR');
+            //  // }
+            //  },
             localizationsDelegates: const [
-              AppLocalizations.delegate,
+              L10n.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

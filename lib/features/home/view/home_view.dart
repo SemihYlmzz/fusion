@@ -6,7 +6,7 @@ import 'package:shared_widgets/shared_widgets.dart';
 import '../../../app/cubits/ad/ad.dart';
 import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
-import '../../../app/l10n/l10n.dart';
+import '../../../app/gen/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
 import '../../../repositories/repositories.dart';
 import '../../settings/settings.dart';
@@ -98,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                     });
                   },
                   child: Text(
-                    context.l10n.refreshDeck,
+                    L10n.current.refreshDeck,
                     style: const TextStyle(
                       color: Colors.greenAccent,
                     ),

@@ -8,7 +8,7 @@ import 'package:fusion/repositories/repositories.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
 
 class TermsAcceptButton extends StatelessWidget {
@@ -35,9 +35,9 @@ class TermsAcceptButton extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    Text(context.l10n.iAgreeToThe),
+                    Text(L10n.current.iAgreeToThe),
                     GradientTextButton(
-                      context.l10n.termsOfService,
+                      L10n.current.termsOfService,
                       onTap: () async {
                         await showBottomSheett(
                           const TermsOfService(),

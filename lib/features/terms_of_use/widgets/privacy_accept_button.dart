@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-import '../../../../app/l10n/l10n.dart';
+import '../../../../app/gen/l10n/l10n.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../app/widgets/widgets.dart';
 import '../../../core/typedefs/typedefs.dart';
@@ -41,11 +41,11 @@ class PrivacyAcceptButton extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      context.l10n.iAgreeToThe,
+                      L10n.current.iAgreeToThe,
                       textAlign: TextAlign.center,
                     ),
                     GradientTextButton(
-                      context.l10n.fusionPrivacyNotice,
+                      L10n.current.fusionPrivacyNotice,
                       maxLines: 2,
                       align: TextAlign.center,
                       onTap: () async {

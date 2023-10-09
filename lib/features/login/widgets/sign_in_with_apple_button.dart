@@ -6,7 +6,7 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
 import '/../blocs/blocs.dart';
-import '../../../app/l10n/l10n.dart';
+import '../../../app/gen/l10n/l10n.dart';
 
 class SignInWithAppleButton extends StatelessWidget {
   const SignInWithAppleButton({super.key});
@@ -18,7 +18,7 @@ class SignInWithAppleButton extends StatelessWidget {
             padding: SharedPaddings.vertical8,
             child: SocialLoginButton(
               buttonType: SocialLoginButtonType.apple,
-              text: context.l10n.signInWithApple,
+              text: L10n.current.signInWithApple,
               width: 320,
               onPressed: () {
                 context.read<AuthBloc>().add(const LogInWithAppleRequested());
