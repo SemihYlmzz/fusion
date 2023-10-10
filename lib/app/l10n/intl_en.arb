@@ -1,404 +1,91 @@
 {
     "cancel": "Cancel",
-    "@cancel": {
-        "description": "Canceling Text"
-    },
-
     "currentLanguage": "English",
-    "@currentLanguage": {
-        "description": "The current Language"
-    },
-    
     "signInWithApple": "Sign In with Apple",
-    "@signInWithApple": {
-        "description": "Social Apple login text."
-    },
-
     "signInWithGoogle": "Sign In with Google",
-    "@signInWithGoogle": {
-        "description": "Social Google login text."
-    },
-
     "signInWithFacebook": "Sign In with Facebook",
-    "@signInWithFacebook": {
-        "description": "Social Facebook login text."
-    },
-
     "welcome": "Welcome",
-    "@welcome": {
-        "description": "Welcome text in all languages."
-    },
 
     "refreshDeck": "REFRESH DECK",
-    "@refreshDeck": {
-        "description": "Text for taking new random deck instead of current one."
-    },
+    "play": "PLAY",
+    "done": "DONE",
 
-   "play": "PLAY",
-    "@play": {
-        "description": "Text for starting game."
-    },
-
-   "done": "DONE",
-    "@done": {
-        "description": "Done word."
-    },
-
-   "signOut": "Sign Out",
-    "@signOut": {
-        "description": "Simple Sign Out text."
-    },
-
-   "settings": "SETTINGS",
-    "@settings": {
-        "description": "Simple Settings text."
-    },
-
-   "general": "General ",
-    "@general": {
-        "description": "Simple General text."
-    },
-
-   "backgroundMusic": "Background Music",
-    "@backgroundMusic": {
-        "description": "Simple Background Music text."
-    },
-
-   "soundEffects": "Sound Effects",
-    "@soundEffects": {
-        "description": "Simple Sound Effects text."
-    },
-
-   "dialogues": "Dialogues",
-    "@dialogues": {
-        "description": "Simple Dialogue text."
-    },
-
-   "haptics": "Haptics",
-    "@haptics": {
-        "description": "Simple Haptics text."
-    },
-
-   "language": "Language",
-    "@language": {
-        "description": "Simple Language text."
-    },
-
-   "defaultText": "Default",
-    "@defaultText": {
-        "description": "Simple Default text."
-    },
-
-   "username": "Username",
-    "@username": {
-        "description": "Simple Username text."
-    },
-
-   "account": "Account",
-    "@account": {
-        "description": "Simple Account text."
-    },
-
-   "reportABug": "Report a Bug",
-    "@reportABug": {
-        "description": "Text for bug report button"
-    },
+    "signOut": "Sign Out",
+    "settings": "SETTINGS",
+    "general": "General ",
+    "backgroundMusic": "Background Music",
+    "soundEffects": "Sound Effects",
+    "dialogues": "Dialogues",
+    "haptics": "Haptics",
+    "language": "Language",
+    "defaultText": "Default",
+    "username": "Username",
+    "account": "Account",
+    "reportABug": "Report a Bug",
+    "sendUsAMail": "Send Us a Mail",
+    "privacy": "Privacy",
+    "termsOfService": "Terms of Service",
+    "credits": "Credits",
+    "deleteAccount": "Delete account",
     
-   "sendUsAMail": "Send Us a Mail",
-    "@sendUsAMail": {
-        "description": "Text for mail send button"
-    },
+    "enterUsername": "Enter a Username",
+    "notUnique": "NOT UNIQUE",
+    "cantRenameYet": "Can't rename yet",
+    "hoursText": "HOURS",
+    "youShouldWait": "You should wait",
+    "usernameTooShortError": "Username too short",
+    "usernameTooLongError": "Username too long",
+    "usernameHasSpecialCharsError": "No special characters.",
+    "usernameHasBadWordsError": "Has bad words.",
+    "usernameChangeLimitWarning": "You can change your name every 30 days.",
 
-   "privacy": "Privacy",
-    "@privacy": {
-        "description": "Text for privacy button"
-    },
-
-   "termsOfService": "Terms of Service",
-    "@termsOfService": {
-        "description": "Show Terms Button text."
-    },
-
-   "credits": "Credits",
-    "@credits": {
-        "description": "Show Credits Button text."
-    },
-
-   "deleteAccount": "Delete account",
-    "@deleteAccount": {
-        "description": "Delete Account Button text."
-    },
-
-   "enterUsername": "Enter a Username",
-    "@enterUsername": {
-        "description": "Enter a Username text in all langs."
-    }, 
-
-   "notUnique": "NOT UNIQUE",
-    "@notUnique": {
-        "description": "NOT UNIQUE word in all langs."
-    },
-
-   "cantRenameYet": "Can't rename yet",
-    "@cantRenameYet": {
-        "description": "Cant rename yet text in all langs."
-    },
-   "hoursText": "HOURS",
-    "@hoursText": {
-        "description": "HOURS text in all langs"
-    },
-   "youShouldWait": "You should wait",
-    "@youShouldWait": {
-        "description": "You should wait text in all langs"
-    },
-    
-   "usernameTooShortError": "Username too short",
-    "@usernameTooShortError": {
-        "description": "Error for short username usage."
-    },
-   "usernameTooLongError": "Username too long",
-    "@usernameTooLongError": {
-        "description": "Error for long username usage."
-    },
-   "usernameHasSpecialCharsError": "No special characters.",
-    "@usernameHasSpecialCharsError": {
-        "description": "Error for username contains special chars."
-    },
-   "usernameHasBadWordsError": "Has bad words.",
-    "@usernameHasBadWordsError": {
-        "description": "Profanity error for username."
-    },
-
-   "usernameChangeLimitWarning": "You can change your name every 30 days.",
-    "@usernameChangeLimitWarning": {
-        "description": "Simple warning telling username can be change oncea month."
-    }, 
-    
     "emberusAbilityDescription": "2x the damage I take is reduced from the opponent's HP.",
-    "@emberusAbilityDescription": {
-        "description": "Ability description of Emberus GameCard"
-    },
-
     "ignisAbilityDescription": "I attack my enemy twice.",
-    "@ignisAbilityDescription": {
-        "description": "Ability description of Ignis GameCard"
-    },
-
     "blazeonAbilityDescription": "My powers are doubled.",
-    "@blazeonAbilityDescription": {
-        "description": "Ability description of Blazeon GameCard"
-    },
-
     "flamaraAbilityDescription": "My enemy takes double damage in the next battle.",
-    "@flamaraAbilityDescription": {
-        "description": "Ability description of Flamara GameCard"
-    },
-
     "pyyrhusAbilityDescription": "I absorb 3 points from my enemy.",
-    "@pyyrhusAbilityDescription": {
-        "description": "Ability description of Pyyrhus GameCard"
-    },
-
     "embrellaAbilityDescription": "I deal double damage to the opponent's HP.",
-    "@embrellaAbilityDescription": {
-        "description": "Ability description of Embrella GameCard"
-    },
-
     "solaraAbilityDescription": "I attack directly to the opponent's HP.",
-    "@solaraAbilityDescription": {
-        "description": "Ability description of Solara GameCard"
-    },
-
     "flamorionAbilityDescription": "This turn HP's take triple damage.",
-    "@flamorionAbilityDescription": {
-        "description": "Ability description of Flamorion GameCard"
-    },
-
     "solariusAbilityDescription": "The damage i inflict can not be reduced.",
-    "@solariusAbilityDescription": {
-        "description": "Ability description of Solarius GameCard"
-    },
-
     "dramberAbilityDescription": "Ally fire elements gain 1 power for each card I kill.",
-    "@dramberAbilityDescription": {
-        "description": "Ability description of Dramber GameCard"
-    },
-    
-
 
     "tritonAbilityDescription": "Resurrect the last dead ally.",
-    "@tritonAbilityDescription": {
-        "description": "Ability description of Triton GameCard"
-    },
-
     "oceanusAbilityDescription": "For each round my HP decreases, heal 4 HP.",
-    "@oceanusAbilityDescription": {
-        "description": "Ability description of Oceanus GameCard"
-    },
-
     "riverAbilityDescription": "Opponent HP are healed instead of each of my HP's going down.",
-    "@riverAbilityDescription": {
-        "description": "Ability description of River GameCard"
-    },
-
     "nereusAbilityDescription": "My enemy's power becomes 1.",
-    "@nereusAbilityDescription": {
-        "description": "Ability description of Nereus GameCard"
-    },
-
     "dylanAbilityDescription": "For each time you heal in this game, I gain 3 powers.",
-    "@dylanAbilityDescription": {
-        "description": "Ability description of Dylan GameCard"
-    },
-
     "kaiAbilityDescription": "Heal 3.",
-    "@kaiAbilityDescription": {
-        "description": "Ability description of Kai GameCard"
-    },
-
     "marinaAbilityDescription": "Heal 3 for each water element you play.",
-    "@marinaAbilityDescription": {
-        "description": "Ability description of Marina GameCard"
-    },
-
     "neptuneAbilityDescription": "In the next battle, players take the damage the opponent would take.",
-    "@neptuneAbilityDescription": {
-        "description": "Ability description of Neptune GameCard"
-    },
-
     "carolineAbilityDescription": "I die, you heal as much as my power.",
-    "@carolineAbilityDescription": {
-        "description": "Ability description of Caroline GameCard"
-    },
-
     "aquariusAbilityDescription": "If an ally dies while I'm in you hand, kill me and revive that ally.",
-    "@aquariusAbilityDescription": {
-        "description": "Ability description of Aquarius GameCard"
-    },
-   
-
 
     "terraAbilityDescription": "When Ally Earth elements die, I take no damage.",
-    "@terraAbilityDescription": {
-        "description": "Ability description of Terra GameCard"
-    },
-
     "gaiaAbilityDescription": "If you attack while I'm in your Deck, I'll hit your opponent's HP's.",
-    "@gaiaAbilityDescription": {
-        "description": "Ability description of Gaia GameCard"
-    },
-
     "lyraAbilityDescription": "I kill my Enemy.",
-    "@lyraAbilityDescription": {
-        "description": "Ability description of Lyra GameCard"
-    },
-
     "flintAbilityDescription": "Remove ability of my Enemy.",
-    "@flintAbilityDescription": {
-        "description": "Ability description of Flint GameCard"
-    },
-
     "boulderAbilityDescription": "My enemy's powers are halved.",
-    "@boulderAbilityDescription": {
-        "description": "Ability description of Boulder GameCard"
-    },
-
     "arvidAbilityDescription": "I do not take damage from cards under 5 power.",
-    "@arvidAbilityDescription": {
-        "description": "Ability description of Arvid GameCard"
-    },
-
     "gideonAbilityDescription": "Your opponent can not be healed.",
-    "@gideonAbilityDescription": {
-        "description": "Ability description of Gideon GameCard"
-    },
-
     "onyxAbilityDescription": "Next fight no one can use ability.",
-    "@onyxAbilityDescription": {
-        "description": "Ability description of Onyx GameCard"
-    },
-
     "ragnarAbilityDescription": "I double the power of the next ally to fight.",
-    "@ragnarAbilityDescription": {
-        "description": "Ability description of Ragnar GameCard"
-    },
-
     "thorinAbilityDescription": "I don't take damage from the first hit.",
-    "@thorinAbilityDescription": {
-        "description": "Ability description of Thorin GameCard"
-    },
-   
-
 
     "aeroAbilityDescription": "Kill me and send my enemy into the hands of the opponent.",
-    "@aeroAbilityDescription": {
-        "description": "Ability description of Aero GameCard"
-    },
-
     "novaAbilityDescription": "Summon an air element with damage taken.",
-    "@novaAbilityDescription": {
-        "description": "Ability description of Nova GameCard"
-    },
-
     "auroraAbilityDescription": "I hit the enemy and go back one row",
-    "@auroraAbilityDescription": {
-        "description": "Ability description of Aurora GameCard"
-    },
-
     "seraphinaAbilityDescription": "My enemy and the next enemy switch places.",
-    "@seraphinaAbilityDescription": {
-        "description": "Ability description of Seraphina GameCard"
-    },
-
     "celesteAbilityDescription": "My enemy moves to my place.",
-    "@celesteAbilityDescription": {
-        "description": "Ability description of Celeste GameCard"
-    },
-
     "lunaAbilityDescription": "Swap the next ally and enemy",
-    "@lunaAbilityDescription": {
-        "description": "Ability description of Luna GameCard"
-    },
-
     "emberAbilityDescription": "My enemy cannot hit this turn.",
-    "@emberAbilityDescription": {
-        "description": "Ability description of Ember GameCard"
-    },
-
     "ariaAbilityDescription": "I'll go back to your hand after I hit enemy.",
-    "@ariaAbilityDescription": {
-        "description": "Ability description of Aria GameCard"
-    },
-
     "zephyrAbilityDescription": "Players give their cards to the opponent.",
-    "@zephyrAbilityDescription": {
-        "description": "Ability description of Zephyr GameCard"
-    },
-
     "orionAbilityDescription": "Ally air elements gain 3 power.",
-    "@orionAbilityDescription": {
-        "description": "Ability description of Orion GameCard"
-    },
-
+    
     "termsOfUseInformation": "To continue to the game,\nplease read and confirm the following:",
-    "@termsOfUseInformation": {
-        "description": "Information text for Terms of use accept screen."
-    }, 
     "iAgreeToThe": "I have read and agree to the",
-    "@iAgreeToThe": {
-        "description": "Text says accepting upcoming sentences."
-    },
-
     "fusionPrivacyNotice": "Fusion Privacy Notice",
-    "@fusionPrivacyNotice": {
-        "description": "Fusion Privacy Notice Text."
-    },
     "termsOfUseWarningText": "By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Devangs and Fusion.",
-    "@termsOfUseWarningText": {
-        "description": "Text that saying devangs and fusions terms readed and accepted by user."
-    },
-    "acceptText": "Accept",
-    "@acceptText": {
-        "description": "Simple Accept text in all languages."
-    }
+    "acceptText": "Accept"
 }

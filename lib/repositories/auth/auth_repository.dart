@@ -15,7 +15,7 @@ class AuthRepository {
 
   FutureEither<AuthModel> logInWithGoogle() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final authModel = await _authDatasource.logInWithGoogle();
@@ -27,7 +27,7 @@ class AuthRepository {
 
   FutureEither<AuthModel> logInWithApple() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final authModel = await _authDatasource.logInWithApple();
@@ -39,7 +39,7 @@ class AuthRepository {
 
   FutureEither<AuthModel> logInWithFacebook() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final authModel = await _authDatasource.logInWithFacebook();
@@ -51,7 +51,7 @@ class AuthRepository {
 
   FutureUnit logOut() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       await _authDatasource.logOut();

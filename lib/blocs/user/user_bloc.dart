@@ -59,6 +59,8 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     _userSubscription = _userRepository.watchUserWithUid().listen((event) {
       event.fold(
         (failure) {
+          _userSubscription = null;
+
           emit(
             UserHasError(
               errorMessage: failure.message,
@@ -110,15 +112,15 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
   ) async {
     final oldState = state;
     emit(UserLoading(userModel: state.userModel));
-    final tryUpdateUser = await _userRepository.refreshDeck();
-    tryUpdateUser.fold(
+    final tryRefreshDeck = await _userRepository.refreshDeck();
+    tryRefreshDeck.fold(
       (failure) => emit(
         UserHasError(
           userModel: oldState.userModel,
           errorMessage: failure.message,
         ),
       ),
-      (userEntity) => add(ReadWithUidRequested(oldState.userModel!.uid)),
+      (success) => add(ReadWithUidRequested(oldState.userModel!.uid)),
     );
   }
 

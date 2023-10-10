@@ -13,7 +13,7 @@ class QueueRepository {
 
   FutureEither<QueueModel> enterQueue() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final queueModel = await _userDatasource.enterQueue();
@@ -25,7 +25,7 @@ class QueueRepository {
 
   FutureUnit leaveQueue() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       await _userDatasource.leaveQueue();
@@ -37,7 +37,7 @@ class QueueRepository {
 
   FutureEither<QueueModel?> checkQueue() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final queueModel = await _userDatasource.checkQueue();

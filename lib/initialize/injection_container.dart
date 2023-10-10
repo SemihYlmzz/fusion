@@ -18,7 +18,7 @@ class InjectionContainer {
         InternetConnectionChecker.new,
       )
       // -- Localization
-      ..registerLazySingleton(L10n.new)
+      ..registerSingleton(L10n())
       //! CORE
       //
       // -- Network Info

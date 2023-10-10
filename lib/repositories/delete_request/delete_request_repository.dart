@@ -14,7 +14,7 @@ class DeleteRequestRepository {
 
   FutureEither<DeleteRequestModel> createDeleteRequest() async {
     if (!(await networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final deleteRequestModel =

@@ -24,7 +24,12 @@ class CardLoading extends CardState {
 }
 
 class CardHasError extends CardState {
-  const CardHasError({required super.errorMessage, super.card});
+  const CardHasError({
+    required super.errorMessage,
+    required this.errorCleanType,
+    super.card,
+  });
+  final ErrorCleanType errorCleanType;
 }
 
 class CardHasData extends CardState {

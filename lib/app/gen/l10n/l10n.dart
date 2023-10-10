@@ -55,7 +55,7 @@ class L10n {
     return Intl.message(
       'Cancel',
       name: 'cancel',
-      desc: 'Canceling Text',
+      desc: '',
       args: [],
     );
   }
@@ -65,7 +65,7 @@ class L10n {
     return Intl.message(
       'English',
       name: 'currentLanguage',
-      desc: 'The current Language',
+      desc: '',
       args: [],
     );
   }
@@ -75,7 +75,7 @@ class L10n {
     return Intl.message(
       'Sign In with Apple',
       name: 'signInWithApple',
-      desc: 'Social Apple login text.',
+      desc: '',
       args: [],
     );
   }
@@ -85,7 +85,7 @@ class L10n {
     return Intl.message(
       'Sign In with Google',
       name: 'signInWithGoogle',
-      desc: 'Social Google login text.',
+      desc: '',
       args: [],
     );
   }
@@ -95,7 +95,7 @@ class L10n {
     return Intl.message(
       'Sign In with Facebook',
       name: 'signInWithFacebook',
-      desc: 'Social Facebook login text.',
+      desc: '',
       args: [],
     );
   }
@@ -105,7 +105,7 @@ class L10n {
     return Intl.message(
       'Welcome',
       name: 'welcome',
-      desc: 'Welcome text in all languages.',
+      desc: '',
       args: [],
     );
   }
@@ -115,7 +115,7 @@ class L10n {
     return Intl.message(
       'REFRESH DECK',
       name: 'refreshDeck',
-      desc: 'Text for taking new random deck instead of current one.',
+      desc: '',
       args: [],
     );
   }
@@ -125,7 +125,7 @@ class L10n {
     return Intl.message(
       'PLAY',
       name: 'play',
-      desc: 'Text for starting game.',
+      desc: '',
       args: [],
     );
   }
@@ -135,7 +135,7 @@ class L10n {
     return Intl.message(
       'DONE',
       name: 'done',
-      desc: 'Done word.',
+      desc: '',
       args: [],
     );
   }
@@ -145,7 +145,7 @@ class L10n {
     return Intl.message(
       'Sign Out',
       name: 'signOut',
-      desc: 'Simple Sign Out text.',
+      desc: '',
       args: [],
     );
   }
@@ -155,7 +155,7 @@ class L10n {
     return Intl.message(
       'SETTINGS',
       name: 'settings',
-      desc: 'Simple Settings text.',
+      desc: '',
       args: [],
     );
   }
@@ -165,7 +165,7 @@ class L10n {
     return Intl.message(
       'General ',
       name: 'general',
-      desc: 'Simple General text.',
+      desc: '',
       args: [],
     );
   }
@@ -175,7 +175,7 @@ class L10n {
     return Intl.message(
       'Background Music',
       name: 'backgroundMusic',
-      desc: 'Simple Background Music text.',
+      desc: '',
       args: [],
     );
   }
@@ -185,7 +185,7 @@ class L10n {
     return Intl.message(
       'Sound Effects',
       name: 'soundEffects',
-      desc: 'Simple Sound Effects text.',
+      desc: '',
       args: [],
     );
   }
@@ -195,7 +195,7 @@ class L10n {
     return Intl.message(
       'Dialogues',
       name: 'dialogues',
-      desc: 'Simple Dialogue text.',
+      desc: '',
       args: [],
     );
   }
@@ -205,7 +205,7 @@ class L10n {
     return Intl.message(
       'Haptics',
       name: 'haptics',
-      desc: 'Simple Haptics text.',
+      desc: '',
       args: [],
     );
   }
@@ -215,7 +215,7 @@ class L10n {
     return Intl.message(
       'Language',
       name: 'language',
-      desc: 'Simple Language text.',
+      desc: '',
       args: [],
     );
   }
@@ -225,7 +225,7 @@ class L10n {
     return Intl.message(
       'Default',
       name: 'defaultText',
-      desc: 'Simple Default text.',
+      desc: '',
       args: [],
     );
   }
@@ -235,7 +235,7 @@ class L10n {
     return Intl.message(
       'Username',
       name: 'username',
-      desc: 'Simple Username text.',
+      desc: '',
       args: [],
     );
   }
@@ -245,7 +245,7 @@ class L10n {
     return Intl.message(
       'Account',
       name: 'account',
-      desc: 'Simple Account text.',
+      desc: '',
       args: [],
     );
   }
@@ -255,7 +255,7 @@ class L10n {
     return Intl.message(
       'Report a Bug',
       name: 'reportABug',
-      desc: 'Text for bug report button',
+      desc: '',
       args: [],
     );
   }
@@ -265,7 +265,7 @@ class L10n {
     return Intl.message(
       'Send Us a Mail',
       name: 'sendUsAMail',
-      desc: 'Text for mail send button',
+      desc: '',
       args: [],
     );
   }
@@ -275,7 +275,7 @@ class L10n {
     return Intl.message(
       'Privacy',
       name: 'privacy',
-      desc: 'Text for privacy button',
+      desc: '',
       args: [],
     );
   }
@@ -285,7 +285,7 @@ class L10n {
     return Intl.message(
       'Terms of Service',
       name: 'termsOfService',
-      desc: 'Show Terms Button text.',
+      desc: '',
       args: [],
     );
   }
@@ -295,7 +295,7 @@ class L10n {
     return Intl.message(
       'Credits',
       name: 'credits',
-      desc: 'Show Credits Button text.',
+      desc: '',
       args: [],
     );
   }
@@ -305,7 +305,7 @@ class L10n {
     return Intl.message(
       'Delete account',
       name: 'deleteAccount',
-      desc: 'Delete Account Button text.',
+      desc: '',
       args: [],
     );
   }
@@ -315,7 +315,7 @@ class L10n {
     return Intl.message(
       'Enter a Username',
       name: 'enterUsername',
-      desc: 'Enter a Username text in all langs.',
+      desc: '',
       args: [],
     );
   }
@@ -325,7 +325,7 @@ class L10n {
     return Intl.message(
       'NOT UNIQUE',
       name: 'notUnique',
-      desc: 'NOT UNIQUE word in all langs.',
+      desc: '',
       args: [],
     );
   }
@@ -335,7 +335,7 @@ class L10n {
     return Intl.message(
       'Can\'t rename yet',
       name: 'cantRenameYet',
-      desc: 'Cant rename yet text in all langs.',
+      desc: '',
       args: [],
     );
   }
@@ -345,7 +345,7 @@ class L10n {
     return Intl.message(
       'HOURS',
       name: 'hoursText',
-      desc: 'HOURS text in all langs',
+      desc: '',
       args: [],
     );
   }
@@ -355,7 +355,7 @@ class L10n {
     return Intl.message(
       'You should wait',
       name: 'youShouldWait',
-      desc: 'You should wait text in all langs',
+      desc: '',
       args: [],
     );
   }
@@ -365,7 +365,7 @@ class L10n {
     return Intl.message(
       'Username too short',
       name: 'usernameTooShortError',
-      desc: 'Error for short username usage.',
+      desc: '',
       args: [],
     );
   }
@@ -375,7 +375,7 @@ class L10n {
     return Intl.message(
       'Username too long',
       name: 'usernameTooLongError',
-      desc: 'Error for long username usage.',
+      desc: '',
       args: [],
     );
   }
@@ -385,7 +385,7 @@ class L10n {
     return Intl.message(
       'No special characters.',
       name: 'usernameHasSpecialCharsError',
-      desc: 'Error for username contains special chars.',
+      desc: '',
       args: [],
     );
   }
@@ -395,7 +395,7 @@ class L10n {
     return Intl.message(
       'Has bad words.',
       name: 'usernameHasBadWordsError',
-      desc: 'Profanity error for username.',
+      desc: '',
       args: [],
     );
   }
@@ -405,7 +405,7 @@ class L10n {
     return Intl.message(
       'You can change your name every 30 days.',
       name: 'usernameChangeLimitWarning',
-      desc: 'Simple warning telling username can be change oncea month.',
+      desc: '',
       args: [],
     );
   }
@@ -415,7 +415,7 @@ class L10n {
     return Intl.message(
       '2x the damage I take is reduced from the opponent\'s HP.',
       name: 'emberusAbilityDescription',
-      desc: 'Ability description of Emberus GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -425,7 +425,7 @@ class L10n {
     return Intl.message(
       'I attack my enemy twice.',
       name: 'ignisAbilityDescription',
-      desc: 'Ability description of Ignis GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -435,7 +435,7 @@ class L10n {
     return Intl.message(
       'My powers are doubled.',
       name: 'blazeonAbilityDescription',
-      desc: 'Ability description of Blazeon GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -445,7 +445,7 @@ class L10n {
     return Intl.message(
       'My enemy takes double damage in the next battle.',
       name: 'flamaraAbilityDescription',
-      desc: 'Ability description of Flamara GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -455,7 +455,7 @@ class L10n {
     return Intl.message(
       'I absorb 3 points from my enemy.',
       name: 'pyyrhusAbilityDescription',
-      desc: 'Ability description of Pyyrhus GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -465,7 +465,7 @@ class L10n {
     return Intl.message(
       'I deal double damage to the opponent\'s HP.',
       name: 'embrellaAbilityDescription',
-      desc: 'Ability description of Embrella GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -475,7 +475,7 @@ class L10n {
     return Intl.message(
       'I attack directly to the opponent\'s HP.',
       name: 'solaraAbilityDescription',
-      desc: 'Ability description of Solara GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -485,7 +485,7 @@ class L10n {
     return Intl.message(
       'This turn HP\'s take triple damage.',
       name: 'flamorionAbilityDescription',
-      desc: 'Ability description of Flamorion GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -495,7 +495,7 @@ class L10n {
     return Intl.message(
       'The damage i inflict can not be reduced.',
       name: 'solariusAbilityDescription',
-      desc: 'Ability description of Solarius GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -505,7 +505,7 @@ class L10n {
     return Intl.message(
       'Ally fire elements gain 1 power for each card I kill.',
       name: 'dramberAbilityDescription',
-      desc: 'Ability description of Dramber GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -515,7 +515,7 @@ class L10n {
     return Intl.message(
       'Resurrect the last dead ally.',
       name: 'tritonAbilityDescription',
-      desc: 'Ability description of Triton GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -525,7 +525,7 @@ class L10n {
     return Intl.message(
       'For each round my HP decreases, heal 4 HP.',
       name: 'oceanusAbilityDescription',
-      desc: 'Ability description of Oceanus GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -535,7 +535,7 @@ class L10n {
     return Intl.message(
       'Opponent HP are healed instead of each of my HP\'s going down.',
       name: 'riverAbilityDescription',
-      desc: 'Ability description of River GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -545,7 +545,7 @@ class L10n {
     return Intl.message(
       'My enemy\'s power becomes 1.',
       name: 'nereusAbilityDescription',
-      desc: 'Ability description of Nereus GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -555,7 +555,7 @@ class L10n {
     return Intl.message(
       'For each time you heal in this game, I gain 3 powers.',
       name: 'dylanAbilityDescription',
-      desc: 'Ability description of Dylan GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -565,7 +565,7 @@ class L10n {
     return Intl.message(
       'Heal 3.',
       name: 'kaiAbilityDescription',
-      desc: 'Ability description of Kai GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -575,7 +575,7 @@ class L10n {
     return Intl.message(
       'Heal 3 for each water element you play.',
       name: 'marinaAbilityDescription',
-      desc: 'Ability description of Marina GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -585,7 +585,7 @@ class L10n {
     return Intl.message(
       'In the next battle, players take the damage the opponent would take.',
       name: 'neptuneAbilityDescription',
-      desc: 'Ability description of Neptune GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -595,7 +595,7 @@ class L10n {
     return Intl.message(
       'I die, you heal as much as my power.',
       name: 'carolineAbilityDescription',
-      desc: 'Ability description of Caroline GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -605,7 +605,7 @@ class L10n {
     return Intl.message(
       'If an ally dies while I\'m in you hand, kill me and revive that ally.',
       name: 'aquariusAbilityDescription',
-      desc: 'Ability description of Aquarius GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -615,7 +615,7 @@ class L10n {
     return Intl.message(
       'When Ally Earth elements die, I take no damage.',
       name: 'terraAbilityDescription',
-      desc: 'Ability description of Terra GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -625,7 +625,7 @@ class L10n {
     return Intl.message(
       'If you attack while I\'m in your Deck, I\'ll hit your opponent\'s HP\'s.',
       name: 'gaiaAbilityDescription',
-      desc: 'Ability description of Gaia GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -635,7 +635,7 @@ class L10n {
     return Intl.message(
       'I kill my Enemy.',
       name: 'lyraAbilityDescription',
-      desc: 'Ability description of Lyra GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -645,7 +645,7 @@ class L10n {
     return Intl.message(
       'Remove ability of my Enemy.',
       name: 'flintAbilityDescription',
-      desc: 'Ability description of Flint GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -655,7 +655,7 @@ class L10n {
     return Intl.message(
       'My enemy\'s powers are halved.',
       name: 'boulderAbilityDescription',
-      desc: 'Ability description of Boulder GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -665,7 +665,7 @@ class L10n {
     return Intl.message(
       'I do not take damage from cards under 5 power.',
       name: 'arvidAbilityDescription',
-      desc: 'Ability description of Arvid GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -675,7 +675,7 @@ class L10n {
     return Intl.message(
       'Your opponent can not be healed.',
       name: 'gideonAbilityDescription',
-      desc: 'Ability description of Gideon GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -685,7 +685,7 @@ class L10n {
     return Intl.message(
       'Next fight no one can use ability.',
       name: 'onyxAbilityDescription',
-      desc: 'Ability description of Onyx GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -695,7 +695,7 @@ class L10n {
     return Intl.message(
       'I double the power of the next ally to fight.',
       name: 'ragnarAbilityDescription',
-      desc: 'Ability description of Ragnar GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -705,7 +705,7 @@ class L10n {
     return Intl.message(
       'I don\'t take damage from the first hit.',
       name: 'thorinAbilityDescription',
-      desc: 'Ability description of Thorin GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -715,7 +715,7 @@ class L10n {
     return Intl.message(
       'Kill me and send my enemy into the hands of the opponent.',
       name: 'aeroAbilityDescription',
-      desc: 'Ability description of Aero GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -725,7 +725,7 @@ class L10n {
     return Intl.message(
       'Summon an air element with damage taken.',
       name: 'novaAbilityDescription',
-      desc: 'Ability description of Nova GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -735,7 +735,7 @@ class L10n {
     return Intl.message(
       'I hit the enemy and go back one row',
       name: 'auroraAbilityDescription',
-      desc: 'Ability description of Aurora GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -745,7 +745,7 @@ class L10n {
     return Intl.message(
       'My enemy and the next enemy switch places.',
       name: 'seraphinaAbilityDescription',
-      desc: 'Ability description of Seraphina GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -755,7 +755,7 @@ class L10n {
     return Intl.message(
       'My enemy moves to my place.',
       name: 'celesteAbilityDescription',
-      desc: 'Ability description of Celeste GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -765,7 +765,7 @@ class L10n {
     return Intl.message(
       'Swap the next ally and enemy',
       name: 'lunaAbilityDescription',
-      desc: 'Ability description of Luna GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -775,7 +775,7 @@ class L10n {
     return Intl.message(
       'My enemy cannot hit this turn.',
       name: 'emberAbilityDescription',
-      desc: 'Ability description of Ember GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -785,7 +785,7 @@ class L10n {
     return Intl.message(
       'I\'ll go back to your hand after I hit enemy.',
       name: 'ariaAbilityDescription',
-      desc: 'Ability description of Aria GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -795,7 +795,7 @@ class L10n {
     return Intl.message(
       'Players give their cards to the opponent.',
       name: 'zephyrAbilityDescription',
-      desc: 'Ability description of Zephyr GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -805,7 +805,7 @@ class L10n {
     return Intl.message(
       'Ally air elements gain 3 power.',
       name: 'orionAbilityDescription',
-      desc: 'Ability description of Orion GameCard',
+      desc: '',
       args: [],
     );
   }
@@ -815,7 +815,7 @@ class L10n {
     return Intl.message(
       'To continue to the game,\nplease read and confirm the following:',
       name: 'termsOfUseInformation',
-      desc: 'Information text for Terms of use accept screen.',
+      desc: '',
       args: [],
     );
   }
@@ -825,7 +825,7 @@ class L10n {
     return Intl.message(
       'I have read and agree to the',
       name: 'iAgreeToThe',
-      desc: 'Text says accepting upcoming sentences.',
+      desc: '',
       args: [],
     );
   }
@@ -835,7 +835,7 @@ class L10n {
     return Intl.message(
       'Fusion Privacy Notice',
       name: 'fusionPrivacyNotice',
-      desc: 'Fusion Privacy Notice Text.',
+      desc: '',
       args: [],
     );
   }
@@ -845,8 +845,7 @@ class L10n {
     return Intl.message(
       'By continuing, I agree to the Terms of Service and acknowledge reading the Privacy Notices for Devangs and Fusion.',
       name: 'termsOfUseWarningText',
-      desc:
-          'Text that saying devangs and fusions terms readed and accepted by user.',
+      desc: '',
       args: [],
     );
   }
@@ -856,7 +855,7 @@ class L10n {
     return Intl.message(
       'Accept',
       name: 'acceptText',
-      desc: 'Simple Accept text in all languages.',
+      desc: '',
       args: [],
     );
   }

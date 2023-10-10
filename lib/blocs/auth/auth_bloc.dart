@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
 import 'package:fusion/repositories/repositories.dart';
 
 part 'auth_event.dart';
@@ -52,6 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     tryLogOut.fold(
       (failure) => emit(
         AuthHasError(
+          errorCleanType: event.errorCleanType,
           errorMessage: failure.message,
           authEntity: state.authEntity,
         ),
@@ -70,7 +72,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithGoogle.fold(
       (failure) {
-        emit(AuthHasError(errorMessage: failure.message));
+        emit(
+          AuthHasError(
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));
@@ -88,7 +95,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithApple.fold(
       (failure) {
-        emit(AuthHasError(errorMessage: failure.message));
+        emit(
+          AuthHasError(
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));
@@ -106,7 +118,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     tryLogInWithFacebook.fold(
       (failure) {
-        emit(AuthHasError(errorMessage: failure.message));
+        emit(
+          AuthHasError(
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (authEntity) {
         emit(AuthAuthenticated(authEntity: authEntity));

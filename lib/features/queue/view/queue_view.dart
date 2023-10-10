@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/app/gen/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_constants/shared_constants.dart';
@@ -25,7 +26,6 @@ class QueueView extends StatelessWidget {
           BaseColumn(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Text(userState.user?.username ?? ''),
               Padding(
                 padding: SharedPaddings.all32,
                 child: GradientTextButton(
@@ -38,7 +38,7 @@ class QueueView extends StatelessWidget {
                   children: [QueueTimer(), Text('Searching For Enemy')],
                 ),
               GradientButton(
-                text: 'Cancel',
+                text: L10n.current.cancel,
                 onPressed: () {
                   if (queueState is QueueReadyToEnter && context.mounted) {
                     return context.goNamed(HomeScreen.name);

@@ -17,7 +17,7 @@ class UserRepository {
     required String uid,
   }) async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       final readedUserModel = await _userDatasource.readUserWithUid(
@@ -31,7 +31,7 @@ class UserRepository {
 
   StreamEither<UserModel> watchUserWithUid() async* {
     if (!(await _networkInfo.isConnected)) {
-      yield const Left(Failure.network);
+      yield Left(Failure.network());
     }
     try {
       final userStream = _userDatasource.watchUserWithUid();
@@ -45,7 +45,7 @@ class UserRepository {
 
   FutureUnit changeUsername({required String newUsername}) async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       await _userDatasource.changeUsername(newUsername: newUsername);
@@ -57,7 +57,7 @@ class UserRepository {
 
   FutureUnit refreshDeck() async {
     if (!(await _networkInfo.isConnected)) {
-      return const Left(Failure.network);
+      return Left(Failure.network());
     }
     try {
       await _userDatasource.refreshDeck();

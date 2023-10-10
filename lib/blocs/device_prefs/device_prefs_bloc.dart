@@ -51,6 +51,9 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     UpdateDevicePrefs event,
     Emitter<DevicePrefsState> emit,
   ) async {
+    //  if (event.devicePrefs == state) {
+      //  return;
+    //  }
     emit(const DevicePrefsLoading());
     final updateResult = await _devicePrefsRepository.updateDevicePrefs(
       updatedDevicePrefs: event.devicePrefs,

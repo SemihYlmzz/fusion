@@ -1,11 +1,16 @@
 part of 'auth_bloc.dart';
 
 sealed class AuthEvent {
-  const AuthEvent();
+  const AuthEvent({
+    this.errorCleanType = ErrorCleanType.afterDisplay,
+  });
+  final ErrorCleanType errorCleanType;
 }
 
 final class AuthLogoutRequested extends AuthEvent {
-  const AuthLogoutRequested();
+  const AuthLogoutRequested({
+    super.errorCleanType,
+  });
 }
 
 final class _AuthUserChanged extends AuthEvent {
@@ -15,14 +20,23 @@ final class _AuthUserChanged extends AuthEvent {
 }
 
 class LogInWithGoogleRequested extends AuthEvent {
-  const LogInWithGoogleRequested();
+  const LogInWithGoogleRequested({
+    super.errorCleanType,
+  });
 }
+
 class LogInWithAppleRequested extends AuthEvent {
-  const LogInWithAppleRequested();
+  const LogInWithAppleRequested({
+    super.errorCleanType,
+  });
 }
+
 class LogInWithFacebookRequested extends AuthEvent {
-  const LogInWithFacebookRequested();
+  const LogInWithFacebookRequested({
+    super.errorCleanType,
+  });
 }
+
 class ClearAuthErrorMessageRequested extends AuthEvent {
   const ClearAuthErrorMessageRequested();
 }

@@ -52,7 +52,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       // If [googleUser] is null. We can't take [accessToken] and [idToken]
       // so we ensure that the [googleUser] is not null.
       if (googleUser == null) {
-        throw LogInWithGoogleExceptions.logInFailed;
+        throw LogInWithGoogleExceptions.empty;
       }
 
       // We authenticate [googleUser] and get [GoogleSignInAuthentication]
@@ -109,6 +109,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
           message: _firebaseAuthExceptionToFailureMessage(e),
         );
       }
+
       // If none of expected exceptions throwed.
       // We are throwing an [UnknownException]
       throw LogInWithGoogleExceptions.unknown;
@@ -149,11 +150,10 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
           '${appleCredential.givenName} ${appleCredential.familyName}';
       final userEmail = appleCredential.email;
 
-      if (userEmail == null) {
-        throw LogInWithAppleExceptions.logInFailed;
+      if (userEmail != null) {
+        await firebaseUser.updateEmail(userEmail);
       }
       await firebaseUser.updateDisplayName(displayName);
-      await firebaseUser.updateEmail(userEmail);
 
       return AuthModel.fromFirebaseUser(firebaseUser);
     } catch (e) {
@@ -186,7 +186,7 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       final loginResult = await _facebookAuth.login();
 
       if (loginResult.accessToken == null) {
-        throw LogInWithFacebookExceptions.logInFailed;
+        throw LogInWithFacebookExceptions.empty;
       }
 
       credential = FacebookAuthProvider.credential(

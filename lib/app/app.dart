@@ -76,16 +76,6 @@ class _AppState extends State<App> with RouterMixin {
             supportedLocales: L10n.delegate.supportedLocales,
             locale: Localization
                 .languageCodeToLocale[devicePrefsState.devicePrefs.language],
-            //  localeResolutionCallback: (deviceLocale, supportedLocales) {
-            //  return const Locale('en', 'EN');
-            //  // if (supportedLocales
-            //  //     .map((e) => e.languageCode)
-            //  //     .contains(deviceLocale?.languageCode)) {
-            //  //   return deviceLocale;
-            //  // } else {
-            //  //   return const Locale('tr', 'TR');
-            //  // }
-            //  },
             localizationsDelegates: const [
               L10n.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -100,14 +90,14 @@ class _AppState extends State<App> with RouterMixin {
 
   BlocListener<AuthBloc, AuthState> _buildAuthBlocListener(UserBloc userBloc) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is AuthHasError) {
-          _showSnackBar(context, state.errorMessage!);
+      listener: (context, authState) {
+        if (authState is AuthHasError) {
+          _showSnackBar(context, authState.errorMessage!);
 
           context.read<AuthBloc>().add(const ClearAuthErrorMessageRequested());
-        } else if (state is AuthAuthenticated) {
+        } else if (authState is AuthAuthenticated) {
           if (userBloc.state is! UserHasData) {
-            userBloc.add(ReadWithUidRequested(state.authEntity.id));
+            userBloc.add(ReadWithUidRequested(authState.authEntity.id));
           }
         }
       },
@@ -141,13 +131,12 @@ class _AppState extends State<App> with RouterMixin {
 
   BlocListener<QueueBloc, QueueState> _buildQueueBlocListener() {
     return BlocListener<QueueBloc, QueueState>(
-      listener: (context, state) {
-        if (state is QueueHasError) {
-          _showSnackBar(context, state.errorMessage!).whenComplete(
-            () => context
-                .read<QueueBloc>()
-                .add(const ClearQueueErrorMessageRequested()),
-          );
+      listener: (context, queueState) {
+        if (queueState is QueueHasError) {
+          _showSnackBar(context, queueState.errorMessage!);
+          context
+              .read<QueueBloc>()
+              .add(const ClearQueueErrorMessageRequested());
         }
       },
     );

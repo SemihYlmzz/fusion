@@ -1,0 +1,4 @@
+enum ErrorCleanType {
+  afterDisplay,
+  onUserEvent,
+}

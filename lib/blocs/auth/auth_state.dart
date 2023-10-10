@@ -8,7 +8,7 @@ abstract class AuthState extends Equatable {
   final String? errorMessage;
   final AuthModel authEntity;
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => [errorMessage, authEntity];
 }
 
 class AuthUnAuthenticated extends AuthState {
@@ -20,7 +20,12 @@ class AuthLoading extends AuthState {
 }
 
 class AuthHasError extends AuthState {
-  const AuthHasError({required super.errorMessage, super.authEntity});
+  const AuthHasError({
+    required super.errorMessage,
+    required this.errorCleanType,
+    super.authEntity,
+  });
+  final ErrorCleanType errorCleanType;
 }
 
 class AuthAuthenticated extends AuthState {
