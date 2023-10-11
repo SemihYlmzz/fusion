@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:fusion/repositories/repositories.dart';
-
-
 
 part 'queue_event.dart';
 part 'queue_state.dart';
@@ -33,7 +33,12 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     tryEnterQueue.fold(
       (failure) async {
         emit(
-          QueueHasError(errorMessage: failure.message, queue: state.queue),
+          QueueHasError(
+            errorDisplayType: event.errorDisplayType,
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+            queue: state.queue,
+          ),
         );
       },
       (queueEntity) => emit(QueueHasData(queue: queueEntity)),
@@ -54,7 +59,12 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
           const QueueLeaved();
         } else {
           emit(
-            QueueHasError(errorMessage: failure.message, queue: state.queue),
+            QueueHasError(
+              errorDisplayType: event.errorDisplayType,
+              errorCleanType: event.errorCleanType,
+              errorMessage: failure.message,
+              queue: state.queue,
+            ),
           );
         }
       },
@@ -73,7 +83,12 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> with ChangeNotifier {
     tryCheckQueue.fold(
       (failure) {
         emit(
-          QueueHasError(errorMessage: failure.message, queue: state.queue),
+          QueueHasError(
+            errorDisplayType: event.errorDisplayType,
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+            queue: state.queue,
+          ),
         );
       },
       (queue) => queue == null

@@ -2,9 +2,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
+import 'package:shared_widgets/shared_widgets.dart';
 
 import '../blocs/blocs.dart';
+import '../features/queue/view/queue_screen.dart';
 import '../initialize/injection_container.dart';
 import 'cubits/cubits.dart';
 import 'gen/l10n/l10n.dart';
@@ -66,11 +70,30 @@ class _AppState extends State<App> with RouterMixin {
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
-                  _buildQueueBlocListener(),
+                  _buildQueueBlocListener(userBloc),
                   _buildCardBlocListener(),
                   _buildDevicePrefsBlocListener(),
                 ],
-                child: router!,
+                child: Builder(
+                  builder: (builderContext) {
+                    final auth = builderContext.watch<AuthBloc>().state;
+                    final user = builderContext.watch<UserBloc>().state;
+                    final deleteRequest =
+                        builderContext.watch<DeleteRequestBloc>().state;
+                    final queue = builderContext.watch<QueueBloc>().state;
+                    final ad = builderContext.watch<AdCubit>().state;
+                    return LoadingScreen(
+                      isLoading: auth is AuthLoading ||
+                          (user is UserLoading) ||
+                          devicePrefsState is DevicePrefsLoading ||
+                          queue is QueueLoading ||
+                          deleteRequest is DeleteRequestLoading ||
+                          ad.isLoadingAd,
+                      size: MediaQuery.of(builderContext).size,
+                      child: router!,
+                    );
+                  },
+                ),
               );
             },
             supportedLocales: L10n.delegate.supportedLocales,
@@ -94,11 +117,19 @@ class _AppState extends State<App> with RouterMixin {
         if (authState is AuthHasError) {
           _showSnackBar(context, authState.errorMessage!);
 
-          context.read<AuthBloc>().add(const ClearAuthErrorMessageRequested());
+          if (authState.errorCleanType == ErrorCleanType.afterDisplay) {
+            context
+                .read<AuthBloc>()
+                .add(const ClearAuthErrorMessageRequested());
+          }
         } else if (authState is AuthAuthenticated) {
           if (userBloc.state is! UserHasData) {
-            userBloc.add(ReadWithUidRequested(authState.authEntity.id));
+            userBloc.add(ReadWithUidRequested(uid: authState.authEntity.id));
           }
+        }
+        if (authState is AuthUnAuthenticated &&
+            userBloc.state.userModel != null) {
+          userBloc.add(const ClearUserRequested());
         }
       },
     );
@@ -109,7 +140,11 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state is UserHasError) {
           _showSnackBar(context, state.errorMessage!);
-          context.read<UserBloc>().add(const ClearUserErrorMessageRequested());
+          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+            context
+                .read<UserBloc>()
+                .add(const ClearUserErrorMessageRequested());
+          }
         }
       },
     );
@@ -129,14 +164,36 @@ class _AppState extends State<App> with RouterMixin {
     );
   }
 
-  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener() {
+  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener(
+    UserBloc userBloc,
+  ) {
     return BlocListener<QueueBloc, QueueState>(
       listener: (context, queueState) {
+        // Error handler
+        //
         if (queueState is QueueHasError) {
           _showSnackBar(context, queueState.errorMessage!);
-          context
-              .read<QueueBloc>()
-              .add(const ClearQueueErrorMessageRequested());
+          if (queueState.errorCleanType == ErrorCleanType.afterDisplay) {
+            context
+                .read<QueueBloc>()
+                .add(const ClearQueueErrorMessageRequested());
+          }
+        }
+
+        // Checking if user in queue or not
+        // then navigating if user in queue
+        if (userBloc.state is UserHasData) {
+          if (queueState is QueueEmpty || queueState is QueueLeaved) {
+            context.read<QueueBloc>().add(
+                  const CheckQueueRequested(
+                    errorCleanType: ErrorCleanType.onUserEvent,
+                  ),
+                );
+          }
+
+          if (queueState is QueueHasData) {
+            context.goNamed(QueueScreen.name);
+          }
         }
       },
     );
@@ -147,6 +204,11 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state is CardHasError) {
           _showSnackBar(context, state.errorMessage!);
+          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+            context
+                .read<CardBloc>()
+                .add(const ClearCardErrorMessageRequested());
+          }
         }
       },
     );
@@ -158,9 +220,20 @@ class _AppState extends State<App> with RouterMixin {
       listener: (context, state) {
         if (state is DevicePrefsHasError) {
           _showSnackBar(context, state.errorMessage!);
-          context
-              .read<DevicePrefsBloc>()
-              .add(const ClearDevicePrefsErrorMessage());
+          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+            context
+                .read<DevicePrefsBloc>()
+                .add(const ClearDevicePrefsErrorMessage());
+          }
+        }
+
+        if (state is DevicePrefsReaded) {
+          context.read<AudioCubit>().connectDevicePrefs(
+                state.devicePrefs.backGroundSoundVolume,
+                state.devicePrefs.dialogsSoundVolume,
+                state.devicePrefs.generalSoundVolume,
+                state.devicePrefs.soundEffectsSoundVolume,
+              );
         }
       },
     );

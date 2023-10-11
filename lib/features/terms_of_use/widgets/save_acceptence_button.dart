@@ -23,7 +23,7 @@ class SaveAcceptenceButton extends StatelessWidget {
               : () {
                   context.read<DevicePrefsBloc>().add(
                         UpdateDevicePrefs(
-                          devicePrefsState.devicePrefs.copyWith(
+                          devicePrefs: devicePrefsState.devicePrefs.copyWith(
                             isTermsAndConditionsAccepted: true,
                           ),
                         ),

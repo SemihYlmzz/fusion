@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 
 import '../../../core/errors/failure/failure.dart';
 import '../../repositories/repositories.dart';
@@ -22,6 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     on<RefreshDeckRequested>(_onRefreshDeckRequested);
     on<StopWatchingUserRequested>(_onStopWatchingUserRequested);
     on<ClearUserErrorMessageRequested>(_onClearUserErrorMessageRequested);
+    on<ClearUserRequested>(_onClearUserRequested);
   }
   final UserRepository _userRepository;
 
@@ -34,12 +37,18 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     if (state is UserHasData) {
       return;
     }
-    emit(const UserInitializing());
+    emit(const UserLoading());
     final tryReadUser = await _userRepository.readUserWithUid(uid: event.uid);
 
     tryReadUser.fold(
       (failure) {
-        emit(UserHasError(errorMessage: failure.message));
+        emit(
+          UserHasError(
+            errorDisplayType: event.errorDisplayType,
+            errorCleanType: event.errorCleanType,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (userEntity) {
         userEntity != null
@@ -56,13 +65,15 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     await _userSubscription?.cancel();
     emit(UserLoading(userModel: state.userModel));
 
-    _userSubscription = _userRepository.watchUserWithUid().listen((event) {
-      event.fold(
+    _userSubscription = _userRepository.watchUserWithUid().listen((result) {
+      result.fold(
         (failure) {
           _userSubscription = null;
 
           emit(
             UserHasError(
+              errorDisplayType: event.errorDisplayType,
+              errorCleanType: event.errorCleanType,
               errorMessage: failure.message,
               userModel: state.userModel,
             ),
@@ -89,6 +100,8 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     tryUpdateUser.fold(
       (failure) => emit(
         UserHasError(
+          errorDisplayType: event.errorDisplayType,
+          errorCleanType: event.errorCleanType,
           userModel: oldState.userModel,
           errorMessage: failure.message,
         ),
@@ -116,11 +129,17 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     tryRefreshDeck.fold(
       (failure) => emit(
         UserHasError(
+          errorDisplayType: event.errorDisplayType,
+          errorCleanType: event.errorCleanType,
           userModel: oldState.userModel,
           errorMessage: failure.message,
         ),
       ),
-      (success) => add(ReadWithUidRequested(oldState.userModel!.uid)),
+      (success) => add(
+        ReadWithUidRequested(
+          uid: oldState.userModel!.uid,
+        ),
+      ),
     );
   }
 
@@ -140,6 +159,13 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     } else {
       emit(UserHasData(userModel: state.userModel));
     }
+  }
+
+  Future<void> _onClearUserRequested(
+    ClearUserRequested event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(const UserEmpty());
   }
 
   @override

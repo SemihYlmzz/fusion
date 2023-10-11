@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:fusion/repositories/repositories.dart';
 
 part 'card_event.dart';
@@ -27,7 +28,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
     tryGetCard.fold(
       (failure) => emit(
-        CardHasError(
+        CardHasError(          errorDisplayType: event.errorDisplayType,
+
           errorMessage: failure.message,
           errorCleanType: event.errorCleanType,
         ),

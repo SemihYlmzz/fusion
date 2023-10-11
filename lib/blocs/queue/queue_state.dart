@@ -8,16 +8,6 @@ abstract class QueueState extends Equatable {
   final String? errorMessage;
   final QueueModel? queue;
 
-  QueueState copyWith({
-    QueueModel? queue,
-    String? errorMessage,
-  }) {
-    return QueueLeaved(
-      queue: queue ?? this.queue,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
-
   @override
   List<Object?> get props => [
         errorMessage,
@@ -26,25 +16,32 @@ abstract class QueueState extends Equatable {
 }
 
 class QueueEmpty extends QueueState {
-  const QueueEmpty({super.queue, super.errorMessage});
+  const QueueEmpty();
 }
 
 class QueueLoading extends QueueState {
-  const QueueLoading({super.queue, super.errorMessage});
+  const QueueLoading({super.queue});
 }
 
 class QueueReadyToEnter extends QueueState {
-  const QueueReadyToEnter({super.queue, super.errorMessage});
+  const QueueReadyToEnter({super.queue});
 }
 
 class QueueHasData extends QueueState {
-  const QueueHasData({required super.queue, super.errorMessage});
+  const QueueHasData({required super.queue});
 }
 
 class QueueHasError extends QueueState {
-  const QueueHasError({required super.errorMessage, super.queue});
+  const QueueHasError({
+    required super.errorMessage,
+    required this.errorCleanType,
+    required this.errorDisplayType,
+    super.queue,
+  });
+  final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class QueueLeaved extends QueueState {
-  const QueueLeaved({super.queue, super.errorMessage});
+  const QueueLeaved();
 }

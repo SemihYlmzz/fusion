@@ -44,7 +44,7 @@ class _GeneralSoundSliderState extends State<GeneralSoundSlider> {
       onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                widget.devicePrefs.copyWith(
+               devicePrefs: widget.devicePrefs.copyWith(
                   generalSoundVolume: newValue,
                 ),
               ),

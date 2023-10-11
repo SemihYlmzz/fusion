@@ -27,9 +27,11 @@ class CardHasError extends CardState {
   const CardHasError({
     required super.errorMessage,
     required this.errorCleanType,
+    required this.errorDisplayType,
     super.card,
   });
   final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class CardHasData extends CardState {

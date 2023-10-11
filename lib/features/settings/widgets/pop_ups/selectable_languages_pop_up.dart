@@ -42,7 +42,7 @@ class SelectableLanguagesPopUp extends StatelessWidget {
                     Navigator.of(context).pop();
                     context.read<DevicePrefsBloc>().add(
                           UpdateDevicePrefs(
-                            devicePrefs.copyWith(
+                            devicePrefs: devicePrefs.copyWith(
                               language: languageCodeDefault,
                             ),
                           ),
@@ -59,7 +59,7 @@ class SelectableLanguagesPopUp extends StatelessWidget {
                     Navigator.of(context).pop();
                     context.read<DevicePrefsBloc>().add(
                           UpdateDevicePrefs(
-                            devicePrefs.copyWith(
+                            devicePrefs: devicePrefs.copyWith(
                               language: languageCodeEnglish,
                             ),
                           ),
@@ -76,7 +76,7 @@ class SelectableLanguagesPopUp extends StatelessWidget {
                     Navigator.of(context).pop();
                     context.read<DevicePrefsBloc>().add(
                           UpdateDevicePrefs(
-                            devicePrefs.copyWith(
+                            devicePrefs: devicePrefs.copyWith(
                               language: languageCodeTurkish,
                             ),
                           ),

@@ -54,19 +54,26 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
         }
         return BlocBuilder<QueueBloc, QueueState>(
           builder: (context, queueState) {
-            if (queueState is QueueEmpty && queueState.errorMessage == null) {
+            if (queueState is QueueEmpty || userState is UserHasError) {
               context.goNamed(HomeScreen.name);
+            }
+            if (queueState is QueueHasError) {
+              context
+                  .read<QueueBloc>()
+                  .add(const ClearQueueErrorMessageRequested());
             }
             if (queueState is QueueReadyToEnter) {
               if (userState.userModel!.gameId != null && mounted) {
                 context.goNamed(GameScreen.name);
               } else {
-                context.read<QueueBloc>().add(const EnterQueueRequested());
+                context.read<QueueBloc>().add(
+                      const EnterQueueRequested(),
+                    );
               }
             }
             if ((queueState is QueueLeaved) && mounted) {
               context.goNamed(HomeScreen.name);
-            }
+            } 
             return QueueView(
               queueState: queueState,
             );

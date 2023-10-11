@@ -40,7 +40,8 @@ class _DialoguesSliderState extends State<DialoguesSlider> {
       onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                widget.devicePrefs.copyWith(dialogsSoundVolume: newValue),
+                devicePrefs:
+                    widget.devicePrefs.copyWith(dialogsSoundVolume: newValue),
               ),
             );
       },

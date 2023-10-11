@@ -24,7 +24,14 @@ class DevicePrefsReaded extends DevicePrefsState {
 }
 
 class DevicePrefsHasError extends DevicePrefsState {
-  const DevicePrefsHasError({required super.errorMessage, super.devicePrefs});
+  const DevicePrefsHasError({
+    required super.errorMessage,
+    required this.errorCleanType,
+    required this.errorDisplayType,
+    super.devicePrefs,
+  });
+  final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class DevicePrefsUnreaded extends DevicePrefsState {

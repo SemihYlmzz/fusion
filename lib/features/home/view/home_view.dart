@@ -8,36 +8,14 @@ import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/gen/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/repositories.dart';
 import '../../settings/settings.dart';
 import '../widgets/widgets.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({
-    required this.uid,
-    required this.devicePrefs,
-    required this.user,
-    required this.adState,
-    super.key,
-  });
-  final String uid;
-  final DevicePrefsModel devicePrefs;
-  final UserModel user;
-  final AdState adState;
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    context.read<AudioCubit>().connectDevicePrefs(
-          widget.devicePrefs.backGroundSoundVolume,
-          widget.devicePrefs.dialogsSoundVolume,
-          widget.devicePrefs.generalSoundVolume,
-          widget.devicePrefs.soundEffectsSoundVolume,
-        );
     context.read<AudioCubit>().playBackgroundSound(
           Assets.music.background.mainMenuLoop,
         );
@@ -46,72 +24,106 @@ class _HomeViewState extends State<HomeView> {
       children: [
         AppBar(
           leadingWidth: 115,
-          title: Text(widget.user.username),
+          title: const UsernameText(),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                context.read<AudioCubit>().playSoundEffect(
-                      Assets.music.sfx.settingsButtonSfx,
-                    );
-                if (widget.devicePrefs.isHapticsOn) {
-                  HapticFeedback.heavyImpact();
-                }
-                openSettingsPopUp(context);
-              },
-              iconSize: 44,
-            ),
+          actions: const [
+            SettingsButton(),
           ],
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        Column(
+        const Column(
           children: [
             SizedBox(
-              width: 320,
-              height: 250,
-              child: DeckPreview(
-                deck: widget.user.deck,
-              ),
+              width: 320, //  Kaldırılmalı
+              height: 250, //  Kaldırılmalı
+              child: DeckPreview(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.refresh),
-                TextButton(
-                  onPressed: () async {
-                    await context
-                        .read<AdCubit>()
-                        .loadAndShowRewardedAd(() async {
-                      await context.read<AudioCubit>().playSoundEffect(
-                            Assets.music.sfx.refreshDeckButtonSfx,
-                          );
-                      if (widget.devicePrefs.isHapticsOn) {
-                        await HapticFeedback.heavyImpact();
-                      }
-                      if (context.mounted) {
-                        context
-                            .read<UserBloc>()
-                            .add(const RefreshDeckRequested());
-                      }
-                    });
-                  },
-                  child: Text(
-                    L10n.current.refreshDeck,
-                    style: const TextStyle(
-                      color: Colors.greenAccent,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            PlayButton(
-              devicePrefs: widget.devicePrefs,
-            ),
+            RefreshDeckButton(),
+            PlayButton(),
           ],
         ),
       ],
+    );
+  }
+}
+
+class RefreshDeckButton extends StatelessWidget {
+  const RefreshDeckButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.refresh),
+        BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+          builder: (context, devicePrefsState) {
+            return TextButton(
+              onPressed: () async {
+                await context.read<AdCubit>().loadAndShowRewardedAd(() async {
+                  await context.read<AudioCubit>().playSoundEffect(
+                        Assets.music.sfx.refreshDeckButtonSfx,
+                      );
+                  if (devicePrefsState.devicePrefs.isHapticsOn) {
+                    await HapticFeedback.heavyImpact();
+                  }
+                  if (context.mounted) {
+                    context.read<UserBloc>().add(const RefreshDeckRequested());
+                  }
+                });
+              },
+              child: Text(
+                L10n.current.refreshDeck,
+                style: const TextStyle(
+                  color: Colors.greenAccent,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class UsernameText extends StatelessWidget {
+  const UsernameText({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, userState) {
+        return userState is UserHasData
+            ? Text(userState.userModel!.username)
+            : const SizedBox();
+      },
+    );
+  }
+}
+
+class SettingsButton extends StatelessWidget {
+  const SettingsButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+      builder: (context, devicePrefsState) {
+        return IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            context.read<AudioCubit>().playSoundEffect(
+                  Assets.music.sfx.settingsButtonSfx,
+                );
+            if (devicePrefsState.devicePrefs.isHapticsOn) {
+              HapticFeedback.heavyImpact();
+            }
+            openSettingsPopUp(context);
+          },
+          iconSize: 44,
+        );
+      },
     );
   }
 

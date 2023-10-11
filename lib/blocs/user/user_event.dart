@@ -1,43 +1,77 @@
 part of 'user_bloc.dart';
 
 sealed class UserEvent {
-  const UserEvent();
+  const UserEvent({
+    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorDisplayType = ErrorDisplayType.snackBar,
+  });
+  final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 final class ReadWithUidRequested extends UserEvent {
-  const ReadWithUidRequested(this.uid);
+  const ReadWithUidRequested({
+    required this.uid,
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
   final String uid;
 }
 
 final class WatchWithUidRequested extends UserEvent {
-  const WatchWithUidRequested();
+  const WatchWithUidRequested({
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 }
 
 final class UpdateRequested extends UserEvent {
-  const UpdateRequested(this.userModel);
+  const UpdateRequested({
+    required this.userModel,
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 
   final UserModel userModel;
 }
 
 final class ChangeUsernameRequested extends UserEvent {
-  const ChangeUsernameRequested(this.newUsername);
+  const ChangeUsernameRequested({
+    required this.newUsername,
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
   final String newUsername;
 }
 
 final class RefreshDeckRequested extends UserEvent {
-  const RefreshDeckRequested();
+  const RefreshDeckRequested({
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 }
 
 final class DeleteRequested extends UserEvent {
-  const DeleteRequested(this.uid);
+  const DeleteRequested({
+    required this.uid,
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 
   final String uid;
 }
 
 final class StopWatchingUserRequested extends UserEvent {
-  const StopWatchingUserRequested();
+  const StopWatchingUserRequested({
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 }
 
 final class ClearUserErrorMessageRequested extends UserEvent {
   const ClearUserErrorMessageRequested();
+}
+
+final class ClearUserRequested extends UserEvent {
+  const ClearUserRequested();
 }

@@ -95,7 +95,8 @@ class SettingsScreen extends StatelessWidget {
                                         onChanged: (newValue) {
                                           context.read<DevicePrefsBloc>().add(
                                                 UpdateDevicePrefs(
-                                                  devicePrefs.copyWith(
+                                                  devicePrefs:
+                                                      devicePrefs.copyWith(
                                                     isHapticsOn: newValue,
                                                   ),
                                                 ),

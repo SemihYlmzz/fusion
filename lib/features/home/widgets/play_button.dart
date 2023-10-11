@@ -9,45 +9,59 @@ import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
 import '../../../app/gen/l10n/l10n.dart';
 import '../../../blocs/blocs.dart';
-import '../../../repositories/repositories.dart';
 import '../../queue/view/queue_screen.dart';
 
 class PlayButton extends StatelessWidget {
-  const PlayButton({
-    required this.devicePrefs,
-    super.key,
-  });
-  final DevicePrefsModel devicePrefs;
+  const PlayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
-        return GradientButton(
-          text: L10n.current.play,
-          onPressed: () {
-            if (devicePrefs.isHapticsOn) {
-              HapticFeedback.heavyImpact();
-            }
-            if (userState.userModel!.username == '') {
-              openEnterNamePopUp(context);
-              return;
-            }
-            context.read<AudioCubit>().playSoundEffect(
-                  Assets.music.sfx.playButtonSfx,
+        return BlocBuilder<QueueBloc, QueueState>(
+          builder: (context, queueState) {
+            return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
+              builder: (context, devicePrefsState) {
+                return GradientButton(
+                  isOutlined: queueState is QueueHasError,
+                  text:
+                      queueState is QueueHasError ? 'Retry' : L10n.current.play,
+                  onPressed: queueState is QueueHasError
+                      ? () {
+                          context
+                              .read<QueueBloc>()
+                              .add(const ClearQueueErrorMessageRequested());
+                        }
+                      : () {
+                          if (devicePrefsState.devicePrefs.isHapticsOn) {
+                            HapticFeedback.heavyImpact();
+                          }
+                          if (userState.userModel!.username == '') {
+                            openEnterNamePopUp(context, devicePrefsState);
+                            return;
+                          }
+                          context.read<AudioCubit>().playSoundEffect(
+                                Assets.music.sfx.playButtonSfx,
+                              );
+                          context.goNamed(QueueScreen.name);
+                        },
                 );
-            context.goNamed(QueueScreen.name);
+              },
+            );
           },
         );
       },
     );
   }
 
-  Future<void> openEnterNamePopUp(BuildContext context) async {
+  Future<void> openEnterNamePopUp(
+    BuildContext context,
+    DevicePrefsState devicePrefsState,
+  ) async {
     return showDialog(
       context: context,
       builder: (context) {
-        if (devicePrefs.isHapticsOn) {
+        if (devicePrefsState.devicePrefs.isHapticsOn) {
           HapticFeedback.heavyImpact();
         }
 

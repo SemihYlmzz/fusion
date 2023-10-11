@@ -15,16 +15,19 @@ abstract class UserState extends Equatable {
       ];
 }
 
-class UserInitializing extends UserState {
-  const UserInitializing();
-}
-
 class UserLoading extends UserState {
-  const UserLoading({required super.userModel});
+  const UserLoading({super.userModel});
 }
 
 class UserHasError extends UserState {
-  const UserHasError({required super.errorMessage, super.userModel});
+  const UserHasError({
+    required super.errorMessage,
+    required this.errorCleanType,
+    required this.errorDisplayType,
+    super.userModel,
+  });
+  final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class UserHasData extends UserState {

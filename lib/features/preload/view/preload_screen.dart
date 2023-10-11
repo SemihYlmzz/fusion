@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/terms_of_use/view/view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/cubits/preload/preload.dart';
 import '../../../app/gen/assets.gen.dart';
-import '../../login/view/view.dart';
 import 'view.dart';
 
 class PreloadScreen extends StatelessWidget {
   const PreloadScreen({super.key});
   static const String path = '/preload';
   static const String name = 'preload';
-
+  static bool _isPreloadStarted = false;
   static final List<String> _mustCachedImagesPathList = [
     Assets.images.fireCards.values[0].path,
     Assets.images.fireCards.values[1].path,
@@ -69,16 +69,20 @@ class PreloadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<PreloadCubit>().preloadImages(
-          context,
-          _mustCachedImagesPathList,
-        );
-    context.read<PreloadCubit>().preloadSfxSounds(
-          _mustCachedSfxSoundsPathList,
-        );
-    context.read<PreloadCubit>().preloadBgmSounds(
-          _mustCachedBgmSoundsPathList,
-        );
+    if (!_isPreloadStarted) {
+      _isPreloadStarted = true;
+      context.read<PreloadCubit>().preloadImages(
+            context,
+            _mustCachedImagesPathList,
+          );
+      context.read<PreloadCubit>().preloadSfxSounds(
+            _mustCachedSfxSoundsPathList,
+          );
+      context.read<PreloadCubit>().preloadBgmSounds(
+            _mustCachedBgmSoundsPathList,
+          );
+    }
+
     final mustCachedAssetsLength = _mustCachedImagesPathList.length +
         _mustCachedSfxSoundsPathList.length +
         _mustCachedBgmSoundsPathList.length;
@@ -90,7 +94,7 @@ class PreloadScreen extends StatelessWidget {
             preloadState.cachedSfxSounds;
 
         if (cachedAssets / mustCachedAssetsLength == 1) {
-          context.goNamed(LoginScreen.name);
+          context.goNamed(TermsOfUseScreen.name);
         }
 
         return PreloadView(

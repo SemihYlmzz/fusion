@@ -26,8 +26,12 @@ class DeleteRequestHasData extends DeleteRequestState {
 class DeleteRequestHasError extends DeleteRequestState {
   const DeleteRequestHasError({
     required super.errorMessage,
+    required this.errorCleanType,
+    required this.errorDisplayType,
     super.deleteRequest,
   });
+  final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class DeleteRequestLoading extends DeleteRequestState {

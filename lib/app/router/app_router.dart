@@ -16,7 +16,7 @@ import 'app_router_refresh_stream.dart';
 
 mixin RouterMixin on State<App> {
   final _router = GoRouter(
-    initialLocation: TermsOfUseScreen.path,
+    initialLocation: PreloadScreen.path,
     routes: [
       GoRoute(
         path: TermsOfUseScreen.path,

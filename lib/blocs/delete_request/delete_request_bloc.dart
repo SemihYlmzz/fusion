@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 
 import '../../repositories/repositories.dart';
 
@@ -34,7 +36,13 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
 
     tryCreateDeleteRequest.fold(
       (failure) {
-        emit(DeleteRequestHasError(errorMessage: failure.message));
+        emit(
+          DeleteRequestHasError(          errorDisplayType: event.errorDisplayType,
+
+            errorMessage: failure.message,
+            errorCleanType: event.errorCleanType,
+          ),
+        );
       },
       (deleteRequest) {
         emit(DeleteRequestHasData(deleteRequest: deleteRequest));

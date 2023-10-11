@@ -3,12 +3,18 @@ part of 'card_bloc.dart';
 sealed class CardEvent {
   const CardEvent({
     this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 final class GetCardRequested extends CardEvent {
-  const GetCardRequested({required this.cardId, super.errorCleanType});
+  const GetCardRequested({
+    required this.cardId,
+    super.errorCleanType,
+    super.errorDisplayType,
+  });
 
   final String cardId;
 }

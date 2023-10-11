@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -25,17 +26,44 @@ class DeleteAccountScreen extends StatelessWidget {
     return BlocBuilder<DeleteRequestBloc, DeleteRequestState>(
       builder: (context, deleteRequestState) {
         if (deleteRequestState is DeleteRequestHasData) {
-          context.read<AuthBloc>().add(const AuthLogoutRequested());
+          context.read<AuthBloc>().add(
+                const AuthLogoutRequested(
+                  errorCleanType: ErrorCleanType.onUserEvent,
+                ),
+              );
         }
-        if (deleteRequestState.errorMessage != null) {
+        if (deleteRequestState is DeleteRequestHasError) {
           context.goNamed(HomeScreen.name);
         }
-        return const BaseScaffold(
+        return BaseScaffold(
           body: Center(
             child: SizedBox(
               width: 100,
               height: 100,
-              child: CircularProgressIndicator(),
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, authState) {
+                  return authState is! AuthHasError
+                      ? Column(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                context.read<AuthBloc>().add(
+                                      const ClearAuthErrorMessageRequested(),
+                                    );
+                                context.read<AuthBloc>().add(
+                                      const AuthLogoutRequested(
+                                        errorCleanType:
+                                            ErrorCleanType.onUserEvent,
+                                      ),
+                                    );
+                              },
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        )
+                      : const CircularProgressIndicator();
+                },
+              ),
             ),
           ),
         );

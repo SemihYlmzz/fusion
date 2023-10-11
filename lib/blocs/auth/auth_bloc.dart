@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:fusion/repositories/repositories.dart';
 
 part 'auth_event.dart';
@@ -53,6 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     tryLogOut.fold(
       (failure) => emit(
         AuthHasError(
+          errorDisplayType: event.errorDisplayType,
           errorCleanType: event.errorCleanType,
           errorMessage: failure.message,
           authEntity: state.authEntity,
@@ -74,6 +76,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) {
         emit(
           AuthHasError(
+            errorDisplayType: event.errorDisplayType,
             errorCleanType: event.errorCleanType,
             errorMessage: failure.message,
           ),
@@ -97,6 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) {
         emit(
           AuthHasError(
+            errorDisplayType: event.errorDisplayType,
             errorCleanType: event.errorCleanType,
             errorMessage: failure.message,
           ),
@@ -120,6 +124,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) {
         emit(
           AuthHasError(
+            errorDisplayType: event.errorDisplayType,
             errorCleanType: event.errorCleanType,
             errorMessage: failure.message,
           ),

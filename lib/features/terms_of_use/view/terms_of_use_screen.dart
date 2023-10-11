@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/features/login/login.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../blocs/blocs.dart';
-import '../../preload/view/preload_screen.dart';
 import 'view.dart';
 
 class TermsOfUseScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class TermsOfUseScreen extends StatelessWidget {
     return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
       builder: (context, devicePrefsState) {
         if (devicePrefsState.devicePrefs.isTermsAndConditionsAccepted) {
-          context.goNamed(PreloadScreen.name);
+          context.goNamed(LoginScreen.name);
         }
         return const TermsOfUseView();
       },

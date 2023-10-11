@@ -50,7 +50,7 @@ class _SoundEffectsSliderState extends State<SoundEffectsSlider> {
       onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                widget.devicePrefs.copyWith(
+               devicePrefs: widget.devicePrefs.copyWith(
                   soundEffectsSoundVolume: newValue,
                 ),
               ),

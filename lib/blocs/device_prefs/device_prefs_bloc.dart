@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:fusion/repositories/repositories.dart';
 
 part 'device_prefs_event.dart';
@@ -26,6 +28,8 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     final createDeviceResult = await _devicePrefsRepository.createDevicePrefs();
     createDeviceResult.fold(
       (failure) => DevicePrefsHasError(
+        errorDisplayType: event.errorDisplayType,
+        errorCleanType: event.errorCleanType,
         errorMessage: failure.message,
         devicePrefs: state.devicePrefs,
       ),
@@ -40,6 +44,8 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     final readDeviceResult = await _devicePrefsRepository.readDevicePrefs();
     readDeviceResult.fold(
       (failure) => DevicePrefsHasError(
+        errorDisplayType: event.errorDisplayType,
+        errorCleanType: event.errorCleanType,
         errorMessage: failure.message,
         devicePrefs: state.devicePrefs,
       ),
@@ -52,14 +58,16 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     Emitter<DevicePrefsState> emit,
   ) async {
     //  if (event.devicePrefs == state) {
-      //  return;
+    //  return;
     //  }
-    emit(const DevicePrefsLoading());
+    emit(DevicePrefsLoading(devicePrefs: state.devicePrefs));
     final updateResult = await _devicePrefsRepository.updateDevicePrefs(
       updatedDevicePrefs: event.devicePrefs,
     );
     updateResult.fold(
       (failure) => DevicePrefsHasError(
+        errorDisplayType: event.errorDisplayType,
+        errorCleanType: event.errorCleanType,
         errorMessage: failure.message,
         devicePrefs: state.devicePrefs,
       ),

@@ -146,9 +146,9 @@ class _EnterNamePopUpState extends State<EnterNamePopUp> {
                       }
                       if (errorText == null && newUsername != '') {
                         FocusScope.of(context).unfocus();
-                        context
-                            .read<UserBloc>()
-                            .add(ChangeUsernameRequested(newUsername));
+                        context.read<UserBloc>().add(
+                              ChangeUsernameRequested(newUsername: newUsername),
+                            );
                         nonUniqueUsernamesList.add(newUsername);
                         return;
                       }

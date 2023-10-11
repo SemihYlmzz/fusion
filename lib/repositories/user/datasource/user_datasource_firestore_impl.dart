@@ -37,7 +37,7 @@ class UserDataSourceFirebaseImpl implements UserDatasource {
 
       final userDocumentData = documentSnapshot.data() as Map<String, dynamic>?;
       if (userDocumentData == null) {
-        return null;
+        throw ReadUserWithUidExceptions.unknown;
       }
       return UserModel.fromMap(userDocumentData);
     } catch (e) {

@@ -43,7 +43,7 @@ class _BackgroundMusicSliderState extends State<BackgroundMusicSlider> {
       onChangeEnd: (newValue) {
         context.read<DevicePrefsBloc>().add(
               UpdateDevicePrefs(
-                widget.devicePrefs.copyWith(
+                devicePrefs: widget.devicePrefs.copyWith(
                   backGroundSoundVolume: newValue,
                   generalSoundVolume: widget.devicePrefs.generalSoundVolume,
                 ),

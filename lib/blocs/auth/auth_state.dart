@@ -23,9 +23,11 @@ class AuthHasError extends AuthState {
   const AuthHasError({
     required super.errorMessage,
     required this.errorCleanType,
+    required this.errorDisplayType,
     super.authEntity,
   });
   final ErrorCleanType errorCleanType;
+  final ErrorDisplayType errorDisplayType;
 }
 
 class AuthAuthenticated extends AuthState {
