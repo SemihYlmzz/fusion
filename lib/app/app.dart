@@ -4,12 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
 import 'package:fusion/core/enums/error_display_type.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../blocs/blocs.dart';
-import '../features/queue/view/queue_screen.dart';
 import '../initialize/injection_container.dart';
 import 'cubits/cubits.dart';
 import 'gen/l10n/l10n.dart';
@@ -71,7 +69,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildAuthBlocListener(userBloc),
                   _buildUserBlocListener(),
                   _buildDeleteRequestBlocListener(),
-                  _buildQueueBlocListener(userBloc),
+                  _buildQueueBlocListener(),
                   _buildCardBlocListener(),
                   _buildDevicePrefsBlocListener(),
                 ],
@@ -183,7 +181,7 @@ class _AppState extends State<App> with RouterMixin {
   }
 
   BlocListener<QueueBloc, QueueState> _buildQueueBlocListener(
-    UserBloc userBloc,
+
   ) {
     return BlocListener<QueueBloc, QueueState>(
       listener: (context, queueState) {
@@ -199,22 +197,6 @@ class _AppState extends State<App> with RouterMixin {
             context
                 .read<QueueBloc>()
                 .add(const ClearQueueErrorMessageRequested());
-          }
-        }
-
-        // Checking if user in queue or not
-        // then navigating if user in queue
-        if (userBloc.state is UserHasData) {
-          if (queueState is QueueEmpty || queueState is QueueLeaved) {
-            context.read<QueueBloc>().add(
-                  const CheckQueueRequested(
-                    errorCleanType: ErrorCleanType.onUserEvent,
-                  ),
-                );
-          }
-
-          if (queueState is QueueHasData) {
-            context.goNamed(QueueScreen.name);
           }
         }
       },

@@ -60,7 +60,6 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
     //  if (event.devicePrefs == state) {
     //  return;
     //  }
-    emit(DevicePrefsLoading(devicePrefs: state.devicePrefs));
     final updateResult = await _devicePrefsRepository.updateDevicePrefs(
       updatedDevicePrefs: event.devicePrefs,
     );
@@ -72,7 +71,7 @@ class DevicePrefsBloc extends Bloc<DevicePrefsEvent, DevicePrefsState> {
         devicePrefs: state.devicePrefs,
       ),
       (devicePrefs) {
-        emit(DevicePrefsReaded(devicePrefs: devicePrefs));
+        emit(state.copyWith(devicePrefs: devicePrefs));
       },
     );
   }

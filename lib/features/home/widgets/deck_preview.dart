@@ -10,8 +10,9 @@ class DeckPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deck = context.watch<UserBloc>().state.userModel?.deck;
-    
+    final deck =
+        context.select((UserBloc userState) => userState.state.userModel?.deck);
+
     return deck != null
         ? SizedBox(
             width: 320,

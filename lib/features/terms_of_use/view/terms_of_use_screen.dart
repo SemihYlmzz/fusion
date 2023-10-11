@@ -13,13 +13,16 @@ class TermsOfUseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
-      builder: (context, devicePrefsState) {
-        if (devicePrefsState.devicePrefs.isTermsAndConditionsAccepted) {
-          context.goNamed(LoginScreen.name);
-        }
-        return const TermsOfUseView();
-      },
+    
+    final isTermsAndConditionsAccepted = context.select(
+      (DevicePrefsBloc devicePrefsBloc) =>
+          devicePrefsBloc.state.devicePrefs.isTermsAndConditionsAccepted,
     );
+
+    if (isTermsAndConditionsAccepted) {
+      context.goNamed(LoginScreen.name);
+    }
+
+    return const TermsOfUseView();
   }
 }

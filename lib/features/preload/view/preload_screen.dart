@@ -88,6 +88,7 @@ class PreloadScreen extends StatelessWidget {
         _mustCachedBgmSoundsPathList.length;
 
     return BlocBuilder<PreloadCubit, PreloadState>(
+      
       builder: (context, preloadState) {
         final cachedAssets = preloadState.cachedImage +
             preloadState.cachedBgmSounds +

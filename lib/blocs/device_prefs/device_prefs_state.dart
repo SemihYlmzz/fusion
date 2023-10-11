@@ -7,20 +7,50 @@ abstract class DevicePrefsState extends Equatable {
   });
   final String? errorMessage;
   final DevicePrefsModel devicePrefs;
+  
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    DevicePrefsModel? devicePrefs,
+  });
+
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => [errorMessage, devicePrefs];
 }
 
 class DevicePrefsInitialized extends DevicePrefsState {
   const DevicePrefsInitialized();
+
+  @override
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    DevicePrefsModel? devicePrefs,
+  }) {
+    return const DevicePrefsInitialized();
+  }
 }
 
 class DevicePrefsLoading extends DevicePrefsState {
   const DevicePrefsLoading({super.devicePrefs});
+  @override
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    DevicePrefsModel? devicePrefs,
+  }) {
+    return DevicePrefsLoading(
+      devicePrefs: devicePrefs ?? this.devicePrefs,
+    );
+  }
 }
 
 class DevicePrefsReaded extends DevicePrefsState {
   const DevicePrefsReaded({required super.devicePrefs});
+  @override
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    DevicePrefsModel? devicePrefs,
+  }) {
+    return DevicePrefsReaded(devicePrefs: devicePrefs ?? this.devicePrefs);
+  }
 }
 
 class DevicePrefsHasError extends DevicePrefsState {
@@ -32,8 +62,30 @@ class DevicePrefsHasError extends DevicePrefsState {
   });
   final ErrorCleanType errorCleanType;
   final ErrorDisplayType errorDisplayType;
+
+  @override
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    ErrorCleanType? errorCleanType,
+    ErrorDisplayType? errorDisplayType,
+    DevicePrefsModel? devicePrefs,
+  }) {
+    return DevicePrefsHasError(
+      devicePrefs: devicePrefs ?? this.devicePrefs,
+      errorCleanType: errorCleanType ?? this.errorCleanType,
+      errorDisplayType: errorDisplayType ?? this.errorDisplayType,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }
 
 class DevicePrefsUnreaded extends DevicePrefsState {
   const DevicePrefsUnreaded();
+  @override
+  DevicePrefsState copyWith({
+    String? errorMessage,
+    DevicePrefsModel? devicePrefs,
+  }) {
+    return const DevicePrefsUnreaded();
+  }
 }

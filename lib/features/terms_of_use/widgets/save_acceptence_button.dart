@@ -13,24 +13,23 @@ class SaveAcceptenceButton extends StatelessWidget {
   final bool isReadyToAccept;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
-      builder: (context, devicePrefsState) {
-        return GradientButton(
-          width: 200,
-          text: L10n.current.acceptText,
-          onPressed: !isReadyToAccept
-              ? null
-              : () {
-                  context.read<DevicePrefsBloc>().add(
-                        UpdateDevicePrefs(
-                          devicePrefs: devicePrefsState.devicePrefs.copyWith(
-                            isTermsAndConditionsAccepted: true,
-                          ),
-                        ),
-                      );
-                },
-        );
-      },
+    final devicePrefs = context.select(
+      (DevicePrefsBloc devicePrefsState) => devicePrefsState.state.devicePrefs,
+    );
+    return GradientButton(
+      width: 200,
+      text: L10n.current.acceptText,
+      onPressed: !isReadyToAccept
+          ? null
+          : () {
+              context.read<DevicePrefsBloc>().add(
+                    UpdateDevicePrefs(
+                      devicePrefs: devicePrefs.copyWith(
+                        isTermsAndConditionsAccepted: true,
+                      ),
+                    ),
+                  );
+            },
     );
   }
 }
