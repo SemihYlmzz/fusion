@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
@@ -115,7 +116,11 @@ class _AppState extends State<App> with RouterMixin {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, authState) {
         if (authState is AuthHasError) {
-          _showSnackBar(context, authState.errorMessage!);
+          _showSnackBar(
+            context,
+            authState.errorMessage!,
+            authState.errorDisplayType,
+          );
 
           if (authState.errorCleanType == ErrorCleanType.afterDisplay) {
             context
@@ -124,7 +129,12 @@ class _AppState extends State<App> with RouterMixin {
           }
         } else if (authState is AuthAuthenticated) {
           if (userBloc.state is! UserHasData) {
-            userBloc.add(ReadWithUidRequested(uid: authState.authEntity.id));
+            userBloc.add(
+              ReadWithUidRequested(
+                uid: authState.authEntity.id,
+                errorDisplayType: ErrorDisplayType.none,
+              ),
+            );
           }
         }
         if (authState is AuthUnAuthenticated &&
@@ -137,10 +147,14 @@ class _AppState extends State<App> with RouterMixin {
 
   BlocListener<UserBloc, UserState> _buildUserBlocListener() {
     return BlocListener<UserBloc, UserState>(
-      listener: (context, state) {
-        if (state is UserHasError) {
-          _showSnackBar(context, state.errorMessage!);
-          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+      listener: (context, userState) {
+        if (userState is UserHasError) {
+          _showSnackBar(
+            context,
+            userState.errorMessage!,
+            userState.errorDisplayType,
+          );
+          if (userState.errorCleanType == ErrorCleanType.afterDisplay) {
             context
                 .read<UserBloc>()
                 .add(const ClearUserErrorMessageRequested());
@@ -153,9 +167,13 @@ class _AppState extends State<App> with RouterMixin {
   BlocListener<DeleteRequestBloc, DeleteRequestState>
       _buildDeleteRequestBlocListener() {
     return BlocListener<DeleteRequestBloc, DeleteRequestState>(
-      listener: (context, state) {
-        if (state is DeleteRequestHasError) {
-          _showSnackBar(context, state.errorMessage!);
+      listener: (context, deleteRequestState) {
+        if (deleteRequestState is DeleteRequestHasError) {
+          _showSnackBar(
+            context,
+            deleteRequestState.errorMessage!,
+            deleteRequestState.errorDisplayType,
+          );
           context
               .read<DeleteRequestBloc>()
               .add(const ClearDeleteRequestErrorMessageRequested());
@@ -172,7 +190,11 @@ class _AppState extends State<App> with RouterMixin {
         // Error handler
         //
         if (queueState is QueueHasError) {
-          _showSnackBar(context, queueState.errorMessage!);
+          _showSnackBar(
+            context,
+            queueState.errorMessage!,
+            queueState.errorDisplayType,
+          );
           if (queueState.errorCleanType == ErrorCleanType.afterDisplay) {
             context
                 .read<QueueBloc>()
@@ -201,10 +223,14 @@ class _AppState extends State<App> with RouterMixin {
 
   BlocListener<CardBloc, CardState> _buildCardBlocListener() {
     return BlocListener<CardBloc, CardState>(
-      listener: (context, state) {
-        if (state is CardHasError) {
-          _showSnackBar(context, state.errorMessage!);
-          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+      listener: (context, cardState) {
+        if (cardState is CardHasError) {
+          _showSnackBar(
+            context,
+            cardState.errorMessage!,
+            cardState.errorDisplayType,
+          );
+          if (cardState.errorCleanType == ErrorCleanType.afterDisplay) {
             context
                 .read<CardBloc>()
                 .add(const ClearCardErrorMessageRequested());
@@ -217,33 +243,42 @@ class _AppState extends State<App> with RouterMixin {
   BlocListener<DevicePrefsBloc, DevicePrefsState>
       _buildDevicePrefsBlocListener() {
     return BlocListener<DevicePrefsBloc, DevicePrefsState>(
-      listener: (context, state) {
-        if (state is DevicePrefsHasError) {
-          _showSnackBar(context, state.errorMessage!);
-          if (state.errorCleanType == ErrorCleanType.afterDisplay) {
+      listener: (context, devicePrefsState) {
+        if (devicePrefsState is DevicePrefsHasError) {
+          _showSnackBar(
+            context,
+            devicePrefsState.errorMessage!,
+            devicePrefsState.errorDisplayType,
+          );
+          if (devicePrefsState.errorCleanType == ErrorCleanType.afterDisplay) {
             context
                 .read<DevicePrefsBloc>()
                 .add(const ClearDevicePrefsErrorMessage());
           }
         }
 
-        if (state is DevicePrefsReaded) {
+        if (devicePrefsState is DevicePrefsReaded) {
           context.read<AudioCubit>().connectDevicePrefs(
-                state.devicePrefs.backGroundSoundVolume,
-                state.devicePrefs.dialogsSoundVolume,
-                state.devicePrefs.generalSoundVolume,
-                state.devicePrefs.soundEffectsSoundVolume,
+                devicePrefsState.devicePrefs.backGroundSoundVolume,
+                devicePrefsState.devicePrefs.dialogsSoundVolume,
+                devicePrefsState.devicePrefs.generalSoundVolume,
+                devicePrefsState.devicePrefs.soundEffectsSoundVolume,
               );
         }
       },
     );
   }
 
-  Future<void> _showSnackBar(BuildContext context, String errorMessage) async {
+  Future<void> _showSnackBar(
+    BuildContext context,
+    String errorMessage,
+    ErrorDisplayType errorDisplayType,
+  ) async {
     final isErrorMessageEmpty = errorMessage == '';
+    final isShowtypeSnackBar = errorDisplayType == ErrorDisplayType.snackBar;
     await Future<void>.delayed(SharedDurations.ms200);
 
-    if (mounted && !isErrorMessageEmpty) {
+    if (mounted && !isErrorMessageEmpty && isShowtypeSnackBar) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(

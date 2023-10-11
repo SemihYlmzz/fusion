@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../blocs/blocs.dart';
@@ -22,16 +23,19 @@ class _HomeEmptyUserViewState extends State<HomeEmptyUserView> {
   @override
   void initState() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _counter++;
-      });
+      _counter++;
+
       if (_counter == 6 || _counter == 12) {
-        context
-            .read<UserBloc>()
-            .add(ReadWithUidRequested(uid: authState.authEntity.id));
+        context.read<UserBloc>().add(
+              ReadWithUidRequested(
+                uid: authState.authEntity.id,
+                errorDisplayType: ErrorDisplayType.none,
+              ),
+            );
       }
       if (_counter > 12) {
         _timer.cancel();
+        setState(() {});
       }
     });
     super.initState();

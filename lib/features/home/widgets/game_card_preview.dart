@@ -20,95 +20,93 @@ class GameCardPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
-      builder: (context, devicePrefsState) {
-        return GestureDetector(
-          onTap: () {
-            if (devicePrefsState.devicePrefs.isHapticsOn) {
-              HapticFeedback.heavyImpact();
-            }
-            showPopUp(
-              DetailedGameCardPopUp(
-                gameCard: gameCard,
-              ),
-              devicePrefsState.devicePrefs,
-              context,
-            );
-          },
-          child: Animate(
-            effects: [
-              MoveEffect(
-                begin: const Offset(0, 75),
-                end: Offset.zero,
-                delay: Duration(milliseconds: 150 * index + 1),
-              ),
-              FadeEffect(
-                delay: Duration(milliseconds: 150 * index + 1),
-                duration: SharedDurations.ms500,
-              ),
-            ],
-            child: SizedBox(
-              width: 65,
-              height: 115,
-              child: Stack(
-                children: [
-                  ElementShadows(
-                    gameCardElement: gameCard.element,
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      width: 60,
-                      height: 95,
-                      decoration: BoxDecoration(
-                        borderRadius: SharedBorderRadius.circular12,
-                        image: DecorationImage(
-                          image: ResizeImage(
-                            width: 60,
-                            height: 90,
-                            AssetImage(
-                              gameCard.imagePath,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: 37,
-                      height: 37,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            Assets.images.cardPreview.cardPower.path,
-                          ),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(gameCard.power.toString()),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    final isHapticsOn =
+        context.watch<DevicePrefsBloc>().state.devicePrefs.isHapticsOn;
+    return GestureDetector(
+      onTap: () {
+        if (isHapticsOn) {
+          HapticFeedback.heavyImpact();
+        }
+        showPopUp(
+          DetailedGameCardPopUp(
+            gameCard: gameCard,
           ),
+          isHapticsOn: isHapticsOn,
+          context,
         );
       },
+      child: Animate(
+        effects: [
+          MoveEffect(
+            begin: const Offset(0, 75),
+            end: Offset.zero,
+            delay: Duration(milliseconds: 150 * index + 1),
+          ),
+          FadeEffect(
+            delay: Duration(milliseconds: 150 * index + 1),
+            duration: SharedDurations.ms500,
+          ),
+        ],
+        child: SizedBox(
+          width: 65,
+          height: 115,
+          child: Stack(
+            children: [
+              ElementShadows(
+                gameCardElement: gameCard.element,
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  width: 60,
+                  height: 95,
+                  decoration: BoxDecoration(
+                    borderRadius: SharedBorderRadius.circular12,
+                    image: DecorationImage(
+                      image: ResizeImage(
+                        width: 60,
+                        height: 90,
+                        AssetImage(
+                          gameCard.imagePath,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: 37,
+                  height: 37,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        Assets.images.cardPreview.cardPower.path,
+                      ),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(gameCard.power.toString()),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
   Future<void> showPopUp(
     Widget popUpWidget,
-    DevicePrefsModel devicePrefs,
-    BuildContext context,
-  ) =>
+    BuildContext context, {
+    required bool isHapticsOn,
+  }) =>
       showDialog<void>(
         context: context,
         builder: (BuildContext context) {
-          if (devicePrefs.isHapticsOn) {
+          if (isHapticsOn) {
             HapticFeedback.mediumImpact();
           }
           return popUpWidget;
