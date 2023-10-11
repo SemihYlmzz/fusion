@@ -8,6 +8,11 @@ abstract class CardState extends Equatable {
   final String? errorMessage;
   final GameCardModel? card;
 
+  CardState copyWith({
+    String? errorMessage,
+    GameCardModel? card,
+  });
+
   @override
   List<Object?> get props => [
         errorMessage,
@@ -17,10 +22,19 @@ abstract class CardState extends Equatable {
 
 class CardEmpty extends CardState {
   const CardEmpty();
+
+  @override
+  CardState copyWith({String? errorMessage, GameCardModel? card}) {
+    return const CardEmpty();
+  }
 }
 
 class CardLoading extends CardState {
   const CardLoading({super.card});
+  @override
+  CardState copyWith({String? errorMessage, GameCardModel? card}) {
+    return CardLoading(card: card ?? this.card);
+  }
 }
 
 class CardHasError extends CardState {
@@ -32,8 +46,28 @@ class CardHasError extends CardState {
   });
   final ErrorCleanType errorCleanType;
   final ErrorDisplayType errorDisplayType;
+
+  @override
+  CardState copyWith({
+    String? errorMessage,
+    GameCardModel? card,
+    ErrorCleanType? errorCleanType,
+    ErrorDisplayType? errorDisplayType,
+  }) {
+    return CardHasError(
+      card: card ?? this.card,
+      errorCleanType: errorCleanType ?? this.errorCleanType,
+      errorDisplayType: errorDisplayType ?? this.errorDisplayType,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }
 
 class CardHasData extends CardState {
   const CardHasData({required super.card});
+
+  @override
+  CardState copyWith({String? errorMessage, GameCardModel? card}) {
+    return CardHasData(card: card ?? this.card);
+  }
 }
