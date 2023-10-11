@@ -37,8 +37,8 @@ class DeleteRequestBloc extends Bloc<DeleteRequestEvent, DeleteRequestState>
     tryCreateDeleteRequest.fold(
       (failure) {
         emit(
-          DeleteRequestHasError(          errorDisplayType: event.errorDisplayType,
-
+          DeleteRequestHasError(
+            errorDisplayType: event.errorDisplayType,
             errorMessage: failure.message,
             errorCleanType: event.errorCleanType,
           ),
