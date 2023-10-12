@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/core/enums/error_clean_type.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../blocs/blocs.dart';
@@ -22,9 +23,7 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addObserver(this);
-    context.read<UserBloc>().add(const WatchWithUidRequested());
   }
 
   @override
@@ -39,47 +38,31 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    userBloc.add(const StopWatchingUserRequested());
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    userBloc = context.read<UserBloc>();
+    final queueState = context.watch<QueueBloc>().state;
+    final userState = context.watch<UserBloc>().state;
 
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, userState) {
-        if (userState.userModel?.gameId != null && mounted) {
-          context.goNamed(GameScreen.name);
-        }
-        return BlocBuilder<QueueBloc, QueueState>(
-          builder: (context, queueState) {
-            if (queueState is QueueEmpty || userState is UserHasError) {
-              context.goNamed(HomeScreen.name);
-            }
-            if (queueState is QueueHasError) {
-              context
-                  .read<QueueBloc>()
-                  .add(const ClearQueueErrorMessageRequested());
-            }
-            if (queueState is QueueReadyToEnter) {
-              if (userState.userModel!.gameId != null && mounted) {
-                context.goNamed(GameScreen.name);
-              } else {
-                context.read<QueueBloc>().add(
-                      const EnterQueueRequested(),
-                    );
-              }
-            }
-            if ((queueState is QueueLeaved) && mounted) {
-              context.goNamed(HomeScreen.name);
-            } 
-            return QueueView(
-              queueState: queueState,
-            );
-          },
-        );
-      },
+    if ((queueState is QueueHasError && queueState.queue == null) ||
+        userState is UserHasError ||
+        queueState is QueueLeaved) {
+      context.goNamed(HomeScreen.name);
+    }
+    if (queueState is QueueReadyToEnter) {
+      context.read<QueueBloc>().add(
+            const EnterQueueRequested(
+              errorCleanType: ErrorCleanType.onUserEvent,
+            ),
+          );
+    }
+    if (userState.userModel?.gameId != null) {
+      context.goNamed(GameScreen.name);
+    }
+    return QueueView(
+      queueState: queueState,
     );
   }
 }

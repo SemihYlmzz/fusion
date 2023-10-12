@@ -15,8 +15,9 @@ class RefreshDeckButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isHapticsOn =
-        context.watch<DevicePrefsBloc>().state.devicePrefs.isHapticsOn;
+    final isHapticsOn = context.select((DevicePrefsBloc devicePrefsBloc) {
+      return devicePrefsBloc.state.devicePrefs.isHapticsOn;
+    });
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

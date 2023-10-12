@@ -44,4 +44,8 @@ class AdCubit extends Cubit<AdState> {
       ),
     );
   }
+
+  void clearErrorMessage() {
+    emit(const AdState(isLoadingAd: false));
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
+import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
@@ -21,53 +22,54 @@ class DeleteAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DeleteRequestBloc>().add(const CreateDeleteRequestRequested());
-
-    return BlocBuilder<DeleteRequestBloc, DeleteRequestState>(
-      builder: (context, deleteRequestState) {
-        if (deleteRequestState is DeleteRequestHasData) {
-          context.read<AuthBloc>().add(
-                const AuthLogoutRequested(
-                  errorCleanType: ErrorCleanType.onUserEvent,
-                ),
-              );
-        }
-        if (deleteRequestState is DeleteRequestHasError) {
-          context.goNamed(HomeScreen.name);
-        }
-        return BaseScaffold(
-          body: Center(
-            child: SizedBox(
-              width: 100,
-              height: 100,
-              child: BlocBuilder<AuthBloc, AuthState>(
-                builder: (context, authState) {
-                  return authState is! AuthHasError
-                      ? Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                context.read<AuthBloc>().add(
-                                      const ClearAuthErrorMessageRequested(),
-                                    );
-                                context.read<AuthBloc>().add(
-                                      const AuthLogoutRequested(
-                                        errorCleanType:
-                                            ErrorCleanType.onUserEvent,
-                                      ),
-                                    );
-                              },
-                              child: const Text('Retry'),
-                            ),
-                          ],
-                        )
-                      : const CircularProgressIndicator();
-                },
-              ),
-            ),
+    context.read<DeleteRequestBloc>().add(
+          const CreateDeleteRequestRequested(
+            errorCleanType: ErrorCleanType.onUserEvent,
+            errorDisplayType: ErrorDisplayType.none,
           ),
         );
-      },
+    final deleteRequestState = context.watch<DeleteRequestBloc>().state;
+    if (deleteRequestState is DeleteRequestHasError) {
+      context.goNamed(HomeScreen.name);
+    }
+    if (deleteRequestState is DeleteRequestHasData) {
+      context.read<AuthBloc>().add(
+            const AuthLogoutRequested(
+              errorCleanType: ErrorCleanType.onUserEvent,
+            ),
+          );
+    }
+
+    return BaseScaffold(
+      body: Center(
+        child: SizedBox(
+          width: 100,
+          height: 100,
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, authState) {
+              return authState is! AuthHasError
+                  ? Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(
+                                  const ClearAuthErrorMessageRequested(),
+                                );
+                            context.read<AuthBloc>().add(
+                                  const AuthLogoutRequested(
+                                    errorCleanType: ErrorCleanType.onUserEvent,
+                                  ),
+                                );
+                          },
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    )
+                  : const CircularProgressIndicator();
+            },
+          ),
+        ),
+      ),
     );
   }
 }

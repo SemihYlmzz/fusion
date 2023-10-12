@@ -28,8 +28,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
     tryGetCard.fold(
       (failure) => emit(
-        CardHasError(          errorDisplayType: event.errorDisplayType,
-
+        CardHasError(
+          errorDisplayType: event.errorDisplayType,
           errorMessage: failure.message,
           errorCleanType: event.errorCleanType,
         ),

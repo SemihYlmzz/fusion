@@ -72,6 +72,7 @@ class _AppState extends State<App> with RouterMixin {
                   _buildQueueBlocListener(),
                   _buildCardBlocListener(),
                   _buildDevicePrefsBlocListener(),
+                  _buildAdCubitListener(),
                 ],
                 child: Builder(
                   builder: (builderContext) {
@@ -79,13 +80,11 @@ class _AppState extends State<App> with RouterMixin {
                     final user = builderContext.watch<UserBloc>().state;
                     final deleteRequest =
                         builderContext.watch<DeleteRequestBloc>().state;
-                    final queue = builderContext.watch<QueueBloc>().state;
                     final ad = builderContext.watch<AdCubit>().state;
                     return LoadingScreen(
                       isLoading: auth is AuthLoading ||
-                          (user is UserLoading) ||
+                          user is UserLoading ||
                           devicePrefsState is DevicePrefsLoading ||
-                          queue is QueueLoading ||
                           deleteRequest is DeleteRequestLoading ||
                           ad.isLoadingAd,
                       size: MediaQuery.of(builderContext).size,
@@ -113,7 +112,8 @@ class _AppState extends State<App> with RouterMixin {
   BlocListener<AuthBloc, AuthState> _buildAuthBlocListener(UserBloc userBloc) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, authState) {
-        if (authState is AuthHasError) {
+        if (authState is AuthHasError &&
+            authState.errorDisplayType == ErrorDisplayType.snackBar) {
           _showSnackBar(
             context,
             authState.errorMessage!,
@@ -128,8 +128,7 @@ class _AppState extends State<App> with RouterMixin {
         } else if (authState is AuthAuthenticated) {
           if (userBloc.state is! UserHasData) {
             userBloc.add(
-              ReadWithUidRequested(
-                uid: authState.authEntity.id,
+              const WatchWithUidRequested(
                 errorDisplayType: ErrorDisplayType.none,
               ),
             );
@@ -172,17 +171,18 @@ class _AppState extends State<App> with RouterMixin {
             deleteRequestState.errorMessage!,
             deleteRequestState.errorDisplayType,
           );
-          context
-              .read<DeleteRequestBloc>()
-              .add(const ClearDeleteRequestErrorMessageRequested());
+          if (deleteRequestState.errorCleanType ==
+              ErrorCleanType.afterDisplay) {
+            context
+                .read<DeleteRequestBloc>()
+                .add(const ClearDeleteRequestErrorMessageRequested());
+          }
         }
       },
     );
   }
 
-  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener(
-
-  ) {
+  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener() {
     return BlocListener<QueueBloc, QueueState>(
       listener: (context, queueState) {
         // Error handler
@@ -246,6 +246,21 @@ class _AppState extends State<App> with RouterMixin {
                 devicePrefsState.devicePrefs.generalSoundVolume,
                 devicePrefsState.devicePrefs.soundEffectsSoundVolume,
               );
+        }
+      },
+    );
+  }
+
+  BlocListener<AdCubit, AdState> _buildAdCubitListener() {
+    return BlocListener<AdCubit, AdState>(
+      listener: (context, adState) {
+        if (adState.errorMessage != null) {
+          _showSnackBar(
+            context,
+            adState.errorMessage!,
+            ErrorDisplayType.snackBar,
+          );
+          context.read<AdCubit>().clearErrorMessage();
         }
       },
     );

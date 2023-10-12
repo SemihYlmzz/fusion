@@ -63,7 +63,6 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     Emitter<UserState> emit,
   ) async {
     await _userSubscription?.cancel();
-    emit(UserLoading(userModel: state.userModel));
 
     _userSubscription = _userRepository.watchUserWithUid().listen((result) {
       result.fold(
@@ -80,7 +79,9 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
           );
         },
         (user) {
-          emit(UserHasData(userModel: user));
+          state is UserHasData
+              ? emit(state.copyWith(userModel: user))
+              : emit(UserHasData(userModel: user));
         },
       );
     });
@@ -92,8 +93,6 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
     ChangeUsernameRequested event,
     Emitter<UserState> emit,
   ) async {
-    final oldState = state;
-    emit(UserLoading(userModel: state.userModel));
     final tryUpdateUser = await _userRepository.changeUsername(
       newUsername: event.newUsername,
     );
@@ -102,13 +101,13 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
         UserHasError(
           errorDisplayType: event.errorDisplayType,
           errorCleanType: event.errorCleanType,
-          userModel: oldState.userModel,
+          userModel: state.userModel,
           errorMessage: failure.message,
         ),
       ),
-      (userEntity) => emit(
-        UserHasData(
-          userModel: oldState.userModel?.copyWith(
+      (success) => emit(
+        state.copyWith(
+          userModel: state.userModel?.copyWith(
             username: event.newUsername,
             accountnameChangeEligibilityDate: DateTime.now().add(
               const Duration(days: 30),

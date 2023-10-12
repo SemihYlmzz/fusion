@@ -7,7 +7,9 @@ class UsernameText extends StatelessWidget {
   const UsernameText({super.key});
   @override
   Widget build(BuildContext context) {
-    final username = context.watch<UserBloc>().state.userModel?.username;
+    final username = context.select((UserBloc userBloc) {
+      return userBloc.state.userModel?.username;
+    });
     return username != null ? Text(username) : const SizedBox();
   }
 }

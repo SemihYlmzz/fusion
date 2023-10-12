@@ -27,8 +27,7 @@ class _HomeEmptyUserViewState extends State<HomeEmptyUserView> {
 
       if (_counter == 6 || _counter == 12) {
         context.read<UserBloc>().add(
-              ReadWithUidRequested(
-                uid: authState.authEntity.id,
+              const WatchWithUidRequested(
                 errorDisplayType: ErrorDisplayType.none,
               ),
             );
@@ -75,8 +74,8 @@ class _HomeEmptyUserViewState extends State<HomeEmptyUserView> {
                         child: const Text('Read Again'),
                         onPressed: () {
                           context.read<UserBloc>().add(
-                                ReadWithUidRequested(
-                                  uid: authState.authEntity.id,
+                                const WatchWithUidRequested(
+                                  errorDisplayType: ErrorDisplayType.none,
                                 ),
                               );
                         },

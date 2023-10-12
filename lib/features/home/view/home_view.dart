@@ -5,6 +5,7 @@ import 'package:shared_widgets/shared_widgets.dart';
 import '../../../app/cubits/audio/audio.dart';
 import '../../../app/gen/assets.gen.dart';
 
+import '../../../blocs/blocs.dart';
 import '../widgets/widgets.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,6 +13,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gameId = context.select(
+      (UserBloc userBloc) => userBloc.state.userModel?.gameId,
+    );
     context.read<AudioCubit>().playBackgroundSound(
           Assets.music.background.mainMenuLoop,
         );
@@ -28,11 +32,19 @@ class HomeView extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        const Column(
+        Column(
           children: [
-            DeckPreview(),
-            RefreshDeckButton(),
-            PlayButton(),
+            const DeckPreview(),
+            const RefreshDeckButton(),
+            BlocBuilder<QueueBloc, QueueState>(
+              builder: (context, queueState) {
+                return queueState is QueueHasError
+                    ? const QueueControlButton()
+                    : gameId == null
+                        ? const PlayButton()
+                        : const ReconnectGameButton();
+              },
+            ),
           ],
         ),
       ],
