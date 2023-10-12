@@ -9,13 +9,6 @@ sealed class DevicePrefsEvent {
   final ErrorDisplayType errorDisplayType;
 }
 
-final class CreateDevicePrefs extends DevicePrefsEvent {
-  const CreateDevicePrefs({
-    super.errorCleanType,
-    super.errorDisplayType,
-  });
-}
-
 final class ReadDevicePrefs extends DevicePrefsEvent {
   const ReadDevicePrefs({
     super.errorCleanType,

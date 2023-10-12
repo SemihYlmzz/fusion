@@ -62,7 +62,7 @@ class DevicePrefsDataSourceSharedPreferencesImpl
           isHapticsOn == null ||
           language == null ||
           isTermsAndConditionsAccepted == null) {
-        throw ReadDevicePrefsExceptions.readFailed;
+        throw ReadDevicePrefsExceptions.noData;
       }
 
       return DevicePrefsModel(

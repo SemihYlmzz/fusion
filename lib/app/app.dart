@@ -56,8 +56,6 @@ class _AppState extends State<App> with RouterMixin {
                   buildCardBlocListener(),
                   buildDevicePrefsBlocListener(),
                   buildAdCubitListener(),
-                  watchUserOnAuth(getIt<UserBloc>()),
-                  cleanUserOnUnauth(getIt<UserBloc>()),
                   audioCubitPrefsConnection(getIt<AudioCubit>()),
                 ],
                 child: Builder(

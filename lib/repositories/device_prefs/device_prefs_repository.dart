@@ -27,6 +27,9 @@ class DevicePrefsRepository {
       final devicePrefsModel = await _devicePrefsDatasource.readDevicePrefs();
       return Right(devicePrefsModel);
     } on ReadDevicePrefsExceptions catch (exception) {
+      if (exception.message == ReadDevicePrefsExceptions.noData.message) {
+       return createDevicePrefs();
+      }
       return Left(Failure(message: exception.message));
     }
   }

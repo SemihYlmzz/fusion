@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../app/cubits/cubits.dart';
+import '../../../blocs/blocs.dart';
 import '../login.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,6 +21,7 @@ class LoginScreen extends StatelessWidget {
       ),
     );
     context.read<AudioCubit>().stopBackgroundMusic();
+    context.read<UserBloc>().add(const ClearUserRequested());
 
     return const BaseScaffold(
       body: LoginView(),

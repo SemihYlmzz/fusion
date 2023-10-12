@@ -9,5 +9,8 @@ class ReadDevicePrefsExceptions implements Exception {
     message: 'Bilinmeyen bir sebepten dolayı, '
         'Cihaz hafızasındaki kayıtlı bilgileriniz okunamadı.',
   );
+  static const noData = ReadDevicePrefsExceptions(
+    message: 'No device data founded.',
+  );
   static const empty = ReadDevicePrefsExceptions(message: '');
 }

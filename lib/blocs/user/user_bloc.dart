@@ -66,7 +66,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
 
     _userSubscription = _userRepository.watchUserWithUid().listen((result) {
       result.fold(
-        (failure) {
+        (failure) async {
           _userSubscription = null;
 
           emit(
@@ -78,7 +78,7 @@ class UserBloc extends Bloc<UserEvent, UserState> with ChangeNotifier {
             ),
           );
         },
-        (user) {
+        (user) async {
           state is UserHasData
               ? emit(state.copyWith(userModel: user))
               : emit(UserHasData(userModel: user));

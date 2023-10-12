@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
-
 import '../../../blocs/blocs.dart';
 
 class HomeEmptyUserView extends StatefulWidget {
