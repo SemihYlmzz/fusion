@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +87,8 @@ class SettingsScreen extends StatelessWidget {
                             // INFORMATIONAL BUTTONS
                             SettingsBorderedButton(
                               buttonText: L10n.current.haptics,
-                              buttonWidget: CupertinoSwitch(
+                              buttonWidget: Switch.adaptive(
+                                activeColor: AppColors.positiveGreen,
                                 value: devicePrefs.isHapticsOn,
                                 onChanged: (newValue) {
                                   context.read<DevicePrefsBloc>().add(
