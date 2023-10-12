@@ -48,94 +48,91 @@ class _DeleteAccountPopUpState extends State<DeleteAccountPopUp> {
           radius: const Radius.circular(20),
           thickness: 5,
           child: SingleChildScrollView(
-            child: Padding(
-              padding: SharedPaddings.all4,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Padding(
-                    padding: SharedPaddings.bottom16,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Icon(
-                            Icons.warning,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Padding(
+                  padding: SharedPaddings.bottom16,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: Text(
+                          DeleteAccountPopUp._warningText,
+                          style: TextStyle(
                             color: Colors.red,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    _conditionsText(text: DeleteAccountPopUp._text1),
+                    _conditionsText(text: DeleteAccountPopUp._text2),
+                    _conditionsText(text: DeleteAccountPopUp._text3),
+                    _conditionsText(text: DeleteAccountPopUp._text4),
+                    DeleteAcceptance(
+                      onAccept: ({bool? value}) {
+                        setState(() {
+                          _isAccepted = value ?? false;
+                        });
+                      },
+                      isAccepted: _isAccepted,
+                    ),
+                    Row(
+                      children: [
                         Expanded(
-                          flex: 5,
-                          child: Text(
-                            DeleteAccountPopUp._warningText,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: _isAccepted
+                              ? GradientButton(
+                                  text: DeleteAccountPopUp
+                                      ._deleteGradientButtonTitle,
+                                  width: 100,
+                                  onPressed: () {
+                                    Navigator.popUntil(
+                                      context,
+                                      (route) => route.isFirst,
+                                    );
+                                    context.read<DeleteRequestBloc>().add(
+                                          const CreateDeleteRequestRequested(),
+                                        );
+                                    context.goNamed(
+                                      DeleteAccountScreen.name,
+                                    );
+                                  },
+                                )
+                              : const GradientButton(
+                                  text: DeleteAccountPopUp
+                                      ._deleteGradientButtonTitle,
+                                  width: 100,
+                                  isOutlined: true,
+                                ),
+                        ),
+                        Expanded(
+                          child: GradientButton(
+                            text: L10n.current.cancel,
+                            width: 100,
+                            isOutlined: true,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    children: [
-                      _conditionsText(text: DeleteAccountPopUp._text1),
-                      _conditionsText(text: DeleteAccountPopUp._text2),
-                      _conditionsText(text: DeleteAccountPopUp._text3),
-                      _conditionsText(text: DeleteAccountPopUp._text4),
-                      DeleteAcceptance(
-                        onAccept: ({bool? value}) {
-                          setState(() {
-                            _isAccepted = value ?? false;
-                          });
-                        },
-                        isAccepted: _isAccepted,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _isAccepted
-                                ? GradientButton(
-                                    text: DeleteAccountPopUp
-                                        ._deleteGradientButtonTitle,
-                                    width: 100,
-                                    onPressed: () {
-                                      Navigator.popUntil(
-                                        context,
-                                        (route) => route.isFirst,
-                                      );
-                                      context.read<DeleteRequestBloc>().add(
-                                            const CreateDeleteRequestRequested(),
-                                          );
-                                      context.goNamed(
-                                        DeleteAccountScreen.name,
-                                      );
-                                    },
-                                  )
-                                : const GradientButton(
-                                    text: DeleteAccountPopUp
-                                        ._deleteGradientButtonTitle,
-                                    width: 100,
-                                    isOutlined: true,
-                                  ),
-                          ),
-                          Expanded(
-                            child: GradientButton(
-                              text: L10n.current.cancel,
-                              width: 100,
-                              isOutlined: true,
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // Diğer dilleri benzer şekilde ekleyebilirsiniz.
-                ],
-              ),
+                  ],
+                ),
+                // Diğer dilleri benzer şekilde ekleyebilirsiniz.
+              ],
             ),
           ),
         ),

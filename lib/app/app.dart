@@ -1,14 +1,12 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fusion/core/enums/error_clean_type.dart';
-import 'package:fusion/core/enums/error_display_type.dart';
 import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../blocs/blocs.dart';
 import '../initialize/injection_container.dart';
+import 'bloc_listeners/bloc_listeners.dart';
 import 'cubits/cubits.dart';
 import 'gen/l10n/l10n.dart';
 import 'router/app_router.dart';
@@ -25,36 +23,21 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with RouterMixin {
   @override
   Widget build(BuildContext context) {
-    // BLOCS
-    final authBloc = getIt<AuthBloc>();
-    final userBloc = getIt<UserBloc>();
-    final devicePrefsBloc = getIt<DevicePrefsBloc>()
-      ..add(const ReadDevicePrefs());
-    final cardBloc = getIt<CardBloc>();
-    final deleteRequestBloc = getIt<DeleteRequestBloc>();
-    final queueBloc = getIt<QueueBloc>();
-
-    // CUBITS
-    final preloadCubit = PreloadCubit(
-      bgmAudioCache: AudioCache(prefix: ''),
-      sfxAudioCache: AudioCache(prefix: ''),
-    );
-    final adCubit = AdCubit();
-    final audioCubit = AudioCubit(
-      bgmAudioCache: preloadCubit.bgmAudioCache,
-      sfxAudioCache: preloadCubit.sfxAudioCache,
-    );
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthBloc>(create: (_) => authBloc),
-        BlocProvider<UserBloc>(create: (_) => userBloc),
-        BlocProvider<DevicePrefsBloc>(create: (_) => devicePrefsBloc),
-        BlocProvider<CardBloc>(create: (_) => cardBloc),
-        BlocProvider<DeleteRequestBloc>(create: (_) => deleteRequestBloc),
-        BlocProvider<QueueBloc>(create: (_) => queueBloc),
-        BlocProvider<PreloadCubit>(create: (_) => preloadCubit),
-        BlocProvider<AudioCubit>(create: (_) => audioCubit),
-        BlocProvider<AdCubit>(create: (_) => adCubit),
+        BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
+        BlocProvider<UserBloc>(create: (_) => getIt<UserBloc>()),
+        BlocProvider<DevicePrefsBloc>(
+          create: (_) => getIt<DevicePrefsBloc>()..add(const ReadDevicePrefs()),
+        ),
+        BlocProvider<CardBloc>(create: (_) => getIt<CardBloc>()),
+        BlocProvider<DeleteRequestBloc>(
+          create: (_) => getIt<DeleteRequestBloc>(),
+        ),
+        BlocProvider<QueueBloc>(create: (_) => getIt<QueueBloc>()),
+        BlocProvider<PreloadCubit>(create: (_) => getIt<PreloadCubit>()),
+        BlocProvider<AdCubit>(create: (_) => getIt<AdCubit>()),
+        BlocProvider<AudioCubit>(create: (_) => getIt<AudioCubit>()),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
@@ -66,13 +49,16 @@ class _AppState extends State<App> with RouterMixin {
             builder: (_, router) {
               return MultiBlocListener(
                 listeners: [
-                  _buildAuthBlocListener(userBloc),
-                  _buildUserBlocListener(),
-                  _buildDeleteRequestBlocListener(),
-                  _buildQueueBlocListener(),
-                  _buildCardBlocListener(),
-                  _buildDevicePrefsBlocListener(),
-                  _buildAdCubitListener(),
+                  buildAuthBlocListener(),
+                  buildUserBlocListener(),
+                  buildDeleteRequestBlocListener(),
+                  buildQueueBlocListener(),
+                  buildCardBlocListener(),
+                  buildDevicePrefsBlocListener(),
+                  buildAdCubitListener(),
+                  watchUserOnAuth(getIt<UserBloc>()),
+                  cleanUserOnUnauth(getIt<UserBloc>()),
+                  audioCubitPrefsConnection(getIt<AudioCubit>()),
                 ],
                 child: Builder(
                   builder: (builderContext) {
@@ -81,6 +67,7 @@ class _AppState extends State<App> with RouterMixin {
                     final deleteRequest =
                         builderContext.watch<DeleteRequestBloc>().state;
                     final ad = builderContext.watch<AdCubit>().state;
+
                     return LoadingScreen(
                       isLoading: auth is AuthLoading ||
                           user is UserLoading ||
@@ -108,181 +95,22 @@ class _AppState extends State<App> with RouterMixin {
       ),
     );
   }
+}
 
-  BlocListener<AuthBloc, AuthState> _buildAuthBlocListener(UserBloc userBloc) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, authState) {
-        if (authState is AuthHasError &&
-            authState.errorDisplayType == ErrorDisplayType.snackBar) {
-          _showSnackBar(
-            context,
-            authState.errorMessage!,
-            authState.errorDisplayType,
-          );
+Future<void> showSnackBar(
+  BuildContext context,
+  String errorMessage,
+) async {
+  final isErrorMessageEmpty = errorMessage == '';
+  await Future<void>.delayed(SharedDurations.ms200);
 
-          if (authState.errorCleanType == ErrorCleanType.afterDisplay) {
-            context
-                .read<AuthBloc>()
-                .add(const ClearAuthErrorMessageRequested());
-          }
-        } else if (authState is AuthAuthenticated) {
-          if (userBloc.state is! UserHasData) {
-            userBloc.add(
-              const WatchWithUidRequested(
-                errorDisplayType: ErrorDisplayType.none,
-              ),
-            );
-          }
-        }
-        if (authState is AuthUnAuthenticated &&
-            userBloc.state.userModel != null) {
-          userBloc.add(const ClearUserRequested());
-        }
-      },
-    );
-  }
-
-  BlocListener<UserBloc, UserState> _buildUserBlocListener() {
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, userState) {
-        if (userState is UserHasError) {
-          _showSnackBar(
-            context,
-            userState.errorMessage!,
-            userState.errorDisplayType,
-          );
-          if (userState.errorCleanType == ErrorCleanType.afterDisplay) {
-            context
-                .read<UserBloc>()
-                .add(const ClearUserErrorMessageRequested());
-          }
-        }
-      },
-    );
-  }
-
-  BlocListener<DeleteRequestBloc, DeleteRequestState>
-      _buildDeleteRequestBlocListener() {
-    return BlocListener<DeleteRequestBloc, DeleteRequestState>(
-      listener: (context, deleteRequestState) {
-        if (deleteRequestState is DeleteRequestHasError) {
-          _showSnackBar(
-            context,
-            deleteRequestState.errorMessage!,
-            deleteRequestState.errorDisplayType,
-          );
-          if (deleteRequestState.errorCleanType ==
-              ErrorCleanType.afterDisplay) {
-            context
-                .read<DeleteRequestBloc>()
-                .add(const ClearDeleteRequestErrorMessageRequested());
-          }
-        }
-      },
-    );
-  }
-
-  BlocListener<QueueBloc, QueueState> _buildQueueBlocListener() {
-    return BlocListener<QueueBloc, QueueState>(
-      listener: (context, queueState) {
-        // Error handler
-        //
-        if (queueState is QueueHasError) {
-          _showSnackBar(
-            context,
-            queueState.errorMessage!,
-            queueState.errorDisplayType,
-          );
-          if (queueState.errorCleanType == ErrorCleanType.afterDisplay) {
-            context
-                .read<QueueBloc>()
-                .add(const ClearQueueErrorMessageRequested());
-          }
-        }
-      },
-    );
-  }
-
-  BlocListener<CardBloc, CardState> _buildCardBlocListener() {
-    return BlocListener<CardBloc, CardState>(
-      listener: (context, cardState) {
-        if (cardState is CardHasError) {
-          _showSnackBar(
-            context,
-            cardState.errorMessage!,
-            cardState.errorDisplayType,
-          );
-          if (cardState.errorCleanType == ErrorCleanType.afterDisplay) {
-            context
-                .read<CardBloc>()
-                .add(const ClearCardErrorMessageRequested());
-          }
-        }
-      },
-    );
-  }
-
-  BlocListener<DevicePrefsBloc, DevicePrefsState>
-      _buildDevicePrefsBlocListener() {
-    return BlocListener<DevicePrefsBloc, DevicePrefsState>(
-      listener: (context, devicePrefsState) {
-        if (devicePrefsState is DevicePrefsHasError) {
-          _showSnackBar(
-            context,
-            devicePrefsState.errorMessage!,
-            devicePrefsState.errorDisplayType,
-          );
-          if (devicePrefsState.errorCleanType == ErrorCleanType.afterDisplay) {
-            context
-                .read<DevicePrefsBloc>()
-                .add(const ClearDevicePrefsErrorMessage());
-          }
-        }
-
-        if (devicePrefsState is DevicePrefsReaded) {
-          context.read<AudioCubit>().connectDevicePrefs(
-                devicePrefsState.devicePrefs.backGroundSoundVolume,
-                devicePrefsState.devicePrefs.dialogsSoundVolume,
-                devicePrefsState.devicePrefs.generalSoundVolume,
-                devicePrefsState.devicePrefs.soundEffectsSoundVolume,
-              );
-        }
-      },
-    );
-  }
-
-  BlocListener<AdCubit, AdState> _buildAdCubitListener() {
-    return BlocListener<AdCubit, AdState>(
-      listener: (context, adState) {
-        if (adState.errorMessage != null) {
-          _showSnackBar(
-            context,
-            adState.errorMessage!,
-            ErrorDisplayType.snackBar,
-          );
-          context.read<AdCubit>().clearErrorMessage();
-        }
-      },
-    );
-  }
-
-  Future<void> _showSnackBar(
-    BuildContext context,
-    String errorMessage,
-    ErrorDisplayType errorDisplayType,
-  ) async {
-    final isErrorMessageEmpty = errorMessage == '';
-    final isShowtypeSnackBar = errorDisplayType == ErrorDisplayType.snackBar;
-    await Future<void>.delayed(SharedDurations.ms200);
-
-    if (mounted && !isErrorMessageEmpty && isShowtypeSnackBar) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-          ),
-        );
-    }
+  if (context.mounted && !isErrorMessageEmpty) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
   }
 }

@@ -2,7 +2,7 @@ part of 'device_prefs_bloc.dart';
 
 sealed class DevicePrefsEvent {
   const DevicePrefsEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;

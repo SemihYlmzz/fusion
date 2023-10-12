@@ -2,7 +2,7 @@ part of 'user_bloc.dart';
 
 sealed class UserEvent {
   const UserEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;

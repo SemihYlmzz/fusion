@@ -2,7 +2,7 @@ part of 'card_bloc.dart';
 
 sealed class CardEvent {
   const CardEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;

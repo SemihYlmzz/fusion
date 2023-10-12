@@ -2,7 +2,7 @@ part of 'delete_request_bloc.dart';
 
 sealed class DeleteRequestEvent {
   const DeleteRequestEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;

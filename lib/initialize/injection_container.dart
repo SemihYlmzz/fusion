@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:fusion/app/cubits/cubits.dart';
 import 'package:fusion/app/gen/l10n/l10n.dart';
 import 'package:fusion/core/network/network_info.dart';
 import 'package:get_it/get_it.dart';
@@ -24,6 +26,20 @@ class InjectionContainer {
       // -- Network Info
       ..registerLazySingleton<NetworkInfo>(
         () => NetworkInfoImpl(getIt<InternetConnectionChecker>()),
+      )
+      //! CUBITS
+      ..registerLazySingleton(AdCubit.new)
+      ..registerLazySingleton(
+        () => PreloadCubit(
+          bgmAudioCache: AudioCache(prefix: ''),
+          sfxAudioCache: AudioCache(prefix: ''),
+        ),
+      )
+      ..registerLazySingleton(
+        () => AudioCubit(
+          bgmAudioCache: getIt<PreloadCubit>().bgmAudioCache,
+          sfxAudioCache: getIt<PreloadCubit>().sfxAudioCache,
+        ),
       );
 
     //! BLOCS OF REPOSITORIES

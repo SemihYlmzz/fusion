@@ -31,197 +31,191 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, userState) {
-        final user = userState.userModel;
-        return BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
-          builder: (context, devicePrefsState) {
-            final devicePrefs = devicePrefsState.devicePrefs;
-            return ClosableAnimatedScaffold(
-              child: SizedBox(
-                width: settingsBoxWidth,
-                height: settingsBoxHeight,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: settingsCardWidth,
-                        height: settingsCardHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: SharedBorderRadius.circular12,
-                          border: const GradientBoxBorder(
-                            gradient: LinearGradient(
-                              colors: [
-                                AppColors.orange,
-                                AppColors.pink,
-                              ],
-                            ),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SettingsText(),
-                            Expanded(
-                              child: RawScrollbar(
-                                thumbVisibility: true,
-                                interactive: false,
-                                thumbColor: Colors.redAccent,
-                                radius: const Radius.circular(20),
-                                thickness: 5,
-                                child: BaseColumn(
-                                  children: [
-                                    const SizedBox(height: 8),
+    final user = context.watch<UserBloc>().state.userModel;
+    final devicePrefs = context.watch<DevicePrefsBloc>().state.devicePrefs;
 
-                                    // VOLUME SLIDERS
-                                    GeneralSoundSlider(
-                                      devicePrefs: devicePrefs,
-                                    ),
-                                    BackgroundMusicSlider(
-                                      devicePrefs: devicePrefs,
-                                    ),
-                                    SoundEffectsSlider(
-                                      devicePrefs: devicePrefs,
-                                    ),
-                                    DialoguesSlider(devicePrefs: devicePrefs),
-
-                                    // INFORMATIONAL BUTTONS
-                                    SettingsBorderedButton(
-                                      buttonText: L10n.current.haptics,
-                                      buttonWidget: Switch.adaptive(
-                                        value: devicePrefs.isHapticsOn,
-                                        onChanged: (newValue) {
-                                          context.read<DevicePrefsBloc>().add(
-                                                UpdateDevicePrefs(
-                                                  devicePrefs:
-                                                      devicePrefs.copyWith(
-                                                    isHapticsOn: newValue,
-                                                  ),
-                                                ),
-                                              );
-                                        },
-                                      ),
-                                    ),
-                                    SettingsBorderedButton(
-                                      buttonText: L10n.current.language,
-                                      onTap: () => showPopUp(
-                                        SelectableLanguagesPopUp(
-                                          devicePrefs: devicePrefs,
-                                        ),
-                                        devicePrefs,
-                                        context,
-                                      ),
-                                      buttonWidget: Text(
-                                        L10n.current.currentLanguage,
-                                      ),
-                                    ),
-                                    SettingsBorderedButton(
-                                      buttonText: L10n.current.username,
-                                      buttonWidget: const Text('CL4Y'),
-                                      onTap: () {
-                                        final month = user!
-                                            .accountnameChangeEligibilityDate
-                                            .difference(DateTime.now());
-                                        if (month.isNegative) {
-                                          showPopUp(
-                                            const EnterNamePopUp(),
-                                            devicePrefs,
-                                            context,
-                                          );
-                                        } else {
-                                          showPopUp(
-                                            const CantRenamePopUp(),
-                                            devicePrefs,
-                                            context,
-                                          );
-                                        }
-                                      },
-                                    ),
-                                    SettingsBorderedButton(
-                                      buttonText: L10n.current.account,
-                                      buttonWidget: const Text('Google'),
-                                    ),
-
-                                    // SIGN OUT BUTTONS
-                                    const SignOutButton(),
-
-                                    // BASIC BUTTONS
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.reportABug,
-                                    ),
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.sendUsAMail,
-                                    ),
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.privacy,
-                                      onTap: () {
-                                        displayBottomSheet(
-                                          const PrivacyBottomSheet(),
-                                          devicePrefs,
-                                          context,
-                                        );
-                                      },
-                                    ),
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.termsOfService,
-                                      onTap: () {
-                                        displayBottomSheet(
-                                          const TermsOfService(),
-                                          devicePrefs,
-                                          context,
-                                        );
-                                      },
-                                    ),
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.credits,
-                                      onTap: () {
-                                        displayBottomSheet(
-                                          const CreditsBottomSheet(),
-                                          devicePrefs,
-                                          context,
-                                        );
-                                      },
-                                    ),
-                                    SettingsThickButton(
-                                      buttonText: L10n.current.deleteAccount,
-                                      onTap: () {
-                                        showPopUp(
-                                          DeleteAccountPopUp(
-                                            devicePrefs: devicePrefs,
-                                          ),
-                                          devicePrefs,
-                                          context,
-                                        );
-                                      },
-                                    ),
-
-                                    // GAME VERSION
-                                    const Padding(
-                                      padding: SharedPaddings.vertical20,
-                                      child: Text('v1.0.0'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+    return ClosableAnimatedScaffold(
+          child: SizedBox(
+            width: settingsBoxWidth,
+            height: settingsBoxHeight,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: settingsCardWidth,
+                    height: settingsCardHeight,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: SharedBorderRadius.circular12,
+                      border: const GradientBoxBorder(
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.orange,
+                            AppColors.pink,
                           ],
                         ),
                       ),
                     ),
-                    const Align(
-                      alignment: Alignment.topRight,
-                      child: SettingsCloseButton(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SettingsText(),
+                        Expanded(
+                          child: RawScrollbar(
+                            thumbVisibility: true,
+                            interactive: false,
+                            thumbColor: Colors.redAccent,
+                            radius: const Radius.circular(20),
+                            thickness: 5,
+                            child: BaseColumn(
+                              children: [
+                                const SizedBox(height: 8),
+
+                                // VOLUME SLIDERS
+                                GeneralSoundSlider(
+                                  devicePrefs: devicePrefs,
+                                ),
+                                BackgroundMusicSlider(
+                                  devicePrefs: devicePrefs,
+                                ),
+                                SoundEffectsSlider(
+                                  devicePrefs: devicePrefs,
+                                ),
+                                DialoguesSlider(devicePrefs: devicePrefs),
+
+                                // INFORMATIONAL BUTTONS
+                                SettingsBorderedButton(
+                                  buttonText: L10n.current.haptics,
+                                  buttonWidget: Switch.adaptive(
+                                    value: devicePrefs.isHapticsOn,
+                                    onChanged: (newValue) {
+                                      context.read<DevicePrefsBloc>().add(
+                                            UpdateDevicePrefs(
+                                              devicePrefs: devicePrefs.copyWith(
+                                                isHapticsOn: newValue,
+                                              ),
+                                            ),
+                                          );
+                                    },
+                                  ),
+                                ),
+                                SettingsBorderedButton(
+                                  buttonText: L10n.current.language,
+                                  onTap: () => showPopUp(
+                                    SelectableLanguagesPopUp(
+                                      devicePrefs: devicePrefs,
+                                    ),
+                                    devicePrefs,
+                                    context,
+                                  ),
+                                  buttonWidget: Text(
+                                    L10n.current.currentLanguage,
+                                  ),
+                                ),
+                                SettingsBorderedButton(
+                                  buttonText: L10n.current.username,
+                                  buttonWidget:
+                                      Text(user!.username),
+                                  onTap: () {
+                                    final month = user
+                                        .accountnameChangeEligibilityDate
+                                        .difference(DateTime.now());
+                                    if (month.isNegative) {
+                                      showPopUp(
+                                        const EnterNamePopUp(),
+                                        devicePrefs,
+                                        context,
+                                      );
+                                    } else {
+                                      showPopUp(
+                                        const CantRenamePopUp(),
+                                        devicePrefs,
+                                        context,
+                                      );
+                                    }
+                                  },
+                                ),
+                                SettingsBorderedButton(
+                                  buttonText: L10n.current.account,
+                                  buttonWidget: const Text('Google'),
+                                ),
+
+                                // SIGN OUT BUTTONS
+                                const SignOutButton(),
+
+                                // BASIC BUTTONS
+                                SettingsThickButton(
+                                  buttonText: L10n.current.reportABug,
+                                ),
+                                SettingsThickButton(
+                                  buttonText: L10n.current.sendUsAMail,
+                                ),
+                                SettingsThickButton(
+                                  buttonText: L10n.current.privacy,
+                                  onTap: () {
+                                    displayBottomSheet(
+                                      const PrivacyBottomSheet(),
+                                      devicePrefs,
+                                      context,
+                                    );
+                                  },
+                                ),
+                                SettingsThickButton(
+                                  buttonText: L10n.current.termsOfService,
+                                  onTap: () {
+                                    displayBottomSheet(
+                                      const TermsOfService(),
+                                      devicePrefs,
+                                      context,
+                                    );
+                                  },
+                                ),
+                                SettingsThickButton(
+                                  buttonText: L10n.current.credits,
+                                  onTap: () {
+                                    displayBottomSheet(
+                                      const CreditsBottomSheet(),
+                                      devicePrefs,
+                                      context,
+                                    );
+                                  },
+                                ),
+                                SettingsThickButton(
+                                  buttonText: L10n.current.deleteAccount,
+                                  onTap: () {
+                                    showPopUp(
+                                      DeleteAccountPopUp(
+                                        devicePrefs: devicePrefs,
+                                      ),
+                                      devicePrefs,
+                                      context,
+                                    );
+                                  },
+                                ),
+
+                                // GAME VERSION
+                                const Padding(
+                                  padding: SharedPaddings.vertical20,
+                                  child: Text('v1.0.0'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            );
-          },
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: SettingsCloseButton(),
+                ),
+              ],
+            ),
+          ),
         );
-      },
-    );
+ 
   }
 
   Future<void> showPopUp(

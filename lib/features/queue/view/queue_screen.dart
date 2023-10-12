@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/app/gen/assets.gen.dart';
 import 'package:fusion/core/enums/error_clean_type.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/cubits/cubits.dart';
 import '../../../blocs/blocs.dart';
 import '../../game/view/game_screen.dart';
 import '../../home/view/view.dart';
@@ -43,6 +45,9 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AudioCubit>().playBackgroundSound(
+          Assets.music.background.queueLoop,
+        );
     final queueState = context.watch<QueueBloc>().state;
     final userState = context.watch<UserBloc>().state;
 

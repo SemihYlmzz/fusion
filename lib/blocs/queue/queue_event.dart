@@ -2,7 +2,7 @@ part of 'queue_bloc.dart';
 
 sealed class QueueEvent {
   const QueueEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;

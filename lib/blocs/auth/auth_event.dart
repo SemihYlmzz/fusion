@@ -2,7 +2,7 @@ part of 'auth_bloc.dart';
 
 sealed class AuthEvent {
   const AuthEvent({
-    this.errorCleanType = ErrorCleanType.afterDisplay,
+    this.errorCleanType = ErrorCleanType.immediately,
     this.errorDisplayType = ErrorDisplayType.snackBar,
   });
   final ErrorCleanType errorCleanType;
