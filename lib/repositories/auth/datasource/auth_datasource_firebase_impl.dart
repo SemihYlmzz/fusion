@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
@@ -226,8 +227,10 @@ class AuthDatasourceFirebaseImpl implements AuthDatasource {
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
-        _facebookAuth.logOut(),
       ]);
+      if (Platform.isIOS) {
+        await _facebookAuth.logOut();
+      }
       return;
     } catch (e) {
       throw LogOutExceptions.unknown;
