@@ -4,5 +4,6 @@ export 'auth_bloc_error_cleaner_listener.dart';
 export 'card_bloc_error_cleaner_listener.dart';
 export 'delete_request_bloc_error_cleaner_listener.dart';
 export 'device_prefs_bloc_error_cleaner_listener.dart';
+export 'game_bloc_error_cleaner_listener.dart';
 export 'queue_bloc_error_cleaner_listener.dart';
 export 'user_bloc_error_cleaner_listener.dart';

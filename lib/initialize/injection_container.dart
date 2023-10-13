@@ -62,5 +62,8 @@ class InjectionContainer {
     // -- Queue
     await QueueRepositoryInjection.inject();
     QueueBlocInjection.inject();
+    // -- Game
+    await GameRepositoryInjection.inject();
+    GameBlocInjection.inject();
   }
 }

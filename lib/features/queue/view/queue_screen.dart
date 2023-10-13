@@ -8,6 +8,7 @@ import '../../../app/cubits/cubits.dart';
 import '../../../blocs/blocs.dart';
 import '../../game/view/game_screen.dart';
 import '../../home/view/view.dart';
+import 'match_found_view.dart';
 import 'queue_view.dart';
 
 class QueueScreen extends StatefulWidget {
@@ -50,6 +51,7 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
         );
     final queueState = context.watch<QueueBloc>().state;
     final userState = context.watch<UserBloc>().state;
+    final gameState = context.watch<GameBloc>().state;
 
     if ((queueState is QueueHasError && queueState.queue == null) ||
         userState is UserHasError ||
@@ -63,11 +65,26 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
             ),
           );
     }
+    // GAME THINGS
     if (userState.userModel?.gameId != null) {
-      context.goNamed(GameScreen.name);
+      context.read<GameBloc>().add(
+            WatchGameWithGameIdRequested(gameId: userState.userModel!.gameId!),
+          );
     }
-    return QueueView(
-      queueState: queueState,
-    );
+    if (gameState is GameHasData) {
+      if (!gameState.gameModel!.acceptedUserIds
+          .contains(userState.userModel!.uid)) {
+        context.read<GameBloc>().add(const AcceptGameRequested());
+      }
+      if (gameState.gameModel!.acceptedUserIds.length > 1) {
+        context.goNamed(GameScreen.name);
+      }
+    }
+    return userState.userModel?.gameId == null
+        ? QueueView(queueState: queueState)
+        : MatchFoundView(
+            gameState: gameState,
+            userState: userState,
+          );
   }
 }

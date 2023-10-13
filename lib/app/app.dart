@@ -38,6 +38,7 @@ class _AppState extends State<App> with RouterMixin {
         BlocProvider<PreloadCubit>(create: (_) => getIt<PreloadCubit>()),
         BlocProvider<AdCubit>(create: (_) => getIt<AdCubit>()),
         BlocProvider<AudioCubit>(create: (_) => getIt<AudioCubit>()),
+        BlocProvider<GameBloc>(create: (_) => getIt<GameBloc>()),
       ],
       child: BlocBuilder<DevicePrefsBloc, DevicePrefsState>(
         builder: (context, devicePrefsState) {
@@ -57,6 +58,7 @@ class _AppState extends State<App> with RouterMixin {
                   buildDevicePrefsBlocListener(),
                   buildAdCubitListener(),
                   audioCubitPrefsConnection(getIt<AudioCubit>()),
+                  buildGameBlocListener(),
                 ],
                 child: Builder(
                   builder: (builderContext) {

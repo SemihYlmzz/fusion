@@ -19,8 +19,9 @@ export const refreshDeckFunction: (
     }
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const userId = decodedToken.uid;
-    if (userId == null) {
-      res.status(400).send("No user detected."); return;
+    if (userId == null || userId === undefined) {
+      res.status(400).send("No user detected.");
+      return;
     }
 
     const deck = getRandomUniqueItemsFromArray(deckOptions, 8);

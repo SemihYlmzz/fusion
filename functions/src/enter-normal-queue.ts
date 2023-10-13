@@ -17,7 +17,7 @@ export const enterNormalQueueFunction: (
     }
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const userId = decodedToken.uid;
-    if (userId == null) {
+    if (userId == null || userId === undefined) {
       res.status(400).send("No user detected.");
       return;
     }

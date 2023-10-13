@@ -12,6 +12,7 @@ import {deleteRequestAuthDisablerFunction}
   from "./delete-request-auth-disabler";
 import {enterNormalQueueFunction} from "./enter-normal-queue";
 import {refreshDeckFunction} from "./refresh-deck";
+import {acceptGameFunction} from "./accept-game";
 admin.initializeApp();
 
 
@@ -39,4 +40,7 @@ exports.enterNormalQueue = functions.https.onRequest(
 );
 exports.refreshDeck = functions.https.onRequest(
   refreshDeckFunction
+);
+exports.acceptGame = functions.https.onRequest(
+  acceptGameFunction
 );

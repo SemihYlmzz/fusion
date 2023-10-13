@@ -24,12 +24,15 @@ export async function createGameWithNormalQueueFunction() {
     player1: {
       username: playerNames[0],
       isReady: false,
+      uid: playerUids[0],
     },
     player2: {
       username: playerNames[1],
       isReady: false,
+      uid: playerUids[1],
     },
     gameStatus: 0,
+    acceptedUserIds: [],
     createdAt: Date.now(),
     updatedAt: Date.now(),
     currentTurn: 0,
