@@ -8,7 +8,6 @@ import '../../../app/cubits/cubits.dart';
 import '../../../blocs/blocs.dart';
 import '../../game/view/game_screen.dart';
 import '../../home/view/view.dart';
-import 'match_found_view.dart';
 import 'queue_view.dart';
 
 class QueueScreen extends StatefulWidget {
@@ -80,11 +79,10 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
         context.goNamed(GameScreen.name);
       }
     }
-    return userState.userModel?.gameId == null
-        ? QueueView(queueState: queueState)
-        : MatchFoundView(
-            gameState: gameState,
-            userState: userState,
-          );
+    return QueueView(
+      queueState: queueState,
+      gameState: gameState,
+      userState: userState,
+    );
   }
 }
