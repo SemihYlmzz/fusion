@@ -65,7 +65,7 @@ class QueueView extends StatelessWidget {
                   const QueueTimer(),
                   const Padding(
                     padding: SharedPaddings.top32,
-                    child: UserQueueCard(),
+                    child: CurrentUserQueueCard(),
                   ),
                 ],
               ),
@@ -90,11 +90,13 @@ class QueueView extends StatelessWidget {
   }
 }
 
-class UserQueueCard extends StatelessWidget {
-  const UserQueueCard({super.key});
+class CurrentUserQueueCard extends StatelessWidget {
+  const CurrentUserQueueCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userState = context.watch<UserBloc>().state;
+
     return Animate(
       effects: const [
         MoveEffect(
@@ -119,14 +121,14 @@ class UserQueueCard extends StatelessWidget {
                     color: AppColors.pink,
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
                       padding: SharedPaddings.right12,
                       child: Text(
-                        '20',
-                        style: TextStyle(
+                        '${userState.userModel!.leaguePoint}',
+                        style: const TextStyle(
                           fontSize: 24,
                           shadows: [
                             Shadow(
@@ -161,12 +163,12 @@ class UserQueueCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Center(
+                child: Center(
                   child: Padding(
                     padding: SharedPaddings.horizontal8,
                     child: Text(
-                      'CL4Y',
-                      style: TextStyle(
+                      userState.userModel!.username,
+                      style: const TextStyle(
                         fontSize: 22,
                       ),
                       textAlign: TextAlign.center,
