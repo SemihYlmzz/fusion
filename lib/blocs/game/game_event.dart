@@ -20,6 +20,10 @@ final class AcceptGameRequested extends GameEvent {
   const AcceptGameRequested();
 }
 
+final class OpponentEscapedWinRequested extends GameEvent {
+  const OpponentEscapedWinRequested();
+}
+
 final class ClearGameErrorMessageRequested extends GameEvent {
   const ClearGameErrorMessageRequested();
 }

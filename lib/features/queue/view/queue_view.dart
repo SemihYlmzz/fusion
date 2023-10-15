@@ -29,8 +29,6 @@ class QueueView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCurrentUserAcceptTheGame = gameState.gameModel != null &&
-        gameState.gameModel!.acceptedUserIds.contains(userState.userModel?.uid);
     return BaseScaffold(
       safeArea: true,
       body: Stack(
@@ -48,20 +46,22 @@ class QueueView extends StatelessWidget {
                       style: GoogleFonts.bangers(fontSize: 58),
                     ),
                   ),
-                  const Text(
-                    'Searching for Opponent ...',
-                    style: TextStyle(fontSize: 15),
-                  ),
+                  const QueueStatusText(),
                 ],
               ),
-              const Column(
+              Column(
                 children: [
-                  Padding(
+                  const Padding(
                     padding: SharedPaddings.bottom32,
                     child: EnemyQueueCard(),
                   ),
-                  QueueTimer(),
-                  Padding(
+                  if (gameState.gameModel == null ||
+                      !gameState.gameModel!.acceptedUserIds
+                          .contains(userState.userModel!.uid))
+                    const QueueTimer()
+                  else
+                    const OpponentEscapeCountDown(),
+                  const Padding(
                     padding: SharedPaddings.top32,
                     child: CurrentUserQueueCard(),
                   ),
@@ -70,6 +70,11 @@ class QueueView extends StatelessWidget {
               GradientButton(
                 text: L10n.current.cancel,
                 onPressed: () {
+                  if (gameState.gameModel != null ||
+                      gameState.gameModel!.acceptedUserIds
+                          .contains(userState.userModel!.uid)) {
+                    return;
+                  }
                   if (queueState is QueueReadyToEnter && context.mounted) {
                     return context.goNamed(HomeScreen.name);
                   }
@@ -84,6 +89,38 @@ class QueueView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class QueueStatusText extends StatelessWidget {
+  const QueueStatusText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final userState = context.watch<UserBloc>().state;
+    final gameState = context.watch<GameBloc>().state;
+
+    String currentQueueStatusText() {
+      const waitingOpponent = 'Waiting for Opponent ...';
+      const matchFound = 'Match Found !';
+      if (gameState.gameModel == null) {
+        return 'Searching for Opponent ...';
+      }
+
+      if (!gameState.gameModel!.acceptedUserIds
+          .contains(userState.userModel!.uid)) {
+        return matchFound;
+      } else {
+        return waitingOpponent;
+      }
+    }
+
+    return Text(
+      currentQueueStatusText(),
+      style: const TextStyle(fontSize: 15),
     );
   }
 }

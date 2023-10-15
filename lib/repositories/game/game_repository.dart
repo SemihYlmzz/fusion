@@ -36,4 +36,16 @@ class GameRepository {
       return Left(Failure(message: e.message));
     }
   }
+
+  FutureUnit opponentEscapedWin() async {
+    if (!(await _networkInfo.isConnected)) {
+      return Left(Failure.network());
+    }
+    try {
+      await _gameDatasource.opponentEscapedWin();
+      return const Right(unit);
+    } on OpponentEscapedWinExceptions catch (e) {
+      return Left(Failure(message: e.message));
+    }
+  }
 }

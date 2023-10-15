@@ -20,6 +20,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<AcceptGameRequested>(_onAcceptGameRequested);
     on<ClearGameErrorMessageRequested>(_onClearGameErrorMessageRequested);
     on<ClearGameRequested>(_onClearGameRequested);
+    on<OpponentEscapedWinRequested>(_onOpponentEscapedWinRequested);
   }
 
   final GameRepository _gameRepository;
@@ -93,6 +94,25 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     emit(const GameEmpty());
+  }
+  
+  Future<void> _onOpponentEscapedWinRequested(
+    OpponentEscapedWinRequested event,
+    Emitter<GameState> emit,
+  ) async {
+  
+    final tryWinGame = await _gameRepository.opponentEscapedWin();
+    tryWinGame.fold(
+      (failure) => emit(
+        GameHasError(
+          errorDisplayType: event.errorDisplayType,
+          errorCleanType: event.errorCleanType,
+          gameModel: state.gameModel,
+          errorMessage: failure.message,
+        ),
+      ),
+      (success) => null,
+    );
   }
 
   @override

@@ -13,6 +13,7 @@ import {deleteRequestAuthDisablerFunction}
 import {enterNormalQueueFunction} from "./enter-normal-queue";
 import {refreshDeckFunction} from "./refresh-deck";
 import {acceptGameFunction} from "./accept-game";
+import {opponentEscapedWinFunction} from "./opponent-escaped-win";
 admin.initializeApp();
 
 
@@ -43,4 +44,7 @@ exports.refreshDeck = functions.https.onRequest(
 );
 exports.acceptGame = functions.https.onRequest(
   acceptGameFunction
+);
+exports.opponentEscapedWin = functions.https.onRequest(
+  opponentEscapedWinFunction
 );

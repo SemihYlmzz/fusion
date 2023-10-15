@@ -71,11 +71,14 @@ class _QueueScreenState extends State<QueueScreen> with WidgetsBindingObserver {
           );
     }
     if (gameState is GameHasData) {
-      if (!gameState.gameModel!.acceptedUserIds
-          .contains(userState.userModel!.uid)) {
+      final isGameNotEnded = gameState.gameModel!.gameStatus == 0;
+      final isGameAccepted = gameState.gameModel!.acceptedUserIds
+          .contains(userState.userModel!.uid);
+
+      if (!isGameAccepted && isGameNotEnded) {
         context.read<GameBloc>().add(const AcceptGameRequested());
       }
-      if (gameState.gameModel!.acceptedUserIds.length > 1) {
+      if (gameState.gameModel!.acceptedUserIds.length > 1 || !isGameNotEnded) {
         context.goNamed(GameScreen.name);
       }
     }

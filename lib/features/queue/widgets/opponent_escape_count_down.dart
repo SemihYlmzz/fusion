@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fusion/blocs/game/game_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_widgets/shared_widgets.dart';
 
 class OpponentEscapeCountDown extends StatefulWidget {
   const OpponentEscapeCountDown({
@@ -9,7 +12,8 @@ class OpponentEscapeCountDown extends StatefulWidget {
   });
 
   @override
-  State<OpponentEscapeCountDown> createState() => _OpponentEscapeCountDownState();
+  State<OpponentEscapeCountDown> createState() =>
+      _OpponentEscapeCountDownState();
 }
 
 class _OpponentEscapeCountDownState extends State<OpponentEscapeCountDown> {
@@ -22,6 +26,10 @@ class _OpponentEscapeCountDownState extends State<OpponentEscapeCountDown> {
       setState(() {
         _counter--;
       });
+      if (_counter == 0) {
+        context.read<GameBloc>().add(const OpponentEscapedWinRequested());
+        _timer.cancel();
+      }
     });
     super.initState();
   }
@@ -34,9 +42,30 @@ class _OpponentEscapeCountDownState extends State<OpponentEscapeCountDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _counter.toString().padLeft(2, '0'),
-      style: GoogleFonts.bangers(fontSize: 45, fontWeight: FontWeight.bold),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Text(
+          _counter.toString().padLeft(2, '0'),
+          style: GoogleFonts.bangers(
+            fontSize: 68,
+            fontWeight: FontWeight.w900,
+            foreground: Paint()..style = PaintingStyle.stroke,
+            shadows: [
+              const Shadow(
+                blurRadius: 24,
+                color: Colors.white24,
+              ),
+            ],
+          ),
+        ),
+        GradientTextButton(
+          _counter.toString().padLeft(2, '0'),
+          style: GoogleFonts.bangers(
+            fontSize: 68,
+          ),
+        ),
+      ],
     );
   }
 }

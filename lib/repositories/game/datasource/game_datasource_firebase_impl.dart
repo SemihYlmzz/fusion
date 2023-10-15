@@ -87,4 +87,36 @@ class GameDataSourceFirebaseImpl implements GameDatasource {
       throw AcceptGameExceptions.unknown;
     }
   }
+  @override
+  Future<void> opponentEscapedWin() async {
+    const cloudFunctionUrl =
+        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/opponentEscapedWin';
+    final user = _firebaseAuth.currentUser;
+    if (user == null) {
+      throw OpponentEscapedWinExceptions.winFailed;
+    }
+    try {
+      final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw OpponentEscapedWinExceptions.winFailed;
+      }
+      final response = await http.post(
+        Uri.parse(cloudFunctionUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
+      );
+
+      if (response.statusCode != 200) {
+        throw OpponentEscapedWinExceptions.winFailed;
+      }
+      return;
+    } catch (e) {
+      if (e is OpponentEscapedWinExceptions) {
+        rethrow;
+      }
+      throw OpponentEscapedWinExceptions.unknown;
+    }
+  }
 }
