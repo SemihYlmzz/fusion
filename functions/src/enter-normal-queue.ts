@@ -35,6 +35,7 @@ export const enterNormalQueueFunction: (
     }
 
     const username = currentUserData.username;
+    const leaguePoint = currentUserData.leaguePoint;
 
     // Kullanıcının zaten sıraya girmiş olup olmadığını kontrol et
     const queueExists = await admin.firestore()
@@ -54,6 +55,7 @@ export const enterNormalQueueFunction: (
       uid: userId,
       username: username,
       dateOfCreate: millisecondsSinceEpoch,
+      leaguePoint: leaguePoint,
     });
 
     res.status(200).send("Succesfully entered queue.");

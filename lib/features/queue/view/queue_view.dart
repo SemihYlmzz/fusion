@@ -11,6 +11,7 @@ import 'package:shared_constants/shared_constants.dart';
 import 'package:shared_widgets/shared_widgets.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../repositories/repositories.dart';
 import '../../home/view/home_screen.dart';
 import '../widgets/widgets.dart';
 
@@ -53,17 +54,14 @@ class QueueView extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
+              const Column(
                 children: [
                   Padding(
                     padding: SharedPaddings.bottom32,
-                    child: EnemyQueueCard(
-                      username: gameState.gameModel?.player1.username,
-                      userPoint: '20',
-                    ),
+                    child: EnemyQueueCard(),
                   ),
-                  const QueueTimer(),
-                  const Padding(
+                  QueueTimer(),
+                  Padding(
                     padding: SharedPaddings.top32,
                     child: CurrentUserQueueCard(),
                   ),
@@ -186,17 +184,26 @@ class CurrentUserQueueCard extends StatelessWidget {
   }
 }
 
-class EnemyQueueCard extends StatelessWidget {
-  const EnemyQueueCard({
-    required this.username,
-    required this.userPoint,
-    super.key,
-  });
-  final String? username;
-  final String? userPoint;
+class EnemyQueueCard extends StatefulWidget {
+  const EnemyQueueCard({super.key});
+
+  @override
+  State<EnemyQueueCard> createState() => _EnemyQueueCardState();
+}
+
+class _EnemyQueueCardState extends State<EnemyQueueCard> {
+  PlayerModel? enemyPlayer;
 
   @override
   Widget build(BuildContext context) {
+    final gameState = context.watch<GameBloc>().state;
+    final userState = context.watch<UserBloc>().state;
+
+    if (gameState.gameModel != null) {
+      gameState.gameModel!.player1.uid != userState.userModel!.uid
+          ? enemyPlayer = gameState.gameModel!.player1
+          : enemyPlayer = gameState.gameModel!.player2;
+    }
     return Animate(
       effects: const [
         MoveEffect(
@@ -210,8 +217,9 @@ class EnemyQueueCard extends StatelessWidget {
         child: Stack(
           children: [
             AnimatedAlign(
-              alignment:
-                  username == null ? Alignment.center : Alignment.centerRight,
+              alignment: enemyPlayer == null
+                  ? Alignment.center
+                  : Alignment.centerRight,
               duration: SharedDurations.ms370,
               child: Container(
                 width: 81,
@@ -229,7 +237,9 @@ class EnemyQueueCard extends StatelessWidget {
                     Padding(
                       padding: SharedPaddings.right12,
                       child: Text(
-                        userPoint ?? '0',
+                        enemyPlayer == null
+                            ? '0'
+                            : '${enemyPlayer!.leaguePoint}',
                         style: const TextStyle(
                           fontSize: 24,
                           shadows: [
@@ -249,8 +259,9 @@ class EnemyQueueCard extends StatelessWidget {
               ),
             ),
             AnimatedAlign(
-              alignment:
-                  username == null ? Alignment.center : Alignment.centerLeft,
+              alignment: gameState.gameModel == null
+                  ? Alignment.center
+                  : Alignment.centerLeft,
               duration: SharedDurations.ms370,
               child: Container(
                 width: 200,
@@ -270,7 +281,7 @@ class EnemyQueueCard extends StatelessWidget {
                 child: Center(
                   child: Padding(
                     padding: SharedPaddings.horizontal8,
-                    child: username == null
+                    child: enemyPlayer == null
                         ? const Text(
                             'Searching ...',
                             style: TextStyle(
@@ -281,7 +292,7 @@ class EnemyQueueCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           )
                         : RandomTextReveal(
-                            text: username!,
+                            text: enemyPlayer!.username,
                             initialText: 'Searching ...',
                             style: const TextStyle(
                               fontSize: 22,
