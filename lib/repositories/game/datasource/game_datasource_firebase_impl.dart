@@ -10,9 +10,16 @@ class GameFields {
   static const gameId = 'gameId';
   static const gameStatus = 'gameStatus';
   static const acceptedUserIds = 'acceptedUserIds';
+  static const updatedAt = 'updatedAt';
   static const player1 = 'player1';
   static const player2 = 'player2';
-  static const updatedAt = 'updatedAt';
+}
+
+class PlayerFields {
+  static const username = 'username';
+  static const isReady = 'isReady';
+  static const uid = 'uid';
+  static const leaguePoint = 'leaguePoint';
 }
 
 class GameDataSourceFirebaseImpl implements GameDatasource {

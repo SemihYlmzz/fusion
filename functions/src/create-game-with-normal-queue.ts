@@ -18,6 +18,8 @@ export async function createGameWithNormalQueueFunction() {
   const batch = db.batch();
   const playerNames = snapshot.docs.map((doc) => doc.data().username);
   const playerUids = snapshot.docs.map((doc) => doc.data().uid);
+  const playerLeaguePoints = snapshot.docs.map((doc) => doc.data().leaguePoint);
+
   const gameDoc = gamesRef.doc();
   const gameDocData = {
     gameId: gameDoc.id,
@@ -25,11 +27,13 @@ export async function createGameWithNormalQueueFunction() {
       username: playerNames[0],
       isReady: false,
       uid: playerUids[0],
+      leaguePoint: playerLeaguePoints[0],
     },
     player2: {
       username: playerNames[1],
       isReady: false,
       uid: playerUids[1],
+      leaguePoint: playerLeaguePoints[1],
     },
     gameStatus: 0,
     acceptedUserIds: [],
