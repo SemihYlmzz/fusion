@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-
 class UserModel extends Equatable {
   const UserModel({
     required this.dateOfCreate,
@@ -9,6 +8,7 @@ class UserModel extends Equatable {
     required this.accountnameChangeEligibilityDate,
     required this.lastActivityDate,
     required this.deck,
+    required this.leaguePoint,
     this.accountDeletionScheduledDate,
     this.email,
     this.gameId,
@@ -18,6 +18,7 @@ class UserModel extends Equatable {
         !map.containsKey('dateOfCreate') ||
         !map.containsKey('email') ||
         !map.containsKey('uid') ||
+        !map.containsKey('leaguePoint') ||
         !map.containsKey('username') ||
         !map.containsKey('accountnameChangeEligibilityDate') ||
         !map.containsKey('lastActivityDate') ||
@@ -36,6 +37,7 @@ class UserModel extends Equatable {
       ),
       email: map['email'] as String,
       uid: map['uid'] as String,
+      leaguePoint: map['leaguePoint'] as int,
       username: map['username'] as String,
       accountnameChangeEligibilityDate: DateTime.fromMillisecondsSinceEpoch(
         map['accountnameChangeEligibilityDate'] as int,
@@ -52,6 +54,7 @@ class UserModel extends Equatable {
   final DateTime dateOfCreate;
   final String? email;
   final String uid;
+  final int leaguePoint;
   final String username;
   final DateTime accountnameChangeEligibilityDate;
   final DateTime lastActivityDate;
@@ -63,6 +66,7 @@ class UserModel extends Equatable {
     DateTime? dateOfCreate,
     String? email,
     String? uid,
+    int? leaguePoint,
     String? username,
     DateTime? accountnameChangeEligibilityDate,
     DateTime? lastActivityDate,
@@ -75,6 +79,7 @@ class UserModel extends Equatable {
       dateOfCreate: dateOfCreate ?? this.dateOfCreate,
       email: email ?? this.email,
       uid: uid ?? this.uid,
+      leaguePoint: leaguePoint ?? this.leaguePoint,
       username: username ?? this.username,
       accountnameChangeEligibilityDate: accountnameChangeEligibilityDate ??
           this.accountnameChangeEligibilityDate,
@@ -88,6 +93,7 @@ class UserModel extends Equatable {
   List<Object?> get props => [
         dateOfCreate,
         uid,
+        leaguePoint,
         username,
         accountnameChangeEligibilityDate,
         lastActivityDate,
@@ -104,6 +110,7 @@ class UserModel extends Equatable {
       'dateOfCreate': dateOfCreate.millisecondsSinceEpoch,
       'email': email,
       'uid': uid,
+      'leaguePoint': leaguePoint,
       'username': username,
       'accountnameChangeEligibilityDate':
           accountnameChangeEligibilityDate.millisecondsSinceEpoch,

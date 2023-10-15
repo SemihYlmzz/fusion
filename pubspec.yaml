@@ -37,6 +37,7 @@ dependencies:
   flutter_tilt: ^1.0.3
   newton_particles: ^0.1.5
   rive: ^0.11.16
+  random_text_reveal: ^0.0.6
 
   # Icons and Fonts
   cupertino_icons: ^1.0.2

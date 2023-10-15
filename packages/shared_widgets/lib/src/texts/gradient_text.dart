@@ -42,7 +42,7 @@ class GradientTextButton extends StatelessWidget {
           Rect.fromLTWH(0, 0, bounds.width, bounds.height),
         ),
         child: Text(
-          text,
+          " $text ",
           style: style != null
               ? style!.copyWith(
                   shadows: [

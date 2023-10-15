@@ -933,6 +933,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  random_text_reveal:
+    dependency: "direct main"
+    description:
+      name: random_text_reveal
+      sha256: ae8424845c5fc174add1aeb9ace66157d806df231f47242a5d88e23a17d63b70
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   rive:
     dependency: "direct main"
     description:

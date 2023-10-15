@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_widgets/shared_widgets.dart';
 
 class QueueTimer extends StatefulWidget {
   const QueueTimer({
@@ -33,9 +34,30 @@ class _QueueTimerState extends State<QueueTimer> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _counter.toString().padLeft(2, '0'),
-      style: GoogleFonts.bangers(fontSize: 45, fontWeight: FontWeight.bold),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Text(
+          _counter.toString().padLeft(2, '0'),
+          style: GoogleFonts.bangers(
+            fontSize: 68,
+            fontWeight: FontWeight.w900,
+            foreground: Paint()..style = PaintingStyle.stroke,
+            shadows: [
+              const Shadow(
+                blurRadius: 24,
+                color: Colors.white24,
+              ),
+            ],
+          ),
+        ),
+        GradientTextButton(
+          _counter.toString().padLeft(2, '0'),
+          style: GoogleFonts.bangers(
+            fontSize: 68,
+          ),
+        ),
+      ],
     );
   }
 }

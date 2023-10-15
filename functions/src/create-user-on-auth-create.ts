@@ -14,6 +14,7 @@ export const createUserOnAuthCreateFunction: (
         "dateOfCreate": Date.now(),
         "email": user.email,
         "uid": user.uid,
+        "leaguePoint": 20,
         "username": "",
         "accountnameChangeEligibilityDate": Date.now(),
         "lastActivityDate": Date.now(),

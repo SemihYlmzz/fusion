@@ -13,6 +13,7 @@ class UserFields {
   static const dateOfCreate = 'dateOfCreate';
   static const email = 'email';
   static const uid = 'uid';
+  static const leaguePoint = 'leaguePoint';
   static const username = 'username';
   static const accountnameChangeEligibilityDate =
       'accountnameChangeEligibilityDate';

@@ -8,7 +8,7 @@ class GradientFusionText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientTextButton(
-      ' FUSION ',
+      'FUSION',
       style: GoogleFonts.bangers(
         fontSize: 120,
       ),
