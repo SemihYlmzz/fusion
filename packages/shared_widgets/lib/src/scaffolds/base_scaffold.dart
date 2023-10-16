@@ -72,7 +72,7 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    
+
     return GestureDetector(
       onTap: () {
         onScaffoldTap?.call();
@@ -86,6 +86,7 @@ class BaseScaffold extends StatelessWidget {
             onChanged: isKeyboardOpen,
           ),
           child: Scaffold(
+            backgroundColor: backgroundColor,
             appBar: appBar,
             bottomNavigationBar: bottomNavigationBar,
             bottomSheet: bottomSheet,

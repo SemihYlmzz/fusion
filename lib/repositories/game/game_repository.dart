@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:fusion/core/errors/failure/failure.dart';
 import 'package:fusion/core/network/network_info.dart';
+import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions%20copy.dart';
 
 import '../../core/typedefs/typedefs.dart';
 import '../game/game.dart';
@@ -45,6 +46,18 @@ class GameRepository {
       await _gameDatasource.opponentEscapedWin();
       return const Right(unit);
     } on OpponentEscapedWinExceptions catch (e) {
+      return Left(Failure(message: e.message));
+    }
+  }
+
+  FutureUnit winTheGame() async {
+    if (!(await _networkInfo.isConnected)) {
+      return Left(Failure.network());
+    }
+    try {
+      await _gameDatasource.winTheGame();
+      return const Right(unit);
+    } on WinTheGameExceptions catch (e) {
       return Left(Failure(message: e.message));
     }
   }

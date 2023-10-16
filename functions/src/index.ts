@@ -14,6 +14,7 @@ import {enterNormalQueueFunction} from "./enter-normal-queue";
 import {refreshDeckFunction} from "./refresh-deck";
 import {acceptGameFunction} from "./accept-game";
 import {opponentEscapedWinFunction} from "./opponent-escaped-win";
+import {winTheGameFunction} from "./win-the-game";
 admin.initializeApp();
 
 
@@ -47,4 +48,7 @@ exports.acceptGame = functions.https.onRequest(
 );
 exports.opponentEscapedWin = functions.https.onRequest(
   opponentEscapedWinFunction
+);
+exports.winTheGame = functions.https.onRequest(
+  winTheGameFunction
 );

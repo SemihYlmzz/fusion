@@ -24,6 +24,10 @@ final class OpponentEscapedWinRequested extends GameEvent {
   const OpponentEscapedWinRequested();
 }
 
+final class WinTheGameRequested extends GameEvent {
+  const WinTheGameRequested();
+}
+
 final class ClearGameErrorMessageRequested extends GameEvent {
   const ClearGameErrorMessageRequested();
 }

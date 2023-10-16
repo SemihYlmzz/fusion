@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions%20copy.dart';
 import 'package:http/http.dart' as http;
 
 import '../game.dart';
@@ -87,6 +88,7 @@ class GameDataSourceFirebaseImpl implements GameDatasource {
       throw AcceptGameExceptions.unknown;
     }
   }
+
   @override
   Future<void> opponentEscapedWin() async {
     const cloudFunctionUrl =
@@ -117,6 +119,38 @@ class GameDataSourceFirebaseImpl implements GameDatasource {
         rethrow;
       }
       throw OpponentEscapedWinExceptions.unknown;
+    }
+  }
+  @override
+  Future<void> winTheGame() async {
+    const cloudFunctionUrl =
+        'https://us-central1-fusion-development-8faa3.cloudfunctions.net/winTheGame';
+    final user = _firebaseAuth.currentUser;
+    if (user == null) {
+      throw WinTheGameExceptions.winFailed;
+    }
+    try {
+      final idToken = await user.getIdToken();
+      if (idToken == null) {
+        throw WinTheGameExceptions.winFailed;
+      }
+      final response = await http.post(
+        Uri.parse(cloudFunctionUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
+      );
+
+      if (response.statusCode != 200) {
+        throw WinTheGameExceptions.winFailed;
+      }
+      return;
+    } catch (e) {
+      if (e is WinTheGameExceptions) {
+        rethrow;
+      }
+      throw WinTheGameExceptions.unknown;
     }
   }
 }
