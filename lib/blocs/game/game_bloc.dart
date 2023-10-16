@@ -39,7 +39,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       result.fold(
         (failure) async {
           _gameSubscription = null;
-
+          print('1');
           emit(
             GameHasError(
               errorDisplayType: event.errorDisplayType,
@@ -50,6 +50,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           );
         },
         (game) async {
+          print('2');
           state is GameHasData
               ? emit(state.copyWith(gameModel: game))
               : emit(GameHasData(gameModel: game));
@@ -93,14 +94,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ClearGameRequested event,
     Emitter<GameState> emit,
   ) async {
+    await _gameSubscription?.cancel();
+    _gameSubscription = null;
     emit(const GameEmpty());
   }
-  
+
   Future<void> _onOpponentEscapedWinRequested(
     OpponentEscapedWinRequested event,
     Emitter<GameState> emit,
   ) async {
-  
     final tryWinGame = await _gameRepository.opponentEscapedWin();
     tryWinGame.fold(
       (failure) => emit(

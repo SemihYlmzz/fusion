@@ -30,32 +30,43 @@ export const acceptGameFunction: (
     const user2GameRef = await admin.firestore().collection("games")
       .where("player2.uid", "==", userId).get();
 
+    if (user1GameRef.empty && user2GameRef.empty) {
+      res.status(400).send("no-active-game");
+      return;
+    }
 
     if (!user1GameRef.empty) {
       for (const game of user1GameRef.docs) {
         const acceptedUserIds = game.get("acceptedUserIds") || [];
-        acceptedUserIds.push(userId);
-        await game.ref.update({
-          acceptedUserIds: acceptedUserIds,
-        });
+
+        const gameStatus = game.get("gameStatus");
+        if (gameStatus == 0) {
+          acceptedUserIds.push(userId);
+          await game.ref.update({
+            acceptedUserIds: acceptedUserIds,
+          });
+        }
       }
-      res.status(200).send("Deck refreshed successfully");
-      return;
-    } else if (!user2GameRef.empty) {
+    }
+
+
+    if (!user2GameRef.empty) {
       for (const game of user2GameRef.docs) {
         const acceptedUserIds = game.get("acceptedUserIds") || [];
-        acceptedUserIds.push(userId);
-        await game.ref.update({
-          acceptedUserIds: acceptedUserIds,
-        });
+        const gameStatus = game.get("gameStatus");
+        if (gameStatus == 0) {
+          acceptedUserIds.push(userId);
+          await game.ref.update({
+            acceptedUserIds: acceptedUserIds,
+          });
+        }
       }
-      res.status(200).send("success");
-      return;
     }
-    res.status(400).send("no-active-game");
+
+    res.status(200).send("success");
     return;
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).send("An error occurred while refreshing the deck.");
+    res.status(500).send("error");
   }
 };

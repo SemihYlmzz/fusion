@@ -70,7 +70,7 @@ class QueueView extends StatelessWidget {
               GradientButton(
                 text: L10n.current.cancel,
                 onPressed: () {
-                  if (gameState.gameModel != null ||
+                  if (gameState.gameModel != null &&
                       gameState.gameModel!.acceptedUserIds
                           .contains(userState.userModel!.uid)) {
                     return;
