@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions%20copy.dart';
+import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions.dart';
 import 'package:http/http.dart' as http;
 
 import '../game.dart';

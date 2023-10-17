@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:fusion/core/errors/failure/failure.dart';
 import 'package:fusion/core/network/network_info.dart';
-import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions%20copy.dart';
+import 'package:fusion/repositories/game/errors/opponent_escaped_win_exceptions.dart';
 
 import '../../core/typedefs/typedefs.dart';
 import '../game/game.dart';

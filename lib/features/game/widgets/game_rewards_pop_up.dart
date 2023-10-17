@@ -16,8 +16,8 @@ class GameRewardsPopUp extends StatelessWidget {
       },
       body: BaseColumn(
         children: [
-          TextButton(
-            child: const Text('CONTINUE'),
+          GradientButton(
+            text: 'CONTINUE',
             onPressed: () {},
           ),
         ],
